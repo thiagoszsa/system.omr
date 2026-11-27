@@ -927,7 +927,7 @@
   <div id="auth-screen">
     <div class="auth-card">
       <div class="auth-header">
-        <img class="omr-logo-img pixel-logo" alt="Logo Polícia OMR" style="width:68px;height:68px;margin:0 auto;display:block;" />
+        <img class="omr-logo-img pixel-logo" src="habbo_avatar.png" alt="Logo Polícia OMR" style="width:68px;height:68px;margin:0 auto;display:block;" />
         <h1 class="auth-title">POLÍCIA OMR</h1>
         <p style="font-size:0.76rem;color:var(--text-muted);margin-top:2px;">Organização Militar Renascente</p>
         <div class="auth-pillars">
@@ -1018,7 +1018,7 @@
           <span></span><span></span><span></span>
         </button>
         <div class="brand-title" onclick="navigate('home')" style="cursor:pointer;">
-          <img class="omr-logo-img pixel-logo" alt="OMR" style="width:30px;height:30px;flex-shrink:0;" />
+          <img class="omr-logo-img pixel-logo" src="habbo_avatar.png" alt="OMR" style="width:30px;height:30px;flex-shrink:0;" />
           <div class="brand-text-wrap">
             <span class="brand-sub">ORGANIZAÇÃO MILITAR</span>
             <span class="brand-main">RENASCENTE</span>
@@ -1045,7 +1045,7 @@
     <aside id="sidebar-drawer" class="sidebar-drawer">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px 12px;border-bottom:1px solid var(--border-subtle);margin-bottom:8px;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <img class="omr-logo-img pixel-logo" alt="OMR" style="width:30px;height:30px;flex-shrink:0;" />
+          <img class="omr-logo-img pixel-logo" src="habbo_avatar.png" alt="OMR" style="width:30px;height:30px;flex-shrink:0;" />
           <div class="brand-text-wrap">
             <span class="brand-sub">ORGANIZAÇÃO MILITAR</span>
             <span class="brand-main">RENASCENTE</span>
@@ -1116,12 +1116,12 @@
   </div>
 
   <script>
-    window.OMR_LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOoAAADqCAYAAACslNlOAAAQAElEQVR4AeydPY5l1RWFjzspEXXWcWEhy5KDzhgBmRNjMwYgc8YgGAE/U+DHiSUCRkBWAZJltUzFZBWhThrfJXB3i1rr+u5X5/5/1tumtd6++5zz7buSrdOvHzX+tzcCPw8b7hFDGT57IYBR99Ip9nlqAhj11O3n8HshgFH30in2eWoCGHW+9lMZAt0IYNRuKCkEgfkIYNT52D60cprs2rr/+mdrLmzyL2Kp/i+P8P9rEcCoa5FnXQgUCGDUAixSN0PgdBvBqKdrOQfeIwGMuseusefTEcCop2s5B94jAYy6XNfSlNXq19fX7dpE2u4frltzkfJdbWlDvt3PiD58xWduAgsade6jUB8CxyWAUY/bW052IAIY9UDN5CjHJYBRj9tbTnYgAhj1EM3kEEcncGSjVqeXs+ZrolqJ29vbdmvixfetufj3bWsuXK40V1taZY/KHQwyK7cL6g+PHO9zZKMer1uc6LQEMOppW8/B90QAo+6pW+x1BQLbWBKjbqMP7AICowQw6igevoTANgiczqhPnz5tlejVJk1UK9Fr3Wqdyh6VW62f8is9UW6qc1T9dEY9aiM517EJHNOox+4ZpzshAYx6wqZz5P0RwKj76xk7PiEBjHrCpnPk/RE4glHtXVPdQ3Vxc3PTKvHVG280F9VW635tj3D3eaWl/eg7Fxfv5Td3jdO6SXcspVV6olzXW2nDuvZ9GPRdf45g1F03gM1DYAoBjDqFEjkQWJkARl25ASwPgSkEMOoUSuRAYAkCI2tg1BE4fAWBrRDYolHT1M7qmvS50D1UF5owVuLZixfNRWqg7qG6ePSn1ly4ieyYltat6mNruO/c3qW5s0pL+3EspVV6otzb21v7CxjuXZA27Me+PyP68NV2Pls06nbosBMIbIQARt1II9gGBMYIYNQxOhO+IwUCSxDAqEtQZg0IPJAARn0gQB6HwBIEZNTqNGzWfE3oKnEbpn+aDLrQhLESHz1/3ly8/fbbzcXV1VVzkc70xz+35uL7Z625cP9im7T0sug7F662NLcXaWn/7qzSHBtpjqW0Sk+U63orLb0Paf9JH3jO+p5X68uowzN8ILA9AuzoFQGM+ooFf4LAZglg1M22ho1B4BUBjPqKBX+CwGYJYNTNtoaNQeAVgWhU3de8IO79Zu6rpab96cmTJ60Sqaomgy40YaxEmgr++OOPrRJpn0l/953WXLh7uNJSHX3nwtWWluokvcJAuYlnpSfKdb2VlvZZeaeUm+okvYdXVCPVj0ZND6BDAALLE8CoyzNnRQiUCWDUMjIegMDyBDDq8swvXZHnTkwAo564+Rx9PwTKRtU9zkokFLqX6eK775rlXA1pGky6CLtJ+np7mjKT3qqk35f101qpek+rgvdx3XhcqWplou0n7T/dN6k96rjeivt46ur5qLyTilX75CLdK6KJ5Sb6iS9bNRUCB0CEJiPAEadjy2V90Ng8zvFqJtvERuEQGsYlbcAAjsggFF30CS2CIGyUXVf08Xz58+biypiN2mTlurofqeLlK9alUh1eulu8ipNk1kXf/t7ay7SHVqXK83Vlqa1XfQ6b6pT6YlyU52qrlouqnXcuy/NeUVatX7ZqNUF5sunMgTOQwCjnqfXnHTHBDDqjpvH1s9DAKOep9ecdMcEMOqOmzff1qm8NQKzG1W/5erirz/91Fy4Ca60BE73O124+57SUh23F2lpmprqVHV3P1eaJrMuqvtJ+a62NK3tonqulJ/2I9YuUh310oV7F6SlOnq3XLi9SHPvsrRUv5c+u1F7bZQ6EDgzAYx65u5z9t0QwKi7aRUbPQaBy06BUS/jxlMQWJQARl0UN4tB4DIC0ag3NzfNRfob+i5Xmv62vIu0XU3oXKT8pLsa0jS5c5Gmkal+VU/1q3p13ZRfXTflp/pVPdV3vZKmXrqorutqSEt13LssTe+6i6pf0rrRqOkBdAhAYHkCGHUKc3IgsDIBjLpyA1geAlMIYNQplMiBwMoEMOrKDWB5CEwhEI364sWLtueYcvjXc9J0LumPHz9uRwz9S2Zzxj2et7ftdiRe79GUP+/5ndXe0xmjUdMD6BCAwPIEMOryzFkRAmUCGLWMjAcgsDwBjLo8c1aEQJnARUYtr8IDEIDAgwhEoz569Kj1iA8++KD1iK+//rpVQhO0OcPd6xzT7u7u2h5CvzlbCd1zrcScPVHtyjui3B7vpmr08IpqJDdHo6YH0CEAgeUJYNTlmbMiBMoEMGoZ2bwPUB0CjgBGdVTQILAxAhh1Yw1hOxBwBKJRnz592ly4ImPap59+2nrEu+++2yqhiZ6Lsb2671wNaV9++WVzocmji3Sfda37wtX7vGn/7qzSHBtpYufCsR/TXA1plXdEuT3eTdUY26v7znlLmsuVFo2qLwkIHInAns+CUffcPfZ+GgIY9TSt5qB7JoBR99w99n4aAhj1NK3moHsm0M2oX73xRnOh+4sPiJf3jXWfshKpKZoMVkKTwUqkdTUJdZHuB899Lzjd5033dt3epaXzVpgpt9IT5aZ1K++Icnu8m6rh3n1paZ9VvZtRqwuTDwEITCeAUaezIhMCqxHAqKuhZ2EITCeAUaezOlom59kRAYy6o2ax1fMS6GbUZy9eNBeafFUitUL3KSuhSWKP0ITRRdqnyx3TNDl1cRt+67Z6Nzjd6U313V6kjZ3BfVfl06NXqlF5R5Sb9ll5Z5Xr3n1pqX5V72bU6sLkQwAC0wlg1OmsyITAVALd8zBqd6QUhEB/Ahi1P1MqQqA7AYzaHSkFIdCfQNmo19fX7drER8+fNxd//emn5kITMRfpiLpPWQnd46yEm1xKS/vRdy40eaxEqq9Jq4vq3eCt3d1N53UspVV6qNzKO6LctB/3bkpz77I09+5Lc16RltZNetmoqdD+dU4Age0SwKjb7Q07g8BLAhj1JQr+AIHtEsCo2+0NO4PASwIY9SUK/jAfASo/lEA3o+o3SV1owuVCEzEX6UAfX101Fyn/888/by50v9NFZVI7lqtJpYu0T5c7prlJsLSz3d11vZWWOLt3R1rKd++mNPcuS3PvvrRUv6p3M2p1YfIhAIHpBDDqdFZkQmA1Ahh1NfQsDIHpBLJRp9cgEwIQmJkARp0ZMOUh0IPAakbVpKwSmri5SBBSbd3vrITuj1Yi7SdNcscmyO67VF+TXxcp39Ue09L+U/0KM+VWeqLc1N+0H/fuSEt1kp7qz62vZtS5D0Z9CByJAEZdo5usCYEiAYxaBEY6BNYggFHXoM6aECgSwKhFYKRDYA0C3Yyafnkg3UFNevod2gRH9zVdpPr6DdZK6P6oC3dfWNrY5NR9V52mpvyqnnimOm7vY5pYuHAspVV6otzU34+Ld8LT7ySn+klP73/iXNW7GbW6MPkQgMB0Ahh1OisyIbAaAYy6GnoWhsB0Ahh1OisyIbAagU0YdbXTszAEdkJARv3dsNd7kaZYaUo21LAfTegqkX6H1hYfRN3XdDF8ZT/6bdZK2CKDqPumldB9VhfffPNNc9Fr+poms6m+24s0t3dpFQbKHdDZT6UnyrVFBtG9C9KGr+wnveeVd1a5tvggJr+kdYdH7nlRmow6/JcPBCCwZQIYdcvdYW8Q+JUARv0VxFH/w7mOQQCjHqOPnOLgBDDqwRvM8Y5BoGzUq6ur5qIXDndvV1qv+poAuqjW12+2ukh13L3XMa06rU3rpuluqj+2J/ddWtexkZbyk+56JS3l99L1L7S56FW/Wqds1OoC5EPgqASWPBdGXZI2a0HgQgIY9UJwPAaBJQlg1CVpsxYELiSAUS8Ex2MQWJJAN6Om30F1k7MxLR1ek18XKT/o9l+EU11NEl2kc6W7mrr36UL3XF3ovmwl0rnSdDflV9ZUrtu7NHdWaYlP4unYS1NvXKRzJf2TTz5pLp49e9ZcuFxp6d1N6/bSuxm114aoAwEI3CeAUe8zQYHA5ghg1M21hA1B4D4BjHqfCcplBHhqRgIYdUa4lIZALwJjRrV/0zz9AkP6Pd405dO9Txea9FWiCiLVTnXS77im/KRrEupCv2nrwt2rlZbu6FZ11XLh9iLN7V1aOm/Sqzyr/XITXGlpP99++21zkfJVy0XKT9PvId/6a9DtZ8yo9gFECEBgeQIYdXnmrAiBKoGGUcvIeAACyxPAqMszZ0UIlAlg1DIyHoDA8gQ2Z9Q0Je6lJ8TuPqm0lJ90/eZsJVId3aNdI9J+KmdSbqqTdLF2kfLd5FWam+BKe//991uPUC0XWttF2n9V35xRqwfYbj47g0A/Ahi1H0sqQWA2Ahh1NrQUhkA/Ahi1H0sqQWA2Ahh1NrQUno/A+SpfYlR7R7F6B/ju7q65SHdBe+mpxelOqe6zuqjWSfWr0+y0blWvrpv2n/S0H8dSWrWOm7xKS+sm/YcffmguUn7StbaLlF/VLzFqdQ3yIQCBBxLAqA8EyOMQWIIARl2CMmtA4IEEljPqAzfK4xA4MwGMeubuc/bdENiNUTUZnDNSx9LvuLp7qdJSnaRXp9m9GFTXTftPuli4SDxTnaS/8847zUXKT/qbb77ZXKT8pLu9SEv5VX03Rq0ejHwIHIkARj1CNznD4Qlg1MO3mAMegQBGPUIXOcPhCWDUw7eYAx6BQE+jdrkDnKCmaaF+TaBHuAnlmFa9m5pqpSlu4tDjrKqR6qf9pP2nOolPqlPV33rrreZCk1YXn332WbsofvOcqy3N7UXawMf6YtBLn55GLS1MMgQgMJ0ARp3OikwIrEYAo66GnoUhMJ0ARp3OikwIrEbgkEZdjSYLQ2AmApszavrlAfcvv0lL08W59bTP1Ke0nzTNrtZJ9ZOe6qf9VOskPqlOVU/716TVRcrXxNZFyne1paX8XvrmjNrrYNSBwJEIYNQjdZOzHJYARj1sa+c5GFXXIYBR1+HOqhAoEcCoJVwkQ2AdAksY1d517PU7wJr8ukhTx156aleqn/Krd1xTnarea93qeVN+Lz1x+PDDD5sLTWxduFxpqf6g2/d80Lt8ljBql41SBAJHJzB2Pow6RofvILARAhh1I41gGxAYI4BRx+jwHQQ2QgCjbqQRbAMCYwTWNKqdkvWaBj9+/Li5GINR+e7X38VtU/+bfjnhrUePWiXSHtPUNOVX1lRu2v/U8/8vL+2nqrveSkt1fn7vvebiH8MDLv4z6C4GeZXPmkZd5cAsCoE9EsCoe+waez4dAYx6upZz4D0SwKh77No59swpXyOAUV+DwR8hsFUCWzRqaRqsSZ+Lu7u75sLlSuvVoDQdrdZPv7RQne6m/FS/us9e503rqjcuXG+lpTpV/c1hSuyiWqdX/haN2uts1IHAYQhg1MO0koMcmUBnox4ZFWeDwHoEMOp67FkZApMJYNTJqEiEwHoE9mRUOw2+ublpLtykUJomgy5SC/SMi5SfpqlVPU1r07pVPdWv7jPlp/04ltJSvuuVtCdPnjQXqc4PX3zRXPxlkI1/xgAAAaVJREFUeMCFy5U2pK/y2ZNRVwG0nUXZyZkJYNQzd5+z74YARt1Nq9jomQlg1DN3n7PvhgBG3U2r2Oh8BLZf+QhG7TIN1uTRhSaMLtLU1P3G8CWa28sS2iV7dc8kPo6lNDfBHdPSL4Eky/1++MLFINv3x+VKG/JX+RzBqKuAY1EILEkAoy5Jm7UgcCEBjHohOB6DwJIE9mvUJSmxFgRWJoBRV24Ay0NgCoEjG9VO89y94DGtOmnVBJO4s/dwL5nijkx3bX9HXvq580eWfvhXRzbqw+lQAQIbIYBRN9KITW2DzWyOAEbdXEvYEATuE8Co95mgQGBzBDDq5lrChiBwn8AZjZqmf1Yfmwi776pT4rXyxyawPb5L09qkD6+m5T+iD1/ZT6pjky8QH1b/ggX1yBmNqnMTENgVAYy6q3ax2bMSwKhn7Tzn3hUBjLqrdrHZsxLAqBM6TwoE1iaAUf9/B9KUz+puErxFLU1fe+kDVstnRB++4pMIYNREBh0CGyKAUTfUDLYCgUQAoyYy6IsQYJFpBDDqNE5kQWBVAhh1VfwsDoFpBP4LAAD//4Fp0zIAAAAGSURBVAMAoimhN2k97ygAAAAASUVORK5CYII=";
+    window.OMR_LOGO_PATH = "habbo_avatar.png";
 
     window.applyLogos = function() {
       document.querySelectorAll(".omr-logo-img").forEach(img => {
-        if (window.OMR_LOGO_BASE64 && img.src !== window.OMR_LOGO_BASE64) {
-          img.src = window.OMR_LOGO_BASE64;
+        if (window.OMR_LOGO_PATH) {
+          img.src = window.OMR_LOGO_PATH;
         }
       });
     };
@@ -1180,7 +1180,7 @@
     const db = getFirestore(app);
     const STATE_DOC = doc(db, "omr_state", "main");
 
-    const OMR_LOGO_BASE64 = window.OMR_LOGO_BASE64;
+    const OMR_LOGO_PATH = window.OMR_LOGO_PATH;
     const FOUNDER_NICK = "A-Twink";
     const FOUNDER_KEY = FOUNDER_NICK.toLowerCase();
 
@@ -1337,7 +1337,7 @@
           date: "27 Nov 2026"
         }
       ],
-      instaPhotos: [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
+      instaPhotos: [OMR_LOGO_PATH, OMR_LOGO_PATH],
       documents: {
         RGM: "Regimento Geral Militar (RGM) da Polícia OMR.\n\nArt. 1º - A Organização Militar Renascente (OMR) pauta-se pela hierarquia, disciplina, vida pessoal equilibrada, entretenimento saudável e boa convivência.",
         RDM: "Regulamento Disciplinar Militar (RDM) da Polícia OMR.\n\nDispõe sobre deveres, transgressões disciplinares, advertências, rebaixamentos, demissões e exonerações.",
@@ -1458,7 +1458,7 @@
         users: normalizedUsers,
         requirements: Array.isArray(raw?.requirements) ? raw.requirements : [],
         announcements: Array.isArray(raw?.announcements) ? raw.announcements : [],
-        instaPhotos: Array.isArray(raw?.instaPhotos) && raw.instaPhotos.length ? raw.instaPhotos : [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
+        instaPhotos: Array.isArray(raw?.instaPhotos) && raw.instaPhotos.length ? raw.instaPhotos : [OMR_LOGO_PATH, OMR_LOGO_PATH],
         documents: raw?.documents && typeof raw.documents === "object" ? raw.documents : INITIAL_STATE.documents
       };
 
@@ -2040,7 +2040,7 @@
       container.innerHTML = `
         <section class="hero-card">
           <div class="hero-watermark">
-            <img class="omr-logo-img pixel-logo" style="width:155px;height:155px;" />
+            <img class="omr-logo-img pixel-logo" src="habbo_avatar.png" style="width:155px;height:155px;" />
           </div>
           <div class="hero-grid">
             <div>
@@ -2081,7 +2081,7 @@
           <div class="card-box" style="margin-bottom:0;">
             <div class="insta-frame">
               <div style="display:flex;gap:10px;align-items:center;justify-content:center;">
-                <img src="${state.instaPhotos[0] || OMR_LOGO_BASE64}" class="pixel-logo" style="width:84px;height:84px;border-radius:10px;border:1px solid var(--border-subtle);object-fit:cover;" />
+                <img src="${state.instaPhotos[0] || OMR_LOGO_PATH}" class="pixel-logo" style="width:84px;height:84px;border-radius:10px;border:1px solid var(--border-subtle);object-fit:cover;" />
                 ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:84px;height:84px;border-radius:10px;border:1px solid var(--border-subtle);object-fit:cover;" />` : ""}
               </div>
               <div class="insta-handle">
