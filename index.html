@@ -9,19 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #09090b;
-      --bg-panel: #121216;
-      --bg-card: #18181f;
-      --bg-input: #101015;
-      --bg-elevated: #121218;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-red: rgba(220, 38, 38, 0.45);
+      --bg-dark: #09090c;
+      --bg-panel: #111116;
+      --bg-card: #16161d;
+      --bg-input: #0e0e13;
+      --bg-elevated: #1c1c25;
+      --border-subtle: rgba(255, 255, 255, 0.075);
+      --border-red: rgba(220, 38, 38, 0.38);
       --red-primary: #dc2626;
       --red-bright: #ef4444;
       --red-dark: #991b1b;
       --gold: #eab308;
-      --text-main: #f4f4f5;
-      --text-muted: #a1a1aa;
+      --text-main: #f4f4f6;
+      --text-muted: #9e9ea8;
       --green: #16a34a;
       --amber: #d97706;
       --blue: #2563eb;
@@ -29,13 +29,13 @@
     }
 
     body.light-theme {
-      --bg-dark: #fff5f5;
+      --bg-dark: #fff7f7;
       --bg-panel: #ffffff;
       --bg-card: #ffffff;
       --bg-input: #fffafa;
-      --bg-elevated: #fff1f2;
-      --border-subtle: rgba(185, 28, 28, 0.16);
-      --border-red: rgba(220, 38, 38, 0.55);
+      --bg-elevated: #fff2f3;
+      --border-subtle: rgba(185, 28, 28, 0.13);
+      --border-red: rgba(220, 38, 38, 0.45);
       --red-primary: #dc2626;
       --red-bright: #b91c1c;
       --red-dark: #7f1d1d;
@@ -52,7 +52,7 @@
     }
 
     html, body {
-      background: radial-gradient(circle at top center, #1c0b0e 0%, var(--bg-dark) 58%);
+      background: radial-gradient(circle at top center, #1b0a0d 0%, var(--bg-dark) 56%);
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
@@ -60,7 +60,7 @@
     }
 
     body.light-theme {
-      background: radial-gradient(circle at top center, #fee2e2 0%, #ffffff 62%);
+      background: radial-gradient(circle at top center, #ffe4e6 0%, #ffffff 62%);
     }
 
     .pixel-logo {
@@ -69,9 +69,9 @@
       object-fit: contain;
     }
 
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg-input); }
-    ::-webkit-scrollbar-thumb { background: #52525b; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb { background: rgba(161, 161, 170, 0.35); border-radius: 99px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--red-primary); }
 
     #auth-screen {
@@ -81,7 +81,7 @@
       justify-content: center;
       padding: 20px 16px;
       background:
-        radial-gradient(circle at 50% 15%, rgba(220, 38, 38, 0.18), transparent 60%),
+        radial-gradient(circle at 50% 15%, rgba(220, 38, 38, 0.14), transparent 60%),
         var(--bg-dark);
     }
 
@@ -90,9 +90,9 @@
       max-width: 420px;
       background: var(--bg-card);
       border: 1px solid var(--border-red);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 22px 18px;
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
     }
 
     .auth-header {
@@ -101,9 +101,9 @@
     }
 
     .auth-title {
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 900;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       color: var(--red-bright);
       margin-top: 8px;
     }
@@ -117,13 +117,13 @@
     }
 
     .pillar-pill {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.4px;
       color: var(--red-bright);
-      background: rgba(220, 38, 38, 0.11);
-      border: 1px solid rgba(220, 38, 38, 0.3);
+      background: rgba(220, 38, 38, 0.09);
+      border: 1px solid rgba(220, 38, 38, 0.24);
       padding: 3px 8px;
       border-radius: 99px;
     }
@@ -131,7 +131,7 @@
     .auth-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      gap: 5px;
       background: var(--bg-input);
       padding: 4px;
       border-radius: 11px;
@@ -148,6 +148,7 @@
       padding: 9px;
       border-radius: 8px;
       cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
     }
 
     .auth-tab.active {
@@ -161,7 +162,7 @@
       gap: 12px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      border-radius: 13px;
+      border-radius: 12px;
       padding: 10px 12px;
       margin-bottom: 12px;
     }
@@ -171,7 +172,7 @@
       height: 48px;
       border-radius: 50%;
       background: var(--bg-input);
-      border: 2px solid var(--red-primary);
+      border: 1.5px solid var(--red-primary);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -187,9 +188,9 @@
     }
 
     .motto-box {
-      background: rgba(234, 179, 8, 0.09);
-      border: 1px dashed rgba(234, 179, 8, 0.6);
-      border-radius: 13px;
+      background: rgba(234, 179, 8, 0.08);
+      border: 1px dashed rgba(234, 179, 8, 0.55);
+      border-radius: 12px;
       padding: 13px;
       margin-top: 10px;
       text-align: center;
@@ -214,6 +215,7 @@
       top: 0;
       z-index: 40;
       background: var(--bg-panel);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-subtle);
       padding: 9px 14px;
       display: flex;
@@ -230,8 +232,8 @@
     }
 
     .hamburger-btn {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
@@ -245,7 +247,7 @@
     }
 
     .hamburger-btn span {
-      width: 17px;
+      width: 16px;
       height: 2px;
       background: var(--red-primary);
       border-radius: 2px;
@@ -266,7 +268,7 @@
     }
 
     .brand-sub {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 700;
       letter-spacing: 0.7px;
       color: var(--text-muted);
@@ -276,7 +278,7 @@
     }
 
     .brand-main {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 900;
       letter-spacing: 0.5px;
       color: var(--red-bright);
@@ -290,8 +292,8 @@
     }
 
     .icon-action-btn {
-      width: 35px;
-      height: 35px;
+      width: 34px;
+      height: 34px;
       border-radius: 10px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
@@ -300,7 +302,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .profile-pill-btn {
@@ -308,7 +310,7 @@
       align-items: center;
       gap: 8px;
       background: var(--bg-elevated);
-      border: 1.5px solid var(--red-primary);
+      border: 1px solid var(--border-red);
       border-radius: 11px;
       padding: 4px 9px 4px 6px;
       color: var(--text-main);
@@ -321,7 +323,7 @@
     }
 
     .profile-pill-label {
-      font-size: 0.56rem;
+      font-size: 0.55rem;
       text-transform: uppercase;
       font-weight: 800;
       color: var(--red-bright);
@@ -329,7 +331,7 @@
     }
 
     .profile-pill-nick {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -340,8 +342,8 @@
     }
 
     .profile-pill-avatar {
-      width: 30px;
-      height: 30px;
+      width: 29px;
+      height: 29px;
       border-radius: 8px;
       background: var(--bg-input);
       overflow: hidden;
@@ -349,8 +351,8 @@
     }
 
     .profile-pill-avatar img {
-      width: 32px;
-      height: 32px;
+      width: 31px;
+      height: 31px;
       object-fit: cover;
       transform: translateY(2px);
     }
@@ -358,7 +360,7 @@
     .drawer-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 60;
       display: none;
     }
@@ -374,7 +376,7 @@
       background: var(--bg-panel);
       border-right: 1px solid var(--border-red);
       z-index: 70;
-      transition: left 0.25s ease;
+      transition: left 0.22s ease;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -388,27 +390,28 @@
       background: transparent;
       border: none;
       color: var(--text-main);
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       text-align: left;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
+      transition: background 0.14s ease, color 0.14s ease;
     }
 
     .nav-item:hover, .nav-item.active {
-      background: rgba(220, 38, 38, 0.14);
+      background: rgba(220, 38, 38, 0.12);
       color: var(--red-bright);
     }
 
     .nav-sublist {
       padding-left: 12px;
-      border-left: 1px solid rgba(220, 38, 38, 0.35);
-      margin: 3px 0 7px 14px;
+      border-left: 1px solid rgba(220, 38, 38, 0.28);
+      margin: 2px 0 6px 14px;
       display: none;
     }
 
@@ -419,9 +422,9 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 7px 10px;
+      padding: 6px 10px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 500;
       text-align: left;
       cursor: pointer;
@@ -430,11 +433,11 @@
 
     .nav-subitem:hover {
       color: var(--red-bright);
-      background: rgba(220, 38, 38, 0.08);
+      background: rgba(220, 38, 38, 0.07);
     }
 
     .main-wrap {
-      max-width: 920px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 16px 14px calc(84px + var(--safe-bottom));
     }
@@ -443,10 +446,10 @@
       position: relative;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 18px 16px;
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .hero-watermark {
@@ -455,7 +458,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.08;
+      opacity: 0.065;
       pointer-events: none;
     }
 
@@ -469,14 +472,14 @@
     }
 
     .hero-greeting {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       line-height: 1.35;
     }
 
     .hero-greeting span {
       display: block;
-      font-size: 1.32rem;
+      font-size: 1.28rem;
       font-weight: 900;
       color: var(--red-bright);
       margin-top: 2px;
@@ -489,24 +492,24 @@
       margin-top: 12px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      padding: 9px 12px;
-      border-radius: 13px;
+      padding: 8px 12px;
+      border-radius: 12px;
     }
 
     .cal-date {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 800;
     }
 
     .cal-day {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       color: var(--text-muted);
       letter-spacing: 0.5px;
     }
 
     .cal-time {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--red-bright);
     }
@@ -519,7 +522,7 @@
     }
 
     .hero-full-avatar {
-      height: 118px;
+      height: 116px;
       object-fit: contain;
     }
 
@@ -527,12 +530,12 @@
       background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
       color: #fff;
       font-weight: 800;
-      font-size: 0.74rem;
-      letter-spacing: 0.8px;
+      font-size: 0.72rem;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
       padding: 5px 12px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       margin-top: -2px;
       text-align: center;
     }
@@ -540,9 +543,9 @@
     .search-box-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 11px 14px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      padding: 10px 13px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -550,7 +553,7 @@
     }
 
     .search-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
       color: var(--text-muted);
       white-space: nowrap;
@@ -561,10 +564,10 @@
       width: 100%;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
-      border-radius: 11px;
-      padding: 9px 12px;
+      border-radius: 10px;
+      padding: 8px 12px;
       color: var(--text-main);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       outline: none;
     }
 
@@ -572,26 +575,52 @@
       border-color: var(--red-primary);
     }
 
-    .search-results-dropdown {
+    .nick-match-wrap {
+      position: relative;
+    }
+
+    .nick-suggestions-box {
       position: absolute;
-      top: calc(100% + 6px);
+      top: calc(100% + 5px);
       left: 0;
       right: 0;
       background: var(--bg-card);
       border: 1px solid var(--border-red);
-      border-radius: 13px;
-      z-index: 30;
-      max-height: 230px;
+      border-radius: 12px;
+      z-index: 35;
+      max-height: 220px;
       overflow-y: auto;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
       display: none;
     }
 
-    .search-results-dropdown.open { display: block; }
+    .nick-suggestions-box.open {
+      display: block;
+    }
+
+    .nick-suggestion-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 11px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.12s ease;
+    }
+
+    .nick-suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .nick-suggestion-item:hover {
+      background: rgba(220, 38, 38, 0.1);
+    }
 
     .home-feed-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
     }
 
     @media (max-width: 680px) {
@@ -603,21 +632,21 @@
     .card-box {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 12px;
     }
 
     .insta-frame {
       background: var(--bg-elevated);
-      border: 1px solid var(--border-red);
-      border-radius: 15px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 13px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 155px;
+      min-height: 150px;
       position: relative;
       overflow: hidden;
     }
@@ -628,12 +657,12 @@
       gap: 7px;
       margin-top: 10px;
       font-weight: 800;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--text-main);
     }
 
     .section-title {
-      font-size: 1.02rem;
+      font-size: 1rem;
       font-weight: 800;
       color: var(--text-main);
       margin-bottom: 12px;
@@ -650,7 +679,7 @@
 
     .form-label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--text-muted);
       margin-bottom: 5px;
@@ -665,7 +694,7 @@
       border-radius: 10px;
       padding: 9px 12px;
       color: var(--text-main);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       outline: none;
     }
 
@@ -681,15 +710,15 @@
     .btn {
       border: none;
       border-radius: 10px;
-      padding: 9px 14px;
-      font-size: 0.83rem;
+      padding: 9px 13px;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: 0.18s;
+      transition: opacity 0.15s ease, filter 0.15s ease;
     }
 
     .btn-red {
@@ -717,7 +746,7 @@
 
     .btn-sm {
       padding: 6px 10px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       border-radius: 8px;
     }
 
@@ -727,15 +756,15 @@
       gap: 4px;
       padding: 3px 8px;
       border-radius: 7px;
-      font-size: 0.68rem;
+      font-size: 0.67rem;
       font-weight: 800;
       text-transform: uppercase;
     }
 
-    .badge-pending { background: rgba(234, 179, 8, 0.16); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.4); }
-    .badge-approved { background: rgba(22, 163, 74, 0.18); color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.4); }
-    .badge-rejected { background: rgba(220, 38, 38, 0.18); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.4); }
-    .badge-canceled { background: rgba(161, 161, 170, 0.16); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+    .badge-pending { background: rgba(234, 179, 8, 0.14); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.35); }
+    .badge-approved { background: rgba(22, 163, 74, 0.15); color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.35); }
+    .badge-rejected { background: rgba(220, 38, 38, 0.15); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.35); }
+    .badge-canceled { background: rgba(161, 161, 170, 0.14); color: var(--text-muted); border: 1px solid var(--border-subtle); }
 
     .profile-hero {
       display: flex;
@@ -744,16 +773,16 @@
       text-align: center;
       padding: 16px 12px;
       background: var(--bg-elevated);
-      border-radius: 16px;
+      border-radius: 14px;
       border: 1px solid var(--border-subtle);
       margin-bottom: 14px;
     }
 
     .profile-circle-frame {
-      width: 96px;
-      height: 96px;
+      width: 94px;
+      height: 94px;
       border-radius: 50%;
-      border: 3px solid var(--red-primary);
+      border: 2px solid var(--red-primary);
       background: var(--bg-card);
       display: flex;
       align-items: center;
@@ -763,7 +792,7 @@
     }
 
     .profile-circle-frame img {
-      height: 94px;
+      height: 92px;
       object-fit: contain;
       transform: translateY(5px);
     }
@@ -779,7 +808,7 @@
     .org-badge-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 11px;
+      border-radius: 10px;
       padding: 7px 11px;
       display: flex;
       flex-direction: column;
@@ -790,10 +819,10 @@
     .history-item {
       background: var(--bg-elevated);
       border-left: 3px solid var(--red-primary);
-      border-radius: 12px;
-      padding: 13px 14px;
-      margin-bottom: 10px;
-      font-size: 0.86rem;
+      border-radius: 11px;
+      padding: 12px 13px;
+      margin-bottom: 9px;
+      font-size: 0.85rem;
       line-height: 1.5;
     }
 
@@ -814,8 +843,8 @@
     }
 
     .hist-author-head {
-      width: 26px;
-      height: 26px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -823,19 +852,19 @@
     }
 
     .hist-nick-bold {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .hist-plain-verb {
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 400;
       color: var(--text-main);
     }
 
     .hist-modality-highlight {
-      font-size: 1.06rem;
+      font-size: 1.02rem;
       font-weight: 900;
     }
 
@@ -848,10 +877,10 @@
     }
 
     .hist-obs-normal {
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 400;
       color: var(--text-main);
-      margin-top: 6px;
+      margin-top: 5px;
       white-space: pre-line;
     }
 
@@ -866,9 +895,9 @@
     .listing-card {
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+      border-radius: 13px;
+      padding: 12px 13px;
+      margin-bottom: 9px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -879,9 +908,9 @@
       width: 100%;
       text-align: left;
       justify-content: space-between;
-      padding: 12px 14px;
+      padding: 11px 14px;
       margin-bottom: 8px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .toast-banner {
@@ -895,7 +924,7 @@
       color: #fff;
       padding: 10px 16px;
       border-radius: 11px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       font-weight: 700;
       display: none;
       max-width: 92vw;
@@ -914,6 +943,7 @@
       right: 0;
       z-index: 45;
       background: var(--bg-panel);
+      backdrop-filter: blur(10px);
       border-top: 1px solid var(--border-subtle);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -929,7 +959,7 @@
       align-items: center;
       justify-content: center;
       gap: 2px;
-      font-size: 0.66rem;
+      font-size: 0.65rem;
       font-weight: 700;
       padding: 6px 4px;
       border-radius: 9px;
@@ -938,7 +968,7 @@
 
     .bottom-nav-btn.active {
       color: var(--red-bright);
-      background: rgba(220, 38, 38, 0.12);
+      background: rgba(220, 38, 38, 0.11);
     }
 
     .hidden { display: none !important; }
@@ -1157,103 +1187,11 @@
     const db = getFirestore(app);
     const STATE_DOC = doc(db, "omr_state", "main");
 
-    function buildOmrLogoDataUrl() {
-      const size = 32;
-      const px = 4;
-      const canvas = document.createElement("canvas");
-      canvas.width = size * px;
-      canvas.height = size * px;
-      const ctx = canvas.getContext("2d");
+    const OMR_LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOoAAADqCAYAAACslNlOAAAQAElEQVR4AeydPY5l1RWFjzspEXXWcWEhy5KDzhgBmRNjMwYgc8YgGAE/U+DHiSUCRkBWAZJltUzFZBWhThrfJXB3i1rr+u5X5/5/1tumtd6++5zz7buSrdOvHzX+tzcCPw8b7hFDGT57IYBR99Ip9nlqAhj11O3n8HshgFH30in2eWoCGHW+9lMZAt0IYNRuKCkEgfkIYNT52D60cprs2rr/+mdrLmzyL2Kp/i+P8P9rEcCoa5FnXQgUCGDUAixSN0PgdBvBqKdrOQfeIwGMuseuseucTEcCop2s5B94jAYy6XNfSlNXq19fX7dpE2u4frltzkfJdbWlDvt3PiD58xWduAgsade6jUB8CxyWAUY/bW052IAIY9UDN5CjHJYBRj9tbTnYgAhj1EM3kEEcncGSjVqeXs+ZrolqJ29vbdmvixfetufj3bWsuXK40V1taZY/KHQwyK7cL6g+PHO9zZKMer1uc6LQEMOppW8/B90QAo+6pW+x1BQLbWBKjbqMP7AICowQw6igevoTANgiczqhPnz5tlejVJk1UK9Fr3Wqdyh6VW62f8is9UW6qc1T9dEY9aiM517EJHNOox+4ZpzshAYx6wqZz5P0RwKj76xk7PiEBjHrCpnPk/RE4glHtXVPdQ3Vxc3PTKvHVG280F9VW635tj3D3eaWl/eg7Fxfv5Td3jdO6SXcspVV6olzXW2nDuvZ9GPRdf45g1F03gM1DYAoBjDqFEjkQWJkARl25ASwPgSkEMOoUSuRAYAkCI2tg1BE4fAWBrRDYolHT1M7qmvS50D1UF5owVuLZixfNRWqg7qG6ePSn1ly4ieyYltat6mNruO/c3qW5s0pL+3EspVV6otzb21v7CxjuXZA27Me+PyP68NV2Pls06nbosBMIbIQARt1II9gGBMYIYNQxOhO+IwUCSxDAqEtQZg0IPJAARn0gQB6HwBIEZNTqNGzWfE3oKnEbpn+aDLrQhLESHz1/3ly8/fbbzcXV1VVzkc70xz+35uL7Z625cP9im7T0sug7F662NLcXaWn/7qzSHBtpjqW0Sk+U63orLb0Paf9JH3jO+p5X68uowzN8ILA9AuzoFQGM+ooFf4LAZglg1M22ho1B4BUBjPqKBX+CwGYJYNTNtoaNQeAVgWhU3de8IO79Zu6rpab96cmTJ60Sqaomgy40YaxEmgr++OOPrRJpn0l/953WXLh7uNJSHX3nwtWWluokvcJAuYlnpSfKdb2VlvZZeaeUm+okvYdXVCPVj0ZND6BDAALLE8CoyzNnRQiUCWDUMjIegMDyBDDq8swvXZHnTkwAo564+Rx9PwTKRtU9zkokFLqX6eK7775rlXA1pGky6CLtJ+np7mjKT3qqk35f101qpek+rgvdx3XhcqWplou0n7T/dN6k96rjeivt46ur5qLyTilX75CLdK6KJ5Sb6iS9bNRUCB0CEJiPAEadjy2V90Ng8zvFqJtvERuEQGsYlbcAAjsggFF30CS2CIGyUXVf08Xz58+biypiN2mTlurofqeLlK9alUh1eulu8ipNk1kXf/t7ay7SHVqXK83Vlqa1XfQ6b6pT6YlyU52qrlouqnXcuy/NeUVatX7ZqNUF5sunMgTOQwCjnqfXnHTHBDDqjpvH1s9DAKOep9ecdMcEMOqOmzff1qm8NQKzG1W/5erirz/91Fy4Ca60BE73O124+57SUh23F2lpmprqVHV3P1eaJrMuqvtJ+a62NK3tonqulJ/2I9YuUh310oV7F6SlOnq3XLi9SHPvsrRUv5c+u1F7bZQ6EDgzAYx65u5z9t0QwKi7aRUbPQaBy06BUS/jxlMQWJQARl0UN4tB4DIC0ag3NzfNRfob+i5Xmv62vIu0XU3oXKT8pLsa0jS5c5Gmkal+VU/1q3p13ZRfXTflp/pVPdV3vZKmXrqorutqSEt13LssTe+6i6pf0rrRqOkBdAhAYHkCGHUKc3IgsDIBjLpyA1geAlMIYNQplMiBwMoEMOrKDWB5CEwhEI364sWLtueYcvjXc9J0LumPHz9uRwz9S2Zzxj2et7ftdiRe79GUP+/5ndXe0xmjUdMD6BCAwPIEMOryzFkRAmUCGLWMjAcgsDwBjLo8c1aEQJnARUYtr8IDEIDAgwhEoz569Kj1iA8++KD1iK+//rpVQhO0OcPd6xzT7u7u2h5CvzlbCd1zrcScPVHtyjui3B7vpmr08IpqJDdHo6YH0CEAgeUJYNTlmbMiBMoEMGoZ2bwPUB0CjgBGdVTQILAxAhh1Yw1hOxBwBKJRnz592ly4ImPap59+2nrEu+++2yqhiZ6Lsb2671wNaV9++WVzocmji3Sfda37wtX7vGn/7qzSHBtpYufCsR/TXA1plXdEuT3eTdUY26v7znlLmsuVFo2qLwkIHAns+CUffcPfZ+GgIY9TSt5qB7JoBR99w99n4aAhj1NK3moHsm0M2oX73xRnOh+4sPiJf3jXWfshKpKZoMVkKTwUqkdTUJdZHuB899Lzjd5033dt3epaXzVpgpt9IT5aZ1K++Icnu8m6rh3n1paZ9VvZtRqwuTDwEITCeAUaezIhMCqxHAqKuhZ2EITCeAUaezOlom59kRAYy6o2ax1fMS6GbUZy9eNBeafFUitUL3KSuhSWKP0ITRRdqnyx3TNDl1cRt+67Z6Nzjd6U313V6kjZ3BfVfl06NXqlF5R5Sb9ll5Z5Xr3n1pqX5V72bU6sLkQwAC0wlg1OmsyITAVALd8zBqd6QUhEB/Ahi1P1MqQqA7AYzaHSkFIdCfQNmo19fX7drER8+fNxd//emn5kITMRfpiLpPWQnd46yEm1xKS/vRdy40eaxEqq9Jq4vq3eCt3d1N53UspVV6qNzKO6LctB/3bkpz77I09+5Lc16RltZNetmoqdD+dU4Age0SwKjb7Q07g8BLAhj1JQr+AIHtEsCo2+0NO4PASwIY9SUK/jAfASo/lEA3o+o3SV1owuVCEzEX6UAfX101Fyn/888/by50v9NFZVI7lqtJpYu0T5c7prlJsLSz3d11vZWWOLt3R1rKd++mNPcuS3PvvrRUv6p3M2p1YfIhAIHpBDDqdFZkQmA1Ahh1NfQsDIHpBLJRp9cgEwIQmJkARp0ZMOUh0IPAakbVpKwSmri5SBBSbd3vrITuj1Yi7SdNcscmyO67VF+TXxcp39Ue09L+U/0KM+VWeqLc1N+0H/fuSEt1kp7qz62vZtS5D0Z9CByJAEZdo5usCYEiAYxaBEY6BNYggFHXoM6aECgSwKhFYKRDYA0C3Yyafnkg3UFNevod2gRH9zVdpPr6DdZK6P6oC3dfWNrY5NR9V52mpvyqnnimOm7vY5pYuHAspVV6otzU34+Ld8LT7ySn+klP73/iXNW7GbW6MPkQgMB0Ahh1OisyIbAaAYy6GnoWhsB0Ahh1OisyIbAagU0YdbXTszAEdkJARv3dsNd7kaZYaUo21LAfTegqkX6H1hYfRN3XdDF8ZT/6bdZK2CKDqPumldB9VhfffPNNc9Fr+poms6m+24s0t3dpFQbKHdDZT6UnyrVFBtG9C9KGr+wnveeVd1a5tvggJr+kdYdH7nlRmow6/JcPBCCwZQIYdcvdYW8Q+JUARv0VxFH/w7mOQQCjHqOPnOLgBDDqwRvM8Y5BoGzUq6ur5qIXDndvV1qv+poAuqjW12+2ukh13L3XMa06rU3rpuluqj+2J/ddWtexkZbyk+56JS3l99L1L7S56FW/Wqds1OoC5EPgqASWPBdGXZI2a0HgQgIY9UJwPAaBJQlg1CVpsxYELiSAUS8Ex2MQWJJAN6Om30F1k7MxLR1ek18XKT/o9l+EU11NEl2kc6W7mrr36UL3XF3ovmwl0rnSdDflV9ZUrtu7NHdWaYlP4unYS1NvXKRzJf2TTz5pLp49e9ZcuFxp6d1N6/bSuxm114aoAwEI3CeAUe8zQYHA5ghg1M21hA1B4D4BjHqfCcplBHhqRgIYdUa4lIZALwJjRrV/0zz9AkP6Pd405dO9Txea9FWiCiLVTnXS77im/KRrEupCv2nrwt2rlZbu6FZ11XLh9iLN7V1aOm/Sqzyr/XITXGlpP99++21zkfJVy0XKT9PvId/6a9DtZ8yo9gFECEBgeQIYdXnmrAiBKoGGUcvIeAACyxPAqMszZ0UIlAlg1DIyHoDA8gQ2Z9Q0Je6lJ8TuPqm0lJ90/eZsJVId3aNdI9J+KmdSbqqTdLF2kfLd5FWam+BKe//991uPUC0XWttF2n9V35xRqwfYbj47g0A/Ahi1H0sqQWA2Ahh1NrQUhkA/Ahi1H0sqQWA2Ahh1NrQUno/A+SpfYlR7R7F6B/ju7q65SHdBe+mpxelOqe6zuqjWSfWr0+y0blWvrpv2n/S0H8dSWrWOm7xKS+sm/YcffmguUn7StbaLlF/VLzFqdQ3yIQCBBxLAqA8EyOMQWIIARl2CMmtA4IEEljPqAzfK4xA4MwGMeubuc/bdENiNUTUZnDNSx9LvuLp7qdJSnaRXp9m9GFTXTftPuli4SDxTnaS/8847zUXKT/qbb77ZXKT8pLu9SEv5VX03Rq0ejHwIHIkARj1CNznD4Qlg1MO3mAMegQBGPUIXOcPhCWDUw7eYAx6BQE+jdrkDnKCmaaF+TaBHuAnlmFa9m5pqpSlu4tDjrKqR6qf9pP2nOolPqlPV33rrreZCk1YXn332WbsofvOcqy3N7UXawMf6YtBLn55GLS1MMgQgMJ0ARp3OikwIrEYAo66GnoUhMJ0ARp3OikwIrEbgkEZdjSYLQ2AmApszavrlAfcvv0lL08W59bTP1Ke0nzTNrtZJ9ZOe6qf9VOskPqlOVU/716TVRcrXxNZFyne1paX8XvrmjNrrYNSBwJEIYNQjdZOzHJYARj1sa+c5GFXXIYBR1+HOqhAoEcCoJVwkQ2AdAksY1d517PU7wJr8ukhTx156aleqn/Krd1xTnarea93qeVN+Lz1x+PDDD5sLTWxduFxpqf6g2/d80Lt8ljBql41SBAJHJzB2Pow6RofvILARAhh1I41gGxAYI4BRx+jwHQQ2QgCjbqQRbAMCYwTWNKqdkvWaBj9+/Li5GINR+e7X38VtU/+bfjnhrUePWiXSHtPUNOVX1lRu2v/U8/8vL+2nqrveSkt1fn7vvebiH8MDLv4z6C4GeZXPmkZd5cAsCoE9EsCoe+waez4dAYx6upZz4D0SwKh77No59swpXyOAUV+DwR8hsFUCWzRqaRqsSZ+Lu7u75sLlSuvVoDQdrdZPv7RQne6m/FS/us9e503rqjcuXG+lpTpV/c1hSuyiWqdX/haN2uts1IHAYQhg1MO0koMcmUBnox4ZFWeDwHoEMOp67FkZApMJYNTJqEiEwHoE9mRUOw2+ublpLtykUJomgy5SC/SMi5SfpqlVPU1r07pVPdWv7jPlp/04ltJSvuuVtCdPnjQXqc4PX3zRXPxlkI1/xgAAAaVJREFUeMCFy5U2pK/y2ZNRVwG0nUXZyZkJYNQzd5+z74YARt1Nq9jomQlg1DN3n7PvhgBG3U2r2Oh8BLZf+QhG7TIN1uTRhSaMLtLU1P3G8CWa28sS2iV7dc8kPo6lNDfBHdPSL4Eky/1++MLFINv3x+VKG/JX+RzBqKuAY1EILEkAoy5Jm7UgcCEBjHohOB6DwJIE9mvUJSmxFgRWJoBRV24Ay0NgCoEjG9VO89y94DGtOmnVBJO4s/dwL5nijkx3bX9HXvq580eWfvhXRzbqw+lQAQIbIYBRN9KITW2DzWyOAEbdXEvYEATuE8Co95mgQGBzBDDq5lrChiBwn8AZjZqmf1Yfmwi776pT4rXyxyawPb5L09qkD6+m5T+iD1/ZT6pjky8QH1b/ggX1yBmNqnMTENgVAYy6q3ax2bMSwKhn7Tzn3hUBjLqrdrHZsxLAqBM6TwoE1iaAUf9/B9KUz+puErxFLU1fe+kDVstnRB++4pMIYNREBh0CGyKAUTfUDLYCgUQAoyYy6IsQYJFpBDDqNE5kQWBVAhh1VfwsDoFpBP4LAAD//4Fp0zIAAAAGSURBVAMAoimhN2k97ygAAAAASUVORK5CYII=";
 
-      const put = (x, y, color, w = 1, h = 1) => {
-        ctx.fillStyle = color;
-        ctx.fillRect(x * px, y * px, w * px, h * px);
-      };
+    const FOUNDER_NICK = "A-Twink";
+    const FOUNDER_KEY = FOUNDER_NICK.toLowerCase();
 
-      const darkFrame = "#18181b";
-      const midFrame = "#27272a";
-      const hiFrame = "#3f3f46";
-      const crimsonDark = "#7f1d1d";
-      const crimson = "#b91c1c";
-      const crimsonBright = "#ef4444";
-      const gold = "#facc15";
-      const goldShade = "#eab308";
-      const wingWhite = "#f4f4f5";
-      const wingShade = "#d4d4d8";
-      const medalLight = "#e4e4e7";
-      const medalMid = "#a1a1aa";
-
-      // Contorno circular/escudo escuro
-      for (let y = 3; y <= 28; y++) {
-        for (let x = 3; x <= 28; x++) {
-          const dx = x - 15.5;
-          const dy = y - 16;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist >= 10.5 && dist <= 13.6) {
-            put(x, y, dist > 12.5 ? darkFrame : midFrame);
-          }
-        }
-      }
-
-      // Destaques superiores e laterais em cinza/vermelho
-      put(5, 6, hiFrame, 2, 2);
-      put(25, 6, hiFrame, 2, 2);
-      put(4, 15, midFrame, 2, 4);
-      put(26, 15, midFrame, 2, 4);
-
-      // Ornamentos vermelhos (folhas/chamas ao redor do emblema)
-      const redClusters = [
-        [9, 5, crimson], [10, 6, crimsonBright], [8, 7, crimsonDark], [7, 8, crimson],
-        [22, 5, crimson], [21, 6, crimsonBright], [23, 7, crimsonDark], [24, 8, crimson],
-        [6, 11, crimson], [7, 12, crimsonBright], [5, 13, crimsonDark],
-        [25, 11, crimson], [24, 12, crimsonBright], [26, 13, crimsonDark],
-        [6, 20, crimsonDark], [7, 21, crimson], [8, 22, crimsonBright], [9, 23, crimson],
-        [25, 20, crimsonDark], [24, 21, crimson], [23, 22, crimsonBright], [22, 23, crimson],
-        [11, 24, crimson], [12, 25, crimsonBright], [13, 25, crimson],
-        [20, 24, crimson], [19, 25, crimsonBright], [18, 25, crimson]
-      ];
-      redClusters.forEach(([x, y, c]) => put(x, y, c));
-
-      // Estrela amarela no topo
-      const starRows = [
-        [15, 2, gold, 2],
-        [14, 3, gold, 4],
-        [14, 4, gold, 4],
-        [9, 5, gold, 14],
-        [10, 6, gold, 12],
-        [11, 7, goldShade, 10],
-        [12, 8, goldShade, 8],
-        [11, 9, goldShade, 3], [18, 9, goldShade, 3],
-        [10, 10, goldShade, 3], [19, 10, goldShade, 3]
-      ];
-      starRows.forEach(([x, y, c, w]) => put(x, y, c, w, 1));
-
-      // Asas brancas abertas ao centro
-      const wingRows = [
-        [5, 12, wingWhite, 6], [21, 12, wingWhite, 6],
-        [6, 13, wingWhite, 7], [19, 13, wingWhite, 7],
-        [7, 14, wingWhite, 8], [17, 14, wingWhite, 8],
-        [8, 15, wingWhite, 16],
-        [9, 16, wingWhite, 14],
-        [10, 17, wingShade, 12],
-        [12, 18, wingShade, 8],
-        [14, 19, wingShade, 4]
-      ];
-      wingRows.forEach(([x, y, c, w]) => put(x, y, c, w, 1));
-
-      // Medalha cinza com fitas vermelhas no canto inferior direito
-      put(24, 21, medalMid, 4, 1);
-      put(23, 22, medalLight, 6, 4);
-      put(25, 23, medalMid, 2, 2);
-      put(24, 26, medalMid, 4, 1);
-      put(24, 27, crimson, 1, 3);
-      put(25, 27, crimsonBright, 1, 2);
-      put(27, 27, crimson, 1, 3);
-
-      return canvas.toDataURL("image/png");
-    }
-
-    const OMR_LOGO_BASE64 = buildOmrLogoDataUrl();
     function applyLogos() {
       document.querySelectorAll(".omr-logo-img").forEach(img => {
         img.src = OMR_LOGO_BASE64;
@@ -1368,7 +1306,7 @@
         id,
         name: cfg.name,
         icon: cfg.icon,
-        members: id === "DRH" ? [{ nick: "A-Twink", role: cfg.roles[0].name }] : [],
+        members: id === "DRH" ? [{ nick: FOUNDER_NICK, role: cfg.roles[0].name }] : [],
         internalRegimento: `Regimento Interno — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
         penalCode: `Código Penal — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`
       }));
@@ -1378,8 +1316,8 @@
       ranks: [...HIERARCHY_ORDER.filter(r => r !== "Recruta")],
       orgs: makeDefaultOrgs(),
       users: {
-        "a-twink": {
-          nick: "A-Twink",
+        [FOUNDER_KEY]: {
+          nick: FOUNDER_NICK,
           tag: "ATW",
           rank: "Fundador",
           status: "Desativado",
@@ -1387,11 +1325,12 @@
           isAdmin: true,
           ip: "189.44.102.11",
           ipsRecorded: ["189.44.102.11"],
+          lastLogin: "27/11/2026 01:00",
           lastPromoLine: "A-Twink [ATW] 27 Nov 2026",
           history: [
             {
               reqId: "init-1",
-              author: "A-Twink",
+              author: FOUNDER_NICK,
               verbText: "postou um(a)",
               modalityText: "Fundação",
               isPositive: true,
@@ -1408,7 +1347,7 @@
           id: "ann-1",
           title: "Inscrições abertas: Curso Ostensivo de Especialização do Batalhão (COEsb)",
           body: "A coordenadoria do Batalhão de Ações Especiais tem a honra de anunciar que estão abertas as inscrições para a primeira edição do Curso Ostensivo de Especialização do Batalhão (COEsb 2026.1).",
-          author: "A-Twink",
+          author: FOUNDER_NICK,
           authorRank: "Fundador",
           date: "27 Nov 2026"
         }
@@ -1433,6 +1372,7 @@
     let roleSubPage = "menu";
     let pendingMottoCode = "";
     let dbSyncedOnce = false;
+    let siSearchQuery = "";
 
     const savedTheme = localStorage.getItem("omr_theme") || "dark";
     if (savedTheme === "light") document.body.classList.add("light-theme");
@@ -1450,6 +1390,29 @@
     }
 
     const clientIp = getClientNetworkId();
+
+    function isFounderNick(nick) {
+      return (nick || "").trim().toLowerCase() === FOUNDER_KEY;
+    }
+
+    function ensureFounderIntegrity() {
+      state.users = state.users || {};
+      const existing = state.users[FOUNDER_KEY] || structuredClone(INITIAL_STATE.users[FOUNDER_KEY]);
+      existing.nick = FOUNDER_NICK;
+      existing.rank = "Fundador";
+      existing.isAdmin = true;
+      if (existing.status === "Exonerado" || existing.status === "Demitido") {
+        existing.status = "Ativo";
+      }
+      existing.ipsRecorded = Array.isArray(existing.ipsRecorded) ? existing.ipsRecorded : [];
+      if (existing.ip && !existing.ipsRecorded.includes(existing.ip)) {
+        existing.ipsRecorded.unshift(existing.ip);
+      }
+      if (!existing.lastLogin) {
+        existing.lastLogin = "27/11/2026 01:00";
+      }
+      state.users[FOUNDER_KEY] = existing;
+    }
 
     function normalizeState(raw) {
       const baseOrgs = makeDefaultOrgs();
@@ -1498,12 +1461,13 @@
           if (u.ip && !ips.includes(u.ip)) ips.unshift(u.ip);
           normalizedUsers[k] = {
             ...u,
-            ipsRecorded: ips
+            ipsRecorded: ips,
+            lastLogin: u.lastLogin || u.date || "Sem registo"
           };
         }
       }
 
-      return {
+      const normalized = {
         ranks: mergedRanks,
         orgs: [...mergedOrgs, ...extraOrgs],
         users: normalizedUsers,
@@ -1512,9 +1476,14 @@
         instaPhotos: Array.isArray(raw?.instaPhotos) && raw.instaPhotos.length ? raw.instaPhotos : [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
         documents: raw?.documents && typeof raw.documents === "object" ? raw.documents : INITIAL_STATE.documents
       };
+
+      state = normalized;
+      ensureFounderIntegrity();
+      return state;
     }
 
     async function saveState() {
+      ensureFounderIntegrity();
       const footer = document.getElementById("sync-status-footer");
       try {
         await setDoc(STATE_DOC, state);
@@ -1536,16 +1505,16 @@
             const check = await getDoc(STATE_DOC);
             if (!check.exists()) {
               await setDoc(STATE_DOC, INITIAL_STATE);
-              state = normalizeState(INITIAL_STATE);
+              normalizeState(INITIAL_STATE);
             } else {
-              state = normalizeState(check.data());
+              normalizeState(check.data());
             }
           } catch (e) {
-            state = normalizeState(INITIAL_STATE);
+            normalizeState(INITIAL_STATE);
           }
         }
       } else {
-        state = normalizeState(snap.data());
+        normalizeState(snap.data());
       }
       dbSyncedOnce = true;
       if (footer) footer.textContent = "Ligado à base online (system-omr)";
@@ -1575,6 +1544,100 @@
       user.ip = ip;
     }
 
+    function getCloseNickMatches(query, limit = 6) {
+      const q = (query || "").trim().toLowerCase();
+      const users = Object.values(state.users || {});
+      if (!q) return users.slice(0, limit);
+
+      const scored = users
+        .map(u => {
+          const nickLower = u.nick.toLowerCase();
+          let score = 0;
+          if (nickLower === q) score = 100;
+          else if (nickLower.startsWith(q)) score = 80;
+          else if (nickLower.includes(q)) score = 60;
+          else {
+            let qIdx = 0;
+            for (let i = 0; i < nickLower.length && qIdx < q.length; i++) {
+              if (nickLower[i] === q[qIdx]) qIdx++;
+            }
+            if (qIdx === q.length) score = 40;
+            else {
+              const dist = levenshteinDistance(nickLower, q);
+              const maxLen = Math.max(nickLower.length, q.length);
+              const sim = maxLen > 0 ? 1 - dist / maxLen : 0;
+              if (sim >= 0.45) score = Math.round(sim * 35);
+            }
+          }
+          return { user: u, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score || a.user.nick.localeCompare(b.user.nick));
+
+      return scored.slice(0, limit).map(s => s.user);
+    }
+
+    function levenshteinDistance(a, b) {
+      const m = a.length;
+      const n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+        }
+      }
+      return dp[m][n];
+    }
+
+    function renderNickSuggestionsHtml(inputId, matches, onSelectCode) {
+      if (!matches.length) {
+        return `<div style="padding:10px 12px;font-size:0.78rem;color:var(--text-muted);">Nenhuma correspondência próxima nos cadastrados.</div>`;
+      }
+      return matches.map(u => {
+        const escapedNick = u.nick.replace(/'/g, "\\'");
+        const clickHandler = onSelectCode
+          ? onSelectCode.replace(/__NICK__/g, escapedNick)
+          : `selectSuggestedNick('${inputId}', '${escapedNick}')`;
+        return `
+          <div class="nick-suggestion-item" onmousedown="event.preventDefault(); ${clickHandler}">
+            <div style="display:flex;align-items:center;gap:9px;min-width:0;">
+              <img src="${habboHeadUrl(u.nick)}" style="width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);flex-shrink:0;" />
+              <div style="min-width:0;">
+                <div style="font-weight:800;font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${u.nick} ${u.tag ? `[${u.tag}]` : ""}</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">${u.rank} • ${u.status}</div>
+              </div>
+            </div>
+            <span style="font-size:0.68rem;color:var(--red-bright);font-weight:700;flex-shrink:0;">Selecionar</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.showNickSuggestions = function(inputId, suggestionsId, query, customSelectExpr = "") {
+      const box = document.getElementById(suggestionsId);
+      if (!box) return;
+      const matches = getCloseNickMatches(query, 6);
+      box.innerHTML = renderNickSuggestionsHtml(inputId, matches, customSelectExpr);
+      box.classList.add("open");
+    };
+
+    window.hideNickSuggestions = function(suggestionsId) {
+      const box = document.getElementById(suggestionsId);
+      if (box) box.classList.remove("open");
+    };
+
+    window.selectSuggestedNick = function(inputId, nick) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.value = nick;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      document.querySelectorAll(".nick-suggestions-box").forEach(b => b.classList.remove("open"));
+    };
+
     function getOrgMemberEntry(orgId, nick) {
       const org = state.orgs.find(o => o.id === orgId);
       if (!org || !nick) return null;
@@ -1588,7 +1651,7 @@
     function isOrgAdmin(nick, orgId) {
       const u = getUser(nick);
       if (!u) return false;
-      if (u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo") return true;
+      if (isFounderNick(nick) || u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo") return true;
       const entry = getOrgMemberEntry(orgId, nick);
       if (!entry) return false;
       const cfgRoles = ORG_ROLES_CONFIG[orgId]?.roles || [];
@@ -1603,7 +1666,7 @@
     function isHighAuthority(nick) {
       const u = getUser(nick);
       if (!u) return false;
-      return !!(u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo");
+      return !!(isFounderNick(nick) || u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo");
     }
 
     function getRankIndex(rankName) {
@@ -1619,10 +1682,12 @@
       return getRankIndex(rankName) >= getRankIndex("Tenente");
     }
 
-    async function syncIpOnAccess(nick) {
+    async function syncIpAndLoginOnAccess(nick) {
       const u = getUser(nick);
-      if (!u || u.status !== "Ativo") return;
+      if (!u) return;
+      if (u.status !== "Ativo" && !isFounderNick(nick)) return;
       recordUserIp(u, clientIp);
+      u.lastLogin = formatDateTime();
       await saveState();
     }
 
@@ -1642,17 +1707,17 @@
     }
 
     function habboHeadUrl(nick) {
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&headonly=1&direction=3&head_direction=3&size=l`;
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || FOUNDER_NICK)}&headonly=1&direction=3&head_direction=3&size=l`;
     }
 
     function habboFullUrl(nick, opts = {}) {
       if (opts.listingActive) {
-        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&action=wav&gesture=sml&size=l`;
+        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || FOUNDER_NICK)}&direction=4&head_direction=3&action=wav&gesture=sml&size=l`;
       }
       if (opts.exonerated) {
-        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&size=l`;
+        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || FOUNDER_NICK)}&direction=4&head_direction=3&size=l`;
       }
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&gesture=sml&size=l`;
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || FOUNDER_NICK)}&direction=4&head_direction=3&gesture=sml&size=l`;
     }
 
     window.toggleTheme = function() {
@@ -1689,7 +1754,7 @@
       const nick = input.value.trim();
       const img = document.getElementById(mode === "login" ? "login-avatar-head" : "reg-avatar-head");
       const lbl = document.getElementById(mode === "login" ? "login-nick-preview" : "reg-nick-preview");
-      img.src = habboHeadUrl(nick || "A-Twink");
+      img.src = habboHeadUrl(nick || FOUNDER_NICK);
       lbl.textContent = nick || "Aguardando nick...";
     };
 
@@ -1699,29 +1764,44 @@
       if (!nick || !pass) return showToast("Preencha nick e senha.", true);
       const user = getUser(nick);
       if (!user) return showToast("Conta não encontrada. Clique em 'Criar Conta'.", true);
-      if (user.status === "Exonerado") {
-        return showToast("Acesso bloqueado: militar exonerado da Polícia OMR.", true);
+
+      if (!isFounderNick(user.nick)) {
+        if (user.status === "Exonerado") {
+          return showToast("Acesso bloqueado: militar exonerado da Polícia OMR.", true);
+        }
+        if (!user.password) {
+          return showToast("Este nick possui pré-cadastro! Vá na aba 'Criar Conta' para definir sua senha e validar na missão.", true);
+        }
+        if (user.password !== pass) return showToast("Senha incorreta.", true);
+        if (user.status === "Demitido") {
+          return showToast("Acesso bloqueado: conta com status Demitido.", true);
+        }
+      } else {
+        if (user.password && user.password !== pass) {
+          return showToast("Senha incorreta.", true);
+        }
+        if (!user.password) {
+          user.password = pass;
+        }
+        user.status = "Ativo";
+        user.rank = "Fundador";
+        user.isAdmin = true;
       }
-      if (!user.password) {
-        return showToast("Este nick possui pré-cadastro! Vá na aba 'Criar Conta' para definir sua senha e validar na missão.", true);
-      }
-      if (user.password !== pass) return showToast("Senha incorreta.", true);
-      if (user.status === "Demitido") {
-        return showToast("Acesso bloqueado: conta com status Demitido.", true);
-      }
+
       currentUserNick = user.nick;
       localStorage.setItem("omr_logged_nick", user.nick);
-      await syncIpOnAccess(user.nick);
+      await syncIpAndLoginOnAccess(user.nick);
       refreshSessionUI();
       showToast(`Bem-vindo de volta, ${user.nick}!`);
     };
 
     function isNickOrNetworkExonerated(nick) {
+      if (isFounderNick(nick)) return false;
       const key = nick.trim().toLowerCase();
       const u = state.users[key];
       if (u && u.status === "Exonerado") return true;
       return Object.values(state.users).some(
-        other => other.status === "Exonerado" && ((other.ip && other.ip === clientIp) || (Array.isArray(other.ipsRecorded) && other.ipsRecorded.includes(clientIp)))
+        other => !isFounderNick(other.nick) && other.status === "Exonerado" && ((other.ip && other.ip === clientIp) || (Array.isArray(other.ipsRecorded) && other.ipsRecorded.includes(clientIp)))
       );
     }
 
@@ -1735,7 +1815,7 @@
         return showToast("Cadastro bloqueado: exonerados são impedidos de criar conta na Polícia OMR.", true);
       }
       const existing = getUser(nick);
-      if (existing && existing.password) {
+      if (existing && existing.password && !isFounderNick(nick)) {
         return showToast("Este nick já possui conta ativa! Use a aba 'Entrar (Login)'.", true);
       }
       pendingMottoCode = "OMR-" + Math.floor(1000 + Math.random() * 9000);
@@ -1783,9 +1863,21 @@
       const nowStr = formatDateTime();
       const shortDate = formatShortDate();
 
-      if (existing) {
+      if (isFounderNick(nick)) {
+        state.users[FOUNDER_KEY] = {
+          ...(existing || INITIAL_STATE.users[FOUNDER_KEY]),
+          nick: FOUNDER_NICK,
+          rank: "Fundador",
+          status: "Ativo",
+          password: pass,
+          isAdmin: true,
+          lastLogin: nowStr
+        };
+        recordUserIp(state.users[FOUNDER_KEY], clientIp);
+      } else if (existing) {
         existing.password = pass;
         existing.status = "Ativo";
+        existing.lastLogin = nowStr;
         recordUserIp(existing, clientIp);
         existing.history = existing.history || [];
         existing.history.unshift({
@@ -1808,6 +1900,7 @@
           isAdmin: false,
           ip: clientIp,
           ipsRecorded: [clientIp],
+          lastLogin: nowStr,
           lastPromoLine: `${nick} [SEM TAG] ${shortDate}`,
           history: [
             {
@@ -1847,11 +1940,12 @@
     };
 
     function refreshSessionUI() {
+      ensureFounderIntegrity();
       const user = getCurrentUser();
       const authEl = document.getElementById("auth-screen");
       const appEl = document.getElementById("app-shell");
 
-      if (!user || user.status !== "Ativo") {
+      if (!user || (user.status !== "Ativo" && !isFounderNick(user.nick))) {
         authEl.classList.remove("hidden");
         appEl.classList.add("hidden");
         applyLogos();
@@ -1894,6 +1988,9 @@
       if (route === "roles") {
         selectedRoleId = "";
         roleSubPage = "menu";
+      }
+      if (route === "si-panel") {
+        siSearchQuery = "";
       }
       toggleDrawer(false);
       document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
@@ -1958,18 +2055,18 @@
         || isOrgMember(user.nick, "SCP");
 
       const annHtml = state.announcements.map(a => `
-        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:14px;padding:12px;margin-bottom:10px;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:12px;margin-bottom:9px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px;">
-            <div style="font-weight:800;font-size:0.9rem;">${a.title}</div>
+            <div style="font-weight:800;font-size:0.88rem;">${a.title}</div>
             ${canPostAnn ? `<button class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">Apagar</button>` : ""}
           </div>
-          <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.45;margin-bottom:10px;">${a.body}</div>
+          <div style="font-size:0.79rem;color:var(--text-muted);line-height:1.45;margin-bottom:10px;">${a.body}</div>
           <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
             <div style="text-align:right;">
-              <div style="font-weight:800;font-size:0.8rem;">${a.author}</div>
-              <div style="font-size:0.7rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
+              <div style="font-weight:800;font-size:0.79rem;">${a.author}</div>
+              <div style="font-size:0.69rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
             </div>
-            <img src="${habboHeadUrl(a.author)}" style="width:34px;height:34px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
+            <img src="${habboHeadUrl(a.author)}" style="width:32px;height:32px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
           </div>
         </div>
       `).join("");
@@ -1991,7 +2088,7 @@
                   <div class="cal-day">${days[now.getDay()]}</div>
                   <div class="cal-time">${timeStr}</div>
                 </div>
-                <div style="font-size:1.5rem;">📅</div>
+                <div style="font-size:1.45rem;">📅</div>
               </div>
             </div>
             <div class="hero-avatar-col">
@@ -2001,10 +2098,17 @@
           </div>
         </section>
 
-        <div class="search-box-card">
+        <div class="search-box-card nick-match-wrap">
           <span class="search-label">PESQUISAR MILITAR:</span>
-          <input id="home-search-input" class="search-input" placeholder="Digite o nick..." oninput="filterHomeSearch(this.value)" />
-          <div id="home-search-results" class="search-results-dropdown"></div>
+          <input
+            id="home-search-input"
+            class="search-input"
+            placeholder="Digite o nick..."
+            oninput="filterHomeSearch(this.value)"
+            onfocus="filterHomeSearch(this.value)"
+            onblur="setTimeout(() => hideNickSuggestions('home-search-results'), 150)"
+          />
+          <div id="home-search-results" class="nick-suggestions-box"></div>
         </div>
 
         <div class="home-feed-grid">
@@ -2015,13 +2119,13 @@
                 ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:84px;height:84px;border-radius:11px;border:1px solid var(--border-subtle);object-fit:cover;" />` : ""}
               </div>
               <div class="insta-handle">
-                <span style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);color:#fff;padding:2px 6px;border-radius:6px;font-size:0.74rem;">📷</span>
+                <span style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);color:#fff;padding:2px 6px;border-radius:6px;font-size:0.72rem;">📷</span>
                 <span>@policiaomr</span>
               </div>
             </div>
             ${canPostAnn ? `
               <div style="margin-top:12px;border-top:1px solid var(--border-subtle);padding-top:10px;">
-                <div style="font-size:0.72rem;font-weight:800;color:var(--text-muted);margin-bottom:6px;">PUBLICAR COMUNICADO OFICIAL</div>
+                <div style="font-size:0.7rem;font-weight:800;color:var(--text-muted);margin-bottom:6px;">PUBLICAR COMUNICADO OFICIAL</div>
                 <input id="new-ann-title" class="form-control" placeholder="Título do comunicado" style="margin-bottom:6px;" />
                 <textarea id="new-ann-body" class="form-textarea" rows="2" placeholder="Texto do anúncio..." style="margin-bottom:6px;"></textarea>
                 <button class="btn btn-red btn-sm" onclick="publishAnnouncement()">Publicar Anúncio</button>
@@ -2039,22 +2143,18 @@
 
     window.filterHomeSearch = function(val) {
       const box = document.getElementById("home-search-results");
-      const q = val.trim().toLowerCase();
-      if (!q) { box.classList.remove("open"); return; }
-      const matches = Object.values(state.users).filter(u => u.nick.toLowerCase().includes(q));
-      if (!matches.length) {
-        box.innerHTML = `<div style="padding:11px;font-size:0.8rem;color:var(--text-muted);">Nenhum militar encontrado com "${val}".</div>`;
-      } else {
-        box.innerHTML = matches.map(u => `
-          <div onclick="openUserProfile('${u.nick}')" style="display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border-subtle);">
-            <img src="${habboHeadUrl(u.nick)}" style="width:32px;height:32px;border-radius:50%;background:var(--bg-elevated);" />
-            <div>
-              <div style="font-weight:800;font-size:0.84rem;">${u.nick} ${u.tag ? `[${u.tag}]` : ""}</div>
-              <div style="font-size:0.72rem;color:var(--text-muted);">${u.rank} • ${u.status}</div>
-            </div>
-          </div>
-        `).join("");
+      if (!box) return;
+      const q = (val || "").trim();
+      if (!q) {
+        box.classList.remove("open");
+        return;
       }
+      const matches = getCloseNickMatches(q, 6);
+      box.innerHTML = renderNickSuggestionsHtml(
+        "home-search-input",
+        matches,
+        "openUserProfile('__NICK__')"
+      );
       box.classList.add("open");
     };
 
@@ -2111,12 +2211,13 @@
     function renderProfile(container, viewer) {
       const target = getUser(selectedProfileNick) || viewer;
       const isOwn = target.nick.toLowerCase() === viewer.nick.toLowerCase();
+      const isTargetFounder = isFounderNick(target.nick);
       const userOrgs = state.orgs.filter(o => (o.members || []).some(m => m.nick.toLowerCase() === target.nick.toLowerCase()));
-      const canModerateAccount = isSI(viewer.nick) || isHighAuthority(viewer.nick);
+      const canModerateAccount = !isTargetFounder && (isSI(viewer.nick) || isHighAuthority(viewer.nick));
 
       const tagBlock = target.tag
         ? `<span style="color:var(--red-bright);font-weight:800;">[${target.tag}]</span>`
-        : `<span style="color:var(--text-muted);font-size:0.8rem;">[TAG não definida]</span> ${isOwn || isHighAuthority(viewer.nick) ? `<button class="btn btn-red btn-sm" onclick="promptSetTag('${target.nick}')">Criar TAG</button>` : ""}`;
+        : `<span style="color:var(--text-muted);font-size:0.8rem;">[TAG não definida]</span> ${isOwn || (isHighAuthority(viewer.nick) && !isTargetFounder) ? `<button class="btn btn-red btn-sm" onclick="promptSetTag('${target.nick}')">Criar TAG</button>` : ""}`;
 
       const statusColors = {
         "Ativo": "badge-approved",
@@ -2143,16 +2244,17 @@
             <div class="profile-circle-frame">
               <img src="${habboFullUrl(target.nick)}" alt="${target.nick}" />
             </div>
-            <div style="font-size:1.18rem;font-weight:900;">${target.nick} ${tagBlock}</div>
+            <div style="font-size:1.15rem;font-weight:900;">${target.nick} ${tagBlock}</div>
             <div class="rank-badge-red" style="margin-top:6px;">${target.rank}</div>
 
             <div style="margin-top:10px;background:var(--bg-card);border:1px solid var(--border-subtle);padding:7px 11px;border-radius:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
-              <code style="font-size:0.8rem;color:var(--text-main);">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
+              <code style="font-size:0.79rem;color:var(--text-main);">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
               <button class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">📋 Copiar</button>
             </div>
 
-            <div style="margin-top:9px;">
+            <div style="margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
               <span class="badge ${statusColors[target.status] || "badge-pending"}">Estado: ${target.status}</span>
+              ${isTargetFounder ? `<span class="badge badge-approved">🛡️ Conta Blindada (Fundador)</span>` : ""}
             </div>
 
             ${userOrgs.length ? `
@@ -2161,7 +2263,7 @@
                   const m = o.members.find(x => x.nick.toLowerCase() === target.nick.toLowerCase());
                   return `
                     <div class="org-badge-card">
-                      <span style="font-size:1.2rem;">${o.icon}</span>
+                      <span style="font-size:1.15rem;">${o.icon}</span>
                       <span style="font-size:0.7rem;font-weight:800;margin-top:2px;">${o.id}</span>
                       <span style="font-size:0.62rem;color:var(--text-muted);">${m?.role || ""}</span>
                     </div>
@@ -2200,18 +2302,31 @@
     };
 
     window.toggleAccountStatus = async function(nick, status) {
+      if (isFounderNick(nick)) {
+        return showToast("A conta do Fundador (A-Twink) é blindada e não pode ser alterada ou desativada.", true);
+      }
       const u = getUser(nick);
       if (!u) return;
       u.status = status;
-      if (await saveState()) showToast(`Estado de ${u.nick} alterado para ${status}.`);
+      if (await saveState()) {
+        showToast(`Estado de ${u.nick} alterado para ${status}.`);
+        renderCurrentView();
+      }
     };
 
     window.deleteAccount = async function(nick) {
+      if (isFounderNick(nick)) {
+        return showToast("Não é possível excluir a conta do Fundador (A-Twink), nem mesmo por admins.", true);
+      }
       if (!confirm(`Tem a certeza de que pretende apagar permanentemente a conta de ${nick}?`)) return;
       delete state.users[nick.toLowerCase()];
       if (await saveState()) {
         showToast(`Conta de ${nick} apagada.`);
-        navigate("home");
+        if (currentRoute === "profile" && selectedProfileNick.toLowerCase() === nick.toLowerCase()) {
+          navigate("home");
+        } else {
+          renderCurrentView();
+        }
       }
     };
 
@@ -2311,12 +2426,20 @@
             </select>
           </div>
 
-          <div class="form-group">
+          <div class="form-group nick-match-wrap">
             <label class="form-label">Militar Envolvido</label>
             <div style="display:flex;align-items:center;gap:10px;">
               <img id="req-target-head" src="${habboHeadUrl("")}" style="width:38px;height:38px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
-              <input id="req-target" class="form-control" placeholder="Digite o nick do militar..." oninput="onReqTargetChange(this.value, '${type}')" />
+              <input
+                id="req-target"
+                class="form-control"
+                placeholder="Digite o nick do militar..."
+                oninput="onReqTargetChange(this.value, '${type}')"
+                onfocus="showNickSuggestions('req-target', 'req-target-suggestions', this.value)"
+                onblur="setTimeout(() => hideNickSuggestions('req-target-suggestions'), 150)"
+              />
             </div>
+            <div id="req-target-suggestions" class="nick-suggestions-box"></div>
             <div id="req-target-info" style="font-size:0.74rem;color:var(--text-muted);margin-top:4px;"></div>
           </div>
 
@@ -2385,24 +2508,40 @@
 
     window.onReqTargetChange = function(val, type) {
       const nick = val.trim();
-      document.getElementById("req-target-head").src = habboHeadUrl(nick);
+      const headEl = document.getElementById("req-target-head");
+      if (headEl) headEl.src = habboHeadUrl(nick);
+
+      const box = document.getElementById("req-target-suggestions");
+      if (box) {
+        if (nick) {
+          const matches = getCloseNickMatches(nick, 6);
+          box.innerHTML = renderNickSuggestionsHtml("req-target", matches);
+          box.classList.add("open");
+        } else {
+          box.classList.remove("open");
+        }
+      }
+
       const target = getUser(nick);
       const info = document.getElementById("req-target-info");
       const rankSel = document.getElementById("req-new-rank");
 
-      if (target) {
-        info.textContent = `Registado: ${target.nick} • Patente atual: ${target.rank} (${target.status})`;
-        const idx = HIERARCHY_ORDER.indexOf(target.rank);
-        if (rankSel && idx !== -1) {
-          if (type === "Promoção" && idx + 1 < HIERARCHY_ORDER.length) rankSel.value = HIERARCHY_ORDER[idx + 1];
-          if (type === "Rebaixamento" && idx - 1 >= 1) rankSel.value = HIERARCHY_ORDER[idx - 1];
+      if (info) {
+        if (target) {
+          const founderNote = isFounderNick(target.nick) ? " • Conta do Fundador (apenas o próprio pode postar)" : "";
+          info.textContent = `Registado: ${target.nick} • Patente atual: ${target.rank} (${target.status})${founderNote}`;
+          const idx = HIERARCHY_ORDER.indexOf(target.rank);
+          if (rankSel && idx !== -1) {
+            if (type === "Promoção" && idx + 1 < HIERARCHY_ORDER.length) rankSel.value = HIERARCHY_ORDER[idx + 1];
+            if (type === "Rebaixamento" && idx - 1 >= 1) rankSel.value = HIERARCHY_ORDER[idx - 1];
+          }
+        } else if (nick) {
+          info.textContent = (type === "Contrato" || type === "Venda")
+            ? "Militar ainda não registado — será criado automaticamente ao publicar."
+            : "Militar não encontrado no system.";
+        } else {
+          info.textContent = "";
         }
-      } else if (nick) {
-        info.textContent = (type === "Contrato" || type === "Venda")
-          ? "Militar ainda não registado — será criado automaticamente ao publicar."
-          : "Militar não encontrado no system.";
-      } else {
-        info.textContent = "";
       }
     };
 
@@ -2468,6 +2607,9 @@
       const exoEndDate = type === "Exoneração" ? (document.getElementById("req-end-date")?.value || "") : "";
 
       if (!targetNick || !obs) return showToast("Preencha o militar envolvido e as observações.", true);
+      if (isFounderNick(targetNick) && !isFounderNick(author.nick)) {
+        return showToast("Apenas o próprio Fundador (A-Twink) pode postar requerimentos no próprio perfil.", true);
+      }
       if (type === "Exoneração" && exoMode === "temporaria" && !exoEndDate) {
         return showToast("Informe a data de vencimento da exoneração temporária.", true);
       }
@@ -2487,6 +2629,7 @@
             isAdmin: false,
             ip: "",
             ipsRecorded: [],
+            lastLogin: "Sem registo",
             lastPromoLine: `${targetNick} [${tag}] ${shortDate}`,
             history: []
           };
@@ -2562,20 +2705,20 @@
         : "badge-pending";
 
       return `
-        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:13px;padding:12px;margin-bottom:9px;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:12px;margin-bottom:9px;">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px;">
-            <strong style="font-size:0.88rem;">${r.type} → ${r.target}</strong>
+            <strong style="font-size:0.87rem;">${r.type} → ${r.target}</strong>
             <span class="badge ${badgeClass}">${r.status}</span>
           </div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:5px;">
+          <div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:5px;">
             Publicado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
           </div>
-          ${r.newRank ? `<div style="font-size:0.8rem;margin-bottom:3px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
-          ${r.saleValue ? `<div style="font-size:0.8rem;margin-bottom:3px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
-          ${r.type === "Exoneração" ? `<div style="font-size:0.8rem;margin-bottom:3px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
-          <div style="font-size:0.8rem;margin-bottom:5px;">Observações: ${r.obs}</div>
-          ${r.proofs ? `<div style="font-size:0.76rem;margin-bottom:5px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">🔗 Ver provas anexadas</a></div>` : ""}
-          ${r.reviewedBy ? `<div style="font-size:0.74rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
+          ${r.newRank ? `<div style="font-size:0.79rem;margin-bottom:3px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
+          ${r.saleValue ? `<div style="font-size:0.79rem;margin-bottom:3px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
+          ${r.type === "Exoneração" ? `<div style="font-size:0.79rem;margin-bottom:3px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
+          <div style="font-size:0.79rem;margin-bottom:5px;">Observações: ${r.obs}</div>
+          ${r.proofs ? `<div style="font-size:0.75rem;margin-bottom:5px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">🔗 Ver provas anexadas</a></div>` : ""}
+          ${r.reviewedBy ? `<div style="font-size:0.73rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
 
           ${showDrhActions ? `
             <div style="margin-top:9px;padding-top:8px;border-top:1px solid var(--border-subtle);">
@@ -2605,10 +2748,10 @@
             <button class="btn btn-red btn-sm" onclick="openReqForm('Promoção')">+ Novo</button>
           </div>
 
-          <div style="font-size:0.8rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (${pending.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (${pending.length})</div>
           ${pending.length ? pending.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente de momento.</p>'}
 
-          <div style="font-size:0.8rem;font-weight:800;color:var(--text-muted);margin:14px 0 8px;">✅ REQUERIMENTOS ATUALIZADOS (${reviewed.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text-muted);margin:14px 0 8px;">✅ REQUERIMENTOS ATUALIZADOS (${reviewed.length})</div>
           ${reviewed.length ? reviewed.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento atualizado ainda.</p>'}
         </div>
       `;
@@ -2631,17 +2774,17 @@
             `).join("")}
           </div>
 
-          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:0.84rem;">
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:10px 12px;margin-bottom:12px;font-size:0.83rem;">
             <strong>${mod}</strong> → Pendentes (${pendingMod.length})
           </div>
 
-          <div style="font-size:0.8rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ PENDENTES — ${mod.toUpperCase()} (${pendingMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ PENDENTES — ${mod.toUpperCase()} (${pendingMod.length})</div>
           ${pendingMod.length ? pendingMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente nesta modalidade.</p>'}
 
-          <div style="font-size:0.8rem;font-weight:800;color:#16a34a;margin:14px 0 8px;">✅ APROVADOS — ${mod.toUpperCase()} (${approvedMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:#16a34a;margin:14px 0 8px;">✅ APROVADOS — ${mod.toUpperCase()} (${approvedMod.length})</div>
           ${approvedMod.length ? approvedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento aprovado nesta modalidade.</p>'}
 
-          <div style="font-size:0.8rem;font-weight:800;color:#dc2626;margin:14px 0 8px;">✕ REPROVADOS — ${mod.toUpperCase()} (${rejectedMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:#dc2626;margin:14px 0 8px;">✕ REPROVADOS — ${mod.toUpperCase()} (${rejectedMod.length})</div>
           ${rejectedMod.length ? rejectedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento reprovado nesta modalidade.</p>'}
         </div>
       `;
@@ -2662,6 +2805,10 @@
         return showToast("Preencha a observação do DRH para justificar a decisão.", true);
       }
 
+      if (isFounderNick(req.target) && !isFounderNick(reviewer.nick)) {
+        return showToast("Requerimentos do Fundador só podem ser decididos pelo próprio Fundador.", true);
+      }
+
       req.status = newStatus;
       req.reviewedBy = reviewer.nick;
       req.reviewedAt = formatDateTime();
@@ -2679,15 +2826,15 @@
             histItem.obs = `${histItem.obs || ""}\nObservação do DRH: ${note}`.trim();
           }
           if (newStatus === "Aprovado") {
-            if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
+            if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type) && !isFounderNick(target.nick)) {
               target.rank = req.newRank;
               target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
             }
-            if (req.type === "Demissão") {
+            if (req.type === "Demissão" && !isFounderNick(target.nick)) {
               target.rank = "Recruta";
               target.status = "Demitido";
             }
-            if (req.type === "Exoneração") {
+            if (req.type === "Exoneração" && !isFounderNick(target.nick)) {
               target.rank = "Recruta";
               target.status = "Exonerado";
             }
@@ -2747,9 +2894,17 @@
               <option value="Curso Introdutório Militar (CIM)">Curso Introdutório Militar (CIM)</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group nick-match-wrap">
             <label class="form-label">Nick do Aluno (Habbo)</label>
-            <input id="class-student" class="form-control" placeholder="Digite o nick exato do aluno..." />
+            <input
+              id="class-student"
+              class="form-control"
+              placeholder="Digite o nick exato do aluno..."
+              oninput="showNickSuggestions('class-student', 'class-student-suggestions', this.value)"
+              onfocus="showNickSuggestions('class-student', 'class-student-suggestions', this.value)"
+              onblur="setTimeout(() => hideNickSuggestions('class-student-suggestions'), 150)"
+            />
+            <div id="class-student-suggestions" class="nick-suggestions-box"></div>
           </div>
           <div class="form-group">
             <label class="form-label">Resultado</label>
@@ -2795,10 +2950,11 @@
             isAdmin: false,
             ip: "",
             ipsRecorded: [],
+            lastLogin: "Sem registo",
             lastPromoLine: `${studentNick} [${tag}] ${shortDate}`,
             history: []
           };
-        } else if (state.users[key].status === "Demitido") {
+        } else if (state.users[key].status === "Demitido" && !isFounderNick(studentNick)) {
           state.users[key].status = "Desativado";
         }
         state.users[key].history.unshift({
@@ -2935,15 +3091,24 @@
               <button class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
             </div>
 
-            <div class="form-group">
+            <div class="form-group nick-match-wrap">
               <label class="form-label">Adicionar ou Alterar Função de Membro</label>
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <input id="org-add-nick-page" class="form-control" placeholder="Nick do militar..." style="flex:1;min-width:140px;" />
+                <input
+                  id="org-add-nick-page"
+                  class="form-control"
+                  placeholder="Nick do militar..."
+                  style="flex:1;min-width:140px;"
+                  oninput="showNickSuggestions('org-add-nick-page', 'org-add-nick-suggestions', this.value)"
+                  onfocus="showNickSuggestions('org-add-nick-page', 'org-add-nick-suggestions', this.value)"
+                  onblur="setTimeout(() => hideNickSuggestions('org-add-nick-suggestions'), 150)"
+                />
                 <select id="org-add-role-page" class="form-select" style="width:auto;">
                   ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
                 </select>
                 <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRolePage(${idx})">Guardar Membro</button>
               </div>
+              <div id="org-add-nick-suggestions" class="nick-suggestions-box"></div>
             </div>
 
             <div class="form-label" style="margin-top:12px;">Membros Atuais</div>
@@ -3060,7 +3225,7 @@
       const allUsers = Object.values(state.users);
 
       if (cat.key === "exonerados") {
-        const exoneratedUsers = allUsers.filter(u => u.status === "Exonerado");
+        const exoneratedUsers = allUsers.filter(u => u.status === "Exonerado" && !isFounderNick(u.nick));
         const exoHtml = exoneratedUsers.length ? exoneratedUsers.map(u => {
           const lastExoReq = state.requirements.find(
             r => r.type === "Exoneração" && r.target.toLowerCase() === u.nick.toLowerCase() && r.status === "Aprovado"
@@ -3102,7 +3267,7 @@
       const rankBlocksHtml = cat.ranks
         .filter(r => r !== "Recruta")
         .map(rankName => {
-          const members = allUsers.filter(u => u.rank === rankName && u.status !== "Exonerado");
+          const members = allUsers.filter(u => u.rank === rankName && (u.status !== "Exonerado" || isFounderNick(u.nick)));
           if (!members.length) return "";
           return `
             <div style="margin-bottom:14px;">
@@ -3151,7 +3316,7 @@
       const pendingUsers = allUsers.filter(u => u.status === "Pendente");
       const exoneratedIps = new Set(
         allUsers
-          .filter(u => u.status === "Exonerado")
+          .filter(u => u.status === "Exonerado" && !isFounderNick(u.nick))
           .flatMap(u => [u.ip, ...(u.ipsRecorded || [])])
           .filter(Boolean)
       );
@@ -3170,9 +3335,71 @@
       const differentIpUsers = allUsers.filter(u => Array.isArray(u.ipsRecorded) && u.ipsRecorded.length > 1);
       const sharedIpEntries = Object.entries(ipToUsers).filter(([, list]) => list.length > 1);
 
+      const filteredMilitares = siSearchQuery.trim()
+        ? getCloseNickMatches(siSearchQuery, 12)
+        : allUsers;
+
+      const statusOptions = ["Ativo", "Desativado", "Pendente", "Demitido", "Exonerado"];
+
       container.innerHTML = `
         <div class="card-box">
           <div class="section-title">🕵️ Painel do SI</div>
+
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:14px;padding:13px;margin-bottom:16px;">
+            <div style="font-size:0.88rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">📋 Cadastros e Status</div>
+
+            <div class="form-group nick-match-wrap" style="margin-bottom:10px;">
+              <label class="form-label">Pesquisar Militar (com correspondências próximas)</label>
+              <input
+                id="si-cadastros-search"
+                class="form-control"
+                value="${siSearchQuery}"
+                placeholder="Digite o nick do militar..."
+                oninput="onSiCadastrosSearch(this.value)"
+                onfocus="showNickSuggestions('si-cadastros-search', 'si-cadastros-suggestions', this.value, 'onSiCadastrosSearch(\'__NICK__\')')"
+                onblur="setTimeout(() => hideNickSuggestions('si-cadastros-suggestions'), 150)"
+              />
+              <div id="si-cadastros-suggestions" class="nick-suggestions-box"></div>
+            </div>
+
+            ${filteredMilitares.length ? filteredMilitares.map((m, idx) => {
+              const mIps = Array.isArray(m.ipsRecorded) && m.ipsRecorded.length ? m.ipsRecorded.join(" • ") : (m.ip || "Sem IP");
+              const mLastLogin = m.lastLogin || "Sem registo";
+              const protectedFounder = isFounderNick(m.nick);
+
+              return `
+                <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+                    <div style="display:flex;align-items:center;gap:9px;">
+                      <img src="${habboHeadUrl(m.nick)}" style="width:34px;height:34px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
+                      <div>
+                        <div style="font-weight:800;font-size:0.86rem;">${m.nick} ${m.tag ? `[${m.tag}]` : ""} ${protectedFounder ? `<span class="badge badge-approved">Blindado</span>` : ""}</div>
+                        <div style="font-size:0.72rem;color:var(--text-muted);">${m.rank} • Status atual: <strong>${m.status}</strong></div>
+                      </div>
+                    </div>
+                    <button class="btn btn-dark btn-sm" onclick="openUserProfile('${m.nick.replace(/'/g, "\\'")}')">🪪 Ver Perfil</button>
+                  </div>
+
+                  <div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:8px;line-height:1.45;">
+                    <div><strong>IP / Histórico IPs:</strong> ${mIps}</div>
+                    <div><strong>Último login:</strong> ${mLastLogin}</div>
+                  </div>
+
+                  ${protectedFounder ? `
+                    <div style="font-size:0.73rem;color:var(--red-bright);font-weight:700;">🛡️ Conta protegida do Fundador: status e exclusão bloqueados.</div>
+                  ` : `
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                      <select id="si-status-sel-${idx}" class="form-select" style="width:auto;padding:5px 9px;font-size:0.76rem;">
+                        ${statusOptions.map(st => `<option value="${st}" ${m.status === st ? "selected" : ""}>${st}</option>`).join("")}
+                      </select>
+                      <button class="btn btn-green btn-sm" onclick="siApplyStatus('${m.nick.replace(/'/g, "\\'")}', 'si-status-sel-${idx}')">Alterar Status</button>
+                      <button class="btn btn-red btn-sm" onclick="deleteAccount('${m.nick.replace(/'/g, "\\'")}')">Apagar Conta</button>
+                    </div>
+                  `}
+                </div>
+              `;
+            }).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhum militar encontrado.</p>'}
+          </div>
 
           <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">Utilizadores pendentes (${pendingUsers.length})</div>
           ${pendingUsers.length ? pendingUsers.map(u => {
@@ -3182,7 +3409,7 @@
               <div style="background:var(--bg-elevated);border:1px solid ${matchesExonerated ? "var(--border-red)" : "var(--border-subtle)"};border-radius:12px;padding:11px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div>
                   <strong>${u.nick}</strong>
-                  <span style="font-size:0.76rem;color:var(--text-muted);">— IP: ${userIps.join(", ") || "N/D"}</span>
+                  <span style="font-size:0.76rem;color:var(--text-muted);">— IP: ${userIps.join(", ") || "N/D"} • Último login: ${u.lastLogin || "Sem registo"}</span>
                   ${matchesExonerated
                     ? `<div style="margin-top:4px;"><span class="badge badge-rejected">IP IGUAL AO DE EXONERADO</span></div>`
                     : `<div style="font-size:0.72rem;color:#16a34a;margin-top:3px;">Sem vínculo com IP de exonerado</div>`}
@@ -3212,6 +3439,25 @@
         </div>
       `;
     }
+
+    window.onSiCadastrosSearch = function(val) {
+      siSearchQuery = val || "";
+      renderCurrentView();
+      const input = document.getElementById("si-cadastros-search");
+      if (input) {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    };
+
+    window.siApplyStatus = async function(nick, selectId) {
+      if (isFounderNick(nick)) {
+        return showToast("A conta do Fundador (A-Twink) não pode ter seu status alterado.", true);
+      }
+      const sel = document.getElementById(selectId);
+      const newStatus = sel ? sel.value : "Ativo";
+      await toggleAccountStatus(nick, newStatus);
+    };
 
     function renderAdminPanel(container) {
       const allUsers = Object.values(state.users);
@@ -3263,6 +3509,9 @@
     window.adminChangeRank = async function() {
       const nick = document.getElementById("adm-user-sel").value;
       const rank = document.getElementById("adm-rank-sel").value;
+      if (isFounderNick(nick) && rank !== "Fundador") {
+        return showToast("A patente do Fundador (A-Twink) é fixa.", true);
+      }
       const u = getUser(nick);
       if (u) {
         u.rank = rank;
