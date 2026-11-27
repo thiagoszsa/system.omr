@@ -52,13 +52,54 @@
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
-      transition: background 0.22s ease, color 0.22s ease;
+      transition: background 0.28s ease, color 0.28s ease;
+    }
+
+    @keyframes viewFadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes drawerFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .view-animate {
+      animation: viewFadeSlide 0.26s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .pixel-logo {
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       object-fit: contain;
+    }
+
+    .ui-icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .ui-icon-sm {
+      width: 14px;
+      height: 14px;
+    }
+
+    .ui-icon-lg {
+      width: 20px;
+      height: 20px;
     }
 
     ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -75,6 +116,7 @@
       background:
         radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.18), transparent 55%),
         var(--bg-dark);
+      transition: background 0.28s ease;
     }
 
     .auth-card {
@@ -85,6 +127,7 @@
       border-radius: 16px;
       padding: 20px 16px;
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      animation: viewFadeSlide 0.3s ease;
     }
 
     .auth-header {
@@ -118,6 +161,7 @@
       border: 1px solid var(--border-subtle);
       padding: 3px 8px;
       border-radius: 99px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     .auth-tabs {
@@ -140,7 +184,10 @@
       padding: 8px;
       border-radius: 8px;
       cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
     }
+
+    .auth-tab:active { transform: scale(0.98); }
 
     .auth-tab.active {
       background: var(--red-primary);
@@ -156,6 +203,7 @@
       border-radius: 12px;
       padding: 10px 12px;
       margin-bottom: 12px;
+      transition: border-color 0.2s ease;
     }
 
     .habbo-head-frame {
@@ -176,6 +224,7 @@
       height: 50px;
       object-fit: cover;
       transform: translateY(3px);
+      transition: transform 0.2s ease;
     }
 
     .motto-box {
@@ -185,6 +234,7 @@
       padding: 12px;
       margin-top: 10px;
       text-align: center;
+      animation: viewFadeSlide 0.22s ease;
     }
 
     .motto-code {
@@ -213,6 +263,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .topbar-left {
@@ -235,7 +286,11 @@
       gap: 4px;
       cursor: pointer;
       flex-shrink: 0;
+      transition: transform 0.16s ease, border-color 0.2s ease, background 0.2s ease;
     }
+
+    .hamburger-btn:hover { border-color: var(--border-red); background: rgba(220, 38, 38, 0.08); }
+    .hamburger-btn:active { transform: scale(0.94); }
 
     .hamburger-btn span {
       width: 17px;
@@ -249,7 +304,10 @@
       align-items: center;
       gap: 8px;
       min-width: 0;
+      transition: opacity 0.18s ease;
     }
+
+    .brand-title:hover { opacity: 0.9; }
 
     .brand-text-wrap {
       display: flex;
@@ -293,8 +351,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.9rem;
+      transition: transform 0.16s ease, border-color 0.2s ease, background 0.2s ease;
     }
+
+    .icon-action-btn:hover { border-color: var(--border-red); background: rgba(220, 38, 38, 0.08); }
+    .icon-action-btn:active { transform: scale(0.94); }
 
     .profile-pill-btn {
       display: flex;
@@ -306,7 +367,15 @@
       padding: 4px 10px 4px 7px;
       color: var(--text-main);
       cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
+
+    .profile-pill-btn:hover {
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.18);
+      background: rgba(220, 38, 38, 0.07);
+    }
+
+    .profile-pill-btn:active { transform: scale(0.97); }
 
     .profile-pill-info {
       text-align: right;
@@ -354,6 +423,7 @@
       background: rgba(0, 0, 0, 0.65);
       z-index: 60;
       display: none;
+      animation: drawerFade 0.2s ease;
     }
 
     .drawer-backdrop.open { display: block; }
@@ -367,7 +437,7 @@
       background: var(--bg-panel);
       border-right: 1px solid var(--border-red);
       z-index: 70;
-      transition: left 0.22s ease;
+      transition: left 0.26s cubic-bezier(0.22, 1, 0.36, 1);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -391,12 +461,21 @@
       cursor: pointer;
       text-align: left;
       margin-bottom: 2px;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+    }
+
+    .nav-item-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
     }
 
     .nav-item:hover, .nav-item.active {
       background: rgba(220, 38, 38, 0.14);
       color: var(--red-bright);
     }
+
+    .nav-item:active { transform: scale(0.985); }
 
     .nav-sublist {
       padding-left: 12px;
@@ -405,7 +484,10 @@
       display: none;
     }
 
-    .nav-sublist.open { display: block; }
+    .nav-sublist.open {
+      display: block;
+      animation: viewFadeSlide 0.2s ease;
+    }
 
     .nav-subitem {
       width: 100%;
@@ -418,16 +500,20 @@
       font-weight: 500;
       text-align: left;
       cursor: pointer;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: color 0.16s ease, background 0.16s ease, transform 0.14s ease;
     }
 
     .nav-subitem:hover {
       color: var(--red-bright);
       background: rgba(220, 38, 38, 0.08);
+      transform: translateX(2px);
     }
 
     .main-wrap {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 14px 12px calc(86px + var(--safe-bottom));
     }
@@ -440,7 +526,10 @@
       padding: 16px 14px;
       overflow: hidden;
       margin-bottom: 12px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
+
+    .hero-card:hover { box-shadow: 0 10px 28px rgba(220, 38, 38, 0.1); }
 
     .hero-watermark {
       position: absolute;
@@ -498,7 +587,10 @@
     .hero-full-avatar {
       height: 118px;
       object-fit: contain;
+      transition: transform 0.25s ease;
     }
+
+    .hero-full-avatar:hover { transform: translateY(-2px); }
 
     .rank-badge-red {
       background: var(--red-primary);
@@ -524,7 +616,10 @@
       align-items: center;
       gap: 10px;
       position: relative;
+      transition: border-color 0.2s ease;
     }
+
+    .search-box-card:focus-within { border-color: var(--border-red); }
 
     .search-label {
       font-size: 0.7rem;
@@ -543,6 +638,7 @@
       color: var(--text-main);
       font-size: 0.86rem;
       outline: none;
+      transition: border-color 0.2s ease;
     }
 
     .search-input:focus { border-color: var(--red-primary); }
@@ -562,6 +658,7 @@
       overflow-y: auto;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
       display: none;
+      animation: viewFadeSlide 0.16s ease;
     }
 
     .nick-suggestions-box.open { display: block; }
@@ -574,6 +671,7 @@
       padding: 8px 11px;
       cursor: pointer;
       border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.15s ease;
     }
 
     .nick-suggestion-item:last-child { border-bottom: none; }
@@ -595,6 +693,7 @@
       border-radius: 15px;
       padding: 14px;
       margin-bottom: 12px;
+      transition: border-color 0.22s ease, background 0.25s ease;
     }
 
     .insta-frame {
@@ -633,6 +732,12 @@
       flex-wrap: wrap;
     }
 
+    .section-title-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .form-group { margin-bottom: 12px; }
 
     .form-label {
@@ -654,10 +759,12 @@
       color: var(--text-main);
       font-size: 0.86rem;
       outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .form-control:focus, .form-select:focus, .form-textarea:focus {
       border-color: var(--red-primary);
+      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.14);
     }
 
     .form-control[readonly] {
@@ -676,13 +783,20 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: transform 0.15s ease, background 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97) translateY(0); }
+
     .btn-red { background: var(--red-primary); color: #fff; }
-    .btn-red:hover { background: var(--red-bright); }
+    .btn-red:hover { background: var(--red-bright); box-shadow: 0 4px 14px rgba(220, 38, 38, 0.28); }
     .btn-dark { background: var(--bg-elevated); color: var(--text-main); border: 1px solid var(--border-subtle); }
+    .btn-dark:hover { border-color: var(--border-red); }
     .btn-green { background: #15803d; color: #fff; }
+    .btn-green:hover { background: #16a34a; }
     .btn-amber { background: #b45309; color: #fff; }
+    .btn-amber:hover { background: #d97706; }
     .btn-sm { padding: 5px 9px; font-size: 0.74rem; border-radius: 8px; }
 
     .badge {
@@ -744,22 +858,50 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      padding: 7px 10px;
+      padding: 8px 11px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 72px;
+      min-width: 78px;
+      transition: transform 0.18s ease, border-color 0.2s ease;
+    }
+
+    .org-badge-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-red);
+    }
+
+    .emblem-img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .emblem-img-lg {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 9px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-red);
+      padding: 4px;
+      flex-shrink: 0;
     }
 
     .history-item {
       background: var(--bg-elevated);
       border-left: 3px solid var(--red-primary);
       border-radius: 10px;
-      padding: 11px 13px;
-      margin-bottom: 8px;
+      padding: 13px 15px;
+      margin-bottom: 11px;
       font-size: 0.85rem;
-      line-height: 1.5;
+      line-height: 1.65;
+      transition: transform 0.18s ease, border-color 0.2s ease;
     }
+
+    .history-item:hover { transform: translateX(2px); }
 
     .hist-header-row {
       display: flex;
@@ -767,7 +909,7 @@
       justify-content: space-between;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     .hist-author-wrap {
@@ -791,7 +933,20 @@
     .hist-modality-highlight { font-size: 1.02rem; font-weight: 900; }
     .hist-modality-pos { color: #16a34a; }
     .hist-modality-neg { color: #dc2626; }
-    .hist-obs-normal { font-size: 0.85rem; font-weight: 400; color: var(--text-main); margin-top: 4px; white-space: pre-line; }
+
+    .hist-lines-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .hist-line-row {
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
 
     .catalog-strip {
       display: flex;
@@ -805,12 +960,18 @@
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
+      padding: 11px 13px;
+      margin-bottom: 9px;
       display: flex;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
+      transition: border-color 0.2s ease, transform 0.18s ease;
+    }
+
+    .listing-card:hover {
+      border-color: var(--border-red);
+      transform: translateY(-1px);
     }
 
     .listing-choice-btn {
@@ -821,6 +982,67 @@
       margin-bottom: 8px;
       font-size: 0.86rem;
     }
+
+    .org-header-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-red);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .org-subnav-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .org-tab-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+    }
+
+    .org-tab-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-red);
+    }
+
+    .org-tab-btn.active {
+      background: var(--red-primary);
+      color: #fff;
+      border-color: var(--red-primary);
+    }
+
+    .rank-list-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 11px;
+      padding: 9px 12px;
+      margin-bottom: 7px;
+      transition: border-color 0.18s ease;
+    }
+
+    .rank-list-row:hover { border-color: var(--border-red); }
 
     .si-table-wrap {
       width: 100%;
@@ -875,6 +1097,7 @@
       display: none;
       max-width: 92vw;
       text-align: center;
+      animation: viewFadeSlide 0.2s ease;
     }
 
     .toast-banner.error {
@@ -904,13 +1127,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
+      gap: 3px;
       font-size: 0.65rem;
       font-weight: 700;
       padding: 6px 4px;
       border-radius: 9px;
       cursor: pointer;
+      transition: color 0.18s ease, background 0.18s ease, transform 0.15s ease;
     }
+
+    .bottom-nav-btn:active { transform: scale(0.95); }
 
     .bottom-nav-btn.active {
       color: var(--red-bright);
@@ -1027,7 +1253,7 @@
       </div>
 
       <div class="topbar-right">
-        <button type="button" class="icon-action-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Alternar Tema Claro/Escuro">☀️</button>
+        <button type="button" class="icon-action-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Alternar Tema Claro/Escuro"></button>
         <button type="button" class="profile-pill-btn" onclick="openMyProfile()" title="Abrir Meu Perfil">
           <div class="profile-pill-info">
             <div class="profile-pill-label">Meu Perfil</div>
@@ -1051,66 +1277,94 @@
             <span class="brand-main">RENASCENTE</span>
           </div>
         </div>
-        <button type="button" class="btn btn-dark btn-sm" onclick="toggleDrawer(false)">✕</button>
+        <button type="button" class="btn btn-dark btn-sm" onclick="toggleDrawer(false)">
+          <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
 
-      <button type="button" class="nav-item" onclick="navigate('home')">🏠 Início</button>
-      <button type="button" class="nav-item" onclick="openMyProfile()">🪪 Meu Perfil</button>
+      <button type="button" class="nav-item" onclick="navigate('home')">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/></svg>Início</span>
+      </button>
+
+      <button type="button" class="nav-item" onclick="openMyProfile()">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11.5" r="2"/><path d="M6.5 16c.8-1.3 4.2-1.3 5 0M14 10h4M14 14h3"/></svg>Meu Perfil</span>
+      </button>
 
       <button type="button" class="nav-item" onclick="toggleSubmenu('sub-req')">
-        <span>📋 Requerimentos</span>
-        <span>▾</span>
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Requerimentos</span>
+        <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div id="sub-req" class="nav-sublist open">
-        <button type="button" class="nav-subitem" onclick="openReqForm('Promoção')">• Promoção</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Rebaixamento')">• Rebaixamento</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Advertência')">• Advertência</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Notificação')">• Notificação</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Demissão')">• Demissão</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Exoneração')">• Exoneração</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Licença')">• Licença</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Contrato')">• Contrato</button>
-        <button type="button" class="nav-subitem" onclick="openReqForm('Venda')">• Venda</button>
-        <button type="button" class="nav-subitem" onclick="navigate('req-list')">📑 Lista de Requerimentos</button>
-        <button type="button" id="nav-drh-panel" class="nav-subitem" style="color:var(--red-bright);font-weight:700;" onclick="navigate('drh-panel')">⚖️ Painel do DRH</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Promoção')">Promoção</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Rebaixamento')">Rebaixamento</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Advertência')">Advertência</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Notificação')">Notificação</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Demissão')">Demissão</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Exoneração')">Exoneração</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Licença')">Licença</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Contrato')">Contrato</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Venda')">Venda</button>
+        <button type="button" id="nav-drh-panel" class="nav-subitem" style="color:var(--red-bright);font-weight:700;" onclick="navigate('drh-panel')">
+          <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-3 7 3M5 8l-2 5h4l-2-5zm14 0l-2 5h4l-2-5zM8 21h8"/></svg>Painel do DRH
+        </button>
       </div>
 
-      <button type="button" class="nav-item" onclick="navigate('classes')">🎓 Postar Aulas (CIM)</button>
+      <button type="button" class="nav-item" onclick="navigate('classes')">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M22 9L12 5 2 9l10 4 10-4z"/><path d="M6 11.5V16c0 1.8 2.7 3 6 3s6-1.2 6-3v-4.5"/></svg>Postar Aulas (CIM)</span>
+      </button>
 
       <button type="button" class="nav-item" onclick="toggleSubmenu('sub-docs')">
-        <span>📚 Documentos</span>
-        <span>▾</span>
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Documentos</span>
+        <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div id="sub-docs" class="nav-sublist">
-        <button type="button" class="nav-subitem" onclick="openDoc('RGM')">• Regimento Geral Militar (RGM)</button>
-        <button type="button" class="nav-subitem" onclick="openDoc('RDM')">• Regulamento Disciplinar Militar (RDM)</button>
-        <button type="button" class="nav-subitem" onclick="openDoc('IDI')">• Instrução de Defesa Institucional (IDI)</button>
+        <button type="button" class="nav-subitem" onclick="openDoc('RGM')">Regimento Geral Militar (RGM)</button>
+        <button type="button" class="nav-subitem" onclick="openDoc('RDM')">Regulamento Disciplinar Militar (RDM)</button>
+        <button type="button" class="nav-subitem" onclick="openDoc('IDI')">Instrução de Defesa Institucional (IDI)</button>
       </div>
 
-      <button type="button" class="nav-item" onclick="navigate('roles')">🛡️ Funções</button>
-      <button type="button" class="nav-item" onclick="openListingsMenu()">📜 Listagem</button>
-      <button type="button" id="nav-si-panel" class="nav-item" onclick="navigate('si-panel')">🕵️ Painel do SI</button>
-      <button type="button" id="nav-admin-panel" class="nav-item" onclick="navigate('admin-panel')">⚙️ Painel do Admin</button>
+      <button type="button" class="nav-item" onclick="navigate('roles')">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 3l8 3.5v5.5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6.5L12 3z"/><circle cx="12" cy="11.5" r="2.2"/></svg>Funções</span>
+      </button>
+
+      <button type="button" class="nav-item" onclick="openListingsMenu()">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Listagem</span>
+      </button>
+
+      <button type="button" id="nav-si-panel" class="nav-item" onclick="navigate('si-panel')">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.2-4.2"/><path d="M9 11h4"/></svg>Painel do SI</span>
+      </button>
+
+      <button type="button" id="nav-admin-panel" class="nav-item" onclick="navigate('admin-panel')">
+        <span class="nav-item-left"><svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Painel do Admin</span>
+      </button>
 
       <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--border-subtle);">
-        <button type="button" class="btn btn-dark" style="width:100%;" onclick="logout()">🚪 Sair da Conta</button>
+        <button type="button" class="btn btn-dark" style="width:100%;" onclick="logout()">
+          <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Sair da Conta
+        </button>
       </div>
     </aside>
 
-    <main id="main-content" class="main-wrap"></main>
+    <main id="main-content" class="main-wrap view-animate"></main>
 
     <nav class="mobile-bottom-nav">
       <button type="button" class="bottom-nav-btn" id="bnav-home" onclick="navigate('home')">
-        <span>🏠</span><span>Início</span>
+        <svg class="ui-icon" viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/></svg>
+        <span>Início</span>
       </button>
-      <button type="button" class="bottom-nav-btn" id="bnav-req" onclick="navigate('req-list')">
-        <span>📋</span><span>Requerer</span>
+      <button type="button" class="bottom-nav-btn" id="bnav-req" onclick="navigate('drh-panel')">
+        <svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        <span>DRH</span>
       </button>
       <button type="button" class="bottom-nav-btn" id="bnav-profile" onclick="openMyProfile()">
-        <span>🪪</span><span>Perfil</span>
+        <svg class="ui-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11.5" r="2"/><path d="M6.5 16c.8-1.3 4.2-1.3 5 0M14 10h4M14 14h3"/></svg>
+        <span>Perfil</span>
       </button>
       <button type="button" class="bottom-nav-btn" onclick="toggleDrawer(true)">
-        <span>☰</span><span>Menu</span>
+        <svg class="ui-icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menu</span>
       </button>
     </nav>
   </div>
@@ -1184,6 +1438,32 @@
     const FOUNDER_NICK = "A-Twink";
     const FOUNDER_KEY = FOUNDER_NICK.toLowerCase();
 
+    const ICONS = {
+      sun: `<svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`,
+      moon: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`,
+      calendar: `<svg class="ui-icon ui-icon-lg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`,
+      megaphone: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M3 11l14-5v12L3 13v-2z"/><path d="M17 8.5a3.5 3.5 0 0 1 0 7"/><path d="M6 14l1.5 6h3l-1-5"/></svg>`,
+      camera: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+      clipboard: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>`,
+      scale: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-3 7 3M5 8l-2 5h4l-2-5zm14 0l-2 5h4l-2-5zM8 21h8"/></svg>`,
+      shield: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 3l8 3.5v5.5c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6.5L12 3z"/></svg>`,
+      book: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+      scroll: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>`,
+      search: `<svg class="ui-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.2-4.2"/></svg>`,
+      gear: `<svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+      copy: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,
+      trash: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></svg>`,
+      edit: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+      chevronRight: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>`,
+      chevronLeft: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>`,
+      check: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>`,
+      x: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>`,
+      ban: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>`,
+      code: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>`,
+      users: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+      forum: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
+    };
+
     const REQ_MODALITIES = [
       "Promoção",
       "Rebaixamento",
@@ -1214,7 +1494,7 @@
     const ORG_ROLES_CONFIG = {
       BAEP: {
         name: "Batalhão de Ações Especiais",
-        icon: "🦅",
+        emblem: "BAEP.png",
         roles: [
           { name: "ACS", isAdmin: true },
           { name: "Coordenador", isAdmin: true },
@@ -1223,7 +1503,7 @@
       },
       CITE: {
         name: "Comando de Intervenções Táticas Especiais",
-        icon: "🎯",
+        emblem: "CITE.png",
         roles: [
           { name: "ACS", isAdmin: true },
           { name: "Coordenador", isAdmin: true },
@@ -1232,7 +1512,7 @@
       },
       SI: {
         name: "Setor de Inteligência",
-        icon: "🕵️",
+        emblem: "SI.png",
         roles: [
           { name: "ACS", isAdmin: true },
           { name: "Coordenador", isAdmin: true },
@@ -1241,7 +1521,7 @@
       },
       COR: {
         name: "Corregedoria",
-        icon: "⚖️",
+        emblem: "COR.png",
         roles: [
           { name: "Presidente", isAdmin: true },
           { name: "Corregedor", isAdmin: false }
@@ -1249,7 +1529,7 @@
       },
       SCP: {
         name: "Suprema Corte Policial",
-        icon: "🏛️",
+        emblem: "SCP.png",
         roles: [
           { name: "Presidente", isAdmin: true },
           { name: "Ministro", isAdmin: false }
@@ -1257,7 +1537,7 @@
       },
       DRH: {
         name: "Departamento de Recursos Humanos",
-        icon: "📋",
+        emblem: "DRH.png",
         roles: [
           { name: "Líder", isAdmin: true },
           { name: "Vice-Líder", isAdmin: true },
@@ -1267,7 +1547,7 @@
       },
       ATT: {
         name: "Academia de Tutores",
-        icon: "🎓",
+        emblem: "ATT.png",
         roles: [
           { name: "Líder", isAdmin: true },
           { name: "Vice-Líder", isAdmin: true },
@@ -1278,22 +1558,61 @@
       },
       CDO: {
         name: "Corpo de Oficiais",
-        icon: "🎖️",
+        emblem: "CDO.png",
         roles: [
           { name: "Coordenador", isAdmin: true },
           { name: "Membro", isAdmin: false }
         ]
+      },
+      ACS: {
+        name: "Alto Comando Supremo",
+        emblem: "ACS.png",
+        roles: [
+          { name: "Fundador", isAdmin: true },
+          { name: "Supremo", isAdmin: true }
+        ]
       }
     };
 
+    function getMondayKey(dateInput = new Date()) {
+      const d = new Date(dateInput);
+      d.setHours(0, 0, 0, 0);
+      const day = d.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      d.setDate(d.getDate() + diff);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const da = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${da}`;
+    }
+
+    function formatWeekLabel(mondayKey) {
+      const [y, m, d] = mondayKey.split("-").map(Number);
+      const start = new Date(y, m - 1, d);
+      const end = new Date(y, m - 1, d + 6);
+      const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+      return `${String(start.getDate()).padStart(2, "0")} ${months[start.getMonth()]} — ${String(end.getDate()).padStart(2, "0")} ${months[end.getMonth()]} ${end.getFullYear()}`;
+    }
+
+    function shiftWeekKey(mondayKey, deltaWeeks) {
+      const [y, m, d] = mondayKey.split("-").map(Number);
+      const dt = new Date(y, m - 1, d + deltaWeeks * 7);
+      return getMondayKey(dt);
+    }
+
     function makeDefaultOrgs() {
+      const wk = getMondayKey();
       return Object.entries(ORG_ROLES_CONFIG).map(([id, cfg]) => ({
         id,
         name: cfg.name,
-        icon: cfg.icon,
+        emblem: cfg.emblem,
         members: id === "DRH" ? [{ nick: FOUNDER_NICK, role: cfg.roles[0].name }] : [],
         internalRegimento: `Regimento Interno — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
-        penalCode: `Código Penal — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`
+        penalCode: `Código Penal — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
+        extraDocs: [],
+        scripts: [],
+        forumPosts: [],
+        weeklyClasses: { [wk]: {} }
       }));
     }
 
@@ -1354,7 +1673,9 @@
     let currentDocKey = "RGM";
     let selectedListingCategory = "";
     let selectedRoleId = "";
-    let roleSubPage = "menu";
+    let orgActiveTab = "home";
+    let orgWeekKey = getMondayKey();
+    let editingScriptId = "";
     let pendingMottoCode = "";
     let dbSyncedOnce = false;
     let siSearchQuery = "";
@@ -1378,6 +1699,28 @@
 
     function isFounderNick(nick) {
       return (nick || "").trim().toLowerCase() === FOUNDER_KEY;
+    }
+
+    function isSupremeCommand(nick) {
+      if (!nick) return false;
+      if (isFounderNick(nick)) return true;
+      const u = getUser(nick);
+      if (!u) return false;
+      if (u.status === "Demitido" || u.status === "Exonerado" || u.status === "Desativado") return false;
+      return u.rank === "Fundador" || u.rank === "Supremo" || !!u.isAdmin;
+    }
+
+    function purgeUserFromAllRolesAndPermissions(nick) {
+      if (!nick || isFounderNick(nick)) return;
+      const lower = nick.trim().toLowerCase();
+      state.orgs = (state.orgs || []).map(o => ({
+        ...o,
+        members: (o.members || []).filter(m => m.nick.toLowerCase() !== lower)
+      }));
+      const u = getUser(nick);
+      if (u) {
+        u.isAdmin = false;
+      }
     }
 
     function ensureFounderIntegrity() {
@@ -1413,10 +1756,14 @@
         return {
           ...def,
           name: ORG_ROLES_CONFIG[def.id]?.name || found.name || def.name,
-          icon: ORG_ROLES_CONFIG[def.id]?.icon || found.icon || def.icon,
+          emblem: ORG_ROLES_CONFIG[def.id]?.emblem || found.emblem || def.emblem,
           members: normalizedMembers,
           internalRegimento: found.internalRegimento ?? def.internalRegimento,
-          penalCode: found.penalCode ?? def.penalCode
+          penalCode: found.penalCode ?? def.penalCode,
+          extraDocs: Array.isArray(found.extraDocs) ? found.extraDocs : [],
+          scripts: Array.isArray(found.scripts) ? found.scripts : [],
+          forumPosts: Array.isArray(found.forumPosts) ? found.forumPosts : [],
+          weeklyClasses: found.weeklyClasses && typeof found.weeklyClasses === "object" ? found.weeklyClasses : def.weeklyClasses
         };
       });
 
@@ -1425,12 +1772,16 @@
         .map(o => ({
           id: o.id,
           name: o.name || o.id,
-          icon: o.icon || "🔰",
+          emblem: o.emblem || OMR_LOGO_PATH,
           members: Array.isArray(o.members)
             ? o.members.map(m => typeof m === "string" ? { nick: m, role: "Membro" } : m)
             : [],
           internalRegimento: o.internalRegimento || `Regimento Interno — ${o.name || o.id}`,
-          penalCode: o.penalCode || `Código Penal — ${o.name || o.id}`
+          penalCode: o.penalCode || `Código Penal — ${o.name || o.id}`,
+          extraDocs: Array.isArray(o.extraDocs) ? o.extraDocs : [],
+          scripts: Array.isArray(o.scripts) ? o.scripts : [],
+          forumPosts: Array.isArray(o.forumPosts) ? o.forumPosts : [],
+          weeklyClasses: o.weeklyClasses && typeof o.weeklyClasses === "object" ? o.weeklyClasses : {}
         }));
 
       const rawRanks = Array.isArray(raw?.ranks) && raw.ranks.length ? raw.ranks : [...HIERARCHY_ORDER.filter(r => r !== "Recruta")];
@@ -1452,7 +1803,7 @@
         }
       }
 
-      const normalized = {
+      state = {
         ranks: mergedRanks,
         orgs: [...mergedOrgs, ...extraOrgs],
         users: normalizedUsers,
@@ -1462,7 +1813,12 @@
         documents: raw?.documents && typeof raw.documents === "object" ? raw.documents : INITIAL_STATE.documents
       };
 
-      state = normalized;
+      Object.values(state.users).forEach(u => {
+        if (!isFounderNick(u.nick) && (u.status === "Demitido" || u.status === "Exonerado")) {
+          purgeUserFromAllRolesAndPermissions(u.nick);
+        }
+      });
+
       ensureFounderIntegrity();
       return state;
     }
@@ -1630,13 +1986,16 @@
     }
 
     function isOrgMember(nick, orgId) {
+      const u = getUser(nick);
+      if (u && !isFounderNick(nick) && (u.status === "Demitido" || u.status === "Exonerado")) return false;
       return !!getOrgMemberEntry(orgId, nick);
     }
 
     function isOrgAdmin(nick, orgId) {
       const u = getUser(nick);
       if (!u) return false;
-      if (isFounderNick(nick) || u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo") return true;
+      if (!isFounderNick(nick) && (u.status === "Demitido" || u.status === "Exonerado")) return false;
+      if (isSupremeCommand(nick)) return true;
       const entry = getOrgMemberEntry(orgId, nick);
       if (!entry) return false;
       const cfgRoles = ORG_ROLES_CONFIG[orgId]?.roles || [];
@@ -1649,9 +2008,7 @@
     }
 
     function isHighAuthority(nick) {
-      const u = getUser(nick);
-      if (!u) return false;
-      return !!(isFounderNick(nick) || u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo");
+      return isSupremeCommand(nick);
     }
 
     function getRankIndex(rankName) {
@@ -1665,6 +2022,16 @@
 
     function isOfficialOrAbove(rankName) {
       return getRankIndex(rankName) >= getRankIndex("Tenente");
+    }
+
+    function recordWeeklyClass(orgId, instructorNick) {
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!org || !instructorNick) return;
+      const wk = getMondayKey();
+      org.weeklyClasses = org.weeklyClasses || {};
+      org.weeklyClasses[wk] = org.weeklyClasses[wk] || {};
+      const key = instructorNick.trim();
+      org.weeklyClasses[wk][key] = (org.weeklyClasses[wk][key] || 0) + 1;
     }
 
     async function syncIpAndLoginOnAccess(nick) {
@@ -1709,7 +2076,7 @@
       document.body.classList.toggle("light-theme");
       const isLight = document.body.classList.contains("light-theme");
       localStorage.setItem("omr_theme", isLight ? "light" : "dark");
-      document.getElementById("theme-toggle-btn").textContent = isLight ? "🌙" : "☀️";
+      document.getElementById("theme-toggle-btn").innerHTML = isLight ? ICONS.moon : ICONS.sun;
       showToast(isLight ? "Tema claro (branco e vermelho) ativado!" : "Tema escuro ativado!");
     };
 
@@ -1922,7 +2289,7 @@
       appEl.classList.remove("hidden");
 
       const isLight = document.body.classList.contains("light-theme");
-      document.getElementById("theme-toggle-btn").textContent = isLight ? "🌙" : "☀️";
+      document.getElementById("theme-toggle-btn").innerHTML = isLight ? ICONS.moon : ICONS.sun;
 
       document.getElementById("top-user-nick").textContent = user.nick;
       document.getElementById("top-user-rank").textContent = user.rank;
@@ -1952,7 +2319,9 @@
       currentRoute = route;
       if (route === "roles") {
         selectedRoleId = "";
-        roleSubPage = "menu";
+        orgActiveTab = "home";
+        orgWeekKey = getMondayKey();
+        editingScriptId = "";
       }
       if (route === "si-panel") {
         siSearchQuery = "";
@@ -1960,7 +2329,7 @@
       toggleDrawer(false);
       document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
       if (route === "home") document.getElementById("bnav-home")?.classList.add("active");
-      if (route === "req-list" || route === "req-form" || route === "drh-panel") document.getElementById("bnav-req")?.classList.add("active");
+      if (route === "req-form" || route === "drh-panel") document.getElementById("bnav-req")?.classList.add("active");
       if (route === "profile") document.getElementById("bnav-profile")?.classList.add("active");
       renderCurrentView();
     };
@@ -1995,10 +2364,13 @@
       const user = getCurrentUser();
       if (!user) return;
 
+      main.classList.remove("view-animate");
+      void main.offsetWidth;
+      main.classList.add("view-animate");
+
       if (currentRoute === "home") renderHome(main, user);
       else if (currentRoute === "profile") renderProfile(main, user);
       else if (currentRoute === "req-form") renderReqForm(main, user);
-      else if (currentRoute === "req-list") renderReqList(main, user);
       else if (currentRoute === "drh-panel") renderDRHPanel(main, user);
       else if (currentRoute === "classes") renderClasses(main, user);
       else if (currentRoute === "docs") renderDocs(main, user);
@@ -2024,7 +2396,7 @@
         <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:8px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
             <div style="font-weight:800;font-size:0.88rem;">${a.title}</div>
-            ${canPostAnn ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">Apagar</button>` : ""}
+            ${canPostAnn ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">${ICONS.trash} Apagar</button>` : ""}
           </div>
           <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:9px;">${a.body}</div>
           <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
@@ -2054,7 +2426,7 @@
                   <div class="cal-day">${days[now.getDay()]}</div>
                   <div class="cal-time">${timeStr}</div>
                 </div>
-                <div style="font-size:1.4rem;">📅</div>
+                <div style="color:var(--red-bright);display:flex;align-items:center;">${ICONS.calendar}</div>
               </div>
             </div>
             <div class="hero-avatar-col">
@@ -2085,7 +2457,7 @@
                 ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:84px;height:84px;border-radius:10px;border:1px solid var(--border-subtle);object-fit:cover;" />` : ""}
               </div>
               <div class="insta-handle">
-                <span style="background:var(--red-primary);color:#fff;padding:2px 6px;border-radius:6px;font-size:0.72rem;">📷</span>
+                <span style="background:var(--red-primary);color:#fff;padding:3px 6px;border-radius:6px;display:inline-flex;align-items:center;">${ICONS.camera}</span>
                 <span>@policiaomr</span>
               </div>
             </div>
@@ -2100,7 +2472,7 @@
           </div>
 
           <div class="card-box" style="margin-bottom:0;">
-            <div class="section-title">📢 Comunicados Oficiais</div>
+            <div class="section-title"><span class="section-title-left">${ICONS.megaphone} Comunicados Oficiais</span></div>
             ${annHtml || '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum comunicado publicado.</p>'}
           </div>
         </div>
@@ -2153,13 +2525,16 @@
 
     function formatHistoryItemHtml(h) {
       if (typeof h === "string") {
-        return `<div class="history-item"><div class="hist-obs-normal">${h}</div></div>`;
+        return `<div class="history-item"><div class="hist-line-row">${h}</div></div>`;
       }
       const author = h.author || "Sistema";
       const verbText = h.verbText || "postou um(a)";
       const modalityText = h.modalityText || h.actionLabel || "Requisição";
       const modClass = h.isPositive ? "hist-modality-pos" : "hist-modality-neg";
-      const obsText = h.obs || "";
+      const lines = (h.obs || "")
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line && !line.startsWith("Observação do DRH:"));
       const dateStr = h.date || "";
 
       return `
@@ -2173,7 +2548,7 @@
             </div>
             <span style="font-size:0.72rem;color:var(--text-muted);">${dateStr}</span>
           </div>
-          ${obsText ? `<div class="hist-obs-normal">${obsText}</div>` : ""}
+          ${lines.length ? `<div class="hist-lines-stack">${lines.map(l => `<div class="hist-line-row">${l}</div>`).join("")}</div>` : ""}
         </div>
       `;
     }
@@ -2182,7 +2557,9 @@
       const target = getUser(selectedProfileNick) || viewer;
       const isOwn = target.nick.toLowerCase() === viewer.nick.toLowerCase();
       const isTargetFounder = isFounderNick(target.nick);
-      const userOrgs = state.orgs.filter(o => (o.members || []).some(m => m.nick.toLowerCase() === target.nick.toLowerCase()));
+      const userOrgs = (target.status === "Demitido" || target.status === "Exonerado") && !isTargetFounder
+        ? []
+        : state.orgs.filter(o => (o.members || []).some(m => m.nick.toLowerCase() === target.nick.toLowerCase()));
       const canModerateAccount = !isTargetFounder && (isSI(viewer.nick) || isHighAuthority(viewer.nick));
 
       const tagBlock = target.tag
@@ -2219,12 +2596,12 @@
 
             <div style="margin-top:10px;background:var(--bg-card);border:1px solid var(--border-subtle);padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
               <code style="font-size:0.78rem;color:var(--text-main);">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
-              <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">📋 Copiar</button>
+              <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
             </div>
 
             <div style="margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
               <span class="badge ${statusColors[target.status] || "badge-pending"}">Estado: ${target.status}</span>
-              ${isTargetFounder ? `<span class="badge badge-approved">🛡️ Conta Blindada (Fundador)</span>` : ""}
+              ${isTargetFounder ? `<span class="badge badge-approved">${ICONS.shield} Conta Blindada (Fundador)</span>` : ""}
             </div>
 
             ${userOrgs.length ? `
@@ -2233,8 +2610,8 @@
                   const m = o.members.find(x => x.nick.toLowerCase() === target.nick.toLowerCase());
                   return `
                     <div class="org-badge-card">
-                      <span style="font-size:1.15rem;">${o.icon}</span>
-                      <span style="font-size:0.7rem;font-weight:800;margin-top:2px;">${o.id}</span>
+                      <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img" />
+                      <span style="font-size:0.7rem;font-weight:800;margin-top:4px;">${o.id}</span>
                       <span style="font-size:0.62rem;color:var(--text-muted);">${m?.role || ""}</span>
                     </div>
                   `;
@@ -2246,12 +2623,12 @@
               <div style="display:flex;gap:8px;margin-top:11px;flex-wrap:wrap;justify-content:center;">
                 ${target.status === "Desativado" ? `<button type="button" class="btn btn-green btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Ativo')">Ativar Conta</button>` : ""}
                 ${target.status === "Ativo" ? `<button type="button" class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Desativado')">Desativar Conta</button>` : ""}
-                <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${target.nick}')">Apagar Conta</button>
+                <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${target.nick}')">${ICONS.trash} Apagar Conta</button>
               </div>
             ` : ""}
           </div>
 
-          <div class="section-title">📜 Histórico Militar</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.scroll} Histórico Militar</span></div>
           ${visibleHistory.length ? visibleHistory.map(formatHistoryItemHtml).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum registo no histórico deste militar.</p>'}
         </div>
       `;
@@ -2281,6 +2658,9 @@
       const u = getUser(nick);
       if (!u) return;
       u.status = status;
+      if (status === "Demitido" || status === "Exonerado") {
+        purgeUserFromAllRolesAndPermissions(u.nick);
+      }
       if (await saveState()) {
         showToast(`Estado de ${u.nick} alterado para ${status}.`);
         renderCurrentView();
@@ -2292,9 +2672,10 @@
         return showToast("Não é possível excluir a conta do Fundador (A-Twink), nem mesmo por admins.", true);
       }
       if (!confirm(`Tem a certeza de que pretende apagar permanentemente a conta de ${nick}?`)) return;
+      purgeUserFromAllRolesAndPermissions(nick);
       delete state.users[nick.toLowerCase()];
       if (await saveState()) {
-        showToast(`Conta de ${nick} apagada.`);
+        showToast(`Conta de ${nick} apagada e funções removidas.`);
         if (currentRoute === "profile" && selectedProfileNick.toLowerCase() === nick.toLowerCase()) {
           navigate("home");
         } else {
@@ -2321,6 +2702,16 @@
     function renderReqForm(container, user) {
       const type = currentReqType;
       const tagOptions = getAllowedTagsForUser(user);
+
+      if (user.status === "Exonerado" && !isFounderNick(user.nick)) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Militares exonerados estão bloqueados de postar requerimentos.</p></div>`;
+        return;
+      }
+
+      if (user.status === "Demitido" && !isFounderNick(user.nick) && !["Venda", "Contrato", "Exoneração"].includes(type)) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Militares demitidos não podem postar ${type} (apenas Venda, Contrato ou Exoneração) até retornarem por Contrato, Venda ou CIM.</p></div>`;
+        return;
+      }
 
       const canPostSubtenenteReq = ["Promoção", "Rebaixamento", "Notificação", "Demissão"].includes(type);
       const canExonerate = isSI(user.nick) || isOrgMember(user.nick, "COR") || isOrgMember(user.nick, "SCP") || isHighAuthority(user.nick);
@@ -2349,7 +2740,7 @@
       if (type === "Licença") {
         container.innerHTML = `
           <div class="card-box">
-            <div class="section-title">🏖️ Solicitar Licença</div>
+            <div class="section-title"><span class="section-title-left">${ICONS.clipboard} Solicitar Licença</span></div>
             <div class="form-group">
               <label class="form-label">Nick</label>
               <input class="form-control" value="${user.nick}" readonly />
@@ -2382,7 +2773,7 @@
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">📋 Novo Requerimento: ${type}</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.clipboard} Novo Requerimento: ${type}</span></div>
 
           <div class="form-group">
             <label class="form-label">Autor da Publicação</label>
@@ -2524,6 +2915,14 @@
       const shortDate = formatShortDate();
       const isPos = POSITIVE_REQ_TYPES.has(type);
 
+      if (author.status === "Exonerado" && !isFounderNick(author.nick)) {
+        return showToast("Militares exonerados não podem postar requerimentos.", true);
+      }
+
+      if (author.status === "Demitido" && !isFounderNick(author.nick) && !["Venda", "Contrato", "Exoneração"].includes(type)) {
+        return showToast("Militares demitidos só podem postar Venda, Contrato ou Exoneração.", true);
+      }
+
       if (type === "Licença") {
         const endDate = document.getElementById("req-end-date").value;
         const obs = document.getElementById("req-obs").value.trim();
@@ -2559,8 +2958,8 @@
           status: "Em análise"
         });
         if (await saveState()) {
-          showToast("Requerimento publicado para análise!");
-          navigate("req-list");
+          showToast("Requerimento publicado para análise no DRH!");
+          navigate("drh-panel");
         }
         return;
       }
@@ -2666,8 +3065,8 @@
       });
 
       if (await saveState()) {
-        showToast("Requerimento publicado para análise!");
-        navigate("req-list");
+        showToast("Requerimento publicado para análise no DRH!");
+        navigate("drh-panel");
       }
     };
 
@@ -2690,42 +3089,22 @@
           ${r.saleValue ? `<div style="font-size:0.78rem;margin-bottom:2px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
           ${r.type === "Exoneração" ? `<div style="font-size:0.78rem;margin-bottom:2px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
           <div style="font-size:0.78rem;margin-bottom:4px;">Observações: ${r.obs}</div>
-          ${r.proofs ? `<div style="font-size:0.74rem;margin-bottom:4px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">🔗 Ver provas anexadas</a></div>` : ""}
+          ${r.proofs ? `<div style="font-size:0.74rem;margin-bottom:4px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">Ver provas anexadas</a></div>` : ""}
           ${r.reviewedBy ? `<div style="font-size:0.72rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
 
           ${showDrhActions ? `
             <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border-subtle);">
-              <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH para justificar decisão..." style="margin-bottom:6px;padding:6px 9px;font-size:0.77rem;" value="${r.reviewNote || ""}" />
+              <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH (opcional)..." style="margin-bottom:6px;padding:6px 9px;font-size:0.77rem;" value="${r.reviewNote || ""}" />
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 ${r.status === "Em análise" ? `
-                  <button type="button" class="btn btn-green btn-sm" onclick="updateReqStatus('${r.id}', 'Aprovado')">✓ Aprovar</button>
-                  <button type="button" class="btn btn-red btn-sm" onclick="updateReqStatus('${r.id}', 'Reprovado')">✕ Reprovar</button>
-                  <button type="button" class="btn btn-amber btn-sm" onclick="updateReqStatus('${r.id}', 'Cancelado')">⊘ Cancelar</button>
+                  <button type="button" class="btn btn-green btn-sm" onclick="updateReqStatus('${r.id}', 'Aprovado')">${ICONS.check} Aprovar</button>
+                  <button type="button" class="btn btn-red btn-sm" onclick="updateReqStatus('${r.id}', 'Reprovado')">${ICONS.x} Reprovar</button>
+                  <button type="button" class="btn btn-amber btn-sm" onclick="updateReqStatus('${r.id}', 'Cancelado')">${ICONS.ban} Cancelar</button>
                 ` : ""}
-                <button type="button" class="btn btn-dark btn-sm" onclick="deleteRequirement('${r.id}')">🗑️ Apagar</button>
+                <button type="button" class="btn btn-dark btn-sm" onclick="deleteRequirement('${r.id}')">${ICONS.trash} Apagar</button>
               </div>
             </div>
           ` : ""}
-        </div>
-      `;
-    }
-
-    function renderReqList(container) {
-      const pending = state.requirements.filter(r => r.status === "Em análise");
-      const reviewed = state.requirements.filter(r => r.status !== "Em análise");
-
-      container.innerHTML = `
-        <div class="card-box">
-          <div class="section-title">
-            <span>📑 Lista de Requerimentos</span>
-            <button type="button" class="btn btn-red btn-sm" onclick="openReqForm('Promoção')">+ Novo</button>
-          </div>
-
-          <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (${pending.length})</div>
-          ${pending.length ? pending.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente de momento.</p>'}
-
-          <div style="font-size:0.78rem;font-weight:800;color:var(--text-muted);margin:14px 0 8px;">✅ REQUERIMENTOS ATUALIZADOS (${reviewed.length})</div>
-          ${reviewed.length ? reviewed.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento atualizado ainda.</p>'}
         </div>
       `;
     }
@@ -2739,7 +3118,10 @@
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">⚖️ Painel do DRH — Catálogo de Requerimentos</div>
+          <div class="section-title">
+            <span class="section-title-left">${ICONS.scale} Painel do DRH — Requerimentos</span>
+            <button type="button" class="btn btn-red btn-sm" onclick="openReqForm('${mod}')">+ Novo ${mod}</button>
+          </div>
 
           <div class="catalog-strip">
             ${REQ_MODALITIES.map(m => `
@@ -2751,13 +3133,13 @@
             <strong>${mod}</strong> → Pendentes (${pendingMod.length})
           </div>
 
-          <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ PENDENTES — ${mod.toUpperCase()} (${pendingMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">PENDENTES — ${mod.toUpperCase()} (${pendingMod.length})</div>
           ${pendingMod.length ? pendingMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente nesta modalidade.</p>'}
 
-          <div style="font-size:0.78rem;font-weight:800;color:#16a34a;margin:14px 0 8px;">✅ APROVADOS — ${mod.toUpperCase()} (${approvedMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:#16a34a;margin:14px 0 8px;">APROVADOS — ${mod.toUpperCase()} (${approvedMod.length})</div>
           ${approvedMod.length ? approvedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento aprovado nesta modalidade.</p>'}
 
-          <div style="font-size:0.78rem;font-weight:800;color:#dc2626;margin:14px 0 8px;">✕ REPROVADOS — ${mod.toUpperCase()} (${rejectedMod.length})</div>
+          <div style="font-size:0.78rem;font-weight:800;color:#dc2626;margin:14px 0 8px;">REPROVADOS / CANCELADOS — ${mod.toUpperCase()} (${rejectedMod.length})</div>
           ${rejectedMod.length ? rejectedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento reprovado nesta modalidade.</p>'}
         </div>
       `;
@@ -2774,9 +3156,6 @@
       if (!req) return;
       const noteInput = document.getElementById(`drh-note-${reqId}`);
       const note = (noteInput ? noteInput.value : "").trim();
-      if (!note) {
-        return showToast("Preencha a observação do DRH para justificar a decisão.", true);
-      }
 
       if (isFounderNick(req.target) && !isFounderNick(reviewer.nick)) {
         return showToast("Requerimentos do Fundador só podem ser decididos pelo próprio Fundador.", true);
@@ -2796,38 +3175,36 @@
           const histItem = target.history.find(h => h.reqId === reqId);
           if (histItem) {
             histItem.status = newStatus;
-            histItem.obs = `${histItem.obs || ""}\nObservação do DRH: ${note}`.trim();
           }
           if (newStatus === "Aprovado") {
             if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type) && !isFounderNick(target.nick)) {
               target.rank = req.newRank;
               target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
+              if (["Contrato", "Venda"].includes(req.type) && target.status === "Demitido") {
+                target.status = "Ativo";
+              }
             }
             if (req.type === "Demissão" && !isFounderNick(target.nick)) {
               target.rank = "Recruta";
               target.status = "Demitido";
+              purgeUserFromAllRolesAndPermissions(target.nick);
             }
             if (req.type === "Exoneração" && !isFounderNick(target.nick)) {
               target.rank = "Recruta";
               target.status = "Exonerado";
+              purgeUserFromAllRolesAndPermissions(target.nick);
             }
           }
         }
       }
 
       if (await saveState()) {
-        showToast(`Requerimento ${newStatus} com justificativa do DRH!`);
+        showToast(`Requerimento ${newStatus}!`);
         renderCurrentView();
       }
     };
 
     window.deleteRequirement = async function(reqId) {
-      const noteInput = document.getElementById(`drh-note-${reqId}`);
-      const note = (noteInput ? noteInput.value : "").trim();
-      if (!note) {
-        return showToast("Preencha a observação do DRH para justificar apagar o requerimento.", true);
-      }
-
       const req = state.requirements.find(r => r.id === reqId);
       state.requirements = state.requirements.filter(r => r.id !== reqId);
 
@@ -2848,9 +3225,14 @@
     };
 
     function renderClasses(container, user) {
+      if (user.status === "Exonerado" && !isFounderNick(user.nick)) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Militares exonerados estão bloqueados de postar aulas.</p></div>`;
+        return;
+      }
+
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🎓 Postar Aulas — Academia de Tutores</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.book} Postar Aulas — Academia de Tutores</span></div>
           <div class="form-group">
             <label class="form-label">Instrutor Responsável</label>
             <input class="form-control" value="${user.nick}" readonly />
@@ -2861,6 +3243,8 @@
               <option value="ATT">Academia de Tutores (ATT)</option>
               <option value="COR">Corregedoria (COR)</option>
               <option value="SCP">Suprema Corte Policial (SCP)</option>
+              <option value="BAEP">Batalhão de Ações Especiais (BAEP)</option>
+              <option value="CITE">Comando de Intervenções Táticas Especiais (CITE)</option>
             </select>
           </div>
           <div class="form-group">
@@ -2884,7 +3268,7 @@
           <div class="form-group">
             <label class="form-label">Resultado</label>
             <select id="class-result" class="form-select">
-              <option value="Aprovado">Aprovado (Cria pré-cadastro Soldado [Desativado])</option>
+              <option value="Aprovado">Aprovado (Cria pré-cadastro Soldado [Desativado] ou reintegra)</option>
               <option value="Reprovado">Reprovado (Apenas registo interno)</option>
             </select>
           </div>
@@ -2905,10 +3289,15 @@
       const result = document.getElementById("class-result").value;
       const obs = document.getElementById("class-obs").value.trim() || "Sem observações adicionais.";
 
+      if (instructor.status === "Exonerado" && !isFounderNick(instructor.nick)) {
+        return showToast("Militares exonerados não podem postar aulas.", true);
+      }
       if (!studentNick) return showToast("Informe o nick do aluno.", true);
       if (isNickOrNetworkExonerated(studentNick)) {
         return showToast("Militar exonerado não pode receber novo ingresso.", true);
       }
+
+      recordWeeklyClass(org, instructor.nick);
 
       if (result === "Aprovado") {
         const key = studentNick.toLowerCase();
@@ -2929,8 +3318,11 @@
             lastPromoLine: `${studentNick} [${tag}] ${shortDate}`,
             history: []
           };
-        } else if (state.users[key].status === "Demitido" && !isFounderNick(studentNick)) {
-          state.users[key].status = "Desativado";
+        } else {
+          if (state.users[key].status === "Demitido" && !isFounderNick(studentNick)) {
+            state.users[key].status = "Desativado";
+            state.users[key].rank = "Soldado";
+          }
         }
         state.users[key].history.unshift({
           reqId: "class-" + Date.now(),
@@ -2943,11 +3335,13 @@
           status: "Aprovado"
         });
         if (await saveState()) {
-          showToast(`Aluno ${studentNick} aprovado! Pré-cadastro criado como Soldado (Desativado).`);
+          showToast(`Aluno ${studentNick} aprovado! Aula contabilizada no ranking semanal de ${org}.`);
           openUserProfile(studentNick);
         }
       } else {
-        showToast(`Reprovação de ${studentNick} registada internamente na ${org}.`);
+        if (await saveState()) {
+          showToast(`Reprovação de ${studentNick} registada e aula contabilizada em ${org}.`);
+        }
       }
     };
 
@@ -2960,7 +3354,7 @@
       const canEdit = isHighAuthority(user.nick);
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">📚 ${titles[currentDocKey]}</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.book} ${titles[currentDocKey]}</span></div>
           <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
             <button type="button" class="btn btn-sm ${currentDocKey === "RGM" ? "btn-red" : "btn-dark"}" onclick="openDoc('RGM')">RGM</button>
             <button type="button" class="btn btn-sm ${currentDocKey === "RDM" ? "btn-red" : "btn-dark"}" onclick="openDoc('RDM')">RDM</button>
@@ -2968,7 +3362,7 @@
           </div>
           ${canEdit ? `
             <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${state.documents[currentDocKey] || ""}</textarea>
-            <button type="button" class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">💾 Guardar Documento</button>
+            <button type="button" class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">${ICONS.check} Guardar Documento</button>
           ` : `
             <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;line-height:1.55;font-size:0.84rem;">${state.documents[currentDocKey] || ""}</div>
           `}
@@ -2982,12 +3376,14 @@
     };
 
     function renderRoles(container, user) {
-      const myOrgs = state.orgs.filter(o => isOrgMember(user.nick, o.id) || isHighAuthority(user.nick));
+      const availableOrgs = isSupremeCommand(user.nick)
+        ? state.orgs
+        : state.orgs.filter(o => isOrgMember(user.nick, o.id));
 
-      if (!myOrgs.length) {
+      if (!availableOrgs.length) {
         container.innerHTML = `
           <div class="card-box">
-            <div class="section-title">🛡️ Funções</div>
+            <div class="section-title"><span class="section-title-left">${ICONS.shield} Funções</span></div>
             <p style="color:var(--text-muted);font-size:0.84rem;">Ainda não faz parte de nenhuma função ou órgão interno.</p>
           </div>
         `;
@@ -2997,14 +3393,18 @@
       if (!selectedRoleId) {
         container.innerHTML = `
           <div class="card-box">
-            <div class="section-title">🛡️ Minhas Funções</div>
-            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Clique numa função para aceder aos documentos ou ao controlo de membros:</p>
-            ${myOrgs.map(o => {
+            <div class="section-title"><span class="section-title-left">${ICONS.shield} Funções e Órgãos Internos</span></div>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Selecione um órgão para abrir a página dedicada:</p>
+            ${availableOrgs.map(o => {
               const myEntry = getOrgMemberEntry(o.id, user.nick);
+              const badgeLabel = myEntry ? myEntry.role : (isSupremeCommand(user.nick) ? "Alto Comando Supremo" : "Membro");
               return `
                 <button type="button" class="btn btn-dark listing-choice-btn" onclick="selectRoleOrg('${o.id}')">
-                  <span><strong>${o.icon} ${o.name} (${o.id})</strong> — <span style="color:var(--text-muted);font-weight:600;">${myEntry?.role || "Alto Comando"}</span></span>
-                  <span>▸</span>
+                  <span style="display:inline-flex;align-items:center;gap:10px;">
+                    <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img" />
+                    <span><strong>${o.name} (${o.id})</strong> — <span style="color:var(--text-muted);font-weight:600;">${badgeLabel}</span></span>
+                  </span>
+                  ${ICONS.chevronRight}
                 </button>
               `;
             }).join("")}
@@ -3013,149 +3413,419 @@
         return;
       }
 
-      const org = state.orgs.find(o => o.id === selectedRoleId) || myOrgs[0];
+      const org = state.orgs.find(o => o.id === selectedRoleId) || availableOrgs[0];
       const idx = state.orgs.findIndex(x => x.id === org.id);
       const canAdminOrg = isOrgAdmin(user.nick, org.id);
+      const isSupreme = isSupremeCommand(user.nick);
+      const currentEntry = getOrgMemberEntry(org.id, user.nick);
       const roleOptions = ORG_ROLES_CONFIG[org.id]?.roles || [{ name: "Membro", isAdmin: false }];
 
-      if (roleSubPage === "ri") {
-        container.innerHTML = `
-          <div class="card-box">
-            <div class="section-title">
-              <span>📄 Regimento Interno — ${org.name} (${org.id})</span>
-              <button type="button" class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
+      org.extraDocs = org.extraDocs || [];
+      org.scripts = org.scripts || [];
+      org.forumPosts = org.forumPosts || [];
+      org.weeklyClasses = org.weeklyClasses || {};
+
+      const headerHtml = `
+        <div class="org-header-banner">
+          <div style="display:flex;align-items:center;gap:11px;">
+            <img src="${org.emblem || OMR_LOGO_PATH}" alt="${org.id}" class="emblem-img-lg" />
+            <div>
+              <div style="font-size:0.65rem;font-weight:800;color:var(--red-bright);text-transform:uppercase;letter-spacing:0.6px;">Órgão Interno • ${org.id}</div>
+              <div style="font-size:1.05rem;font-weight:900;">${org.name}</div>
             </div>
-            ${canAdminOrg ? `
-              <textarea id="org-reg-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.internalRegimento || ""}</textarea>
-              <button type="button" class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'ri')">Guardar Regimento Interno</button>
-            ` : `
-              <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;font-size:0.84rem;">${org.internalRegimento || ""}</div>
-            `}
           </div>
-        `;
-        return;
-      }
-
-      if (roleSubPage === "penal") {
-        container.innerHTML = `
-          <div class="card-box">
-            <div class="section-title">
-              <span>⚖️ Código Penal — ${org.name} (${org.id})</span>
-              <button type="button" class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
-            </div>
-            ${canAdminOrg ? `
-              <textarea id="org-penal-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.penalCode || ""}</textarea>
-              <button type="button" class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'penal')">Guardar Código Penal</button>
-            ` : `
-              <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;font-size:0.84rem;">${org.penalCode || ""}</div>
-            `}
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            ${isSupreme ? `
+              ${currentEntry
+                ? `<button type="button" class="btn btn-dark btn-sm" onclick="supremeToggleSelfMembership(${idx}, false)">Sair dos Membros</button>`
+                : `<button type="button" class="btn btn-green btn-sm" onclick="supremeToggleSelfMembership(${idx}, true)">Entrar como Membro</button>`
+              }
+            ` : ""}
+            <button type="button" class="btn btn-dark btn-sm" onclick="selectRoleOrg('')">${ICONS.chevronLeft} Órgãos</button>
           </div>
-        `;
-        return;
-      }
+        </div>
 
-      if (roleSubPage === "members") {
-        if (!canAdminOrg) {
-          roleSubPage = "menu";
-          return renderRoles(container, user);
-        }
-        container.innerHTML = `
-          <div class="card-box">
-            <div class="section-title">
-              <span>👥 Controlo de Membros — ${org.id}</span>
-              <button type="button" class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
-            </div>
+        <div class="org-subnav-tabs">
+          <button type="button" class="org-tab-btn ${orgActiveTab === "home" ? "active" : ""}" onclick="setOrgTab('home')">Início</button>
+          <button type="button" class="org-tab-btn ${orgActiveTab === "docs" ? "active" : ""}" onclick="setOrgTab('docs')">Documentos</button>
+          <button type="button" class="org-tab-btn ${orgActiveTab === "scripts" ? "active" : ""}" onclick="setOrgTab('scripts')">Scripts</button>
+          <button type="button" class="org-tab-btn ${orgActiveTab === "members" ? "active" : ""}" onclick="setOrgTab('members')">Membros</button>
+          <button type="button" class="org-tab-btn ${orgActiveTab === "forum" ? "active" : ""}" onclick="setOrgTab('forum')">Fórum</button>
+        </div>
+      `;
 
-            <div class="form-group nick-match-wrap">
-              <label class="form-label">Adicionar ou Alterar Função de Membro</label>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <input
-                  id="org-add-nick-page"
-                  class="form-control"
-                  placeholder="Nick do militar..."
-                  style="flex:1;min-width:140px;"
-                  oninput="showNickSuggestions('org-add-nick-page', 'org-add-nick-suggestions', this.value)"
-                  onfocus="showNickSuggestions('org-add-nick-page', 'org-add-nick-suggestions', this.value)"
-                  onblur="setTimeout(() => hideNickSuggestions('org-add-nick-suggestions'), 150)"
-                />
-                <select id="org-add-role-page" class="form-select" style="width:auto;">
-                  ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
-                </select>
-                <button type="button" class="btn btn-green btn-sm" onclick="addOrgMemberWithRolePage(${idx})">Guardar Membro</button>
+      let tabBodyHtml = "";
+
+      if (orgActiveTab === "home") {
+        const weekCounts = org.weeklyClasses[orgWeekKey] || {};
+        const rankedList = Object.entries(weekCounts)
+          .map(([nickName, count]) => ({ nick: nickName, count }))
+          .filter(item => item.count > 0)
+          .sort((a, b) => b.count - a.count || a.nick.localeCompare(b.nick));
+
+        const currentWeekMonday = getMondayKey();
+        const isCurrentWeek = orgWeekKey === currentWeekMonday;
+
+        tabBodyHtml = `
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+              <div>
+                <div style="font-size:0.9rem;font-weight:800;">Ranking Semanal de Aulas Aplicadas</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">Reinicia toda segunda-feira • Semana: <strong>${formatWeekLabel(orgWeekKey)}</strong></div>
               </div>
-              <div id="org-add-nick-suggestions" class="nick-suggestions-box"></div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <button type="button" class="btn btn-dark btn-sm" onclick="shiftOrgWeek(-1)" title="Semana anterior">${ICONS.chevronLeft}</button>
+                <button type="button" class="btn btn-dark btn-sm" onclick="shiftOrgWeek(1)" ${isCurrentWeek ? "disabled style='opacity:0.45;'" : ""} title="Próxima semana">${ICONS.chevronRight}</button>
+              </div>
             </div>
 
-            <div class="form-label" style="margin-top:12px;">Membros Atuais</div>
-            ${(org.members || []).length ? org.members.map((m, mIdx) => `
-              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:9px 12px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-                <div style="font-size:0.84rem;"><strong>${m.nick}</strong> — <span style="color:var(--text-muted);">${m.role}</span></div>
-                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                  <select id="edit-role-${idx}-${mIdx}" class="form-select" style="width:auto;padding:5px 8px;font-size:0.76rem;">
-                    ${roleOptions.map(r => `<option value="${r.name}" ${r.name === m.role ? "selected" : ""}>${r.name}</option>`).join("")}
+            ${rankedList.length ? rankedList.map((entry, pos) => `
+              <div class="rank-list-row">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-weight:900;font-size:0.84rem;color:${pos === 0 ? "var(--red-bright)" : "var(--text-muted)"};min-width:26px;">#${pos + 1}</span>
+                  <img src="${habboHeadUrl(entry.nick)}" style="width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
+                  <strong style="font-size:0.85rem;">${entry.nick}</strong>
+                </div>
+                <span class="badge badge-approved">${entry.count} ${entry.count === 1 ? "aula" : "aulas"}</span>
+              </div>
+            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhuma aula registada nesta semana para este órgão.</p>'}
+          </div>
+        `;
+      } else if (orgActiveTab === "docs") {
+        tabBodyHtml = `
+          <div>
+            <div class="form-group">
+              <label class="form-label">Regimento Interno (RI)</label>
+              ${canAdminOrg ? `
+                <textarea id="org-reg-editor" class="form-textarea" rows="6">${org.internalRegimento || ""}</textarea>
+              ` : `
+                <div style="background:var(--bg-elevated);padding:12px;border-radius:10px;white-space:pre-line;font-size:0.83rem;">${org.internalRegimento || ""}</div>
+              `}
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Código Penal</label>
+              ${canAdminOrg ? `
+                <textarea id="org-penal-editor" class="form-textarea" rows="6">${org.penalCode || ""}</textarea>
+              ` : `
+                <div style="background:var(--bg-elevated);padding:12px;border-radius:10px;white-space:pre-line;font-size:0.83rem;">${org.penalCode || ""}</div>
+              `}
+            </div>
+
+            ${canAdminOrg ? `
+              <button type="button" class="btn btn-green btn-sm" style="margin-bottom:14px;" onclick="saveBaseOrgDocs(${idx})">${ICONS.check} Guardar Regimento e Código Penal</button>
+            ` : ""}
+
+            ${org.extraDocs.map((docItem, dIdx) => `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+                  <strong style="font-size:0.88rem;">${docItem.title}</strong>
+                  ${canAdminOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgExtraDoc(${idx}, ${dIdx})">${ICONS.trash}</button>` : ""}
+                </div>
+                <div style="white-space:pre-line;font-size:0.82rem;color:var(--text-muted);">${docItem.content}</div>
+              </div>
+            `).join("")}
+
+            ${canAdminOrg ? `
+              <div style="border-top:1px solid var(--border-subtle);padding-top:12px;margin-top:8px;">
+                <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">+ Criar Novo Documento Interno</div>
+                <input id="new-org-doc-title" class="form-control" placeholder="Título do novo documento..." style="margin-bottom:7px;" />
+                <textarea id="new-org-doc-content" class="form-textarea" rows="4" placeholder="Conteúdo do documento..." style="margin-bottom:7px;"></textarea>
+                <button type="button" class="btn btn-red btn-sm" onclick="addOrgExtraDoc(${idx})">Criar Documento</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      } else if (orgActiveTab === "scripts") {
+        tabBodyHtml = `
+          <div>
+            <div style="font-size:0.88rem;font-weight:800;margin-bottom:10px;">Scripts de Aulas — ${org.id}</div>
+
+            ${org.scripts.length ? org.scripts.map(sc => {
+              if (editingScriptId === sc.id && canAdminOrg) {
+                return `
+                  <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:11px;padding:11px;margin-bottom:9px;">
+                    <input id="edit-script-title-${sc.id}" class="form-control" value="${sc.title}" style="margin-bottom:7px;" />
+                    <textarea id="edit-script-body-${sc.id}" class="form-textarea" rows="5" style="margin-bottom:7px;">${sc.body}</textarea>
+                    <div style="display:flex;gap:6px;">
+                      <button type="button" class="btn btn-green btn-sm" onclick="saveEditedScript(${idx}, '${sc.id}')">${ICONS.check} Guardar</button>
+                      <button type="button" class="btn btn-dark btn-sm" onclick="setEditingScript('')">Cancelar</button>
+                    </div>
+                  </div>
+                `;
+              }
+              return `
+                <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:9px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+                    <strong style="font-size:0.88rem;">${sc.title}</strong>
+                    <div style="display:flex;gap:6px;">
+                      <button type="button" class="btn btn-dark btn-sm" onclick="copyText(${JSON.stringify(sc.body)})">${ICONS.copy} Copiar</button>
+                      ${canAdminOrg ? `
+                        <button type="button" class="btn btn-dark btn-sm" onclick="setEditingScript('${sc.id}')">${ICONS.edit} Editar</button>
+                        <button type="button" class="btn btn-red btn-sm" onclick="deleteOrgScript(${idx}, '${sc.id}')">${ICONS.trash} Excluir</button>
+                      ` : ""}
+                    </div>
+                  </div>
+                  <pre style="white-space:pre-wrap;font-size:0.8rem;color:var(--text-muted);background:var(--bg-input);padding:9px;border-radius:8px;border:1px solid var(--border-subtle);">${sc.body}</pre>
+                </div>
+              `;
+            }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Nenhum script cadastrado neste órgão ainda.</p>'}
+
+            ${canAdminOrg ? `
+              <div style="border-top:1px solid var(--border-subtle);padding-top:12px;margin-top:8px;">
+                <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">+ Publicar Novo Script de Aula</div>
+                <input id="new-script-title" class="form-control" placeholder="Título do script (ex: Aula CIM — Apresentação)" style="margin-bottom:7px;" />
+                <textarea id="new-script-body" class="form-textarea" rows="4" placeholder="Texto completo do script..." style="margin-bottom:7px;"></textarea>
+                <button type="button" class="btn btn-red btn-sm" onclick="addOrgScript(${idx})">Publicar Script</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      } else if (orgActiveTab === "members") {
+        const groupedByRole = roleOptions.map(rObj => {
+          const matched = (org.members || []).filter(m => m.role === rObj.name);
+          return { roleName: rObj.name, members: matched };
+        }).filter(g => g.members.length > 0);
+
+        tabBodyHtml = `
+          <div>
+            ${canAdminOrg ? `
+              <div class="form-group nick-match-wrap">
+                <label class="form-label">Adicionar ou Alterar Membro</label>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <input
+                    id="org-add-nick"
+                    class="form-control"
+                    placeholder="Nick do militar..."
+                    style="flex:1;min-width:140px;"
+                    oninput="showNickSuggestions('org-add-nick', 'org-add-nick-sug', this.value)"
+                    onfocus="showNickSuggestions('org-add-nick', 'org-add-nick-sug', this.value)"
+                    onblur="setTimeout(() => hideNickSuggestions('org-add-nick-sug'), 150)"
+                  />
+                  <select id="org-add-role" class="form-select" style="width:auto;">
+                    ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
                   </select>
-                  <button type="button" class="btn btn-red btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx})">Alterar Função</button>
+                  <button type="button" class="btn btn-green btn-sm" onclick="addOrgMemberWithRole(${idx})">Salvar</button>
+                </div>
+                <div id="org-add-nick-sug" class="nick-suggestions-box"></div>
+              </div>
+
+              ${isSupreme && currentEntry ? `
+                <div style="margin-bottom:10px;">
+                  <label class="form-label">Alterar Sua Própria Função em ${org.id}</label>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <select id="supreme-self-role" class="form-select" style="max-width:220px;">
+                      ${roleOptions.map(r => `<option value="${r.name}" ${r.name === currentEntry.role ? "selected" : ""}>${r.name}</option>`).join("")}
+                    </select>
+                    <button type="button" class="btn btn-red btn-sm" onclick="supremeChangeSelfRole(${idx})">Atualizar Minha Função</button>
+                  </div>
+                </div>
+              ` : ""}
+            ` : ""}
+
+            ${groupedByRole.length ? groupedByRole.map(group => `
+              <div style="margin-bottom:14px;">
+                <div style="font-size:0.88rem;font-weight:800;color:var(--red-bright);margin-bottom:7px;">
+                  ${group.roleName} (${group.members.length})
+                </div>
+                ${group.members.map(m => {
+                  const mIdx = (org.members || []).findIndex(x => x.nick.toLowerCase() === m.nick.toLowerCase());
+                  const canRemoveThis = canAdminOrg && (!isFounderNick(m.nick) || isFounderNick(user.nick));
+                  return `
+                    <div class="listing-card">
+                      <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${m.nick}" style="height:74px;object-fit:contain;" />
+                      <div style="flex:1;min-width:170px;">
+                        <div style="font-weight:800;font-size:0.9rem;">${m.nick}</div>
+                        <div style="font-size:0.74rem;color:var(--text-muted);margin-top:2px;">Cargo interno: <strong>${m.role}</strong></div>
+                        ${canAdminOrg ? `
+                          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px;">
+                            <select id="role-sel-${idx}-${mIdx}" class="form-select" style="width:auto;padding:4px 8px;font-size:0.75rem;">
+                              ${roleOptions.map(r => `<option value="${r.name}" ${r.name === m.role ? "selected" : ""}>${r.name}</option>`).join("")}
+                            </select>
+                            <button type="button" class="btn btn-dark btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx})">Alterar Cargo</button>
+                            ${canRemoveThis ? `<button type="button" class="btn btn-red btn-sm" onclick="removeOrgMember(${idx}, ${mIdx})">${ICONS.trash} Remover</button>` : ""}
+                          </div>
+                        ` : ""}
+                      </div>
+                    </div>
+                  `;
+                }).join("")}
+              </div>
+            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum membro ativo neste órgão.</p>'}
+          </div>
+        `;
+      } else if (orgActiveTab === "forum") {
+        tabBodyHtml = `
+          <div>
+            ${canAdminOrg ? `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:14px;">
+                <div style="font-size:0.76rem;font-weight:800;color:var(--red-bright);margin-bottom:7px;">PUBLICAR NO FÓRUM DO ÓRGÃO</div>
+                <input id="forum-post-title" class="form-control" placeholder="Assunto / Título do aviso ou relatório..." style="margin-bottom:7px;" />
+                <textarea id="forum-post-body" class="form-textarea" rows="3" placeholder="Escreva aqui o comunicado, relatório ou pauta..." style="margin-bottom:7px;"></textarea>
+                <button type="button" class="btn btn-red btn-sm" onclick="addOrgForumPost(${idx})">Publicar no Fórum</button>
+              </div>
+            ` : ""}
+
+            ${org.forumPosts.length ? org.forumPosts.map(fp => `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:9px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
+                  <strong style="font-size:0.88rem;">${fp.title}</strong>
+                  ${canAdminOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgForumPost(${idx}, '${fp.id}')">${ICONS.trash}</button>` : ""}
+                </div>
+                <div style="font-size:0.8rem;color:var(--text-muted);white-space:pre-line;line-height:1.5;margin-bottom:8px;">${fp.body}</div>
+                <div style="display:flex;align-items:center;justify-content:flex-end;gap:7px;">
+                  <span style="font-size:0.72rem;color:var(--text-muted);"><strong>${fp.author}</strong> • ${fp.date}</span>
+                  <img src="${habboHeadUrl(fp.author)}" style="width:24px;height:24px;border-radius:50%;" />
                 </div>
               </div>
-            `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhum membro registado ainda.</p>'}
+            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhuma publicação no fórum deste órgão ainda.</p>'}
           </div>
         `;
-        return;
       }
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">
-            <span>${org.icon} ${org.name} (${org.id})</span>
-            <button type="button" class="btn btn-dark btn-sm" onclick="selectRoleOrg('')">← Todas as Funções</button>
-          </div>
-
-          <button type="button" class="btn btn-dark listing-choice-btn" onclick="setRoleSubPage('ri')">
-            <span>📄 Regimento Interno (RI)</span>
-            <span>▸</span>
-          </button>
-
-          <button type="button" class="btn btn-dark listing-choice-btn" onclick="setRoleSubPage('penal')">
-            <span>⚖️ Código Penal</span>
-            <span>▸</span>
-          </button>
-
-          ${canAdminOrg ? `
-            <button type="button" class="btn btn-red listing-choice-btn" onclick="setRoleSubPage('members')">
-              <span>👥 Controlo de Membros (Admin)</span>
-              <span>▸</span>
-            </button>
-          ` : ""}
+          ${headerHtml}
+          ${tabBodyHtml}
         </div>
       `;
     }
 
     window.selectRoleOrg = function(orgId) {
       selectedRoleId = orgId;
-      roleSubPage = "menu";
+      orgActiveTab = "home";
+      orgWeekKey = getMondayKey();
+      editingScriptId = "";
       renderCurrentView();
     };
 
-    window.setRoleSubPage = function(sub) {
-      roleSubPage = sub;
+    window.setOrgTab = function(tab) {
+      orgActiveTab = tab;
+      editingScriptId = "";
       renderCurrentView();
     };
 
-    window.saveSingleOrgDoc = async function(idx, kind) {
-      const org = state.orgs[idx];
-      if (kind === "ri") {
-        org.internalRegimento = document.getElementById("org-reg-page").value;
+    window.shiftOrgWeek = function(delta) {
+      const nextKey = shiftWeekKey(orgWeekKey, delta);
+      const currentMon = getMondayKey();
+      if (nextKey > currentMon) return;
+      orgWeekKey = nextKey;
+      renderCurrentView();
+    };
+
+    window.supremeToggleSelfMembership = async function(orgIdx, join) {
+      const u = getCurrentUser();
+      const org = state.orgs[orgIdx];
+      if (!u || !org || !isSupremeCommand(u.nick)) return;
+      org.members = org.members || [];
+      if (join) {
+        const defaultRole = ORG_ROLES_CONFIG[org.id]?.roles?.[0]?.name || "Membro";
+        if (!org.members.some(m => m.nick.toLowerCase() === u.nick.toLowerCase())) {
+          org.members.unshift({ nick: u.nick, role: defaultRole });
+        }
+        showToast(`Adicionado a ${org.id} como ${defaultRole}.`);
       } else {
-        org.penalCode = document.getElementById("org-penal-page").value;
+        org.members = org.members.filter(m => m.nick.toLowerCase() !== u.nick.toLowerCase());
+        showToast(`Removido da lista de membros de ${org.id} (acesso de comando mantido).`);
       }
-      if (await saveState()) showToast("Documento do órgão guardado com sucesso!");
+      if (await saveState()) renderCurrentView();
     };
 
-    window.addOrgMemberWithRolePage = async function(idx) {
-      const nick = document.getElementById("org-add-nick-page").value.trim();
-      const role = document.getElementById("org-add-role-page").value;
+    window.supremeChangeSelfRole = async function(orgIdx) {
+      const u = getCurrentUser();
+      const org = state.orgs[orgIdx];
+      const sel = document.getElementById("supreme-self-role");
+      if (!u || !org || !sel || !isSupremeCommand(u.nick)) return;
+      const entry = (org.members || []).find(m => m.nick.toLowerCase() === u.nick.toLowerCase());
+      if (entry) {
+        entry.role = sel.value;
+        if (await saveState()) {
+          showToast(`Sua função em ${org.id} foi atualizada para ${sel.value}.`);
+          renderCurrentView();
+        }
+      }
+    };
+
+    window.saveBaseOrgDocs = async function(orgIdx) {
+      const org = state.orgs[orgIdx];
+      if (!org) return;
+      const regEl = document.getElementById("org-reg-editor");
+      const penEl = document.getElementById("org-penal-editor");
+      if (regEl) org.internalRegimento = regEl.value;
+      if (penEl) org.penalCode = penEl.value;
+      if (await saveState()) showToast("Regimento Interno e Código Penal guardados!");
+    };
+
+    window.addOrgExtraDoc = async function(orgIdx) {
+      const title = document.getElementById("new-org-doc-title").value.trim();
+      const content = document.getElementById("new-org-doc-content").value.trim();
+      if (!title || !content) return showToast("Preencha título e conteúdo do documento.", true);
+      state.orgs[orgIdx].extraDocs = state.orgs[orgIdx].extraDocs || [];
+      state.orgs[orgIdx].extraDocs.push({ id: "doc-" + Date.now(), title, content });
+      if (await saveState()) {
+        showToast("Documento interno criado!");
+        renderCurrentView();
+      }
+    };
+
+    window.deleteOrgExtraDoc = async function(orgIdx, docIdx) {
+      state.orgs[orgIdx].extraDocs.splice(docIdx, 1);
+      if (await saveState()) {
+        showToast("Documento removido.");
+        renderCurrentView();
+      }
+    };
+
+    window.setEditingScript = function(scriptId) {
+      editingScriptId = scriptId;
+      renderCurrentView();
+    };
+
+    window.addOrgScript = async function(orgIdx) {
+      const title = document.getElementById("new-script-title").value.trim();
+      const body = document.getElementById("new-script-body").value.trim();
+      if (!title || !body) return showToast("Preencha o título e o texto do script.", true);
+      state.orgs[orgIdx].scripts = state.orgs[orgIdx].scripts || [];
+      state.orgs[orgIdx].scripts.unshift({ id: "sc-" + Date.now(), title, body });
+      if (await saveState()) {
+        showToast("Script publicado!");
+        renderCurrentView();
+      }
+    };
+
+    window.saveEditedScript = async function(orgIdx, scriptId) {
+      const title = document.getElementById(`edit-script-title-${scriptId}`).value.trim();
+      const body = document.getElementById(`edit-script-body-${scriptId}`).value.trim();
+      if (!title || !body) return showToast("Preencha título e conteúdo.", true);
+      const sc = state.orgs[orgIdx].scripts.find(x => x.id === scriptId);
+      if (sc) {
+        sc.title = title;
+        sc.body = body;
+      }
+      editingScriptId = "";
+      if (await saveState()) {
+        showToast("Script atualizado!");
+        renderCurrentView();
+      }
+    };
+
+    window.deleteOrgScript = async function(orgIdx, scriptId) {
+      state.orgs[orgIdx].scripts = (state.orgs[orgIdx].scripts || []).filter(x => x.id !== scriptId);
+      if (await saveState()) {
+        showToast("Script excluído.");
+        renderCurrentView();
+      }
+    };
+
+    window.addOrgMemberWithRole = async function(orgIdx) {
+      const nick = document.getElementById("org-add-nick").value.trim();
+      const role = document.getElementById("org-add-role").value;
       if (!nick) return showToast("Digite o nick do militar.", true);
-      const org = state.orgs[idx];
+      const targetUser = getUser(nick);
+      if (targetUser && !isFounderNick(nick) && (targetUser.status === "Demitido" || targetUser.status === "Exonerado")) {
+        return showToast("Militares demitidos ou exonerados não podem receber funções.", true);
+      }
+      const org = state.orgs[orgIdx];
       org.members = org.members || [];
       const existing = org.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
       if (existing) existing.role = role;
@@ -3167,12 +3837,53 @@
     };
 
     window.changeExistingOrgMemberRole = async function(orgIdx, memberIdx) {
-      const newRole = document.getElementById(`edit-role-${orgIdx}-${memberIdx}`).value;
+      const newRole = document.getElementById(`role-sel-${orgIdx}-${memberIdx}`).value;
       const member = state.orgs[orgIdx]?.members?.[memberIdx];
       if (!member) return;
       member.role = newRole;
       if (await saveState()) {
-        showToast(`Função de ${member.nick} alterada para ${newRole}!`);
+        showToast(`Cargo de ${member.nick} alterado para ${newRole}!`);
+        renderCurrentView();
+      }
+    };
+
+    window.removeOrgMember = async function(orgIdx, memberIdx) {
+      const org = state.orgs[orgIdx];
+      const member = org?.members?.[memberIdx];
+      if (!member) return;
+      if (isFounderNick(member.nick) && !isFounderNick(getCurrentUser()?.nick)) {
+        return showToast("Apenas o próprio Fundador pode alterar a própria presença.", true);
+      }
+      org.members.splice(memberIdx, 1);
+      if (await saveState()) {
+        showToast(`${member.nick} removido de ${org.id}.`);
+        renderCurrentView();
+      }
+    };
+
+    window.addOrgForumPost = async function(orgIdx) {
+      const title = document.getElementById("forum-post-title").value.trim();
+      const body = document.getElementById("forum-post-body").value.trim();
+      const u = getCurrentUser();
+      if (!title || !body) return showToast("Preencha título e mensagem do fórum.", true);
+      state.orgs[orgIdx].forumPosts = state.orgs[orgIdx].forumPosts || [];
+      state.orgs[orgIdx].forumPosts.unshift({
+        id: "fp-" + Date.now(),
+        title,
+        body,
+        author: u.nick,
+        date: formatShortDate()
+      });
+      if (await saveState()) {
+        showToast("Publicado no fórum do órgão!");
+        renderCurrentView();
+      }
+    };
+
+    window.deleteOrgForumPost = async function(orgIdx, postId) {
+      state.orgs[orgIdx].forumPosts = (state.orgs[orgIdx].forumPosts || []).filter(p => p.id !== postId);
+      if (await saveState()) {
+        showToast("Publicação removida do fórum.");
         renderCurrentView();
       }
     };
@@ -3189,12 +3900,12 @@
       if (!selectedListingCategory) {
         container.innerHTML = `
           <div class="card-box">
-            <div class="section-title">📜 Listagem</div>
+            <div class="section-title"><span class="section-title-left">${ICONS.scroll} Listagem</span></div>
             <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Escolha uma listagem para visualizar os militares:</p>
             ${categories.map(c => `
               <button type="button" class="btn btn-dark listing-choice-btn" onclick="selectListingCategory('${c.key}')">
                 <strong>${c.label}</strong>
-                <span>▸</span>
+                ${ICONS.chevronRight}
               </button>
             `).join("")}
           </div>
@@ -3224,7 +3935,7 @@
                 <div style="font-weight:800;font-size:0.9rem;">${u.nick}</div>
                 <div style="margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                   <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${regLine}</code>
-                  <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
+                  <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
                 </div>
                 <div style="font-size:0.78rem;margin-top:7px;"><strong>Motivo:</strong> ${reason}</div>
                 <div style="font-size:0.76rem;color:var(--red-bright);margin-top:2px;"><strong>Período:</strong> ${periodInfo}</div>
@@ -3236,8 +3947,8 @@
         container.innerHTML = `
           <div class="card-box">
             <div class="section-title">
-              <span>📜 Exonerados (${exoneratedUsers.length})</span>
-              <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">← Voltar</button>
+              <span class="section-title-left">${ICONS.scroll} Exonerados (${exoneratedUsers.length})</span>
+              <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">${ICONS.chevronLeft} Voltar</button>
             </div>
             ${exoHtml}
           </div>
@@ -3264,7 +3975,7 @@
                       <div style="font-weight:800;font-size:0.9rem;">${m.nick}</div>
                       <div style="margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                         <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${regLine}</code>
-                        <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
+                        <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
                       </div>
                     </div>
                   </div>
@@ -3279,8 +3990,8 @@
       container.innerHTML = `
         <div class="card-box">
           <div class="section-title">
-            <span>📜 ${cat.label}</span>
-            <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">← Voltar</button>
+            <span class="section-title-left">${ICONS.scroll} ${cat.label}</span>
+            <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">${ICONS.chevronLeft} Voltar</button>
           </div>
           ${rankBlocksHtml || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar registado nesta listagem de momento.</p>'}
         </div>
@@ -3362,10 +4073,10 @@
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🕵️ Painel do SI</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.search} Painel do SI</span></div>
 
           <div style="margin-bottom:16px;">
-            <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">📋 Cadastros e Status</div>
+            <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">Cadastros e Status</div>
 
             <div class="form-group nick-match-wrap" style="margin-bottom:8px;">
               <label class="form-label">Pesquisar Militar (correspondências próximas)</label>
@@ -3461,7 +4172,7 @@
       const allUsers = Object.values(state.users);
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">⚙️ Painel do Alto Comando Supremo / Admin</div>
+          <div class="section-title"><span class="section-title-left">${ICONS.gear} Painel do Alto Comando Supremo / Admin</span></div>
 
           <div class="form-group">
             <label class="form-label">Alterar Patente Direta de Militar</label>
@@ -3489,6 +4200,7 @@
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <input id="adm-org-id" class="form-control" placeholder="Sigla (ex: GOE)" style="max-width:120px;" />
               <input id="adm-org-name" class="form-control" placeholder="Nome completo da função..." style="flex:1;" />
+              <input id="adm-org-emblem" class="form-control" placeholder="Ficheiro emblema (ex: GOE.png)" style="max-width:170px;" />
               <button type="button" class="btn btn-green btn-sm" onclick="adminAddOrg()">Criar</button>
             </div>
           </div>
@@ -3530,15 +4242,20 @@
     window.adminAddOrg = async function() {
       const id = document.getElementById("adm-org-id").value.trim().toUpperCase();
       const name = document.getElementById("adm-org-name").value.trim();
+      const emblem = (document.getElementById("adm-org-emblem")?.value || "").trim() || `${id}.png`;
       const u = getCurrentUser();
       if (!id || !name) return;
       state.orgs.push({
         id,
         name,
-        icon: "🔰",
+        emblem,
         members: [{ nick: u.nick, role: "Coordenador" }],
         internalRegimento: `Regimento Interno — ${name} (${id})`,
-        penalCode: `Código Penal — ${name} (${id})`
+        penalCode: `Código Penal — ${name} (${id})`,
+        extraDocs: [],
+        scripts: [],
+        forumPosts: [],
+        weeklyClasses: { [getMondayKey()]: {} }
       });
       if (await saveState()) showToast(`Órgão ${id} criado!`);
     };
