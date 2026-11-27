@@ -897,7 +897,51 @@
       flex-wrap: wrap;
     }
 
-    .listing-choice-btn { width: 100%; text-align: left; justify-content: space-between; padding: 10px 13px; margin-bottom: 7px; font-size: 0.84rem; }
+    .listing-choice-btn { width: 100%; text-align: left; justify-content: space-between; padding: 12px 14px; margin-bottom: 8px; font-size: 0.86rem; }
+
+    /* Funções & Páginas Dedicadas */
+    .role-hub-btn {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 13px;
+      padding: 13px 15px;
+      margin-bottom: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.16s ease, background 0.16s ease, transform 0.12s ease;
+    }
+
+    .role-hub-btn:hover {
+      border-color: var(--border-red);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .role-hub-btn:active { transform: scale(0.99); }
+
+    .role-hub-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .role-hub-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--text-main);
+    }
+
+    .role-hub-rank {
+      font-weight: 500;
+      color: var(--text-muted);
+    }
 
     .org-header-banner {
       display: flex;
@@ -937,18 +981,18 @@
 
     .doc-index-box {
       background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 9px 11px;
-      margin-bottom: 11px;
+      border: 1px solid var(--border-red);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 13px;
     }
 
     .doc-index-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 8px 6px;
+      gap: 10px;
+      padding: 9px 4px;
       border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap;
     }
@@ -956,8 +1000,8 @@
     .doc-index-row:last-child { border-bottom: none; }
 
     .doc-link-title {
-      font-size: 0.84rem;
-      font-weight: 700;
+      font-size: 0.88rem;
+      font-weight: 800;
       color: var(--text-main);
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -968,6 +1012,31 @@
     }
 
     .doc-link-title:hover { color: var(--red-bright); }
+
+    .member-control-pill-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 310px;
+      margin: 14px auto 4px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: #16a34a;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.84rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.28);
+      transition: background 0.16s ease, transform 0.12s ease;
+    }
+
+    .member-control-pill-btn:hover { background: #15803d; }
+    .member-control-pill-btn:active { transform: scale(0.98); }
 
     .rank-list-row {
       display: flex;
@@ -1076,6 +1145,40 @@
     .shift-play-btn.play:hover { background: #22c55e; }
     .shift-play-btn.stop { background: #dc2626; }
     .shift-play-btn.stop:hover { background: #ef4444; }
+
+    /* Lista simplificada de Turnos */
+    .simple-shift-list {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 4px 12px;
+    }
+
+    .simple-shift-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 2px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .simple-shift-row:last-child { border-bottom: none; }
+
+    .simple-shift-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .simple-shift-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
 
     /* Chat Screen Styles */
     .chat-layout {
@@ -1794,7 +1897,8 @@
       loopArrows: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>`,
       bell: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
       mail: `<svg class="ui-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>`,
-      send: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`
+      send: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+      users: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
     };
 
     const REQ_MODALITIES = [
@@ -1954,6 +2058,14 @@
       return `${String(h).padStart(2, "0")}h ${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`;
     }
 
+    function formatCompactTimer(totalSec) {
+      const sec = Math.max(0, Math.floor(totalSec || 0));
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
     function getMondayKey(dateInput = new Date()) {
       const d = new Date(dateInput);
       d.setHours(0, 0, 0, 0);
@@ -1994,8 +2106,10 @@
         emblem: cfg.emblem,
         members: id === "DRH" ? [{ nick: FOUNDER_NICK, role: cfg.roles[0].name }] : [],
         internalRegimento: `Regimento Interno — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
+        internalRegimentoTitle: `Regimento Interno (RI)`,
         internalRegimentoMeta: { updatedBy: FOUNDER_NICK, updatedAt: nowStamp },
         penalCode: `Código Penal — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
+        penalCodeTitle: `Código Penal`,
         penalCodeMeta: { updatedBy: FOUNDER_NICK, updatedAt: nowStamp },
         extraDocs: [],
         scripts: [],
@@ -2076,6 +2190,7 @@
     let selectedRoleId = "";
     let orgSubPage = "overview";
     let activeOrgDocTarget = "";
+    let activeOrgForumTopicId = "";
     let orgWeekKey = getMondayKey();
     let editingScriptId = "";
     let editingAnnId = "";
@@ -2239,8 +2354,10 @@
           emblem: ORG_ROLES_CONFIG[def.id]?.emblem || found.emblem || def.emblem,
           members: normalizedMembers,
           internalRegimento: found.internalRegimento ?? def.internalRegimento,
+          internalRegimentoTitle: found.internalRegimentoTitle || def.internalRegimentoTitle,
           internalRegimentoMeta: found.internalRegimentoMeta || def.internalRegimentoMeta,
           penalCode: found.penalCode ?? def.penalCode,
+          penalCodeTitle: found.penalCodeTitle || def.penalCodeTitle,
           penalCodeMeta: found.penalCodeMeta || def.penalCodeMeta,
           extraDocs: Array.isArray(found.extraDocs) ? found.extraDocs : [],
           scripts: Array.isArray(found.scripts) ? found.scripts : [],
@@ -2565,9 +2682,10 @@
     setInterval(() => {
       document.querySelectorAll("[data-shift-start]").forEach(el => {
         const startMs = Number(el.getAttribute("data-shift-start") || 0);
+        const isCompact = el.getAttribute("data-shift-compact") === "1";
         if (startMs > 0) {
           const elapsedSec = Math.floor((Date.now() - startMs) / 1000);
-          el.textContent = formatSecondsDuration(elapsedSec);
+          el.textContent = isCompact ? formatCompactTimer(elapsedSec) : formatSecondsDuration(elapsedSec);
         }
       });
     }, 1000);
@@ -3210,7 +3328,8 @@
         listingCat: selectedListingCategory,
         roleId: selectedRoleId,
         orgSub: orgSubPage,
-        orgDocTarget: activeOrgDocTarget
+        orgDocTarget: activeOrgDocTarget,
+        orgForumTopicId: activeOrgForumTopicId
       };
     }
 
@@ -3228,6 +3347,7 @@
         selectedRoleId = "";
         orgSubPage = "overview";
         activeOrgDocTarget = "";
+        activeOrgForumTopicId = "";
         orgWeekKey = getMondayKey();
         editingScriptId = "";
       }
@@ -3259,9 +3379,31 @@
       }
 
       if (currentRoute === "roles" && selectedRoleId) {
-        if (orgSubPage === "doc-detail") {
+        if (orgSubPage === "doc-edit") {
+          orgSubPage = "doc-detail";
+          renderCurrentView();
+          return;
+        }
+        if (orgSubPage === "doc-detail" || orgSubPage === "doc-create") {
           orgSubPage = "docs";
           activeOrgDocTarget = "";
+          renderCurrentView();
+          return;
+        }
+        if (orgSubPage === "script-create" || orgSubPage === "script-edit") {
+          orgSubPage = "scripts";
+          editingScriptId = "";
+          renderCurrentView();
+          return;
+        }
+        if (orgSubPage === "forum-create" || orgSubPage === "forum-detail") {
+          orgSubPage = "forum";
+          activeOrgForumTopicId = "";
+          renderCurrentView();
+          return;
+        }
+        if (orgSubPage === "members-control") {
+          orgSubPage = "docs";
           renderCurrentView();
           return;
         }
@@ -3292,6 +3434,7 @@
         selectedRoleId = prev.roleId;
         orgSubPage = prev.orgSub;
         activeOrgDocTarget = prev.orgDocTarget;
+        activeOrgForumTopicId = prev.orgForumTopicId || "";
         showProfileSettings = false;
         renderCurrentView();
       } else {
@@ -3356,47 +3499,32 @@
       }
 
       return `
-        <table class="si-status-table">
-          <thead>
-            <tr>
-              <th>Militar</th>
-              <th>Tempo</th>
-              <th>Setor</th>
-              ${canManage ? `<th>Controle</th>` : ""}
-            </tr>
-          </thead>
-          <tbody>
-            ${activeEntries.map((sh, idx) => {
-              const escNick = sh.nick.replace(/'/g, "\\'");
-              const isSelf = sh.nick.toLowerCase() === viewer.nick.toLowerCase();
-              return `
-                <tr>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:7px;cursor:pointer;" onclick="openUserProfile('${escNick}')">
-                      <img src="${habboHeadUrl(sh.nick)}" style="width:26px;height:26px;border-radius:50%;" />
-                      <strong>${escapeHtml(sh.nick)}</strong>
-                    </div>
-                  </td>
-                  <td><strong style="font-family:monospace;color:var(--red-bright);" data-shift-start="${sh.startedAt}">${formatSecondsDuration(Math.floor((Date.now() - sh.startedAt) / 1000))}</strong></td>
-                  <td><span class="badge badge-approved">${escapeHtml(sh.sector)}</span></td>
-                  ${canManage ? `
-                    <td>
-                      ${isSelf ? `<span style="font-size:0.7rem;color:var(--text-muted);">Seu turno</span>` : `
-                        <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
-                          <select id="other-shift-sector-${idx}" class="form-select" style="width:auto;padding:4px 7px;font-size:0.72rem;">
-                            ${SHIFT_SECTORS.map(sec => `<option value="${sec}" ${sh.sector === sec ? "selected" : ""}>${sec}</option>`).join("")}
-                          </select>
-                          <button type="button" class="btn btn-dark btn-sm" title="Trocar setor" onclick="forceChangeOtherShiftSector('${escNick}', 'other-shift-sector-${idx}')">${ICONS.loopArrows}</button>
-                          <button type="button" class="btn btn-red btn-sm" title="Desligar turno" onclick="forceStopOtherShift('${escNick}')">${ICONS.stopSquare}</button>
-                        </div>
-                      `}
-                    </td>
-                  ` : ""}
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
+        <div class="simple-shift-list">
+          ${activeEntries.map((sh, idx) => {
+            const escNick = sh.nick.replace(/'/g, "\\'");
+            const isSelf = sh.nick.toLowerCase() === viewer.nick.toLowerCase();
+            const showControls = canManage && !isSelf;
+            return `
+              <div class="simple-shift-row">
+                <div class="simple-shift-left">
+                  <strong style="font-size:0.88rem;cursor:pointer;" onclick="openUserProfile('${escNick}')">${escapeHtml(sh.nick)}</strong>
+                  <span style="font-family:monospace;font-size:0.86rem;font-weight:700;color:var(--red-bright);" data-shift-start="${sh.startedAt}" data-shift-compact="1">${formatCompactTimer(Math.floor((Date.now() - sh.startedAt) / 1000))}</span>
+                </div>
+                <div class="simple-shift-right">
+                  ${showControls ? `
+                    <select id="other-shift-sector-${idx}" class="form-select" style="width:auto;padding:4px 8px;font-size:0.76rem;">
+                      ${SHIFT_SECTORS.map(sec => `<option value="${sec}" ${sh.sector === sec ? "selected" : ""}>${sec}</option>`).join("")}
+                    </select>
+                    <button type="button" class="btn btn-dark btn-sm" title="Trocar setor" onclick="forceChangeOtherShiftSector('${escNick}', 'other-shift-sector-${idx}')">${ICONS.loopArrows}</button>
+                    <button type="button" class="btn btn-red btn-sm" title="Desligar turno" onclick="forceStopOtherShift('${escNick}')">${ICONS.stopSquare}</button>
+                  ` : `
+                    <span style="font-size:0.82rem;font-weight:700;color:var(--text-muted);">${escapeHtml(sh.sector)}</span>
+                  `}
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
       `;
     }
 
@@ -3468,7 +3596,7 @@
             </div>
           </div>
 
-          <div class="si-table-wrap" id="shift-active-table-container">
+          <div id="shift-active-table-container">
             ${buildActiveShiftsTableInnerHtml(user)}
           </div>
         </div>
@@ -4616,369 +4744,430 @@
 
       if (type === "Gratificação") {
         if (!isOfficialOrAbove(author.rank) && !isHighAuthority(author.nick)) return showToast("Somente oficiais (Tenente ou superior) podem gratificar.", true);
-        const tag = document.getElementById("req-tag").value;
+        const tagSel = document.getElementById("req-tag");
+        const tag = tagSel.value;
+        const isOrgTag = tagSel.options[tagSel.selectedIndex]?.dataset?.isOrg === "1";
         const targetNick = document.getElementById("req-target").value.trim();
-        const medalsRaw = document.getElementById("req-medals").value.trim();
-        const medalsNum = Number(medalsRaw);
-        const permissor = document.getElementById("req-permissor").value.trim();
-        const motivo = document.getElementById("req-obs").value.trim();
-        if (!targetNick || medalsRaw === "" || Number.isNaN(medalsNum) || medalsNum === 0 || !motivo) {
-          return showToast("Preencha o nick do envolvido, a quantidade de medalhas e o motivo.", true);
-        }
-        if (!(await systemConfirm(`Confirmar a postagem desta Gratificação (${medalsNum > 0 ? `+${medalsNum}` : medalsNum} medalhas) para ${targetNick}?`, "Confirmar requerimento"))) return;
+        const medalsVal = document.getElementById("req-medals").value.trim();
+        const permissor = document.getElementById("req-permissor")?.value.trim() || "";
+        const obs = document.getElementById("req-obs")?.value.trim() || "";
 
-        let target = getUser(targetNick);
-        if (!target) {
-          target = { nick: targetNick, tag: "", rank: "Soldado", status: "Desativado", password: "", isAdmin: false, ip: "", ipsRecorded: [], networkProfiles: [], deviceIds: [], lastLogin: "Sem registo", onlineMsTotal: 0, shiftLogs: [], notifications: [], lastPromoLine: `${targetNick} [${tag}] ${shortDate}`, history: [] };
-          state.users[targetNick.toLowerCase()] = target;
-        }
+        if (!targetNick) return showToast("Informe o nick do envolvido.", true);
+        if (!medalsVal || isNaN(Number(medalsVal)) || Number(medalsVal) === 0) return showToast("Informe uma quantidade válida de medalhas (positiva ou negativa).", true);
 
-        const req = { id: "req-" + Date.now(), type: "Gratificação", author: author.nick, tag, target: target.nick, medals: medalsNum, permissor, obs: motivo, createdAt: nowStr, shortDate, status: "Em análise", reviewedBy: "", reviewedAt: "", reviewNote: "" };
-        state.requirements.unshift(req);
-
-        // No histórico NÃO aparece permissor nem provas, mas aparece valor de gratificação
+        const medalsNum = Number(medalsVal);
+        const medalsFormatted = medalsNum > 0 ? `+${medalsNum}` : `${medalsNum}`;
         const obsLines = [
-          `Quantidade de medalhas: ${medalsNum > 0 ? `+${medalsNum}` : medalsNum}`,
-          `${target.nick} [${tag}] ${shortDate}`,
-          `Observações: ${motivo}`
-        ];
-        target.history = target.history || [];
-        target.history.unshift({ reqId: req.id, author: author.nick, category: "gratificacao", modalityText: "Gratificação", isPositive: medalsNum >= 0, obs: obsLines.join("\n"), date: nowStr, status: "Em análise" });
+          `Gratificado por: ${author.nick}`,
+          `Medalhas: ${medalsFormatted}`,
+          permissor ? `Permissor: ${permissor}` : "",
+          obs ? `Observações: ${obs}` : ""
+        ].filter(Boolean).join("\n");
 
-        if (await saveState()) { showToast("Gratificação publicada!"); navigate("drh-panel"); }
+        const reqObj = {
+          id: "req-" + Date.now(),
+          type: "Gratificação",
+          author: author.nick,
+          tag,
+          isOrgTag,
+          targetNick,
+          medals: medalsNum,
+          permissor,
+          obs: obsLines,
+          status: "Em análise",
+          date: nowStr
+        };
+
+        state.requirements.unshift(reqObj);
+        pushUserNotification(targetNick, "Novo requerimento", `Novo requerimento de Gratificação (${medalsFormatted} medalhas) publicado por ${author.nick}.`);
+        if (await saveState()) { showToast("Gratificação enviada para análise no Painel do DRH!"); navigate("home"); }
         return;
       }
 
       if (type === "Licença") {
         const endDate = document.getElementById("req-end-date").value;
         const obs = document.getElementById("req-obs").value.trim();
-        if (!endDate || !obs) return showToast("Informe a data de vencimento e o motivo.", true);
-        if (!(await systemConfirm("Confirmar a solicitação de Licença?", "Confirmar requerimento"))) return;
-
-        const req = { id: "req-" + Date.now(), type: "Licença", author: author.nick, tag: author.tag || "OMR", target: author.nick, newRank: author.rank, endDate, obs, proofs: "", createdAt: nowStr, shortDate, status: "Em análise", reviewedBy: "", reviewedAt: "", reviewNote: "" };
-        state.requirements.unshift(req);
-        author.history = author.history || [];
-        author.history.unshift({ reqId: req.id, author: author.nick, category: "military", modalityText: "Licença", isPositive: true, obs: `Vencimento: ${endDate}\n${author.nick} [${author.tag || "OMR"}] ${shortDate}\nObservações: ${obs}`, date: nowStr, status: "Em análise" });
-        if (await saveState()) { showToast("Licença enviada!"); navigate("drh-panel"); }
+        if (!endDate) return showToast("Informe a data de vencimento.", true);
+        const obsLines = [`Patente: ${author.rank}`, `Vencimento: ${endDate}`, obs ? `Observações: ${obs}` : "", `${author.nick} ${author.tag ? `[${author.tag}]` : ""} ${shortDate}`].filter(Boolean).join("\n");
+        const reqObj = { id: "req-" + Date.now(), type: "Licença", author: author.nick, tag: author.tag || "OMR", isOrgTag: false, targetNick: author.nick, endDate, obs: obsLines, status: "Em análise", date: nowStr };
+        state.requirements.unshift(reqObj);
+        if (await saveState()) { showToast("Licença enviada para análise no Painel do DRH!"); navigate("home"); }
         return;
       }
 
-      const tagSelect = document.getElementById("req-tag");
-      const tag = tagSelect.value;
-      const isOrgTag = tagSelect.selectedOptions?.[0]?.dataset?.isOrg === "1";
+      const tagSel = document.getElementById("req-tag");
+      const tag = tagSel.value;
+      const isOrgTag = tagSel.options[tagSel.selectedIndex]?.dataset?.isOrg === "1";
       const targetNick = document.getElementById("req-target").value.trim();
       const newRank = document.getElementById("req-new-rank")?.value || "";
-      const saleValue = document.getElementById("req-sale-value")?.value.trim() || "";
       const permissor = document.getElementById("req-permissor")?.value.trim() || "";
       const proofs = document.getElementById("req-proofs")?.value.trim() || "";
-      const obs = document.getElementById("req-obs").value.trim();
-      const exoMode = type === "Exoneração" ? (document.getElementById("req-exo-type")?.value || "permanente") : "";
-      const exoEndDate = type === "Exoneração" ? (document.getElementById("req-end-date")?.value || "") : "";
+      const saleValue = document.getElementById("req-sale-value")?.value.trim() || "";
+      const obs = document.getElementById("req-obs")?.value.trim() || "";
+      const exoType = document.getElementById("req-exo-type")?.value || "permanente";
+      const endDate = document.getElementById("req-end-date")?.value || "";
 
-      if (!targetNick || !obs) return showToast("Preencha o militar envolvido e as observações.", true);
-      if (newRank === "Recruta") return showToast("Ninguém pode promover ou definir alguém para Recruta por requerimento.", true);
-      if ((newRank === "Supremo" || newRank === "Fundador") && !isFounderNick(author.nick)) {
-        return showToast("Apenas o Fundador pode promover alguém a Supremo ou Fundador.", true);
+      if (!targetNick) return showToast("Informe o nick do militar envolvido.", true);
+      if (isFounderNick(targetNick) && ["Rebaixamento", "Advertência", "Notificação", "Demissão", "Exoneração"].includes(type)) {
+        return showToast("O Fundador (A-Twink) não pode receber punições ou exoneração.", true);
       }
-      if (isFounderNick(targetNick) && !isFounderNick(author.nick)) return showToast("Apenas o próprio Fundador pode postar no próprio perfil.", true);
-      if (type === "Exoneração" && exoMode === "temporaria" && !exoEndDate) return showToast("Informe o vencimento.", true);
 
       let target = getUser(targetNick);
-      if (!target) {
-        if (type === "Contrato" || type === "Venda") {
-          if (isNickOrNetworkExonerated(targetNick)) return showToast("Este militar consta como exonerado.", true);
-          target = { nick: targetNick, tag: "", rank: newRank || "Soldado", status: "Desativado", password: "", isAdmin: false, ip: "", ipsRecorded: [], networkProfiles: [], deviceIds: [], lastLogin: "Sem registo", onlineMsTotal: 0, shiftLogs: [], notifications: [], lastPromoLine: `${targetNick} [${tag}] ${shortDate}`, history: [] };
-          state.users[targetNick.toLowerCase()] = target;
-        } else {
-          return showToast("Militar envolvido não está registado.", true);
+      if (!target && !["Contrato", "Venda"].includes(type)) return showToast("Militar não encontrado na base de dados.", true);
+
+      if (target) {
+        const authorIdx = getRankIndex(author.rank);
+        const targetIdx = getRankIndex(target.rank);
+        if (!isHighAuthority(author.nick) && !isSI(author.nick) && target.nick.toLowerCase() !== author.nick.toLowerCase()) {
+          if (["Promoção", "Rebaixamento", "Advertência", "Notificação", "Demissão"].includes(type) && targetIdx >= authorIdx) {
+            return showToast(`Hierarquia: você (${author.rank}) não pode aplicar ${type} em ${target.nick} (${target.rank}).`, true);
+          }
+        }
+        if (type === "Promoção") {
+          const curIdx = HIERARCHY_ORDER.indexOf(target.rank);
+          if (!canSelectAnyRank(author)) {
+            if (newRank !== HIERARCHY_ORDER[curIdx + 1]) return showToast(`Sem permissão para pular patentes! A próxima patente é ${HIERARCHY_ORDER[curIdx + 1]}.`, true);
+          } else if (HIERARCHY_ORDER.indexOf(newRank) <= curIdx) {
+            return showToast("A nova patente deve ser superior à atual.", true);
+          }
+        }
+        if (type === "Rebaixamento") {
+          const curIdx = HIERARCHY_ORDER.indexOf(target.rank);
+          if (!canSelectAnyRank(author)) {
+            if (newRank !== HIERARCHY_ORDER[curIdx - 1]) return showToast(`Sem permissão para pular patentes! A patente anterior é ${HIERARCHY_ORDER[curIdx - 1]}.`, true);
+          } else if (HIERARCHY_ORDER.indexOf(newRank) >= curIdx) {
+            return showToast("A nova patente deve ser inferior à atual.", true);
+          }
         }
       }
 
-      if (["Promoção", "Rebaixamento"].includes(type)) {
-        const allowedRanks = getSelectableRanksForReq(author, type, target);
-        if (!allowedRanks.includes(newRank)) {
-          return showToast("Apenas o Alto Comando Supremo e o SI podem promover ou rebaixar mais de uma patente.", true);
-        }
+      if (type === "Venda" && !saleValue) return showToast("Informe o valor pago na venda.", true);
+      if (type === "Exoneração" && exoType === "temporaria" && !endDate) return showToast("Informe a data de vencimento.", true);
+
+      if (!target && ["Contrato", "Venda"].includes(type)) {
+        target = {
+          nick: targetNick,
+          tag: "",
+          rank: newRank || "Soldado",
+          status: "Ativo",
+          password: "",
+          isAdmin: false,
+          ip: "0.0.0.0",
+          ipsRecorded: [],
+          networkProfiles: [],
+          deviceIds: [],
+          lastLogin: "Pré-cadastro",
+          onlineMsTotal: 0,
+          shiftLogs: [],
+          notifications: [],
+          lastPromoLine: `${targetNick} [${tag}] ${shortDate}`,
+          history: []
+        };
+        state.users[targetNick.toLowerCase()] = target;
       }
 
-      if (!isOrgTag && !isHighAuthority(author.nick) && getRankIndex(author.rank) <= getRankIndex(target.rank)) {
-        return showToast("Sem TAG de órgão, só pode publicar requisição de militar inferior à sua patente.", true);
-      }
+      const promoSig = `${target.nick} [${tag}] ${shortDate}`;
+      const obsLines = [
+        newRank ? `Patente: ${newRank}` : "",
+        saleValue ? `Valor: ${saleValue}` : "",
+        permissor ? `Permissor: ${permissor}` : "",
+        proofs ? `Provas: ${proofs}` : "",
+        type === "Exoneração" ? `Modalidade: ${exoType === "temporaria" ? "Temporária até " + endDate : "Permanente"}` : "",
+        obs ? `Observações: ${obs}` : "",
+        promoSig
+      ].filter(Boolean).join("\n");
 
-      if (!(await systemConfirm(`Confirmar a postagem do requerimento de ${type} para ${target.nick}?`, "Confirmar requerimento"))) return;
+      const reqObj = {
+        id: "req-" + Date.now(),
+        type,
+        author: author.nick,
+        tag,
+        isOrgTag,
+        targetNick: target.nick,
+        newRank,
+        permissor,
+        proofs,
+        saleValue,
+        exoType,
+        endDate,
+        obs: obsLines,
+        status: "Em análise",
+        date: nowStr
+      };
 
-      const req = { id: "req-" + Date.now(), type, author: author.nick, tag, target: target.nick, newRank, saleValue, permissor, proofs, obs, exoMode, exoEndDate, createdAt: nowStr, shortDate, status: "Em análise", reviewedBy: "", reviewedAt: "", reviewNote: "" };
-      state.requirements.unshift(req);
-
-      // No histórico NÃO aparecem provas, permissores nem valores de venda, e Observações fica sempre por último
-      const obsLines = [];
-      if (newRank) obsLines.push(`Nova patente: ${newRank}`);
-      if (type === "Exoneração") obsLines.push(exoMode === "temporaria" ? `Exoneração: Temporária (até ${exoEndDate})` : "Exoneração: Permanente");
-      obsLines.push(`${target.nick} [${tag}] ${shortDate}`);
-      obsLines.push(`Observações: ${obs}`);
-
-      target.history = target.history || [];
-      target.history.unshift({ reqId: req.id, author: author.nick, category: "military", modalityText: type, isPositive: isPos, obs: obsLines.join("\n"), date: nowStr, status: "Em análise" });
-
-      if (await saveState()) { showToast(`${type} publicado e enviado ao Painel do DRH!`); navigate("drh-panel"); }
+      state.requirements.unshift(reqObj);
+      pushUserNotification(target.nick, "Novo requerimento", `Novo requerimento de ${type} publicado por ${author.nick}.`);
+      if (await saveState()) { showToast(`${type} publicado com sucesso! Enviado para análise no Painel do DRH.`); navigate("home"); }
     };
 
     // ==================== PAINEL DO DRH ====================
     function buildDRHPanelHtml() {
-      const reviewer = getCurrentUser();
-      const canReview = isOrgMember(reviewer.nick, "DRH") || isSI(reviewer.nick) || isHighAuthority(reviewer.nick);
-      const isDrhAdmin = isOrgAdmin(reviewer.nick, "DRH") || isHighAuthority(reviewer.nick);
-      const filteredReqs = state.requirements.filter(r => r.type === drhSelectedModality);
-
-      const cards = filteredReqs.map(r => {
-        const badgeCls = r.status === "Aprovado" ? "badge-approved" : r.status === "Reprovado" ? "badge-rejected" : r.status === "Cancelado" ? "badge-canceled" : "badge-pending";
-        const isAuthor = r.author.toLowerCase() === reviewer.nick.toLowerCase();
-        const canCancelOwn = isAuthor && r.status === "Em análise";
-        const escTarget = (r.target || "").replace(/'/g, "\\'");
-        const escAuthor = (r.author || "").replace(/'/g, "\\'");
-
-        return `
-          <div class="history-item">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px;">
-              <strong>${escapeHtml(r.type)} — <span style="cursor:pointer;text-decoration:underline;" onclick="openUserProfile('${escTarget}')">${escapeHtml(r.target)}</span></strong>
-              <span class="badge ${badgeCls}">${escapeHtml(r.status)}</span>
-            </div>
-            <div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:4px;">
-              Postado por <strong style="cursor:pointer;color:var(--text-main);" onclick="openUserProfile('${escAuthor}')">${escapeHtml(r.author)}</strong> [${escapeHtml(r.tag)}] • ${escapeHtml(r.createdAt)}
-            </div>
-            ${r.newRank ? `<div style="font-size:0.76rem;">Patente: <strong>${escapeHtml(r.newRank)}</strong></div>` : ""}
-            ${r.saleValue ? `<div style="font-size:0.76rem;">Valor da venda: <strong>${escapeHtml(r.saleValue)}</strong></div>` : ""}
-            ${typeof r.medals === "number" ? `<div style="font-size:0.76rem;">Medalhas: <strong>${r.medals > 0 ? `+${r.medals}` : r.medals}</strong></div>` : ""}
-            ${r.permissor ? `<div style="font-size:0.76rem;">Permissor: <strong>${escapeHtml(r.permissor)}</strong></div>` : ""}
-            ${r.proofs ? `<div style="font-size:0.76rem;">Provas: <a href="${escapeHtml(r.proofs)}" target="_blank" style="color:var(--red-bright);">Abrir Link</a></div>` : ""}
-            <div style="font-size:0.76rem;margin-top:3px;">Observações: ${escapeHtml(r.obs)}</div>
-            ${r.reviewedBy ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Analisado por <strong>${escapeHtml(r.reviewedBy)}</strong> em ${escapeHtml(r.reviewedAt)} ${r.reviewNote ? `— "${escapeHtml(r.reviewNote)}"` : ""}</div>` : ""}
-
-            <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center;">
-              ${canReview && r.status === "Em análise" ? `
-                <input id="note-${r.id}" class="form-control" placeholder="Observação do DRH (opcional)" style="max-width:200px;padding:5px 8px;font-size:0.76rem;" />
-                <button type="button" class="btn btn-green btn-sm" onclick="reviewReq('${r.id}', 'Aprovado')">${ICONS.check} Aprovar</button>
-                <button type="button" class="btn btn-red btn-sm" onclick="reviewReq('${r.id}', 'Reprovado')">${ICONS.x} Reprovar</button>
-              ` : ""}
-              ${canCancelOwn ? `<button type="button" class="btn btn-dark btn-sm" onclick="cancelOwnReq('${r.id}')">${ICONS.ban} Cancelar</button>` : ""}
-              ${isDrhAdmin ? `<button type="button" class="btn btn-dark btn-sm" onclick="deleteReqPermanent('${r.id}')">${ICONS.trash} Apagar</button>` : ""}
-            </div>
-          </div>
-        `;
-      }).join("");
+      const counts = {};
+      REQ_MODALITIES.forEach(m => { counts[m] = state.requirements.filter(r => r.type === m && r.status === "Em análise").length; });
+      const list = state.requirements.filter(r => r.type === drhSelectedModality);
 
       return `
         <div class="card-box">
-          <div class="section-title"><span class="section-title-left">${ICONS.scale} Painel de Análise do DRH</span></div>
+          <div class="section-title"><span class="section-title-left">${ICONS.scale} Painel do DRH — Homologação</span></div>
           <div class="catalog-strip">
-            ${REQ_MODALITIES.map(mod => {
-              const count = state.requirements.filter(r => r.type === mod && r.status === "Em análise").length;
-              return `
-                <button type="button" class="btn ${drhSelectedModality === mod ? "btn-red" : "btn-dark"} btn-sm" style="white-space:nowrap;" onclick="selectDrhModality('${mod}')">
-                  ${mod}${count ? ` (${count})` : ""}
-                </button>
-              `;
-            }).join("")}
+            ${REQ_MODALITIES.map(m => `
+              <button type="button" class="btn ${drhSelectedModality === m ? "btn-red" : "btn-dark"} btn-sm" onclick="selectDrhModality('${m}')">
+                ${m} <span style="background:rgba(0,0,0,0.28);padding:1px 6px;border-radius:99px;font-size:0.68rem;">${counts[m]}</span>
+              </button>
+            `).join("")}
           </div>
-          ${cards || `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento na modalidade <strong>${escapeHtml(drhSelectedModality)}</strong>.</p>`}
+
+          ${list.length ? list.map(r => {
+            const stClass = r.status === "Aprovado" ? "badge-approved" : r.status === "Reprovado" ? "badge-rejected" : r.status === "Cancelado" ? "badge-canceled" : "badge-pending";
+            const cadLine = r.type === "Gratificação" ? `${r.targetNick} (${r.medals > 0 ? `+${r.medals}` : r.medals} medalhas)` : `${r.targetNick} [${r.tag}] ${formatShortDate()}`;
+            return `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:9px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;">
+                  <strong>${escapeHtml(r.type)} • ${escapeHtml(r.targetNick)}</strong>
+                  <span class="badge ${stClass}">${escapeHtml(r.status)}</span>
+                </div>
+                <div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:6px;">Autor: <strong>${escapeHtml(r.author)}</strong> • ${escapeHtml(r.date)}</div>
+                <pre style="white-space:pre-wrap;font-size:0.8rem;background:var(--bg-input);padding:8px;border-radius:8px;border:1px solid var(--border-subtle);margin-bottom:8px;">${escapeHtml(r.obs)}</pre>
+
+                <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+                  <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${cadLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
+                  ${r.status === "Em análise" ? `
+                    <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH (opcional)..." style="max-width:210px;padding:5px 8px;font-size:0.76rem;" />
+                    <button type="button" class="btn btn-green btn-sm" onclick="decideRequirement('${r.id}', 'Aprovado')">${ICONS.check} Aprovar</button>
+                    <button type="button" class="btn btn-red btn-sm" onclick="decideRequirement('${r.id}', 'Reprovado')">${ICONS.x} Reprovar</button>
+                    <button type="button" class="btn btn-dark btn-sm" onclick="decideRequirement('${r.id}', 'Cancelado')">${ICONS.ban} Cancelar</button>
+                  ` : ""}
+                </div>
+              </div>
+            `;
+          }).join("") : `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento na modalidade <strong>${drhSelectedModality}</strong>.</p>`}
         </div>
       `;
     }
 
-    window.selectDrhModality = function(mod) { drhSelectedModality = mod; renderCurrentView(); };
+    window.selectDrhModality = function(m) { drhSelectedModality = m; renderCurrentView(); };
 
-    window.reviewReq = async function(reqId, decision) {
+    window.decideRequirement = async function(reqId, decision) {
+      if (!(await systemConfirm(`Confirmar decisão "${decision}" neste requerimento?`, "Homologar requerimento"))) return;
       const req = state.requirements.find(r => r.id === reqId);
-      const reviewer = getCurrentUser();
-      if (!req || !reviewer) return;
-      if (!(await systemConfirm(`Confirmar decisão "${decision}" para o requerimento de ${req.type} (${req.target})?`, "Analisar requerimento", decision, decision === "Reprovado"))) return;
-
-      const note = document.getElementById("note-" + reqId)?.value.trim() || "";
-      const nowStr = formatDateTime();
-
+      if (!req) return;
+      const drhUser = getCurrentUser();
+      const note = document.getElementById(`drh-note-${reqId}`)?.value.trim() || "";
       req.status = decision;
-      req.reviewedBy = reviewer.nick;
-      req.reviewedAt = nowStr;
-      req.reviewNote = note;
+      if (note) req.obs += `\nObservação do DRH (${drhUser.nick}): ${note}`;
 
-      const target = getUser(req.target);
+      const target = getUser(req.targetNick);
       if (target) {
+        const shortDate = formatShortDate();
         if (decision === "Aprovado") {
-          if (req.type === "Promoção" || req.type === "Rebaixamento") {
-            if (!isFounderNick(target.nick) && req.newRank && req.newRank !== "Recruta") {
+          const isPos = POSITIVE_REQ_TYPES.has(req.type);
+          target.history = target.history || [];
+          target.history.unshift({
+            reqId: req.id,
+            author: req.author,
+            category: "military",
+            modalityText: req.type,
+            isPositive: isPos,
+            obs: req.obs,
+            date: formatDateTime(),
+            status: "Aprovado"
+          });
+
+          if (!isFounderNick(target.nick)) {
+            if (["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
               target.rank = req.newRank;
-              target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
+              target.status = "Ativo";
+              if (req.type === "Promoção" || req.type === "Contrato" || req.type === "Venda") {
+                target.lastPromoLine = `${target.nick} [${req.tag}] ${shortDate}`;
+              }
+            } else if (req.type === "Demissão") {
+              target.status = "Demitido";
+              purgeUserFromAllRolesAndPermissions(target.nick);
+            } else if (req.type === "Exoneração") {
+              target.status = "Exonerado";
+              purgeUserFromAllRolesAndPermissions(target.nick);
             }
-          } else if (req.type === "Contrato" || req.type === "Venda") {
-            if (!isFounderNick(target.nick)) {
-              if (req.newRank && req.newRank !== "Recruta") target.rank = req.newRank;
-              if (target.status === "Demitido") target.status = "Ativo";
-              target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
-            }
-          } else if (req.type === "Demissão" && !isFounderNick(target.nick)) {
-            target.status = "Demitido";
-            purgeUserFromAllRolesAndPermissions(target.nick);
-          } else if (req.type === "Exoneração" && !isFounderNick(target.nick)) {
-            target.status = "Exonerado";
-            purgeUserFromAllRolesAndPermissions(target.nick);
-          }
-
-          // Notificação ao militar envolvido quando o requerimento é aprovado
-          let notifText = "";
-          if (req.type === "Gratificação") {
-            notifText = `Você recebeu uma gratificação (${req.medals > 0 ? `+${req.medals}` : req.medals} medalhas).`;
-          } else if (req.type === "Promoção") {
-            notifText = `Você foi promovido a ${req.newRank}.`;
-          } else if (req.type === "Rebaixamento") {
-            notifText = `Você foi rebaixado a ${req.newRank}.`;
-          } else if (req.type === "Advertência") {
-            notifText = `Você recebeu uma advertência.`;
-          } else if (req.type === "Notificação") {
-            notifText = `Você recebeu uma notificação disciplinar.`;
-          } else if (req.type === "Contrato") {
-            notifText = `Seu contrato foi aprovado no cargo/patente de ${req.newRank}.`;
-          } else if (req.type === "Venda") {
-            notifText = `Sua venda de patente (${req.newRank}) foi aprovada.`;
-          } else if (req.type === "Licença") {
-            notifText = `Sua licença foi aprovada até ${req.endDate}.`;
-          } else if (req.type === "Demissão") {
-            notifText = `Seu requerimento de demissão foi aprovado.`;
-          } else if (req.type === "Exoneração") {
-            notifText = `Seu requerimento de exoneração foi aprovado.`;
-          }
-          if (notifText) {
-            pushUserNotification(target.nick, "Novo requerimento", notifText);
           }
         }
-
-        const histEntry = (target.history || []).find(h => h && h.reqId === req.id);
-        if (histEntry) {
-          histEntry.status = decision;
-          if (note) histEntry.obs += `\nObservação do DRH: ${note}`;
-        }
+        pushUserNotification(
+          target.nick,
+          `Requerimento ${decision}`,
+          `Seu requerimento de ${req.type} foi ${decision.toLowerCase()} pelo DRH (${drhUser.nick}).`
+        );
       }
 
-      if (await saveState()) { showToast(`Requerimento ${decision.toLowerCase()}!`); renderCurrentView(); }
+      if (await saveState()) { showToast(`Requerimento marcado como ${decision}!`); renderCurrentView(); }
     };
 
-    window.cancelOwnReq = async function(reqId) {
-      if (!(await systemConfirm("Deseja cancelar este requerimento enviado?", "Cancelar requerimento", "Cancelar envio", true))) return;
-      const req = state.requirements.find(r => r.id === reqId);
-      const u = getCurrentUser();
-      if (!req || !u) return;
-      req.status = "Cancelado";
-      req.reviewedBy = u.nick;
-      req.reviewedAt = formatDateTime();
-      const target = getUser(req.target);
-      if (target && Array.isArray(target.history)) target.history = target.history.filter(h => h.reqId !== req.id);
-      if (await saveState()) { showToast("Requerimento cancelado."); renderCurrentView(); }
-    };
-
-    window.deleteReqPermanent = async function(reqId) {
-      if (!(await systemConfirm("Tem certeza que deseja apagar permanentemente este requerimento?", "Apagar requerimento", "Apagar", true))) return;
-      const idx = state.requirements.findIndex(r => r.id === reqId);
-      if (idx === -1) return;
-      const [removed] = state.requirements.splice(idx, 1);
-      const target = getUser(removed.target);
-      if (target && Array.isArray(target.history)) target.history = target.history.filter(h => h.reqId !== removed.id);
-      if (await saveState()) { showToast("Requerimento apagado."); renderCurrentView(); }
-    };
-
-    // ==================== AULAS (CIM) ====================
+    // ==================== POSTAR AULAS (CIM) ====================
     function buildClassesHtml(user) {
-      const canPostCim = isOrgMember(user.nick, "ATT") || isHighAuthority(user.nick);
-      if (!canPostCim) {
-        return `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Apenas membros da Academia de Tutores (ATT) ou do Alto Comando Supremo podem postar aulas do CIM.</p></div>`;
+      const isTutor = isOrgMember(user.nick, "ATT") || isHighAuthority(user.nick);
+      const isBaep = isOrgMember(user.nick, "BAEP") || isHighAuthority(user.nick);
+      const isCite = isOrgMember(user.nick, "CITE") || isHighAuthority(user.nick);
+
+      if (!isTutor && !isBaep && !isCite) {
+        return `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Acesso restrito a membros da Academia de Tutores (ATT), BAEP, CITE ou Alto Comando Supremo.</p></div>`;
       }
+
+      const courses = [];
+      if (isTutor) courses.push("Curso de Instrução Militar (CIM)", "Curso de Comando Militar (CCM)", "Curso de Aperfeiçoamento de Praças (CAP)");
+      if (isBaep) courses.push("Curso Ostensivo do Batalhão (COEsb)");
+      if (isCite) courses.push("Curso Tático de Intervenção (CTI)");
+
       return `
         <div class="card-box">
-          <div class="section-title"><span class="section-title-left">${ICONS.book} Postar Aula — Curso Introdutório Militar (CIM)</span></div>
+          <div class="section-title"><span class="section-title-left">${ICONS.book} Postar Aulas / Diplomas (CIM)</span></div>
+          <div class="form-group"><label class="form-label">Instrutor / Tutor</label><input class="form-control" value="${escapeHtml(user.nick)}" readonly /></div>
+          <div class="form-group"><label class="form-label">Curso Ministrado</label><select id="class-course" class="form-select">${courses.map(c => `<option value="${c}">${c}</option>`).join("")}</select></div>
           <div class="form-group">
-            <label class="form-label">Aplicador</label>
-            <input class="form-control" value="${escapeHtml(user.nick)}" readonly />
+            <label class="form-label">Aluno(s) Aprovado(s) (um nick por linha)</label>
+            <textarea id="class-students" class="form-textarea" rows="3" placeholder="Ex: Soldado1&#10;Soldado2"></textarea>
           </div>
-          <div class="form-group nick-match-wrap">
-            <label class="form-label">Aluno Aprovado</label>
-            <input
-              id="cim-student"
-              class="form-control"
-              placeholder="Nick do militar que concluiu o CIM..."
-              oninput="showNickSuggestions('cim-student', 'cim-student-suggestions', this.value)"
-              onblur="setTimeout(() => hideNickSuggestions('cim-student-suggestions'), 150)"
-            />
-            <div id="cim-student-suggestions" class="nick-suggestions-box"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Observações</label>
-            <textarea id="cim-obs" class="form-textarea" rows="3" placeholder="Desempenho / nota..."></textarea>
-          </div>
-          <button type="button" class="btn btn-red" style="width:100%;" onclick="submitCimClass()">Registar Aula CIM</button>
+          <button type="button" class="btn btn-red" style="width:100%;" onclick="submitClassReport()">Registrar Aprovação</button>
         </div>
       `;
     }
 
-    window.submitCimClass = async function() {
-      const studentNick = document.getElementById("cim-student").value.trim();
-      const obs = document.getElementById("cim-obs").value.trim();
-      const instructor = getCurrentUser();
-      const student = getUser(studentNick);
-      if (!student) return showToast("Aluno não encontrado no sistema.", true);
-      if (!(await systemConfirm(`Registar conclusão do Curso Introdutório Militar (CIM) para ${student.nick}?`, "Confirmar aula CIM"))) return;
+    window.submitClassReport = async function() {
+      const tutor = getCurrentUser();
+      const course = document.getElementById("class-course").value;
+      const rawStudents = document.getElementById("class-students").value.split("\n").map(s => s.trim()).filter(Boolean);
+      if (!rawStudents.length) return showToast("Informe pelo menos um aluno aprovado.", true);
 
       const nowStr = formatDateTime();
-      student.history = student.history || [];
-      student.history.unshift({
-        reqId: "cim-" + Date.now(),
-        author: instructor.nick,
-        category: "class",
-        modalityText: "Curso Introdutório Militar (CIM)",
-        isPositive: true,
-        obs: `Aplicador: ${instructor.nick}\nData e hora: ${nowStr}\nObservações: ${obs || "Concluído"}`,
-        date: nowStr,
-        status: "Aprovado"
+      const shortDate = formatShortDate();
+      let orgToCredit = "ATT";
+      if (course.includes("COEsb")) orgToCredit = "BAEP";
+      else if (course.includes("CTI")) orgToCredit = "CITE";
+      recordWeeklyClass(orgToCredit, tutor.nick);
+
+      rawStudents.forEach(sNick => {
+        let u = getUser(sNick);
+        if (!u) {
+          u = {
+            nick: sNick,
+            tag: "",
+            rank: "Soldado",
+            status: "Ativo",
+            password: "",
+            isAdmin: false,
+            ip: "0.0.0.0",
+            ipsRecorded: [],
+            networkProfiles: [],
+            deviceIds: [],
+            lastLogin: "Pré-cadastro",
+            onlineMsTotal: 0,
+            shiftLogs: [],
+            notifications: [],
+            lastPromoLine: `${sNick} [ATT] ${shortDate}`,
+            history: []
+          };
+          state.users[sNick.toLowerCase()] = u;
+        }
+        u.history = u.history || [];
+        u.history.unshift({
+          reqId: "class-" + Date.now() + "-" + Math.random().toString(36).slice(2, 5),
+          author: tutor.nick,
+          category: "class",
+          modalityText: course,
+          isPositive: true,
+          obs: `Curso: ${course}\nInstrutor: ${tutor.nick}\nObservações: Aprovado com aproveitamento satisfatório\n${u.nick} [${tutor.tag || "ATT"}] ${shortDate}`,
+          date: nowStr,
+          status: "Aprovado"
+        });
+        pushUserNotification(u.nick, "Aula registada", `Você foi aprovado no ${course} por ${tutor.nick}.`);
       });
-      recordWeeklyClass("ATT", instructor.nick);
-      pushUserNotification(student.nick, "Novo requerimento", `Você concluiu o Curso Introdutório Militar (CIM) aplicado por ${instructor.nick}.`);
-      if (await saveState()) { showToast(`Aula CIM registada para ${student.nick}!`); openUserProfile(student.nick); }
+
+      if (await saveState()) { showToast("Aula registada com sucesso!"); navigate("home"); }
     };
 
-    // ==================== DOCUMENTOS OFICIAIS ====================
+    // ==================== DOCUMENTOS GERAIS ====================
     function buildDocsHtml(user) {
-      const titles = { RGM: "Regimento Geral Militar (RGM)", RDM: "Regulamento Disciplinar Militar (RDM)", IDI: "Instrução de Defesa Institucional (IDI)" };
+      const titles = {
+        RGM: "Regimento Geral Militar (RGM)",
+        RDM: "Regulamento Disciplinar Militar (RDM)",
+        IDI: "Instrução de Defesa Institucional (IDI)"
+      };
       const canEdit = isHighAuthority(user.nick);
       return `
         <div class="card-box">
           <div class="section-title"><span class="section-title-left">${ICONS.book} ${titles[currentDocKey]}</span></div>
           ${canEdit ? `
-            <div class="form-group">${buildBBCodeToolbar("doc-editor-area", true)}<textarea id="doc-editor-area" class="form-textarea" rows="11">${escapeHtml(state.documents[currentDocKey] || "")}</textarea></div>
-            <button type="button" class="btn btn-red" onclick="saveDocContent()">Guardar Alterações</button>
-          ` : `<div class="bb-content-rendered" style="font-size:0.84rem;background:var(--bg-elevated);padding:13px;border-radius:10px;">${renderBBCode(state.documents[currentDocKey] || "")}</div>`}
+            ${buildBBCodeToolbar("doc-editor-area", true)}
+            <textarea id="doc-editor-area" class="form-textarea" rows="12" style="margin-bottom:9px;">${escapeHtml(state.documents[currentDocKey] || "")}</textarea>
+            <button type="button" class="btn btn-red" onclick="saveDoc()">Guardar Alterações</button>
+          ` : `<div class="bb-content-rendered" style="font-size:0.84rem;">${renderBBCode(state.documents[currentDocKey] || "")}</div>`}
         </div>
       `;
     }
 
-    window.saveDocContent = async function() {
-      if (!(await systemConfirm("Confirmar as alterações neste documento oficial?", "Guardar documento"))) return;
+    window.saveDoc = async function() {
+      if (!(await systemConfirm("Confirmar alterações neste documento oficial?", "Guardar documento"))) return;
       state.documents[currentDocKey] = document.getElementById("doc-editor-area").value;
-      if (await saveState()) showToast("Documento atualizado!");
+      if (await saveState()) { showToast("Documento guardado!"); renderCurrentView(); }
     };
 
-    // ==================== FUNÇÕES (ÓRGÃOS) ====================
+    // ==================== FUNÇÕES & PÁGINAS DEDICADAS ====================
+    function getOrgDocItem(org, targetKey) {
+      if (targetKey === "ri") {
+        return {
+          key: "ri",
+          title: org.internalRegimentoTitle || "Regimento Interno (RI)",
+          content: org.internalRegimento || "",
+          meta: org.internalRegimentoMeta || { updatedBy: FOUNDER_NICK, updatedAt: "27/11/2026 02:53" },
+          isFixed: true
+        };
+      }
+      if (targetKey === "cp") {
+        return {
+          key: "cp",
+          title: org.penalCodeTitle || "Código Penal",
+          content: org.penalCode || "",
+          meta: org.penalCodeMeta || { updatedBy: FOUNDER_NICK, updatedAt: "27/11/2026 02:53" },
+          isFixed: true
+        };
+      }
+      const extra = (org.extraDocs || []).find(d => d.id === targetKey);
+      if (!extra) return null;
+      return {
+        key: extra.id,
+        title: extra.title,
+        content: extra.content || "",
+        meta: extra.meta || { updatedBy: FOUNDER_NICK, updatedAt: "27/11/2026 02:53" },
+        isFixed: false
+      };
+    }
+
     function buildRolesHtml(user) {
+      const isACS = isSupremeCommand(user.nick) || isOrgMember(user.nick, "ACS");
+
+      // Lista Principal de Funções
       if (!selectedRoleId) {
+        const visibleOrgs = state.orgs.filter(o => {
+          if (o.id === "SI" && !isSI(user.nick) && !isHighAuthority(user.nick)) return false;
+          return true;
+        });
         return `
           <div class="card-box">
-            <div class="section-title"><span class="section-title-left">${ICONS.shield} Funções e Departamentos OMR</span></div>
-            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">Selecione um órgão para abrir a sua área dedicada:</p>
-            ${state.orgs.map(o => `
-              <button type="button" class="btn btn-dark listing-choice-btn" onclick="openOrgDedicatedPage('${o.id}')">
-                <span style="display:inline-flex;align-items:center;gap:9px;">
-                  <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img" />
-                  <span>${escapeHtml(o.name)} (${o.id})</span>
-                </span>
-                <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--red-bright);">Abrir ${ICONS.chevronRight}</span>
-              </button>
-            `).join("")}
+            <div class="section-title"><span class="section-title-left">${ICONS.shield} Funções e Órgãos Internos</span></div>
+            ${visibleOrgs.map(o => {
+              const entry = getOrgMemberEntry(o.id, user.nick);
+              let roleSuffix = "";
+              if (isACS) {
+                roleSuffix = ` <span class="role-hub-rank">— Alto Comando Supremo</span>`;
+              } else if (entry) {
+                roleSuffix = ` <span class="role-hub-rank">— ${escapeHtml(entry.role)}</span>`;
+              }
+              return `
+                <button type="button" class="role-hub-btn" onclick="openOrgPortal('${o.id}')">
+                  <div class="role-hub-left">
+                    <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img-lg" />
+                    <div class="role-hub-title">${escapeHtml(o.name)} (${o.id})${roleSuffix}</div>
+                  </div>
+                  <span style="color:var(--text-muted);flex-shrink:0;">${ICONS.chevronRight}</span>
+                </button>
+              `;
+            }).join("")}
           </div>
         `;
       }
@@ -4986,365 +5175,369 @@
       const org = state.orgs.find(o => o.id === selectedRoleId);
       if (!org) { selectedRoleId = ""; return buildRolesHtml(user); }
 
-      const isAdmin = isOrgAdmin(user.nick, org.id);
-      const isMember = isOrgMember(user.nick, org.id) || isAdmin;
-      const roleCfg = ORG_ROLES_CONFIG[org.id]?.roles || [{ name: "Membro", isAdmin: false }];
-      const activeMembers = (org.members || []).filter(m => {
-        const u = getUser(m.nick);
-        return !u || isFounderNick(m.nick) || (u.status !== "Demitido" && u.status !== "Exonerado");
-      });
+      const isAdminOfOrg = isOrgAdmin(user.nick, org.id);
+      const isMemberOfOrg = isOrgMember(user.nick, org.id);
+      const canViewFullOrg = isMemberOfOrg || isSI(user.nick) || isHighAuthority(user.nick);
+      const canPostForum = isMemberOfOrg || isAdminOfOrg;
+      const roleCfg = ORG_ROLES_CONFIG[org.id] || { roles: [{ name: "Membro", isAdmin: false }] };
+      const isTrainingOrg = ["ATT", "BAEP", "CITE"].includes(org.id);
 
-      const subTabsHtml = `
+      const allDocs = [
+        { key: "ri", title: org.internalRegimentoTitle || "Regimento Interno (RI)", meta: org.internalRegimentoMeta, isFixed: true },
+        { key: "cp", title: org.penalCodeTitle || "Código Penal", meta: org.penalCodeMeta, isFixed: true },
+        ...(org.extraDocs || []).map(d => ({ key: d.id, title: d.title, meta: d.meta, isFixed: false }))
+      ];
+
+      // Barra de navegação superior do Órgão
+      const tabsBar = canViewFullOrg ? `
         <div class="org-subnav-tabs">
-          <button type="button" class="org-tab-btn ${orgSubPage === "overview" ? "active" : ""}" onclick="setOrgSubPage('overview')">Membros & Cargos</button>
-          <button type="button" class="org-tab-btn ${orgSubPage === "docs" || orgSubPage === "doc-detail" ? "active" : ""}" onclick="setOrgSubPage('docs')">Documentos</button>
-          ${isMember ? `
-            <button type="button" class="org-tab-btn ${orgSubPage === "scripts" ? "active" : ""}" onclick="setOrgSubPage('scripts')">Scripts de Aula</button>
-            <button type="button" class="org-tab-btn ${orgSubPage === "forum" ? "active" : ""}" onclick="setOrgSubPage('forum')">Fórum Interno</button>
-            <button type="button" class="org-tab-btn ${orgSubPage === "classes" ? "active" : ""}" onclick="setOrgSubPage('classes')">Postar Aulas</button>
-            <button type="button" class="org-tab-btn ${orgSubPage === "weekly" ? "active" : ""}" onclick="setOrgSubPage('weekly')">Relatório Semanal</button>
-          ` : ""}
+          <button type="button" class="org-tab-btn ${orgSubPage === "overview" ? "active" : ""}" onclick="setOrgSubPage('overview')">Início</button>
+          <button type="button" class="org-tab-btn ${["docs", "doc-detail", "doc-edit", "doc-create", "members-control"].includes(orgSubPage) ? "active" : ""}" onclick="setOrgSubPage('docs')">Documentos</button>
+          ${isTrainingOrg ? `<button type="button" class="org-tab-btn ${["scripts", "script-create", "script-edit"].includes(orgSubPage) ? "active" : ""}" onclick="setOrgSubPage('scripts')">Scripts</button>` : ""}
+          <button type="button" class="org-tab-btn ${["forum", "forum-create", "forum-detail"].includes(orgSubPage) ? "active" : ""}" onclick="setOrgSubPage('forum')">Fórum</button>
+          ${isTrainingOrg ? `<button type="button" class="org-tab-btn ${orgSubPage === "classes" ? "active" : ""}" onclick="setOrgSubPage('classes')">Aulas (${org.id})</button>` : ""}
+          <button type="button" class="org-tab-btn ${orgSubPage === "members" ? "active" : ""}" onclick="setOrgSubPage('members')">Membros (${org.members.length})</button>
         </div>
-      `;
+      ` : "";
 
-      let subContentHtml = "";
-
+      // 1. PÁGINA DEDICADA: INÍCIO DO ÓRGÃO
+      let bodyContent = "";
       if (orgSubPage === "overview") {
-        subContentHtml = `
-          <div style="margin-bottom:10px;">
-            <strong style="font-size:0.84rem;">Integrantes (${activeMembers.length})</strong>
-            <div style="margin-top:7px;">
-              ${activeMembers.length ? activeMembers.map(m => {
-                const escNick = m.nick.replace(/'/g, "\\'");
-                return `
-                  <div class="listing-card" style="justify-content:space-between;">
-                    <div style="display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="openUserProfile('${escNick}')">
-                      <img src="${habboHeadUrl(m.nick)}" style="width:28px;height:28px;border-radius:50%;" />
-                      <div>
-                        <div style="font-weight:800;font-size:0.84rem;">${escapeHtml(m.nick)}</div>
-                        <div style="font-size:0.72rem;color:var(--red-bright);font-weight:700;">${escapeHtml(m.role)}</div>
-                      </div>
-                    </div>
-                    ${isAdmin ? `
-                      <div style="display:flex;gap:5px;align-items:center;">
-                        <select class="form-select" style="width:auto;padding:4px 8px;font-size:0.74rem;" onchange="changeOrgMemberRole('${org.id}', '${escNick}', this.value)">
-                          ${roleCfg.map(rc => `<option value="${rc.name}" ${m.role === rc.name ? "selected" : ""}>${rc.name}</option>`).join("")}
-                        </select>
-                        <button type="button" class="btn btn-red btn-sm" onclick="removeOrgMember('${org.id}', '${escNick}')">${ICONS.trash}</button>
-                      </div>
-                    ` : ""}
-                  </div>
-                `;
-              }).join("") : `<p style="font-size:0.78rem;color:var(--text-muted);">Nenhum integrante registado neste órgão.</p>`}
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:12px;margin-bottom:10px;">
+            <strong style="font-size:0.86rem;color:var(--red-bright);">Bem-vindo ao Portal do ${escapeHtml(org.name)} (${org.id})</strong>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;line-height:1.45;">
+              ${canViewFullOrg
+                ? "Utilize os separadores acima para aceder aos Documentos, Controle de Membros, Fórum" + (isTrainingOrg ? ", Scripts e Aulas semanais." : " e Integrantes.")
+                : "Acesso público: consulte abaixo a relação oficial de integrantes deste órgão."}
+            </p>
+          </div>
+          ${canViewFullOrg ? `
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;">
+              <button type="button" class="btn btn-dark" style="padding:12px;" onclick="setOrgSubPage('docs')">${ICONS.book} Documentos (${allDocs.length})</button>
+              ${isTrainingOrg ? `<button type="button" class="btn btn-dark" style="padding:12px;" onclick="setOrgSubPage('scripts')">${ICONS.scroll} Scripts (${(org.scripts || []).length})</button>` : ""}
+              <button type="button" class="btn btn-dark" style="padding:12px;" onclick="setOrgSubPage('forum')">${ICONS.megaphone} Fórum (${(org.forumPosts || []).length})</button>
+              ${isTrainingOrg ? `<button type="button" class="btn btn-dark" style="padding:12px;" onclick="setOrgSubPage('classes')">${ICONS.clipboard} Aulas (${org.id})</button>` : ""}
+              <button type="button" class="btn btn-dark" style="padding:12px;" onclick="setOrgSubPage('members')">${ICONS.users} Membros (${org.members.length})</button>
             </div>
+          ` : renderOrgMembersSimpleList(org, false)}
+        `;
+      }
+
+      // 2. PÁGINA DEDICADA: LISTAGEM DE DOCUMENTOS + CONTROLE DE MEMBROS
+      else if (orgSubPage === "docs" && canViewFullOrg) {
+        bodyContent = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <strong style="font-size:0.86rem;">Documentos Oficiais — ${org.id}</strong>
+            ${isAdminOfOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="openOrgCreateDocPage()">${ICONS.plus} Criar Documento</button>` : ""}
           </div>
 
-          ${isAdmin ? `
-            <div style="border-top:1px solid var(--border-subtle);padding-top:10px;">
-              <div style="font-size:0.72rem;font-weight:800;color:var(--text-muted);margin-bottom:6px;">ADICIONAR INTEGRANTE AO ÓRGÃO</div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <div class="nick-match-wrap" style="flex:1;min-width:160px;">
-                  <input
-                    id="org-add-nick"
-                    class="form-control"
-                    placeholder="Nick do militar"
-                    oninput="showNickSuggestions('org-add-nick', 'org-add-suggestions', this.value)"
-                    onblur="setTimeout(() => hideNickSuggestions('org-add-suggestions'), 150)"
-                  />
-                  <div id="org-add-suggestions" class="nick-suggestions-box"></div>
-                </div>
-                <select id="org-add-role" class="form-select" style="width:auto;min-width:135px;">
-                  ${roleCfg.map(rc => `<option value="${rc.name}">${rc.name}</option>`).join("")}
-                </select>
-                <button type="button" class="btn btn-red btn-sm" onclick="addOrgMember('${org.id}')">${ICONS.plus} Adicionar</button>
-              </div>
-            </div>
-          ` : ""}
-        `;
-      } else if (orgSubPage === "docs") {
-        const regMeta = org.internalRegimentoMeta || { updatedBy: FOUNDER_NICK, updatedAt: formatDateTime() };
-        const penalMeta = org.penalCodeMeta || { updatedBy: FOUNDER_NICK, updatedAt: formatDateTime() };
-
-        const allDocsIndex = [
-          {
-            key: "regimento",
-            title: `Regimento Interno — ${org.id}`,
-            updatedBy: regMeta.updatedBy,
-            updatedAt: regMeta.updatedAt,
-            isExtra: false
-          },
-          {
-            key: "penal",
-            title: `Código Penal — ${org.id}`,
-            updatedBy: penalMeta.updatedBy,
-            updatedAt: penalMeta.updatedAt,
-            isExtra: false
-          },
-          ...(org.extraDocs || []).map(ed => ({
-            key: ed.id,
-            title: ed.title,
-            updatedBy: ed.updatedBy || FOUNDER_NICK,
-            updatedAt: ed.updatedAt || "",
-            isExtra: true
-          }))
-        ];
-
-        subContentHtml = `
-          <div style="font-size:0.76rem;color:var(--text-muted);margin-bottom:8px;">Clique no nome do documento para abrir o conteúdo:</div>
           <div class="doc-index-box">
-            ${allDocsIndex.map(docItem => {
-              const escAuthor = (docItem.updatedBy || "").replace(/'/g, "\\'");
+            ${allDocs.map(d => {
+              const metaUser = d.meta?.updatedBy || FOUNDER_NICK;
+              const metaDate = d.meta?.updatedAt || "27/11/2026 02:53";
               return `
                 <div class="doc-index-row">
-                  <div style="min-width:0;">
-                    <button type="button" class="doc-link-title" onclick="openOrgDocDetail('${docItem.key}')">
-                      ${escapeHtml(docItem.title)}
-                    </button>
-                    <div style="font-size:0.7rem;color:var(--text-muted);margin-top:2px;">
-                      Por <strong style="cursor:pointer;color:var(--text-main);" onclick="openUserProfile('${escAuthor}')">${escapeHtml(docItem.updatedBy)}</strong>${docItem.updatedAt ? ` • ${escapeHtml(docItem.updatedAt)}` : ""}
-                    </div>
+                  <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;">
+                    <span style="color:var(--text-muted);flex-shrink:0;">${ICONS.book}</span>
+                    <button type="button" class="doc-link-title" onclick="openOrgDocDetailPage('${d.key}')">${escapeHtml(d.title)}</button>
+                    ${isAdminOfOrg ? `
+                      <button type="button" class="btn btn-dark btn-sm" style="padding:3px 7px;" title="Renomear documento" onclick="renameOrgDocPrompt('${d.key}')">${ICONS.edit}</button>
+                    ` : ""}
                   </div>
-                  <div style="display:flex;gap:5px;align-items:center;">
-                    <button type="button" class="btn btn-dark btn-sm" onclick="openOrgDocDetail('${docItem.key}')">Abrir ${ICONS.chevronRight}</button>
-                    ${isAdmin && docItem.isExtra ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgExtraDoc('${org.id}', '${docItem.key}')">${ICONS.trash}</button>` : ""}
+
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+                    <div style="display:flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border-subtle);padding:3px 9px 3px 4px;border-radius:999px;">
+                      <img src="${habboHeadUrl(metaUser)}" alt="${escapeHtml(metaUser)}" style="width:22px;height:22px;border-radius:50%;background:var(--bg-input);" />
+                      <span style="font-size:0.72rem;font-weight:700;">${escapeHtml(metaUser)}</span>
+                      <span style="font-size:0.68rem;color:var(--text-muted);">${escapeHtml(metaDate)}</span>
+                    </div>
+                    ${isAdminOfOrg && !d.isFixed ? `
+                      <button type="button" class="btn btn-red btn-sm" style="padding:4px 7px;" title="Apagar documento" onclick="deleteOrgExtraDoc('${org.id}', '${d.key}')">${ICONS.trash}</button>
+                    ` : ""}
                   </div>
                 </div>
               `;
             }).join("")}
           </div>
 
-          ${isAdmin ? `
-            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:10px;">
-              <div style="font-size:0.74rem;font-weight:800;color:var(--red-bright);margin-bottom:6px;">Criar Novo Documento do Órgão</div>
-              <input id="org-new-doc-title" class="form-control" placeholder="Título do documento (Ex: Manual de Conduta)" style="margin-bottom:6px;" />
-              ${buildBBCodeToolbar("org-new-doc-body", true)}
-              <textarea id="org-new-doc-body" class="form-textarea" rows="4" placeholder="Escreva o conteúdo do documento..." style="margin-bottom:7px;"></textarea>
-              <button type="button" class="btn btn-green btn-sm" onclick="createOrgExtraDoc('${org.id}')">${ICONS.plus} Criar Documento</button>
-            </div>
+          ${isAdminOfOrg ? `
+            <button type="button" class="member-control-pill-btn" onclick="setOrgSubPage('members-control')">
+              ${ICONS.users} CONTROLE DE MEMBROS
+            </button>
           ` : ""}
         `;
-      } else if (orgSubPage === "doc-detail") {
-        let docTitle = "";
-        let docBody = "";
-        let docMeta = { updatedBy: FOUNDER_NICK, updatedAt: "" };
+      }
 
-        if (activeOrgDocTarget === "regimento") {
-          docTitle = `Regimento Interno — ${org.id}`;
-          docBody = org.internalRegimento || "";
-          docMeta = org.internalRegimentoMeta || docMeta;
-        } else if (activeOrgDocTarget === "penal") {
-          docTitle = `Código Penal — ${org.id}`;
-          docBody = org.penalCode || "";
-          docMeta = org.penalCodeMeta || docMeta;
-        } else {
-          const extra = (org.extraDocs || []).find(d => d.id === activeOrgDocTarget);
-          if (!extra) {
-            orgSubPage = "docs";
-            return buildRolesHtml(user);
-          }
-          docTitle = extra.title;
-          docBody = extra.body || "";
-          docMeta = { updatedBy: extra.updatedBy || FOUNDER_NICK, updatedAt: extra.updatedAt || "" };
-        }
-
-        subContentHtml = `
-          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:12px;">
-            <div style="margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--border-subtle);">
-              <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);">${escapeHtml(docTitle)}</div>
-              <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">
-                Atualizado por <strong>${escapeHtml(docMeta.updatedBy)}</strong>${docMeta.updatedAt ? ` em ${escapeHtml(docMeta.updatedAt)}` : ""}
-              </div>
-            </div>
-
-            ${isAdmin ? `
-              ${activeOrgDocTarget !== "regimento" && activeOrgDocTarget !== "penal" ? `
-                <div class="form-group">
-                  <label class="form-label">Título do Documento</label>
-                  <input id="org-detail-doc-title" class="form-control" value="${escapeHtml(docTitle)}" />
-                </div>
-              ` : ""}
-              ${buildBBCodeToolbar("org-detail-doc-body", true)}
-              <textarea id="org-detail-doc-body" class="form-textarea" rows="10" style="margin-bottom:8px;">${escapeHtml(docBody)}</textarea>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <button type="button" class="btn btn-red btn-sm" onclick="saveOrgDocDetail('${org.id}', '${activeOrgDocTarget}')">Guardar Alterações</button>
-                <button type="button" class="btn btn-dark btn-sm" onclick="setOrgSubPage('docs')">Voltar à Lista</button>
-              </div>
-            ` : `
-              <div class="bb-content-rendered" style="font-size:0.84rem;background:var(--bg-card);padding:12px;border-radius:9px;">${renderBBCode(docBody)}</div>
-            `}
-          </div>
-        `;
-      } else if (orgSubPage === "scripts") {
-        const scripts = org.scripts || [];
-        subContentHtml = `
-          <div style="margin-bottom:10px;">
-            <strong style="font-size:0.84rem;">Scripts de Aula (${org.id})</strong>
-            <div style="margin-top:7px;">
-              ${scripts.length ? scripts.map(sc => {
-                if (editingScriptId === sc.id && isAdmin) {
-                  return `
-                    <div class="history-item">
-                      <input id="edit-sc-title-${sc.id}" class="form-control" value="${escapeHtml(sc.title)}" style="margin-bottom:6px;" />
-                      ${buildBBCodeToolbar(`edit-sc-body-${sc.id}`, true)}
-                      <textarea id="edit-sc-body-${sc.id}" class="form-textarea" rows="5" style="margin-bottom:7px;">${escapeHtml(sc.body)}</textarea>
-                      <div style="display:flex;gap:6px;">
-                        <button type="button" class="btn btn-green btn-sm" onclick="saveEditedOrgScript('${org.id}', '${sc.id}')">${ICONS.check} Guardar</button>
-                        <button type="button" class="btn btn-dark btn-sm" onclick="setEditingScript('')">Cancelar</button>
-                      </div>
-                    </div>
-                  `;
-                }
-                return `
-                  <div class="history-item">
-                    <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;">
-                      <strong>${escapeHtml(sc.title)}</strong>
-                      <div style="display:flex;gap:4px;">
-                        <button type="button" class="btn btn-dark btn-sm" onclick="copyText(${JSON.stringify(sc.body).replace(/'/g, "\\'")})">${ICONS.copy} Copiar</button>
-                        ${isAdmin ? `
-                          <button type="button" class="btn btn-dark btn-sm" onclick="setEditingScript('${sc.id}')">${ICONS.edit}</button>
-                          <button type="button" class="btn btn-red btn-sm" onclick="deleteOrgScript('${org.id}', '${sc.id}')">${ICONS.trash}</button>
-                        ` : ""}
-                      </div>
-                    </div>
-                    <div class="bb-content-rendered" style="font-size:0.8rem;color:var(--text-muted);">${renderBBCode(sc.body)}</div>
-                    <div style="font-size:0.68rem;color:var(--text-muted);margin-top:5px;">Por ${escapeHtml(sc.author)} • ${escapeHtml(sc.date)}</div>
-                  </div>
-                `;
-              }).join("") : `<p style="font-size:0.78rem;color:var(--text-muted);">Nenhum script publicado para este órgão.</p>`}
-            </div>
-          </div>
-
-          ${isAdmin ? `
-            <div style="border-top:1px solid var(--border-subtle);padding-top:10px;">
-              <div style="font-size:0.74rem;font-weight:800;color:var(--red-bright);margin-bottom:6px;">Publicar Novo Script de Aula</div>
-              <input id="org-script-title" class="form-control" placeholder="Nome da aula / curso" style="margin-bottom:6px;" />
-              ${buildBBCodeToolbar("org-script-body", true)}
-              <textarea id="org-script-body" class="form-textarea" rows="5" placeholder="Texto completo do script..." style="margin-bottom:7px;"></textarea>
-              <button type="button" class="btn btn-red btn-sm" onclick="addOrgScript('${org.id}')">${ICONS.plus} Publicar Script</button>
-            </div>
-          ` : ""}
-        `;
-      } else if (orgSubPage === "forum") {
-        const posts = org.forumPosts || [];
-        subContentHtml = `
-          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:10px;margin-bottom:11px;">
-            <div style="font-size:0.74rem;font-weight:800;color:var(--red-bright);margin-bottom:6px;">Novo Tópico no Fórum (${org.id})</div>
-            <input id="org-forum-title" class="form-control" placeholder="Assunto do tópico" style="margin-bottom:6px;" />
-            ${buildBBCodeToolbar("org-forum-body", true)}
-            <textarea id="org-forum-body" class="form-textarea" rows="3" placeholder="Mensagem, [b]negrito[/b], [i]itálico[/i], [img]foto[/img], [gif]gif[/gif], [url=...]link[/url]..." style="margin-bottom:7px;"></textarea>
-            <button type="button" class="btn btn-red btn-sm" onclick="createOrgForumPost('${org.id}')">Publicar Tópico</button>
-          </div>
-
-          ${posts.length ? posts.map(p => {
-            const escPAuthor = (p.author || "").replace(/'/g, "\\'");
-            return `
-              <div class="history-item">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:4px;">
-                  <strong>${escapeHtml(p.title)}</strong>
-                  ${isAdmin || p.author.toLowerCase() === user.nick.toLowerCase() ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgForumPost('${org.id}', '${p.id}')">${ICONS.trash}</button>` : ""}
-                </div>
-                <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:5px;">
-                  Por <strong style="cursor:pointer;color:var(--text-main);" onclick="openUserProfile('${escPAuthor}')">${escapeHtml(p.author)}</strong> • ${escapeHtml(p.date)}
-                </div>
-                <div class="bb-content-rendered" style="font-size:0.8rem;margin-bottom:8px;">${renderBBCode(p.body)}</div>
-
-                <div style="border-top:1px solid var(--border-subtle);padding-top:7px;">
-                  ${(p.replies || []).map(rep => `
-                    <div style="background:var(--bg-card);border-radius:8px;padding:6px 9px;margin-bottom:5px;font-size:0.76rem;">
-                      <div style="display:flex;justify-content:space-between;color:var(--text-muted);font-size:0.68rem;">
-                        <strong>${escapeHtml(rep.author)}</strong>
-                        <span>${escapeHtml(rep.date)}</span>
-                      </div>
-                      <div class="bb-content-rendered" style="margin-top:2px;">${renderBBCode(rep.body)}</div>
-                    </div>
-                  `).join("")}
-
-                  <div style="display:flex;gap:5px;margin-top:5px;">
-                    <input id="reply-input-${p.id}" class="form-control" placeholder="Responder ao tópico..." style="padding:5px 8px;font-size:0.76rem;" />
-                    <button type="button" class="btn btn-dark btn-sm" onclick="replyOrgForumPost('${org.id}', '${p.id}')">Responder</button>
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join("") : `<p style="font-size:0.78rem;color:var(--text-muted);">Ainda não existem publicações neste fórum.</p>`}
-        `;
-      } else if (orgSubPage === "classes") {
-        const scripts = org.scripts || [];
-        subContentHtml = `
-          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:11px;">
-            <div style="font-size:0.82rem;font-weight:900;color:var(--red-bright);margin-bottom:8px;">Registar Aula Aplicada (${org.id})</div>
-            <div class="form-group">
-              <label class="form-label">Aplicador</label>
-              <input class="form-control" value="${escapeHtml(user.nick)}" readonly />
-            </div>
-            <div class="form-group nick-match-wrap">
-              <label class="form-label">Aluno Aprovado</label>
-              <input
-                id="org-class-student"
-                class="form-control"
-                placeholder="Nick do militar..."
-                oninput="showNickSuggestions('org-class-student', 'org-class-suggestions', this.value)"
-                onblur="setTimeout(() => hideNickSuggestions('org-class-suggestions'), 150)"
-              />
-              <div id="org-class-suggestions" class="nick-suggestions-box"></div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Aula / Formação</label>
-              <input id="org-class-name" class="form-control" list="org-scripts-datalist" placeholder="Ex: ${scripts[0]?.title || `Formação Básica ${org.id}`}" />
-              <datalist id="org-scripts-datalist">
-                ${scripts.map(s => `<option value="${escapeHtml(s.title)}"></option>`).join("")}
-              </datalist>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Observações</label>
-              <textarea id="org-class-obs" class="form-textarea" rows="3" placeholder="Detalhes da avaliação..."></textarea>
-            </div>
-            <button type="button" class="btn btn-red" style="width:100%;" onclick="submitOrgClassPost('${org.id}')">Publicar Aula no Histórico</button>
-          </div>
-        `;
-      } else if (orgSubPage === "weekly") {
-        const currentMonday = getMondayKey();
-        const weekCounts = (org.weeklyClasses && org.weeklyClasses[orgWeekKey]) || {};
-        const reportRows = activeMembers
-          .map(m => ({
-            nick: m.nick,
-            role: m.role,
-            count: Number(weekCounts[m.nick] || 0)
-          }))
-          .sort((a, b) => b.count - a.count || a.nick.localeCompare(b.nick));
-
-        const totalWeekClasses = reportRows.reduce((acc, r) => acc + r.count, 0);
-
-        subContentHtml = `
-          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:11px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:9px;">
+      // 3. PÁGINA DEDICADA: LEITURA DO DOCUMENTO
+      else if (orgSubPage === "doc-detail" && canViewFullOrg) {
+        const docItem = getOrgDocItem(org, activeOrgDocTarget);
+        if (!docItem) { orgSubPage = "docs"; return buildRolesHtml(user); }
+        const metaUser = docItem.meta?.updatedBy || FOUNDER_NICK;
+        const metaDate = docItem.meta?.updatedAt || "27/11/2026 02:53";
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap;">
               <div>
-                <div style="font-size:0.84rem;font-weight:900;color:var(--red-bright);">Relatório Semanal de Aulas (${org.id})</div>
-                <div style="font-size:0.72rem;color:var(--text-muted);">${formatWeekLabel(orgWeekKey)} ${orgWeekKey === currentMonday ? "• Semana Atual" : ""}</div>
+                <div style="font-size:0.96rem;font-weight:900;">${escapeHtml(docItem.title)}</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:0.72rem;color:var(--text-muted);">
+                  <img src="${habboHeadUrl(metaUser)}" style="width:18px;height:18px;border-radius:50%;" />
+                  <span>Atualizado por <strong>${escapeHtml(metaUser)}</strong> em ${escapeHtml(metaDate)}</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                ${isAdminOfOrg ? `
+                  <button type="button" class="btn btn-dark btn-sm" onclick="openOrgDocEditPage('${docItem.key}')">${ICONS.edit} Editar</button>
+                  ${!docItem.isFixed ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgExtraDoc('${org.id}', '${docItem.key}')">${ICONS.trash} Apagar</button>` : ""}
+                ` : ""}
+              </div>
+            </div>
+            <div class="bb-content-rendered" style="font-size:0.84rem;background:var(--bg-input);padding:12px;border-radius:9px;border:1px solid var(--border-subtle);">${renderBBCode(docItem.content)}</div>
+          </div>
+        `;
+      }
+
+      // 4. PÁGINA DEDICADA: EDIÇÃO DE DOCUMENTO
+      else if (orgSubPage === "doc-edit" && canViewFullOrg && isAdminOfOrg) {
+        const docItem = getOrgDocItem(org, activeOrgDocTarget);
+        if (!docItem) { orgSubPage = "docs"; return buildRolesHtml(user); }
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);margin-bottom:10px;">Editar Documento — ${org.id}</div>
+            <div class="form-group">
+              <label class="form-label">Título do Documento</label>
+              <input id="org-edit-doc-title" class="form-control" value="${escapeHtml(docItem.title)}" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conteúdo do Documento</label>
+              ${buildBBCodeToolbar("org-edit-doc-content", true)}
+              <textarea id="org-edit-doc-content" class="form-textarea" rows="12">${escapeHtml(docItem.content)}</textarea>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-green" onclick="saveOrgEditedDoc('${org.id}', '${docItem.key}')">${ICONS.check} Salvar Alterações</button>
+              <button type="button" class="btn btn-dark" onclick="openOrgDocDetailPage('${docItem.key}')">Cancelar</button>
+            </div>
+          </div>
+        `;
+      }
+
+      // 5. PÁGINA DEDICADA: CRIAÇÃO DE NOVO DOCUMENTO
+      else if (orgSubPage === "doc-create" && canViewFullOrg && isAdminOfOrg) {
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);margin-bottom:10px;">Criar Novo Documento — ${org.id}</div>
+            <div class="form-group">
+              <label class="form-label">Título do Documento</label>
+              <input id="org-new-doc-title" class="form-control" placeholder="Ex: Manual de Abordagem e Conduta" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conteúdo do Documento</label>
+              ${buildBBCodeToolbar("org-new-doc-content", true)}
+              <textarea id="org-new-doc-content" class="form-textarea" rows="12" placeholder="Escreva o conteúdo oficial deste documento..."></textarea>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-red" onclick="createOrgExtraDoc('${org.id}')">${ICONS.check} Publicar Documento</button>
+              <button type="button" class="btn btn-dark" onclick="setOrgSubPage('docs')">Cancelar</button>
+            </div>
+          </div>
+        `;
+      }
+
+      // 6. PÁGINA DEDICADA: CONTROLE DE MEMBROS
+      else if (orgSubPage === "members-control" && canViewFullOrg && isAdminOfOrg) {
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:13px;margin-bottom:12px;">
+            <div style="font-size:0.9rem;font-weight:900;color:var(--red-bright);margin-bottom:9px;">Controle de Membros — ${escapeHtml(org.name)} (${org.id})</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px;" class="nick-match-wrap">
+              <div style="position:relative;">
+                <input id="org-add-nick" class="form-control" placeholder="Nick do militar..." oninput="showNickSuggestions('org-add-nick', 'org-add-suggestions', this.value)" onblur="setTimeout(() => hideNickSuggestions('org-add-suggestions'), 150)" />
+                <div id="org-add-suggestions" class="nick-suggestions-box"></div>
+              </div>
+              <select id="org-add-role" class="form-select">${roleCfg.roles.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}</select>
+              <button type="button" class="btn btn-green" onclick="addOrgMember('${org.id}')">${ICONS.plus} Adicionar</button>
+            </div>
+          </div>
+          ${renderOrgMembersSimpleList(org, true, roleCfg)}
+        `;
+      }
+
+      // 7. PÁGINA DEDICADA: MEMBROS (VISUALIZAÇÃO SIMPLES: AVATAR + CARGO INTERNO)
+      else if (orgSubPage === "members") {
+        bodyContent = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <strong style="font-size:0.86rem;">Integrantes — ${escapeHtml(org.name)} (${org.id})</strong>
+            ${isAdminOfOrg ? `<button type="button" class="btn btn-green btn-sm" onclick="setOrgSubPage('members-control')">${ICONS.users} Controle de Membros</button>` : ""}
+          </div>
+          ${renderOrgMembersSimpleList(org, false, roleCfg)}
+        `;
+      }
+
+      // 8. PÁGINA DEDICADA: SCRIPTS
+      else if (orgSubPage === "scripts" && isTrainingOrg && canViewFullOrg) {
+        bodyContent = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <strong style="font-size:0.86rem;">Scripts Oficiais — ${org.id}</strong>
+            ${isAdminOfOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="openOrgScriptCreatePage()">${ICONS.plus} Criar Script</button>` : ""}
+          </div>
+          ${(org.scripts || []).length ? org.scripts.map(sc => `
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:9px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;">
+                <strong style="font-size:0.86rem;">${escapeHtml(sc.title)}</strong>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-dark btn-sm" onclick="copyScriptById('${org.id}', '${sc.id}')">${ICONS.copy} Copiar</button>
+                  ${isAdminOfOrg ? `
+                    <button type="button" class="btn btn-dark btn-sm" onclick="openOrgScriptEditPage('${sc.id}')">${ICONS.edit} Editar</button>
+                    <button type="button" class="btn btn-red btn-sm" onclick="deleteOrgScript('${org.id}', '${sc.id}')">${ICONS.trash} Excluir</button>
+                  ` : ""}
+                </div>
+              </div>
+              <pre style="white-space:pre-wrap;font-size:0.78rem;background:var(--bg-input);padding:9px;border-radius:8px;border:1px solid var(--border-subtle);">${escapeHtml(sc.content)}</pre>
+            </div>
+          `).join("") : `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum script registado neste órgão ainda.</p>`}
+        `;
+      }
+
+      else if (orgSubPage === "script-create" && isTrainingOrg && canViewFullOrg && isAdminOfOrg) {
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);margin-bottom:10px;">Criar Novo Script — ${org.id}</div>
+            <div class="form-group">
+              <label class="form-label">Título do Script</label>
+              <input id="new-script-title" class="form-control" placeholder="Ex: Script de Aula Inicial (CIM)" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conteúdo do Script</label>
+              <textarea id="new-script-content" class="form-textarea" rows="10" placeholder="Conteúdo do script..."></textarea>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-red" onclick="addOrgScript('${org.id}')">${ICONS.check} Salvar Script</button>
+              <button type="button" class="btn btn-dark" onclick="setOrgSubPage('scripts')">Cancelar</button>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (orgSubPage === "script-edit" && isTrainingOrg && canViewFullOrg && isAdminOfOrg) {
+        const sc = (org.scripts || []).find(s => s.id === editingScriptId);
+        if (!sc) { orgSubPage = "scripts"; return buildRolesHtml(user); }
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);margin-bottom:10px;">Editar Script — ${org.id}</div>
+            <div class="form-group">
+              <label class="form-label">Título do Script</label>
+              <input id="edit-script-title-${sc.id}" class="form-control" value="${escapeHtml(sc.title)}" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conteúdo do Script</label>
+              <textarea id="edit-script-content-${sc.id}" class="form-textarea" rows="10">${escapeHtml(sc.content)}</textarea>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-green" onclick="saveEditedOrgScript('${org.id}', '${sc.id}')">${ICONS.check} Salvar Alterações</button>
+              <button type="button" class="btn btn-dark" onclick="setOrgSubPage('scripts')">Cancelar</button>
+            </div>
+          </div>
+        `;
+      }
+
+      // 9. PÁGINA DEDICADA: FÓRUM (LISTA, CRIAÇÃO E LEITURA)
+      else if (orgSubPage === "forum" && canViewFullOrg) {
+        bodyContent = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <strong style="font-size:0.86rem;">Fórum Interno — ${org.id}</strong>
+            ${canPostForum ? `<button type="button" class="btn btn-red btn-sm" onclick="openOrgForumCreatePage()">${ICONS.plus} Novo Tópico</button>` : ""}
+          </div>
+          ${(org.forumPosts || []).length ? org.forumPosts.map(p => `
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div style="min-width:0;flex:1;">
+                <button type="button" class="doc-link-title" onclick="openOrgForumDetailPage('${p.id}')">${escapeHtml(p.title)}</button>
+                <div style="font-size:0.72rem;color:var(--text-muted);margin-top:3px;">Por <strong>${escapeHtml(p.author)}</strong> • ${escapeHtml(p.date)} • ${(p.replies || []).length} resposta(s)</div>
               </div>
               <div style="display:flex;gap:5px;">
-                <button type="button" class="btn btn-dark btn-sm" onclick="changeOrgReportWeek(-1)">${ICONS.chevronLeft} Anterior</button>
-                <button type="button" class="btn btn-dark btn-sm" onclick="changeOrgReportWeek(1)">Seguinte ${ICONS.chevronRight}</button>
+                <button type="button" class="btn btn-dark btn-sm" onclick="openOrgForumDetailPage('${p.id}')">Abrir</button>
+                ${isAdminOfOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgForumPost('${org.id}', '${p.id}')">${ICONS.trash}</button>` : ""}
               </div>
             </div>
+          `).join("") : `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum tópico no fórum interno ainda.</p>`}
+        `;
+      }
 
-            <div style="font-size:0.76rem;margin-bottom:8px;">Total de aulas aplicadas na semana: <strong>${totalWeekClasses}</strong></div>
+      else if (orgSubPage === "forum-create" && canViewFullOrg && canPostForum) {
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:14px;">
+            <div style="font-size:0.94rem;font-weight:900;color:var(--red-bright);margin-bottom:10px;">Publicar Novo Tópico — ${org.id}</div>
+            <div class="form-group">
+              <label class="form-label">Título do Tópico</label>
+              <input id="org-forum-title" class="form-control" placeholder="Título do tópico..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Conteúdo</label>
+              ${buildBBCodeToolbar("org-forum-body", true)}
+              <textarea id="org-forum-body" class="form-textarea" rows="8" placeholder="Escreva o conteúdo do tópico..."></textarea>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-red" onclick="addOrgForumPost('${org.id}')">${ICONS.check} Publicar Tópico</button>
+              <button type="button" class="btn btn-dark" onclick="setOrgSubPage('forum')">Cancelar</button>
+            </div>
+          </div>
+        `;
+      }
 
-            ${reportRows.length ? reportRows.map(r => {
-              const escNick = r.nick.replace(/'/g, "\\'");
-              return `
-                <div class="rank-list-row">
-                  <div style="display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="openUserProfile('${escNick}')">
-                    <img src="${habboHeadUrl(r.nick)}" style="width:26px;height:26px;border-radius:50%;" />
-                    <div>
-                      <div style="font-weight:800;font-size:0.82rem;">${escapeHtml(r.nick)}</div>
-                      <div style="font-size:0.7rem;color:var(--text-muted);">${escapeHtml(r.role)}</div>
-                    </div>
-                  </div>
-                  <span class="badge ${r.count > 0 ? "badge-approved" : "badge-canceled"}">${r.count} ${r.count === 1 ? "aula" : "aulas"}</span>
+      else if (orgSubPage === "forum-detail" && canViewFullOrg) {
+        const p = (org.forumPosts || []).find(item => item.id === activeOrgForumTopicId);
+        if (!p) { orgSubPage = "forum"; return buildRolesHtml(user); }
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:13px;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
+              <strong style="font-size:0.94rem;">${escapeHtml(p.title)}</strong>
+              ${isAdminOfOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgForumPost('${org.id}', '${p.id}')">${ICONS.trash} Excluir Tópico</button>` : ""}
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:8px;">Publicado por <strong>${escapeHtml(p.author)}</strong> • ${escapeHtml(p.date)}</div>
+            <div class="bb-content-rendered" style="font-size:0.84rem;background:var(--bg-input);padding:11px;border-radius:9px;border:1px solid var(--border-subtle);">${renderBBCode(p.body)}</div>
+          </div>
+
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:12px;">
+            <div style="font-size:0.82rem;font-weight:800;margin-bottom:8px;">Respostas (${(p.replies || []).length})</div>
+            ${(p.replies || []).length ? p.replies.map(rep => `
+              <div style="background:var(--bg-input);border-left:2px solid var(--red-primary);padding:8px 10px;border-radius:7px;margin-bottom:7px;font-size:0.8rem;">
+                <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:3px;"><strong>${escapeHtml(rep.author)}</strong> • ${escapeHtml(rep.date)}</div>
+                <div class="bb-content-rendered">${renderBBCode(rep.text)}</div>
+              </div>
+            `).join("") : `<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">Nenhuma resposta ainda.</p>`}
+
+            ${canPostForum ? `
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <input id="forum-reply-${p.id}" class="form-control" placeholder="Escrever resposta neste tópico..." />
+                <button type="button" class="btn btn-dark btn-sm" onclick="replyOrgForumPost('${org.id}', '${p.id}')">Responder</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      }
+
+      // 10. PÁGINA DEDICADA: AULAS SEMANAIS
+      else if (orgSubPage === "classes" && isTrainingOrg && canViewFullOrg) {
+        const currentWk = getMondayKey();
+        const weekData = (org.weeklyClasses && org.weeklyClasses[orgWeekKey]) || {};
+        const sortedEntries = Object.entries(weekData).sort((a, b) => b[1] - a[1]);
+        bodyContent = `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:9px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-dark btn-sm" onclick="changeOrgWeek(-1)">${ICONS.chevronLeft} Semana Anterior</button>
+              <div style="text-align:center;">
+                <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);">${formatWeekLabel(orgWeekKey)}</div>
+                <div style="font-size:0.66rem;color:var(--text-muted);">${orgWeekKey === currentWk ? "Semana Atual (Segunda a Domingo)" : "Histórico Semanal"}</div>
+              </div>
+              <button type="button" class="btn btn-dark btn-sm" onclick="changeOrgWeek(1)">Próxima Semana ${ICONS.chevronRight}</button>
+            </div>
+            ${sortedEntries.length ? sortedEntries.map(([nick, count]) => `
+              <div class="rank-list-row">
+                <div style="display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="openUserProfile('${nick.replace(/'/g, "\\'")}')">
+                  <img src="${habboHeadUrl(nick)}" style="width:28px;height:28px;border-radius:50%;background:var(--bg-input);" />
+                  <strong style="font-size:0.84rem;">${escapeHtml(nick)}</strong>
                 </div>
-              `;
-            }).join("") : `<p style="font-size:0.78rem;color:var(--text-muted);">Sem membros registados neste órgão.</p>`}
+                <span class="badge badge-approved">${count} ${count === 1 ? "aula" : "aulas"}</span>
+              </div>
+            `).join("") : `<p style="color:var(--text-muted);font-size:0.8rem;text-align:center;padding:8px 0;">Nenhuma aula registada nesta semana.</p>`}
           </div>
         `;
       }
@@ -5355,571 +5548,610 @@
             <div style="display:flex;align-items:center;gap:10px;">
               <img src="${org.emblem || OMR_LOGO_PATH}" alt="${org.id}" class="emblem-img-lg" />
               <div>
-                <div style="font-size:0.96rem;font-weight:900;color:var(--red-bright);">${escapeHtml(org.name)} (${org.id})</div>
-                <div style="font-size:0.72rem;color:var(--text-muted);">Área Dedicada do Órgão</div>
+                <div style="font-weight:900;font-size:0.95rem;">${escapeHtml(org.name)} (${org.id})</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">${org.members.length} integrante(s) ativo(s)</div>
               </div>
             </div>
-            <button type="button" class="btn btn-dark btn-sm" onclick="closeOrgDedicatedPage()">Todas as Funções</button>
           </div>
-
-          ${subTabsHtml}
-          ${subContentHtml}
+          ${tabsBar}
+          ${bodyContent}
         </div>
       `;
     }
 
-    window.openOrgDedicatedPage = function(orgId) {
+    function renderOrgMembersSimpleList(org, canManage, roleCfg) {
+      if (!org.members.length) {
+        return `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum integrante nesta função no momento.</p>`;
+      }
+      return org.members.map(m => {
+        const escNick = m.nick.replace(/'/g, "\\'");
+        return `
+          <div class="listing-card">
+            <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${escapeHtml(m.nick)}" style="height:68px;cursor:pointer;" onclick="openUserProfile('${escNick}')" />
+            <div style="flex:1;min-width:140px;">
+              <div style="font-weight:900;font-size:0.92rem;cursor:pointer;" onclick="openUserProfile('${escNick}')">${escapeHtml(m.nick)}</div>
+              <div style="font-size:0.78rem;font-weight:700;color:var(--red-bright);margin-top:2px;">${escapeHtml(m.role)}</div>
+            </div>
+            ${canManage && roleCfg ? `
+              <div style="display:flex;gap:6px;align-items:center;">
+                <select class="form-select" style="width:auto;padding:5px 8px;font-size:0.74rem;" onchange="changeOrgMemberRole('${org.id}', '${escNick}', this.value)">
+                  ${roleCfg.roles.map(r => `<option value="${r.name}" ${m.role === r.name ? "selected" : ""}>${r.name}</option>`).join("")}
+                </select>
+                <button type="button" class="btn btn-red btn-sm" onclick="removeOrgMember('${org.id}', '${escNick}')">${ICONS.x}</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.openOrgPortal = function(orgId) {
       selectedRoleId = orgId;
       orgSubPage = "overview";
       activeOrgDocTarget = "";
+      activeOrgForumTopicId = "";
       orgWeekKey = getMondayKey();
       editingScriptId = "";
       renderCurrentView();
     };
 
-    window.closeOrgDedicatedPage = function() {
-      selectedRoleId = "";
-      orgSubPage = "overview";
+    window.setOrgSubPage = function(sub) {
+      orgSubPage = sub;
       activeOrgDocTarget = "";
+      activeOrgForumTopicId = "";
       editingScriptId = "";
       renderCurrentView();
     };
 
-    window.setOrgSubPage = function(tab) {
-      orgSubPage = tab;
-      activeOrgDocTarget = "";
-      editingScriptId = "";
-      renderCurrentView();
-    };
-
-    window.openOrgDocDetail = function(docKey) {
+    window.openOrgDocDetailPage = function(docKey) {
       activeOrgDocTarget = docKey;
       orgSubPage = "doc-detail";
       renderCurrentView();
     };
 
-    window.changeOrgReportWeek = function(delta) {
-      orgWeekKey = shiftWeekKey(orgWeekKey, delta);
+    window.openOrgDocEditPage = function(docKey) {
+      activeOrgDocTarget = docKey;
+      orgSubPage = "doc-edit";
       renderCurrentView();
     };
 
-    window.addOrgMember = async function(orgId) {
-      const nick = document.getElementById("org-add-nick").value.trim();
-      const role = document.getElementById("org-add-role").value;
-      const u = getUser(nick);
-      if (!u) return showToast("Militar não registado no sistema.", true);
-      if (!isFounderNick(u.nick) && (u.status === "Demitido" || u.status === "Exonerado")) return showToast("Não é possível adicionar militar demitido ou exonerado.", true);
-      if (!(await systemConfirm(`Adicionar ${u.nick} ao órgão ${orgId} no cargo de ${role}?`, "Adicionar integrante"))) return;
-
-      const org = state.orgs.find(o => o.id === orgId);
-      org.members = org.members.filter(m => m.nick.toLowerCase() !== u.nick.toLowerCase());
-      org.members.push({ nick: u.nick, role });
-      if (await saveState()) { showToast(`${u.nick} adicionado como ${role} (${orgId})!`); renderCurrentView(); }
+    window.openOrgCreateDocPage = function() {
+      activeOrgDocTarget = "";
+      orgSubPage = "doc-create";
+      renderCurrentView();
     };
 
-    window.changeOrgMemberRole = async function(orgId, nick, newRole) {
-      const org = state.orgs.find(o => o.id === orgId);
-      const entry = org?.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
-      if (entry) { entry.role = newRole; if (await saveState()) showToast(`Cargo de ${nick} alterado para ${newRole}.`); }
+    window.openOrgScriptCreatePage = function() {
+      editingScriptId = "";
+      orgSubPage = "script-create";
+      renderCurrentView();
     };
 
-    window.removeOrgMember = async function(orgId, nick) {
-      if (!(await systemConfirm(`Remover ${nick} do órgão ${orgId}?`, "Remover integrante", "Remover", true))) return;
-      const org = state.orgs.find(o => o.id === orgId);
-      org.members = org.members.filter(m => m.nick.toLowerCase() !== nick.toLowerCase());
-      if (await saveState()) { showToast(`${nick} removido de ${orgId}.`); renderCurrentView(); }
+    window.openOrgScriptEditPage = function(scriptId) {
+      editingScriptId = scriptId;
+      orgSubPage = "script-edit";
+      renderCurrentView();
     };
 
-    window.createOrgExtraDoc = async function(orgId) {
+    window.openOrgForumCreatePage = function() {
+      activeOrgForumTopicId = "";
+      orgSubPage = "forum-create";
+      renderCurrentView();
+    };
+
+    window.openOrgForumDetailPage = function(topicId) {
+      activeOrgForumTopicId = topicId;
+      orgSubPage = "forum-detail";
+      renderCurrentView();
+    };
+
+    window.changeOrgWeek = function(delta) { orgWeekKey = shiftWeekKey(orgWeekKey, delta); renderCurrentView(); };
+
+    window.renameOrgDocPrompt = async function(docKey) {
       const u = getCurrentUser();
-      const title = document.getElementById("org-new-doc-title").value.trim();
-      const body = document.getElementById("org-new-doc-body").value.trim();
-      if (!title || !body) return showToast("Preencha título e conteúdo do documento.", true);
-      if (!(await systemConfirm(`Criar o documento "${title}" neste órgão?`, "Criar documento"))) return;
-
-      const org = state.orgs.find(o => o.id === orgId);
-      org.extraDocs = org.extraDocs || [];
-      org.extraDocs.push({
-        id: "odoc-" + Date.now(),
-        title,
-        body,
-        updatedBy: u.nick,
-        updatedAt: formatDateTime()
-      });
-      if (await saveState()) {
-        showToast("Documento criado!");
-        renderCurrentView();
-      }
-    };
-
-    window.deleteOrgExtraDoc = async function(orgId, docId) {
-      if (!(await systemConfirm("Excluir permanentemente este documento do órgão?", "Excluir documento", "Excluir", true))) return;
-      const org = state.orgs.find(o => o.id === orgId);
-      org.extraDocs = (org.extraDocs || []).filter(d => d.id !== docId);
-      if (await saveState()) {
-        showToast("Documento excluído.");
-        renderCurrentView();
-      }
-    };
-
-    window.saveOrgDocDetail = async function(orgId, docTarget) {
-      if (!(await systemConfirm("Confirmar as alterações neste documento do órgão?", "Guardar documento"))) return;
-      const u = getCurrentUser();
-      const org = state.orgs.find(o => o.id === orgId);
-      if (!org || !u) return;
-      const body = document.getElementById("org-detail-doc-body").value;
+      const org = state.orgs.find(o => o.id === selectedRoleId);
+      if (!u || !org || !isOrgAdmin(u.nick, org.id)) return showToast("Sem permissão.", true);
+      const docItem = getOrgDocItem(org, docKey);
+      if (!docItem) return;
+      const newTitle = prompt("Novo título para o documento:", docItem.title);
+      if (!newTitle || !newTitle.trim() || newTitle.trim() === docItem.title) return;
       const meta = { updatedBy: u.nick, updatedAt: formatDateTime() };
-
-      if (docTarget === "regimento") {
-        org.internalRegimento = body;
+      if (docKey === "ri") {
+        org.internalRegimentoTitle = newTitle.trim();
         org.internalRegimentoMeta = meta;
-      } else if (docTarget === "penal") {
-        org.penalCode = body;
+      } else if (docKey === "cp") {
+        org.penalCodeTitle = newTitle.trim();
         org.penalCodeMeta = meta;
       } else {
-        const extra = (org.extraDocs || []).find(d => d.id === docTarget);
-        const newTitle = document.getElementById("org-detail-doc-title")?.value.trim();
+        const extra = (org.extraDocs || []).find(d => d.id === docKey);
         if (extra) {
-          if (newTitle) extra.title = newTitle;
-          extra.body = body;
-          extra.updatedBy = meta.updatedBy;
-          extra.updatedAt = meta.updatedAt;
+          extra.title = newTitle.trim();
+          extra.meta = meta;
+        }
+      }
+      if (await saveState()) {
+        showToast("Título atualizado!");
+        renderCurrentView();
+      }
+    };
+
+    window.saveOrgEditedDoc = async function(orgId, docKey) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      const title = document.getElementById("org-edit-doc-title")?.value.trim();
+      const content = document.getElementById("org-edit-doc-content")?.value || "";
+      if (!title) return showToast("O documento precisa de um título.", true);
+      if (!(await systemConfirm("Confirmar alterações neste documento?", "Guardar documento"))) return;
+
+      const meta = { updatedBy: u.nick, updatedAt: formatDateTime() };
+      if (docKey === "ri") {
+        org.internalRegimentoTitle = title;
+        org.internalRegimento = content;
+        org.internalRegimentoMeta = meta;
+      } else if (docKey === "cp") {
+        org.penalCodeTitle = title;
+        org.penalCode = content;
+        org.penalCodeMeta = meta;
+      } else {
+        const extra = (org.extraDocs || []).find(d => d.id === docKey);
+        if (extra) {
+          extra.title = title;
+          extra.content = content;
+          extra.meta = meta;
         }
       }
 
       if (await saveState()) {
-        showToast(`Documento atualizado!`);
-        renderCurrentView();
+        showToast("Documento atualizado!");
+        openOrgDocDetailPage(docKey);
+      }
+    };
+
+    window.createOrgExtraDoc = async function(orgId) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      const title = document.getElementById("org-new-doc-title")?.value.trim();
+      const content = document.getElementById("org-new-doc-content")?.value.trim();
+      if (!title || !content) return showToast("Preencha o título e o conteúdo do documento.", true);
+
+      org.extraDocs = org.extraDocs || [];
+      const newId = "doc-" + Date.now();
+      org.extraDocs.push({
+        id: newId,
+        title,
+        content,
+        meta: { updatedBy: u.nick, updatedAt: formatDateTime() }
+      });
+
+      if (await saveState()) {
+        showToast("Novo documento criado!");
+        openOrgDocDetailPage(newId);
+      }
+    };
+
+    window.deleteOrgExtraDoc = async function(orgId, docId) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      if (!(await systemConfirm("Apagar este documento?", "Excluir documento", "Excluir", true))) return;
+      org.extraDocs = (org.extraDocs || []).filter(d => d.id !== docId);
+      if (await saveState()) {
+        showToast("Documento apagado.");
+        setOrgSubPage("docs");
       }
     };
 
     window.addOrgScript = async function(orgId) {
-      const title = document.getElementById("org-script-title").value.trim();
-      const body = document.getElementById("org-script-body").value.trim();
       const u = getCurrentUser();
-      if (!title || !body) return showToast("Preencha o nome da aula e o script.", true);
-      if (!(await systemConfirm(`Publicar o script "${title}"?`, "Publicar script"))) return;
-
       const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      const title = document.getElementById("new-script-title").value.trim();
+      const content = document.getElementById("new-script-content").value.trim();
+      if (!title || !content) return showToast("Preencha título e conteúdo do script.", true);
       org.scripts = org.scripts || [];
-      org.scripts.unshift({ id: "sc-" + Date.now(), title, body, author: u.nick, date: formatShortDate() });
-      if (await saveState()) { showToast("Script publicado!"); renderCurrentView(); }
+      org.scripts.push({ id: "sc-" + Date.now(), title, content });
+      if (await saveState()) { showToast("Script adicionado!"); setOrgSubPage("scripts"); }
     };
 
-    window.setEditingScript = function(scId) { editingScriptId = scId; renderCurrentView(); };
-
-    window.saveEditedOrgScript = async function(orgId, scId) {
-      if (!(await systemConfirm("Confirmar edição deste script de aula?", "Editar script"))) return;
-      const title = document.getElementById(`edit-sc-title-${scId}`).value.trim();
-      const body = document.getElementById(`edit-sc-body-${scId}`).value.trim();
-      if (!title || !body) return showToast("Preencha título e conteúdo.", true);
+    window.saveEditedOrgScript = async function(orgId, scriptId) {
+      const u = getCurrentUser();
       const org = state.orgs.find(o => o.id === orgId);
-      const sc = org?.scripts.find(x => x.id === scId);
-      if (sc) { sc.title = title; sc.body = body; }
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      if (!(await systemConfirm("Confirmar edição deste script?", "Guardar script"))) return;
+      const title = document.getElementById(`edit-script-title-${scriptId}`).value.trim();
+      const content = document.getElementById(`edit-script-content-${scriptId}`).value.trim();
+      if (!title || !content) return showToast("Preencha título e conteúdo.", true);
+      const sc = (org.scripts || []).find(s => s.id === scriptId);
+      if (sc) { sc.title = title; sc.content = content; }
       editingScriptId = "";
-      if (await saveState()) { showToast("Script atualizado!"); renderCurrentView(); }
+      if (await saveState()) { showToast("Script atualizado!"); setOrgSubPage("scripts"); }
     };
 
-    window.deleteOrgScript = async function(orgId, scId) {
-      if (!(await systemConfirm("Deseja realmente apagar este script de aula?", "Apagar script", "Apagar", true))) return;
+    window.copyScriptById = function(orgId, scriptId) {
       const org = state.orgs.find(o => o.id === orgId);
-      org.scripts = org.scripts.filter(s => s.id !== scId);
-      if (await saveState()) { showToast("Script apagado."); renderCurrentView(); }
+      const sc = org?.scripts?.find(s => s.id === scriptId);
+      if (sc) copyText(sc.content);
     };
 
-    window.createOrgForumPost = async function(orgId) {
+    window.deleteOrgScript = async function(orgId, scriptId) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      if (!(await systemConfirm("Excluir este script permanentemente?", "Excluir script", "Excluir", true))) return;
+      org.scripts = (org.scripts || []).filter(s => s.id !== scriptId);
+      if (await saveState()) { showToast("Script excluído."); renderCurrentView(); }
+    };
+
+    window.addOrgForumPost = async function(orgId) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || (!isOrgMember(u.nick, orgId) && !isOrgAdmin(u.nick, orgId))) return showToast("Sem permissão.", true);
       const title = document.getElementById("org-forum-title").value.trim();
       const body = document.getElementById("org-forum-body").value.trim();
-      const u = getCurrentUser();
-      if (!title || !body) return showToast("Preencha o assunto e a mensagem.", true);
-      const org = state.orgs.find(o => o.id === orgId);
+      if (!title || !body) return showToast("Preencha título e texto do tópico.", true);
       org.forumPosts = org.forumPosts || [];
-      org.forumPosts.unshift({ id: "fp-" + Date.now(), title, body, author: u.nick, date: formatDateTime(), replies: [] });
-      if (await saveState()) { showToast("Tópico publicado no fórum!"); renderCurrentView(); }
+      const newPostId = "fp-" + Date.now();
+      org.forumPosts.unshift({ id: newPostId, title, body, author: u.nick, date: formatDateTime(), replies: [] });
+      if (await saveState()) { showToast("Tópico publicado!"); openOrgForumDetailPage(newPostId); }
     };
 
     window.replyOrgForumPost = async function(orgId, postId) {
-      const inp = document.getElementById("reply-input-" + postId);
-      const text = inp?.value.trim();
       const u = getCurrentUser();
-      if (!text) return;
       const org = state.orgs.find(o => o.id === orgId);
-      const post = org?.forumPosts.find(p => p.id === postId);
-      if (post) {
-        post.replies = post.replies || [];
-        post.replies.push({ author: u.nick, body: text, date: formatDateTime() });
-        if (await saveState()) renderCurrentView();
-      }
+      if (!u || !org || (!isOrgMember(u.nick, orgId) && !isOrgAdmin(u.nick, orgId))) return showToast("Sem permissão.", true);
+      const text = document.getElementById(`forum-reply-${postId}`).value.trim();
+      if (!text) return;
+      const post = org.forumPosts?.find(p => p.id === postId);
+      if (post) { post.replies = post.replies || []; post.replies.push({ author: u.nick, text, date: formatDateTime() }); }
+      if (await saveState()) { showToast("Resposta adicionada!"); renderCurrentView(); }
     };
 
     window.deleteOrgForumPost = async function(orgId, postId) {
-      if (!(await systemConfirm("Apagar este tópico do fórum?", "Apagar tópico", "Apagar", true))) return;
+      const u = getCurrentUser();
       const org = state.orgs.find(o => o.id === orgId);
-      org.forumPosts = org.forumPosts.filter(p => p.id !== postId);
-      if (await saveState()) { showToast("Tópico apagado."); renderCurrentView(); }
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      if (!(await systemConfirm("Excluir este tópico do fórum?", "Excluir tópico", "Excluir", true))) return;
+      org.forumPosts = (org.forumPosts || []).filter(p => p.id !== postId);
+      if (await saveState()) { showToast("Tópico excluído."); setOrgSubPage("forum"); }
     };
 
-    window.submitOrgClassPost = async function(orgId) {
-      const studentNick = document.getElementById("org-class-student").value.trim();
-      const className = document.getElementById("org-class-name").value.trim();
-      const obs = document.getElementById("org-class-obs").value.trim();
-      const instructor = getCurrentUser();
-      const student = getUser(studentNick);
-      if (!student) return showToast("Militar aluno não encontrado.", true);
-      if (!className) return showToast("Informe o nome da aula ou curso.", true);
-      if (!(await systemConfirm(`Confirmar registo da aula "${className}" (${orgId}) para ${student.nick}?`, "Registar aula"))) return;
-
-      const nowStr = formatDateTime();
-      student.history = student.history || [];
-      student.history.unshift({
-        reqId: "orgcls-" + Date.now(),
-        author: instructor.nick,
-        category: "class",
-        modalityText: `${className} (${orgId})`,
-        isPositive: true,
-        obs: `Aplicador: ${instructor.nick}\nData e hora: ${nowStr}\nObservações: ${obs || "Aprovado"}`,
-        date: nowStr,
-        status: "Aprovado"
-      });
-      recordWeeklyClass(orgId, instructor.nick);
-      pushUserNotification(student.nick, "Novo requerimento", `Você concluiu "${className}" (${orgId}) aplicado por ${instructor.nick}.`);
-      if (await saveState()) {
-        showToast(`Aula registada no perfil de ${student.nick}!`);
-        orgSubPage = "weekly";
-        orgWeekKey = getMondayKey();
-        renderCurrentView();
+    window.addOrgMember = async function(orgId) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      const nickInput = document.getElementById("org-add-nick").value.trim();
+      const role = document.getElementById("org-add-role").value;
+      const targetUser = getUser(nickInput);
+      if (!targetUser) return showToast("Militar não cadastrado no system.", true);
+      if (!isFounderNick(targetUser.nick) && (targetUser.status === "Demitido" || targetUser.status === "Exonerado")) {
+        return showToast(`Não é possível adicionar ${targetUser.nick}: status ${targetUser.status}.`, true);
       }
+      if (org.members.some(m => m.nick.toLowerCase() === targetUser.nick.toLowerCase())) return showToast("Já integra esta função.", true);
+      org.members.push({ nick: targetUser.nick, role });
+      pushUserNotification(targetUser.nick, "Nova função atribuída", `Você foi adicionado à função ${org.name} (${org.id}) como ${role}.`);
+      if (await saveState()) { showToast(`${targetUser.nick} adicionado como ${role}!`); renderCurrentView(); }
+    };
+
+    window.changeOrgMemberRole = async function(orgId, nick, newRole) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      const entry = org.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
+      if (entry) entry.role = newRole;
+      if (await saveState()) { showToast(`Cargo de ${nick} atualizado para ${newRole}.`); renderCurrentView(); }
+    };
+
+    window.removeOrgMember = async function(orgId, nick) {
+      const u = getCurrentUser();
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!u || !org || !isOrgAdmin(u.nick, orgId)) return showToast("Sem permissão.", true);
+      if (!(await systemConfirm(`Remover ${nick} de ${orgId}?`, "Remover integrante", "Remover", true))) return;
+      org.members = org.members.filter(m => m.nick.toLowerCase() !== nick.toLowerCase());
+      if (await saveState()) { showToast(`${nick} removido de ${orgId}.`); renderCurrentView(); }
     };
 
     // ==================== LISTAGEM ====================
     function buildListingsHtml() {
       const categories = [
-        { id: "acs", label: "Alto Comando Supremo" },
+        { id: "pracas", label: "Corpo de Praças" },
+        { id: "oficiais", label: "Corpo de Oficiais" },
         { id: "alto", label: "Alto Escalão" },
-        { id: "oficiais", label: "Oficiais" },
-        { id: "pracas", label: "Praças" },
+        { id: "acs", label: "Alto Comando Supremo" },
         { id: "exonerados", label: "Exonerados" }
       ];
 
       if (!selectedListingCategory) {
         return `
           <div class="card-box">
-            <div class="section-title"><span class="section-title-left">${ICONS.scroll} Listagem Oficial de Militares</span></div>
-            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">Selecione uma categoria hierárquica para visualizar:</p>
-            ${categories.map(cat => `
-              <button type="button" class="btn btn-dark listing-choice-btn" onclick="selectListingCategory('${cat.id}')">
-                <span>${cat.label}</span>
-                <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--red-bright);">Abrir ${ICONS.chevronRight}</span>
+            <div class="section-title"><span class="section-title-left">${ICONS.scroll} Listagem Geral da Polícia OMR</span></div>
+            ${categories.map(c => `
+              <button type="button" class="btn btn-dark listing-choice-btn" onclick="selectListingCat('${c.id}')">
+                <span>${c.label}</span>
+                <span>${ICONS.chevronRight}</span>
               </button>
             `).join("")}
           </div>
         `;
       }
 
-      const activeList = Object.values(state.users).filter(u => u.status === "Ativo" || u.status === "Desativado" || isFounderNick(u.nick));
-      const exoneratedList = Object.values(state.users).filter(u => u.status === "Exonerado" && !isFounderNick(u.nick));
+      const activeCatObj = categories.find(c => c.id === selectedListingCategory);
+      const allUsers = Object.values(state.users);
 
-      const sortByHierarchy = (arr) => arr.sort((a, b) => getRankIndex(b.rank) - getRankIndex(a.rank));
-      const groups = {
-        acs: { title: "Alto Comando Supremo", list: sortByHierarchy(activeList.filter(u => ACS_RANKS.includes(u.rank))) },
-        alto: { title: "Alto Escalão", list: sortByHierarchy(activeList.filter(u => ALTO_ESCALAO_RANKS.includes(u.rank))) },
-        oficiais: { title: "Oficiais", list: sortByHierarchy(activeList.filter(u => OFICIAIS_RANKS.includes(u.rank))) },
-        pracas: { title: "Praças", list: sortByHierarchy(activeList.filter(u => PRACAS_RANKS.includes(u.rank) || u.rank === "Recruta")) },
-        exonerados: { title: "Exonerados", list: exoneratedList }
-      };
-
-      const currentGroup = groups[selectedListingCategory];
-      const isExonerated = selectedListingCategory === "exonerados";
-
-      const renderMemberCard = (u) => {
-        const line = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
-        const escNick = u.nick.replace(/'/g, "\\'");
+      if (selectedListingCategory === "exonerados") {
+        const list = allUsers.filter(u => u.status === "Exonerado" && !isFounderNick(u.nick));
         return `
-          <div class="listing-card">
-            <img src="${habboFullUrl(u.nick, { listingActive: !isExonerated, exonerated: isExonerated })}" style="height:68px;object-fit:contain;cursor:pointer;" onclick="openUserProfile('${escNick}')" />
-            <div style="flex:1;min-width:145px;">
-              <div style="font-weight:800;font-size:0.86rem;cursor:pointer;" onclick="openUserProfile('${escNick}')">${escapeHtml(u.nick)} ${u.tag ? `<span style="color:var(--red-bright);">[${escapeHtml(u.tag)}]</span>` : ""}</div>
-              <div style="font-size:0.74rem;color:var(--text-muted);">${escapeHtml(u.rank)} • ${escapeHtml(u.status)}</div>
-              <div style="font-size:0.7rem;color:var(--text-muted);margin-top:2px;"><code>${escapeHtml(line)}</code></div>
-            </div>
-            <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${line.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
+          <div class="card-box">
+            <div class="section-title"><span class="section-title-left">${ICONS.scroll} Listagem: Exonerados (${list.length})</span></div>
+            ${list.length ? list.map(u => `
+              <div class="listing-card">
+                <img src="${habboFullUrl(u.nick, { exonerated: true })}" alt="${escapeHtml(u.nick)}" style="height:74px;" />
+                <div style="flex:1;">
+                  <div style="font-weight:900;font-size:0.9rem;">${escapeHtml(u.nick)} ${u.tag ? `[${escapeHtml(u.tag)}]` : ""}</div>
+                  <div style="font-size:0.74rem;color:var(--red-bright);font-weight:700;">Status: Exonerado</div>
+                </div>
+                <button type="button" class="btn btn-dark btn-sm" onclick="openUserProfile('${u.nick.replace(/'/g, "\\'")}')">Ver Perfil</button>
+              </div>
+            `).join("") : `<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum militar exonerado no momento.</p>`}
           </div>
         `;
-      };
+      }
+
+      const rankGroups = { pracas: PRACAS_RANKS, oficiais: OFICIAIS_RANKS, alto: ALTO_ESCALAO_RANKS, acs: ACS_RANKS }[selectedListingCategory] || [];
+      const activeUsers = allUsers.filter(u => (u.status === "Ativo" || isFounderNick(u.nick)) && rankGroups.includes(u.rank));
 
       return `
         <div class="card-box">
-          <div class="section-title">
-            <span class="section-title-left">${ICONS.scroll} ${currentGroup.title}</span>
-            <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">Categorias</button>
-          </div>
-          ${currentGroup.list.length ? currentGroup.list.map(renderMemberCard).join("") : '<p style="font-size:0.78rem;color:var(--text-muted);">Nenhum militar nesta categoria.</p>'}
+          <div class="section-title"><span class="section-title-left">${ICONS.scroll} ${activeCatObj.label}</span></div>
+          ${rankGroups.slice().reverse().map(rankName => {
+            const membersInRank = activeUsers.filter(u => u.rank === rankName);
+            return `
+              <div style="margin-bottom:13px;">
+                <div style="font-size:0.76rem;font-weight:900;text-transform:uppercase;color:var(--red-bright);margin-bottom:6px;border-bottom:1px solid var(--border-subtle);padding-bottom:3px;">
+                  ${escapeHtml(rankName)} (${membersInRank.length})
+                </div>
+                ${membersInRank.length ? membersInRank.map(u => {
+                  const cad = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
+                  return `
+                    <div class="listing-card">
+                      <img src="${habboFullUrl(u.nick, { listingActive: true })}" alt="${escapeHtml(u.nick)}" style="height:74px;" />
+                      <div style="flex:1;min-width:145px;">
+                        <div style="font-weight:900;font-size:0.9rem;">${escapeHtml(u.nick)} ${u.tag ? `[${escapeHtml(u.tag)}]` : ""}</div>
+                        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">Último cadastro: <code>${escapeHtml(cad)}</code></div>
+                      </div>
+                      <button type="button" class="btn btn-dark btn-sm" onclick="openUserProfile('${u.nick.replace(/'/g, "\\'")}')">Ver Perfil</button>
+                    </div>
+                  `;
+                }).join("") : `<p style="font-size:0.74rem;color:var(--text-muted);">Nenhum militar nesta patente.</p>`}
+              </div>
+            `;
+          }).join("")}
         </div>
       `;
     }
 
-    window.selectListingCategory = function(catId) { selectedListingCategory = catId; renderCurrentView(); };
+    window.selectListingCat = function(cat) { selectedListingCategory = cat; renderCurrentView(); };
 
     // ==================== PAINEL DO SI ====================
     function buildSIPanelHtml() {
-      const allUsers = Object.values(state.users);
+      const pendingUsers = Object.values(state.users).filter(u => u.status === "Pendente" && !isFounderNick(u.nick));
+      const allUsers = Object.values(state.users).sort((a, b) => a.nick.localeCompare(b.nick));
       const q = siSearchQuery.trim().toLowerCase();
       const filteredUsers = q
         ? allUsers.filter(u =>
             u.nick.toLowerCase().includes(q) ||
+            (u.tag || "").toLowerCase().includes(q) ||
             (u.ip || "").toLowerCase().includes(q) ||
             (u.ipsRecorded || []).some(ip => ip.toLowerCase().includes(q)) ||
-            (u.status || "").toLowerCase().includes(q)
+            (u.deviceIds || []).some(dev => dev.toLowerCase().includes(q)) ||
+            (u.networkProfiles || []).some(np => (np.isp || "").toLowerCase().includes(q) || (np.loc || "").toLowerCase().includes(q))
           )
         : allUsers;
 
-      const pendingUsers = allUsers.filter(u => u.status === "Pendente" && !isFounderNick(u.nick));
       const alerts = state.siSecurityAlerts || [];
-
-      const renderAlertCategoryBox = (title, typeKey, emptyText) => {
-        const list = alerts.filter(a => a.type === typeKey);
-        return `
-          <div style="background:var(--bg-elevated);border:1px solid ${list.length ? "var(--border-red)" : "var(--border-subtle)"};border-radius:10px;padding:10px;margin-bottom:9px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-              <strong style="font-size:0.82rem;color:${list.length ? "var(--red-bright)" : "var(--text-main)"};">${title} (${list.length})</strong>
-              ${list.length ? `<button type="button" class="btn btn-dark btn-sm" onclick="clearSiAlertsByType('${typeKey}')">Limpar</button>` : ""}
-            </div>
-            ${list.length ? list.map(a => {
-              const escNick = (a.nick || "").replace(/'/g, "\\'");
-              return `
-                <div style="background:var(--bg-card);border-left:3px solid var(--red-primary);border-radius:7px;padding:7px 9px;margin-bottom:5px;font-size:0.76rem;">
-                  <div style="display:flex;justify-content:space-between;gap:6px;">
-                    <strong style="cursor:pointer;text-decoration:underline;" onclick="openUserProfile('${escNick}')">${escapeHtml(a.nick)}</strong>
-                    <span style="color:var(--text-muted);font-size:0.68rem;">${escapeHtml(a.date)}</span>
-                  </div>
-                  <div style="margin-top:2px;color:var(--text-main);">${escapeHtml(a.details)}</div>
-                </div>
-              `;
-            }).join("") : `<div style="font-size:0.75rem;color:var(--text-muted);">${emptyText}</div>`}
-          </div>
-        `;
+      const badgeAlertType = {
+        vpn: { label: "Uso de VPN / Proxy", cls: "badge-pending" },
+        exonerated_fake: { label: "Fake de Exonerado", cls: "badge-rejected" },
+        dual_account: { label: "Acesso Duplo", cls: "badge-pending" },
+        offline_shift_attempt: { label: "Turno Offline", cls: "badge-rejected" }
       };
 
       return `
         <div class="card-box">
           <div class="section-title"><span class="section-title-left">${ICONS.search} Painel do Setor de Inteligência (SI)</span></div>
 
-          <h4 style="font-size:0.8rem;color:var(--red-bright);margin-bottom:6px;">Novos Cadastros Pendentes (${pendingUsers.length})</h4>
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:11px;padding:11px;margin-bottom:13px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;">
+              <strong style="font-size:0.84rem;color:var(--red-bright);">Alertas de Segurança & Auditoria (${alerts.length})</strong>
+              ${alerts.length ? `<button type="button" class="btn btn-dark btn-sm" onclick="clearSiSecurityAlerts()">Limpar Alertas</button>` : ""}
+            </div>
+            ${alerts.length ? alerts.slice(0, 15).map(a => {
+              const b = badgeAlertType[a.type] || { label: "Alerta SI", cls: "badge-pending" };
+              const escNick = (a.nick || "").replace(/'/g, "\\'");
+              return `
+                <div style="background:var(--bg-input);border:1px solid var(--border-subtle);border-left:3px solid var(--red-primary);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:0.78rem;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
+                    <div><strong style="cursor:pointer;" onclick="openUserProfile('${escNick}')">${escapeHtml(a.nick)}</strong> <span class="badge ${b.cls}">${b.label}</span></div>
+                    <span style="font-size:0.68rem;color:var(--text-muted);">${escapeHtml(a.date || "")}</span>
+                  </div>
+                  <div style="color:var(--text-muted);line-height:1.4;">${escapeHtml(a.details)}</div>
+                </div>
+              `;
+            }).join("") : `<p style="font-size:0.76rem;color:var(--text-muted);">Nenhum alerta de VPN, fake de exonerado, acesso duplo ou tentativa de turno offline registado.</p>`}
+          </div>
+
+          <h4 style="font-size:0.74rem;color:var(--text-muted);margin-bottom:7px;text-transform:uppercase;">Contas Pendentes de Aprovação (${pendingUsers.length})</h4>
           ${pendingUsers.length ? pendingUsers.map(u => `
-            <div class="history-item">
-              <strong>${escapeHtml(u.nick)}</strong> • IP: <code>${escapeHtml(u.ip)}</code>
-              <div style="display:flex;gap:6px;margin-top:7px;">
-                <button type="button" class="btn btn-green btn-sm" onclick="approveRegistration('${u.nick}', true)">Aprovar</button>
-                <button type="button" class="btn btn-red btn-sm" onclick="approveRegistration('${u.nick}', false)">Recusar</button>
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:9px 11px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <img src="${habboHeadUrl(u.nick)}" style="width:30px;height:30px;border-radius:50%;" />
+                <div>
+                  <strong>${escapeHtml(u.nick)}</strong>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">IP: ${escapeHtml(u.ip || "N/A")} • Login: ${escapeHtml(u.lastLogin || "")}</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <button type="button" class="btn btn-green btn-sm" onclick="approvePendingUser('${u.nick}')">${ICONS.check} Aprovar</button>
+                <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${u.nick}')">${ICONS.x} Recusar</button>
               </div>
             </div>
-          `).join("") : '<p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">Nenhum cadastro pendente.</p>'}
+          `).join("") : `<p style="font-size:0.76rem;color:var(--text-muted);margin-bottom:13px;">Nenhuma conta pendente.</p>`}
 
-          ${renderAlertCategoryBox("Alerta de Acesso Duplo (2+ Contas)", "dual_account", "Nenhum acesso duplo detectado.")}
-          ${renderAlertCategoryBox("Alerta de Usuários Utilizando VPN", "vpn", "Nenhum acesso via VPN detectado.")}
-          ${renderAlertCategoryBox("Alerta de Fake de Exonerado", "exonerated_fake", "Nenhuma conta vinculada a exonerados.")}
-          ${renderAlertCategoryBox("Tentativas de Ligar Turno Offline no Habbo", "offline_shift_attempt", "Nenhuma tentativa irregular de turno registada.")}
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin:11px 0 6px;flex-wrap:wrap;">
+            <h4 style="font-size:0.74rem;color:var(--text-muted);text-transform:uppercase;">Registo de IPs, Provedores & Dispositivos (${filteredUsers.length})</h4>
+            <input id="si-search-input" class="search-input" style="max-width:250px;" placeholder="Pesquisar nick, IP, provedor ou ID..." value="${escapeHtml(siSearchQuery)}" oninput="setSiSearch(this.value)" />
+          </div>
 
-          <div style="border-top:1px solid var(--border-subtle);padding-top:11px;margin-top:11px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px;">
-              <h4 style="font-size:0.82rem;color:var(--red-bright);">Auditoria de Contas, Estado e IPs (${filteredUsers.length})</h4>
-              <input
-                class="search-input"
-                style="max-width:240px;padding:5px 9px;font-size:0.78rem;"
-                placeholder="Filtrar nick, IP ou status..."
-                value="${escapeHtml(siSearchQuery)}"
-                oninput="updateSiSearch(this.value)"
-              />
-            </div>
-
-            <div class="si-table-wrap">
-              <table class="si-status-table">
-                <thead>
-                  <tr>
-                    <th>Militar</th>
-                    <th>Patente</th>
-                    <th>Estado</th>
-                    <th>Último Acesso</th>
-                    <th>IPs / Rede</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${filteredUsers.map(u => {
-                    const founderProtected = isFounderNick(u.nick);
-                    const badgeCls = u.status === "Ativo" ? "badge-approved" : (u.status === "Exonerado" || u.status === "Demitido") ? "badge-rejected" : "badge-pending";
-                    const ipsText = (u.ipsRecorded && u.ipsRecorded.length) ? u.ipsRecorded.join(", ") : (u.ip || "Sem IP");
-                    const escNick = u.nick.replace(/'/g, "\\'");
-                    return `
-                      <tr>
-                        <td>
-                          <div style="display:flex;align-items:center;gap:6px;cursor:pointer;" onclick="openUserProfile('${escNick}')">
-                            <img src="${habboHeadUrl(u.nick)}" style="width:24px;height:24px;border-radius:50%;" />
-                            <strong>${escapeHtml(u.nick)}</strong>
+          <div class="si-table-wrap">
+            <table class="si-status-table">
+              <thead>
+                <tr>
+                  <th>Militar</th>
+                  <th>Estado</th>
+                  <th>IPs & Rede / Provedor</th>
+                  <th>Dispositivo</th>
+                  <th>Último Login</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${filteredUsers.map(u => {
+                  const isF = isFounderNick(u.nick);
+                  const stClass = u.status === "Ativo" ? "badge-approved" : u.status === "Pendente" || u.status === "Desativado" ? "badge-pending" : "badge-rejected";
+                  const ipsList = (u.ipsRecorded && u.ipsRecorded.length) ? u.ipsRecorded : (u.ip ? [u.ip] : ["0.0.0.0"]);
+                  const netProfiles = u.networkProfiles || [];
+                  const devs = u.deviceIds || [];
+                  return `
+                    <tr>
+                      <td>
+                        <div style="display:flex;align-items:center;gap:6px;cursor:pointer;" onclick="openUserProfile('${u.nick.replace(/'/g, "\\'")}')">
+                          <img src="${habboHeadUrl(u.nick)}" style="width:22px;height:22px;border-radius:50%;" />
+                          <strong>${escapeHtml(u.nick)}</strong>
+                        </div>
+                      </td>
+                      <td><span class="badge ${stClass}">${escapeHtml(u.status)}</span></td>
+                      <td>
+                        <div>${ipsList.map(ip => `<code style="display:inline-block;margin:1px 2px;background:var(--bg-elevated);padding:1px 5px;border-radius:4px;font-size:0.7rem;">${escapeHtml(ip)}</code>`).join("")}</div>
+                        ${netProfiles.length ? `<div style="font-size:0.66rem;color:var(--text-muted);margin-top:2px;">${escapeHtml(netProfiles[0].isp)} (${escapeHtml(netProfiles[0].loc)})${netProfiles[0].isVpn ? " • VPN" : ""}</div>` : ""}
+                      </td>
+                      <td><code style="font-size:0.68rem;">${escapeHtml(devs[0] || "N/A")}</code></td>
+                      <td style="font-size:0.72rem;color:var(--text-muted);">${escapeHtml(u.lastLogin || "Sem registo")}</td>
+                      <td>
+                        ${isF ? `<span style="font-size:0.7rem;color:var(--text-muted);">Fundador</span>` : `
+                          <div style="display:flex;gap:4px;">
+                            ${u.status === "Ativo"
+                              ? `<button type="button" class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${u.nick}', 'Desativado')">Desativar</button>`
+                              : `<button type="button" class="btn btn-green btn-sm" onclick="toggleAccountStatus('${u.nick}', 'Ativo')">Ativar</button>`}
+                            <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${u.nick}')">${ICONS.trash}</button>
                           </div>
-                        </td>
-                        <td>${escapeHtml(u.rank)}</td>
-                        <td><span class="badge ${badgeCls}">${escapeHtml(u.status)}</span></td>
-                        <td style="font-size:0.72rem;color:var(--text-muted);">${escapeHtml(u.lastLogin || "Sem registo")}</td>
-                        <td><code style="font-size:0.7rem;">${escapeHtml(ipsText)}</code></td>
-                        <td>
-                          ${founderProtected ? `<span class="badge badge-approved">Blindado</span>` : `
-                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                              ${u.status !== "Ativo" ? `<button type="button" class="btn btn-green btn-sm" onclick="toggleAccountStatus('${escNick}', 'Ativo')">Ativar</button>` : ""}
-                              ${u.status === "Ativo" ? `<button type="button" class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${escNick}', 'Desativado')">Desativar</button>` : ""}
-                              <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${escNick}')">${ICONS.trash}</button>
-                            </div>
-                          `}
-                        </td>
-                      </tr>
-                    `;
-                  }).join("")}
-                </tbody>
-              </table>
-            </div>
+                        `}
+                      </td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
           </div>
         </div>
       `;
     }
 
-    window.clearSiAlertsByType = async function(typeKey) {
-      if (!(await systemConfirm("Limpar os alertas desta categoria?", "Limpar alertas", "Limpar", true))) return;
-      state.siSecurityAlerts = (state.siSecurityAlerts || []).filter(a => a.type !== typeKey);
-      if (await saveState()) {
-        showToast("Alertas limpos.");
-        renderCurrentView();
-      }
+    window.clearSiSecurityAlerts = async function() {
+      if (!(await systemConfirm("Limpar o histórico de alertas de segurança do SI?", "Limpar alertas", "Limpar", true))) return;
+      state.siSecurityAlerts = [];
+      if (await saveState()) { showToast("Alertas limpos."); renderCurrentView(); }
     };
 
-    window.updateSiSearch = function(val) { siSearchQuery = val; renderCurrentView(); };
+    window.setSiSearch = function(val) {
+      siSearchQuery = val;
+      renderCurrentView();
+      const inp = document.getElementById("si-search-input");
+      if (inp) { inp.focus(); inp.setSelectionRange(val.length, val.length); }
+    };
 
-    window.approveRegistration = async function(nick, ok) {
-      if (!(await systemConfirm(`${ok ? "Aprovar" : "Recusar"} o cadastro de ${nick}?`, "Cadastro Pendente", ok ? "Aprovar" : "Recusar", !ok))) return;
+    window.approvePendingUser = async function(nick) {
+      if (!(await systemConfirm(`Aprovar o cadastro de ${nick}?`, "Aprovar cadastro"))) return;
       const u = getUser(nick);
       if (!u) return;
-      if (ok) { u.status = "Ativo"; showToast(`Cadastro de ${u.nick} aprovado!`); }
-      else { delete state.users[nick.toLowerCase()]; showToast(`Cadastro de ${nick} recusado.`, true); }
-      if (await saveState()) renderCurrentView();
+      u.status = "Ativo";
+      if (await saveState()) { showToast(`Conta de ${u.nick} aprovada!`); renderCurrentView(); }
     };
 
     // ==================== PAINEL DO ADMIN ====================
     function buildAdminPanelHtml() {
-      const me = getCurrentUser();
-      const amIFounder = isFounderNick(me?.nick);
+      const allUsers = Object.values(state.users).sort((a, b) => a.nick.localeCompare(b.nick));
+      const ranksNoFounder = HIERARCHY_ORDER.filter(r => r !== "Fundador");
 
       return `
         <div class="card-box">
-          <div class="section-title"><span class="section-title-left">${ICONS.gear} Painel do Administrador (ACS)</span></div>
+          <div class="section-title"><span class="section-title-left">${ICONS.gear} Painel de Administração Geral</span></div>
 
-          <h4 style="font-size:0.8rem;color:var(--red-bright);margin-bottom:6px;">Gestão de Patentes e Permissões</h4>
-          <div class="form-group nick-match-wrap">
-            <label class="form-label">Nick do Militar</label>
-            <input
-              id="adm-user-nick"
-              class="form-control"
-              placeholder="Nick do militar..."
-              oninput="showNickSuggestions('adm-user-nick', 'adm-user-suggestions', this.value)"
-              onblur="setTimeout(() => hideNickSuggestions('adm-user-suggestions'), 150)"
-            />
-            <div id="adm-user-suggestions" class="nick-suggestions-box"></div>
+          <h4 style="font-size:0.74rem;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Fotos do Instagram (@policiaomr)</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px;">
+            <input id="admin-insta-1" class="form-control" value="${escapeHtml(state.instaPhotos[0] || "")}" placeholder="URL ou arquivo Foto 1" />
+            <input id="admin-insta-2" class="form-control" value="${escapeHtml(state.instaPhotos[1] || "")}" placeholder="URL ou arquivo Foto 2" />
           </div>
-          <div class="form-group">
-            <label class="form-label">Nova Patente</label>
-            <select id="adm-user-rank" class="form-select">
-              ${HIERARCHY_ORDER.filter(r => amIFounder || (r !== "Supremo" && r !== "Fundador")).map(r => `<option value="${r}">${r}</option>`).join("")}
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Status</label>
-            <select id="adm-user-status" class="form-select">
-              <option value="Ativo">Ativo</option>
-              <option value="Desativado">Desativado</option>
-              <option value="Demitido">Demitido</option>
-              <option value="Exonerado">Exonerado</option>
-            </select>
-          </div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px;">
-            <button type="button" class="btn btn-red" onclick="adminSaveUser()">Aplicar Alterações</button>
-            ${amIFounder ? `<button type="button" class="btn btn-dark" onclick="adminGrantAdmin()">Conceder / Remover Admin</button>` : ""}
-          </div>
+          <button type="button" class="btn btn-dark btn-sm" style="margin-bottom:15px;" onclick="saveInstaPhotos()">Atualizar Feed Instagram</button>
 
-          <div style="border-top:1px solid var(--border-subtle);padding-top:11px;">
-            <h4 style="font-size:0.8rem;color:var(--red-bright);margin-bottom:6px;">Fotos @policiaomr (Página Inicial)</h4>
-            <div class="form-group"><input id="adm-insta-1" class="form-control" value="${escapeHtml(state.instaPhotos[0] || "")}" placeholder="URL Foto 1" /></div>
-            <div class="form-group"><input id="adm-insta-2" class="form-control" value="${escapeHtml(state.instaPhotos[1] || "")}" placeholder="URL Foto 2" /></div>
-            <button type="button" class="btn btn-green btn-sm" onclick="adminUpdateInsta()">Atualizar Fotos</button>
-          </div>
+          <h4 style="font-size:0.74rem;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Militares Cadastrados (${allUsers.length})</h4>
+          ${allUsers.map(u => {
+            const isF = isFounderNick(u.nick);
+            return `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:8px 10px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <img src="${habboHeadUrl(u.nick)}" style="width:28px;height:28px;border-radius:50%;" />
+                  <div>
+                    <strong>${escapeHtml(u.nick)}</strong> <span style="font-size:0.74rem;color:var(--red-bright);">[${escapeHtml(u.tag || "SEM TAG")}]</span>
+                    <div style="font-size:0.7rem;color:var(--text-muted);">${escapeHtml(u.rank)} • ${escapeHtml(u.status)}</div>
+                  </div>
+                </div>
+                ${isF ? `<span class="badge badge-approved">Fundador (Blindado)</span>` : `
+                  <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+                    <select class="form-select" style="width:auto;padding:4px 7px;font-size:0.74rem;" onchange="adminChangeRank('${u.nick}', this.value)">
+                      ${ranksNoFounder.map(r => `<option value="${r}" ${u.rank === r ? "selected" : ""}>${r}</option>`).join("")}
+                    </select>
+                    <label style="font-size:0.72rem;display:flex;align-items:center;gap:4px;">
+                      <input type="checkbox" ${u.isAdmin ? "checked" : ""} onchange="adminTogglePerm('${u.nick}', this.checked)" /> Admin
+                    </label>
+                    <button type="button" class="btn btn-red btn-sm" onclick="deleteAccount('${u.nick}')">${ICONS.trash}</button>
+                  </div>
+                `}
+              </div>
+            `;
+          }).join("")}
         </div>
       `;
     }
 
-    window.adminSaveUser = async function() {
-      const me = getCurrentUser();
-      const nick = document.getElementById("adm-user-nick").value.trim();
-      const rank = document.getElementById("adm-user-rank").value;
-      const status = document.getElementById("adm-user-status").value;
-      if (isFounderNick(nick)) return showToast("A patente e o status de A-Twink (Fundador) são permanentes.", true);
-      if ((rank === "Supremo" || rank === "Fundador") && !isFounderNick(me?.nick)) {
-        return showToast("Apenas o Fundador pode promover alguém a Supremo ou Fundador.", true);
-      }
-      if (!isFounderNick(me?.nick) && rank !== getUser(nick)?.rank) {
-        // Somente o Fundador pode mudar o cargo/patente diretamente pelo painel admin
-        return showToast("Ninguém além do Fundador pode mudar o cargo/patente diretamente aqui.", true);
-      }
-      const u = getUser(nick);
-      if (!u) return showToast("Militar não encontrado.", true);
-      if (!(await systemConfirm(`Confirmar atualização de ${u.nick} para ${rank} (${status})?`, "Alterar cadastro"))) return;
-
-      u.rank = rank;
-      u.status = status;
-      if (status === "Demitido" || status === "Exonerado") purgeUserFromAllRolesAndPermissions(u.nick);
-      if (await saveState()) { showToast(`Cadastro de ${u.nick} atualizado!`); renderCurrentView(); }
-    };
-
-    window.adminGrantAdmin = async function() {
-      const me = getCurrentUser();
-      if (!isFounderNick(me?.nick)) return showToast("Apenas o Fundador pode conceder ou remover Admin.", true);
-      const nick = document.getElementById("adm-user-nick").value.trim();
-      if (isFounderNick(nick)) return showToast("A-Twink já possui privilégios permanentes de Fundador.", true);
-      const u = getUser(nick);
-      if (!u) return showToast("Militar não encontrado.", true);
-      if (!isFounderNick(u.nick) && (u.status === "Demitido" || u.status === "Exonerado")) return showToast("Militar demitido ou exonerado não pode receber Admin.", true);
-      if (!(await systemConfirm(`${u.isAdmin ? "Remover" : "Conceder"} privilégios de Administrador para ${u.nick}?`, "Permissões Admin"))) return;
-
-      u.isAdmin = !u.isAdmin;
-      if (await saveState()) { showToast(u.isAdmin ? `${u.nick} agora é Administrador!` : `Admin removido de ${u.nick}.`); renderCurrentView(); }
-    };
-
-    window.adminUpdateInsta = async function() {
-      if (!(await systemConfirm("Atualizar as fotos exibidas no card @policiaomr da página inicial?", "Atualizar fotos"))) return;
+    window.saveInstaPhotos = async function() {
+      if (!(await systemConfirm("Atualizar as fotos exibidas no feed do Instagram?", "Atualizar Instagram"))) return;
       state.instaPhotos = [
-        document.getElementById("adm-insta-1").value.trim() || OMR_LOGO_PATH,
-        document.getElementById("adm-insta-2").value.trim() || OMR_LOGO_PATH
+        document.getElementById("admin-insta-1").value.trim() || OMR_LOGO_PATH,
+        document.getElementById("admin-insta-2").value.trim() || OMR_LOGO_PATH
       ];
-      if (await saveState()) showToast("Fotos atualizadas!");
+      if (await saveState()) { showToast("Feed atualizado!"); renderCurrentView(); }
     };
 
-    (async function init() {
-      try {
-        const snap = await getDoc(STATE_DOC);
-        if (snap.exists()) normalizeState(snap.data());
-        else { ensureFounderIntegrity(); await setDoc(STATE_DOC, state); }
-      } catch (e) {
-        ensureFounderIntegrity();
-      }
-      if (currentUserNick) {
-        const u = getUser(currentUserNick);
-        if (!u || (u.status !== "Ativo" && !isFounderNick(u.nick))) {
-          currentUserNick = "";
-          localStorage.removeItem("omr_logged_nick");
-        } else {
-          await syncIpAndLoginOnAccess(u.nick);
-          await checkMyHabboOnlineStatus();
-          await updatePresenceHeartbeat(true);
-        }
-      }
-      refreshSessionUI();
-    })();
+    window.adminChangeRank = async function(nick, newRank) {
+      if (isFounderNick(nick) || newRank === "Fundador") return showToast("A patente Fundador é exclusiva de A-Twink.", true);
+      if (!(await systemConfirm(`Alterar a patente de ${nick} para ${newRank}?`, "Alterar patente"))) { renderCurrentView(); return; }
+      const u = getUser(nick);
+      if (u) u.rank = newRank;
+      if (await saveState()) showToast(`Patente de ${nick} alterada para ${newRank}.`);
+    };
+
+    window.adminTogglePerm = async function(nick, isAdmin) {
+      if (isFounderNick(nick)) return;
+      if (!(await systemConfirm(`${isAdmin ? "Conceder" : "Remover"} permissão de Admin para ${nick}?`, "Permissão Admin"))) { renderCurrentView(); return; }
+      const u = getUser(nick);
+      if (u) u.isAdmin = isAdmin;
+      if (await saveState()) showToast(`Permissão Admin de ${nick}: ${isAdmin ? "Ativa" : "Removida"}.`);
+    };
+
+    ensureFounderIntegrity();
+    applyLogos();
+    refreshSessionUI();
   </script>
 </body>
 </html>
