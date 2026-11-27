@@ -794,7 +794,59 @@
       padding: 14px;
       margin-bottom: 12px;
       font-size: 0.85rem;
-      line-height: 1.65;
+      line-height: 1.55;
+    }
+
+    .hist-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .hist-author-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hist-author-head {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      object-fit: cover;
+    }
+
+    .hist-author-name {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+
+    .hist-action-word {
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .hist-action-pos {
+      color: #16a34a;
+    }
+
+    .hist-action-neg {
+      color: #dc2626;
+    }
+
+    .hist-obs-normal {
+      font-size: 0.86rem;
+      font-weight: 400;
+      color: var(--text-main);
+      margin-top: 6px;
+      white-space: pre-line;
     }
 
     .catalog-strip {
@@ -815,6 +867,35 @@
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
+    }
+
+    .listing-choice-btn {
+      width: 100%;
+      text-align: left;
+      justify-content: space-between;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      font-size: 0.94rem;
+    }
+
+    .si-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+
+    .si-table th, .si-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .si-table th {
+      background: var(--bg-elevated);
+      font-weight: 800;
+      color: var(--red-bright);
     }
 
     .toast-banner {
@@ -985,7 +1066,6 @@
 
       <div class="topbar-right">
         <button class="icon-action-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Alternar Tema Claro/Escuro">☀️</button>
-        <button class="icon-action-btn" onclick="toggleFullscreen()" title="Tela Cheia">⛶</button>
         <button class="profile-pill-btn" onclick="openMyProfile()" title="Abrir Meu Perfil">
           <div class="profile-pill-info">
             <div class="profile-pill-label">Meu Perfil</div>
@@ -1046,7 +1126,7 @@
       </div>
 
       <button class="nav-item" onclick="navigate('roles')">🛡️ Funções</button>
-      <button class="nav-item" onclick="navigate('listings')">📜 Listagens</button>
+      <button class="nav-item" onclick="openListingsMenu()">📜 Listagem</button>
       <button id="nav-si-panel" class="nav-item" onclick="navigate('si-panel')">🕵️ Painel do SI</button>
       <button id="nav-admin-panel" class="nav-item" onclick="navigate('admin-panel')">⚙️ Painel do Admin</button>
 
@@ -1161,6 +1241,8 @@
       "Venda"
     ];
 
+    const POSITIVE_REQ_TYPES = new Set(["Promoção", "Contrato", "Venda", "Licença"]);
+
     const PRACAS_RANKS = ["Soldado", "Cabo", "Sargento", "Subtenente", "Aspirante a Oficial"];
     const OFICIAIS_RANKS = ["Tenente", "Capitão", "Major", "Coronel", "General"];
     const ALTO_ESCALAO_RANKS = ["Subcomandante", "Comandante"];
@@ -1272,15 +1354,20 @@
           password: "",
           isAdmin: true,
           ip: "189.44.102.11",
-          ispGroup: "ISP-BR-189",
-          locationLabel: "São Paulo, BR",
+          ipsRecorded: ["189.44.102.11"],
+          ispGroup: "ISP-189.44",
+          locationLabel: "São Paulo (America/Sao_Paulo)",
           vpnSuspect: false,
           lastLogin: "Nunca acessou",
           lastSeenMs: 0,
           lastPromoLine: "A-Twink [ATW] 27 Nov 2026",
           history: [
             {
-              text: "A-Twink fundou a Organização Militar Renascente (OMR)\n\nNova patente: Fundador\n\nObs: Pré-cadastro oficial do Alto Comando Supremo",
+              reqId: "init-1",
+              author: "A-Twink",
+              actionLabel: "fundou a Organização Militar Renascente (OMR)",
+              isPositive: true,
+              obs: "Pré-cadastro oficial do Alto Comando Supremo",
               date: "27/11/2026 01:00",
               status: "Aprovado"
             }
@@ -1313,6 +1400,10 @@
     let currentReqType = "Promoção";
     let drhSelectedModality = "Promoção";
     let currentDocKey = "RGM";
+    let selectedListingCategory = "";
+    let selectedRoleId = "";
+    let roleSubPage = "menu";
+    let siSearchNick = "";
     let pendingMottoCode = "";
     let dbSyncedOnce = false;
 
@@ -1379,10 +1470,22 @@
         if (!mergedRanks.includes(r)) mergedRanks.push(r);
       });
 
+      const normalizedUsers = {};
+      if (raw?.users && typeof raw.users === "object") {
+        for (const [k, u] of Object.entries(raw.users)) {
+          const ips = Array.isArray(u.ipsRecorded) ? [...u.ipsRecorded] : [];
+          if (u.ip && !ips.includes(u.ip)) ips.unshift(u.ip);
+          normalizedUsers[k] = {
+            ...u,
+            ipsRecorded: ips
+          };
+        }
+      }
+
       return {
         ranks: mergedRanks,
         orgs: [...mergedOrgs, ...extraOrgs],
-        users: raw?.users && typeof raw.users === "object" ? raw.users : {},
+        users: normalizedUsers,
         requirements: Array.isArray(raw?.requirements) ? raw.requirements : [],
         announcements: Array.isArray(raw?.announcements) ? raw.announcements : [],
         instaPhotos: Array.isArray(raw?.instaPhotos) && raw.instaPhotos.length ? raw.instaPhotos : [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
@@ -1442,6 +1545,15 @@
       return getUser(currentUserNick);
     }
 
+    function recordUserIp(user, ip) {
+      if (!user || !ip) return;
+      user.ipsRecorded = Array.isArray(user.ipsRecorded) ? user.ipsRecorded : [];
+      if (!user.ipsRecorded.includes(ip)) {
+        user.ipsRecorded.unshift(ip);
+      }
+      user.ip = ip;
+    }
+
     function getOrgMemberEntry(orgId, nick) {
       const org = state.orgs.find(o => o.id === orgId);
       if (!org || !nick) return null;
@@ -1497,7 +1609,7 @@
       const prevLoc = u.locationLabel;
       u.lastSeenMs = Date.now();
       u.lastLogin = formatDateTime();
-      u.ip = clientNet.ip;
+      recordUserIp(u, clientNet.ip);
       u.ispGroup = clientNet.ispGroup;
       u.locationLabel = clientNet.locationLabel;
       u.vpnSuspect = clientNet.vpnSuspect;
@@ -1530,18 +1642,18 @@
       return `${day}/${mon}/${yr} ${hr}:${min}`;
     }
 
-    function habboHeadUrl(nick, waveAndSmile = true) {
-      const params = waveAndSmile
-        ? "headonly=1&direction=3&head_direction=3&action=wav&gesture=sml&size=l"
-        : "headonly=1&direction=3&head_direction=3&size=l";
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&${params}`;
+    function habboHeadUrl(nick) {
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&headonly=1&direction=3&head_direction=3&size=l`;
     }
 
-    function habboFullUrl(nick, waveAndSmile = true) {
-      const params = waveAndSmile
-        ? "direction=4&head_direction=3&action=wav&gesture=sml&size=l"
-        : "direction=4&head_direction=3&size=l";
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&${params}`;
+    function habboFullUrl(nick, opts = {}) {
+      if (opts.listingActive) {
+        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&action=wav&gesture=sml&size=l`;
+      }
+      if (opts.exonerated) {
+        return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&size=l`;
+      }
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&gesture=sml&size=l`;
     }
 
     window.toggleTheme = function() {
@@ -1578,7 +1690,7 @@
       const nick = input.value.trim();
       const img = document.getElementById(mode === "login" ? "login-avatar-head" : "reg-avatar-head");
       const lbl = document.getElementById(mode === "login" ? "login-nick-preview" : "reg-nick-preview");
-      img.src = habboHeadUrl(nick || "A-Twink", true);
+      img.src = habboHeadUrl(nick || "A-Twink");
       lbl.textContent = nick || "Aguardando nick...";
     };
 
@@ -1610,7 +1722,7 @@
       const u = state.users[key];
       if (u && u.status === "Exonerado") return true;
       return Object.values(state.users).some(
-        other => other.status === "Exonerado" && other.ip && other.ip === clientNet.ip
+        other => other.status === "Exonerado" && ((other.ip && other.ip === clientNet.ip) || (Array.isArray(other.ipsRecorded) && other.ipsRecorded.includes(clientNet.ip)))
       );
     }
 
@@ -1675,7 +1787,7 @@
       if (existing) {
         existing.password = pass;
         existing.status = "Ativo";
-        existing.ip = clientNet.ip;
+        recordUserIp(existing, clientNet.ip);
         existing.ispGroup = clientNet.ispGroup;
         existing.locationLabel = clientNet.locationLabel;
         existing.vpnSuspect = clientNet.vpnSuspect;
@@ -1683,7 +1795,11 @@
         existing.lastSeenMs = Date.now();
         existing.history = existing.history || [];
         existing.history.unshift({
-          text: `${existing.nick} ativou sua conta no System OMR (${nowStr})\n\nPatente: ${existing.rank}\n\nObs: Verificação concluída via missão do Habbo`,
+          reqId: "reg-" + Date.now(),
+          author: existing.nick,
+          actionLabel: "ativou sua conta no System OMR",
+          isPositive: true,
+          obs: `Patente: ${existing.rank} — Verificação concluída via missão do Habbo`,
           date: nowStr,
           status: "Aprovado"
         });
@@ -1696,6 +1812,7 @@
           password: pass,
           isAdmin: false,
           ip: clientNet.ip,
+          ipsRecorded: [clientNet.ip],
           ispGroup: clientNet.ispGroup,
           locationLabel: clientNet.locationLabel,
           vpnSuspect: clientNet.vpnSuspect,
@@ -1704,7 +1821,11 @@
           lastPromoLine: `${nick} [SEM TAG] ${shortDate}`,
           history: [
             {
-              text: `${nick} solicitou registro no System OMR (${nowStr})\n\nPatente: Soldado\n\nObs: Aguardando aprovação do Setor de Inteligência ou Admin`,
+              reqId: "reg-" + Date.now(),
+              author: nick,
+              actionLabel: "solicitou registro no System OMR",
+              isPositive: true,
+              obs: "Patente: Soldado — Aguardando aprovação do Setor de Inteligência ou Admin",
               date: nowStr,
               status: "Em análise"
             }
@@ -1755,7 +1876,7 @@
 
       document.getElementById("top-user-nick").textContent = user.nick;
       document.getElementById("top-user-rank").textContent = user.rank;
-      document.getElementById("top-user-head").src = habboHeadUrl(user.nick, true);
+      document.getElementById("top-user-head").src = habboHeadUrl(user.nick);
 
       const canDrh = isOrgMember(user.nick, "DRH") || isSI(user.nick) || isHighAuthority(user.nick);
       const canSi = isSI(user.nick) || isHighAuthority(user.nick);
@@ -1777,22 +1898,23 @@
       document.getElementById(id).classList.toggle("open");
     };
 
-    window.toggleFullscreen = function() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen?.().catch(() => {});
-      } else {
-        document.exitFullscreen?.().catch(() => {});
-      }
-    };
-
     window.navigate = function(route) {
       currentRoute = route;
+      if (route === "roles") {
+        selectedRoleId = "";
+        roleSubPage = "menu";
+      }
       toggleDrawer(false);
       document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
       if (route === "home") document.getElementById("bnav-home")?.classList.add("active");
       if (route === "req-list" || route === "req-form" || route === "drh-panel") document.getElementById("bnav-req")?.classList.add("active");
       if (route === "profile") document.getElementById("bnav-profile")?.classList.add("active");
       renderCurrentView();
+    };
+
+    window.openListingsMenu = function() {
+      selectedListingCategory = "";
+      navigate("listings");
     };
 
     window.openMyProfile = function() {
@@ -1856,7 +1978,7 @@
               <div style="font-weight:800;font-size:0.84rem;">${a.author}</div>
               <div style="font-size:0.72rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
             </div>
-            <img src="${habboHeadUrl(a.author, true)}" style="width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
+            <img src="${habboHeadUrl(a.author)}" style="width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
           </div>
         </div>
       `).join("");
@@ -1882,7 +2004,7 @@
               </div>
             </div>
             <div class="hero-avatar-col">
-              <img class="hero-full-avatar" src="${habboFullUrl(user.nick, true)}" alt="${user.nick}" />
+              <img class="hero-full-avatar" src="${habboFullUrl(user.nick)}" alt="${user.nick}" />
               <div class="rank-badge-red">${user.rank}</div>
             </div>
           </div>
@@ -1934,7 +2056,7 @@
       } else {
         box.innerHTML = matches.map(u => `
           <div onclick="openUserProfile('${u.nick}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border-subtle);">
-            <img src="${habboHeadUrl(u.nick, true)}" style="width:34px;height:34px;border-radius:50%;background:var(--bg-elevated);" />
+            <img src="${habboHeadUrl(u.nick)}" style="width:34px;height:34px;border-radius:50%;background:var(--bg-elevated);" />
             <div>
               <div style="font-weight:800;font-size:0.86rem;">${u.nick} ${u.tag ? `[${u.tag}]` : ""}</div>
               <div style="font-size:0.74rem;color:var(--text-muted);">${u.rank} • ${u.status}</div>
@@ -1968,6 +2090,31 @@
       if (await saveState()) showToast("Comunicado apagado.");
     };
 
+    function formatHistoryItemHtml(h) {
+      if (typeof h === "string") {
+        return `<div class="history-item"><div class="hist-obs-normal">${h}</div></div>`;
+      }
+      const author = h.author || "Sistema";
+      const actionLabel = h.actionLabel || "registrou uma ocorrência";
+      const posClass = h.isPositive ? "hist-action-pos" : "hist-action-neg";
+      const obsText = h.obs || "";
+      const dateStr = h.date || "";
+
+      return `
+        <div class="history-item">
+          <div class="hist-header-row">
+            <div class="hist-author-wrap">
+              <img src="${habboHeadUrl(author)}" alt="${author}" class="hist-author-head" />
+              <span class="hist-author-name">${author}</span>
+              <span class="hist-action-word ${posClass}">${actionLabel}</span>
+            </div>
+            <span style="font-size:0.74rem;color:var(--text-muted);">${dateStr}</span>
+          </div>
+          ${obsText ? `<div class="hist-obs-normal">${obsText}</div>` : ""}
+        </div>
+      `;
+    }
+
     function renderProfile(container, viewer) {
       const target = getUser(selectedProfileNick) || viewer;
       const isOwn = target.nick.toLowerCase() === viewer.nick.toLowerCase();
@@ -1986,13 +2133,22 @@
         "Demitido": "badge-rejected"
       };
 
-      const visibleHistory = (target.history || []).filter(h => h.status !== "Reprovado");
+      const visibleHistory = (target.history || []).filter(h => {
+        if (!h || typeof h !== "object") return true;
+        if (["Reprovado", "Cancelado", "Apagado"].includes(h.status)) return false;
+        if (h.reqId) {
+          const linkedReq = state.requirements.find(r => r.id === h.reqId);
+          if (!linkedReq) return false;
+          if (["Reprovado", "Cancelado"].includes(linkedReq.status)) return false;
+        }
+        return true;
+      });
 
       container.innerHTML = `
         <div class="card-box">
           <div class="profile-hero">
             <div class="profile-circle-frame">
-              <img src="${habboFullUrl(target.nick, target.status !== "Exonerado")}" alt="${target.nick}" />
+              <img src="${habboFullUrl(target.nick)}" alt="${target.nick}" />
             </div>
             <div style="font-size:1.25rem;font-weight:900;">${target.nick} ${tagBlock}</div>
             <div class="rank-badge-red" style="margin-top:6px;">${target.rank}</div>
@@ -2004,7 +2160,6 @@
 
             <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;">
               <span class="badge ${statusColors[target.status] || "badge-pending"}">Status: ${target.status}</span>
-              <span class="badge ${isUserOnline(target) ? "badge-approved" : "badge-canceled"}">${isUserOnline(target) ? "Online agora" : "Offline"}</span>
             </div>
 
             ${userOrgs.length ? `
@@ -2032,15 +2187,7 @@
           </div>
 
           <div class="section-title">📜 Histórico Militar</div>
-          ${visibleHistory.length ? visibleHistory.map(h => `
-            <div class="history-item">
-              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;">
-                <span style="font-size:0.74rem;color:var(--text-muted);">${h.date}</span>
-                ${h.status === "Em análise" ? `<span class="badge badge-pending">[em análise]</span>` : ""}
-              </div>
-              <div style="white-space:pre-line;">${h.text}</div>
-            </div>
-          `).join("") : '<p style="color:var(--text-muted);font-size:0.84rem;">Nenhum registro no histórico deste militar.</p>'}
+          ${visibleHistory.length ? visibleHistory.map(formatHistoryItemHtml).join("") : '<p style="color:var(--text-muted);font-size:0.84rem;">Nenhum registro no histórico deste militar.</p>'}
         </div>
       `;
     }
@@ -2135,7 +2282,7 @@
               <input id="req-end-date" type="date" class="form-control" />
             </div>
             <div class="form-group">
-              <label class="form-label">Motivo</label>
+              <label class="form-label">Observações</label>
               <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Descreva o motivo da licença..."></textarea>
             </div>
             <button class="btn btn-red" style="width:100%;" onclick="submitRequirement('Licença')">Postar Licença para Análise</button>
@@ -2159,7 +2306,7 @@
           <div class="form-group">
             <label class="form-label">Autor da Postagem</label>
             <div style="display:flex;align-items:center;gap:10px;background:var(--bg-elevated);padding:8px 12px;border-radius:11px;border:1px solid var(--border-subtle);">
-              <img src="${habboHeadUrl(user.nick, true)}" style="width:36px;height:36px;border-radius:50%;" />
+              <img src="${habboHeadUrl(user.nick)}" style="width:36px;height:36px;border-radius:50%;" />
               <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick} (${user.rank})" readonly />
             </div>
           </div>
@@ -2174,7 +2321,7 @@
           <div class="form-group">
             <label class="form-label">Militar Envolvido</label>
             <div style="display:flex;align-items:center;gap:10px;">
-              <img id="req-target-head" src="${habboHeadUrl("", true)}" style="width:40px;height:40px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
+              <img id="req-target-head" src="${habboHeadUrl("")}" style="width:40px;height:40px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
               <input id="req-target" class="form-control" placeholder="Digite o nick do militar..." oninput="onReqTargetChange(this.value, '${type}')" />
             </div>
             <div id="req-target-info" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;"></div>
@@ -2245,7 +2392,7 @@
 
     window.onReqTargetChange = function(val, type) {
       const nick = val.trim();
-      document.getElementById("req-target-head").src = habboHeadUrl(nick, true);
+      document.getElementById("req-target-head").src = habboHeadUrl(nick);
       const target = getUser(nick);
       const info = document.getElementById("req-target-info");
       const rankSel = document.getElementById("req-new-rank");
@@ -2270,6 +2417,7 @@
       const author = getCurrentUser();
       const nowStr = formatDateTime();
       const shortDate = formatShortDate();
+      const isPos = POSITIVE_REQ_TYPES.has(type);
 
       if (type === "Licença") {
         const endDate = document.getElementById("req-end-date").value;
@@ -2297,7 +2445,10 @@
         author.history = author.history || [];
         author.history.unshift({
           reqId: req.id,
-          text: `${author.nick} postou uma licença (${nowStr})\n\nVencimento: ${endDate}\n\nObs: ${obs}`,
+          author: author.nick,
+          actionLabel: "postou uma licença",
+          isPositive: true,
+          obs: `Vencimento: ${endDate}\nObservações: ${obs}`,
           date: nowStr,
           status: "Em análise"
         });
@@ -2341,6 +2492,7 @@
             password: "",
             isAdmin: false,
             ip: "",
+            ipsRecorded: [],
             ispGroup: "",
             locationLabel: "",
             vpnSuspect: false,
@@ -2386,20 +2538,23 @@
 
       state.requirements.unshift(req);
 
-      const lines = [`${author.nick} postou um(a) ${type.toLowerCase()} (${nowStr})`];
-      if (newRank) lines.push(`Nova patente: ${newRank}`);
-      if (saleValue) lines.push(`Valor: ${saleValue}`);
+      const obsLines = [];
+      if (newRank) obsLines.push(`Nova patente: ${newRank}`);
+      if (saleValue) obsLines.push(`Valor: ${saleValue}`);
       if (type === "Exoneração") {
-        lines.push(exoMode === "temporaria" ? `Exoneração temporária — Postagem: ${nowStr} | Vencimento: ${exoEndDate}` : "Exoneração: Permanente");
+        obsLines.push(exoMode === "temporaria" ? `Exoneração temporária — Postagem: ${nowStr} | Vencimento: ${exoEndDate}` : "Exoneração: Permanente");
       }
-      if (permissor) lines.push(`Permissor: ${permissor}`);
-      lines.push(`Obs: ${obs}`);
-      lines.push(`${target.nick} [${tag}] ${shortDate}`);
+      if (permissor) obsLines.push(`Permissor: ${permissor}`);
+      obsLines.push(`Observações: ${obs}`);
+      obsLines.push(`${target.nick} [${tag}] ${shortDate}`);
 
       target.history = target.history || [];
       target.history.unshift({
         reqId: req.id,
-        text: lines.join("\n\n"),
+        author: author.nick,
+        actionLabel: `postou um(a) ${type.toLowerCase()}`,
+        isPositive: isPos,
+        obs: obsLines.join("\n"),
         date: nowStr,
         status: "Em análise"
       });
@@ -2428,7 +2583,7 @@
           ${r.newRank ? `<div style="font-size:0.82rem;margin-bottom:4px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
           ${r.saleValue ? `<div style="font-size:0.82rem;margin-bottom:4px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
           ${r.type === "Exoneração" ? `<div style="font-size:0.82rem;margin-bottom:4px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
-          <div style="font-size:0.82rem;margin-bottom:6px;">Obs.: ${r.obs}</div>
+          <div style="font-size:0.82rem;margin-bottom:6px;">Observações: ${r.obs}</div>
           ${r.proofs ? `<div style="font-size:0.78rem;margin-bottom:6px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">🔗 Ver provas anexadas</a></div>` : ""}
           ${r.reviewedBy ? `<div style="font-size:0.76rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
 
@@ -2449,7 +2604,7 @@
       `;
     }
 
-    function renderReqList(container, user) {
+    function renderReqList(container) {
       const pending = state.requirements.filter(r => r.status === "Em análise");
       const reviewed = state.requirements.filter(r => r.status !== "Em análise");
 
@@ -2524,24 +2679,28 @@
 
       const target = getUser(req.target);
       if (target) {
-        const histItem = (target.history || []).find(h => h.reqId === reqId);
-        if (histItem) {
-          histItem.status = newStatus;
-          histItem.text += `\n\nDecisão DRH (${newStatus}): ${note}`;
-        }
-
-        if (newStatus === "Aprovado") {
-          if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
-            target.rank = req.newRank;
-            target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
+        target.history = target.history || [];
+        if (["Reprovado", "Cancelado"].includes(newStatus)) {
+          target.history = target.history.filter(h => h.reqId !== reqId);
+        } else {
+          const histItem = target.history.find(h => h.reqId === reqId);
+          if (histItem) {
+            histItem.status = newStatus;
+            histItem.obs = `${histItem.obs || ""}\nObservação do DRH: ${note}`.trim();
           }
-          if (req.type === "Demissão") {
-            target.rank = "Recruta";
-            target.status = "Demitido";
-          }
-          if (req.type === "Exoneração") {
-            target.rank = "Recruta";
-            target.status = "Exonerado";
+          if (newStatus === "Aprovado") {
+            if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
+              target.rank = req.newRank;
+              target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
+            }
+            if (req.type === "Demissão") {
+              target.rank = "Recruta";
+              target.status = "Demitido";
+            }
+            if (req.type === "Exoneração") {
+              target.rank = "Recruta";
+              target.status = "Exonerado";
+            }
           }
         }
       }
@@ -2561,10 +2720,13 @@
       const req = state.requirements.find(r => r.id === reqId);
       state.requirements = state.requirements.filter(r => r.id !== reqId);
 
-      if (req && req.type === "Exoneração") {
+      if (req) {
         const target = getUser(req.target);
-        if (target && target.status === "Exonerado") {
-          target.status = "Desativado";
+        if (target) {
+          target.history = (target.history || []).filter(h => h.reqId !== reqId);
+          if (req.type === "Exoneração" && target.status === "Exonerado") {
+            target.status = "Desativado";
+          }
         }
       }
 
@@ -2642,6 +2804,7 @@
             password: "",
             isAdmin: false,
             ip: "",
+            ipsRecorded: [],
             ispGroup: "",
             locationLabel: "",
             vpnSuspect: false,
@@ -2654,7 +2817,11 @@
           state.users[key].status = "Desativado";
         }
         state.users[key].history.unshift({
-          text: `${instructor.nick} postou uma aula (${nowStr})\n\nAula: ${className} — ${result}\n\nObs: ${obs}\n\n${studentNick} [${tag}] ${shortDate}`,
+          reqId: "class-" + Date.now(),
+          author: instructor.nick,
+          actionLabel: `aplicou ${className} (${result})`,
+          isPositive: true,
+          obs: `${obs}\n${studentNick} [${tag}] ${shortDate}`,
           date: nowStr,
           status: "Aprovado"
         });
@@ -2704,7 +2871,107 @@
         container.innerHTML = `
           <div class="card-box">
             <div class="section-title">🛡️ Funções</div>
-            <p style="color:var(--text-muted);font-size:0.85rem;">Você ainda não faz parte de nenhum órgão ou função interna.</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Você ainda não faz parte de nenhuma função ou órgão interno.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!selectedRoleId) {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">🛡️ Minhas Funções</div>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Clique em uma função para acessar os documentos ou o controle de membros:</p>
+            ${myOrgs.map(o => {
+              const myEntry = getOrgMemberEntry(o.id, user.nick);
+              return `
+                <button class="btn btn-dark listing-choice-btn" onclick="selectRoleOrg('${o.id}')">
+                  <span><strong>${o.icon} ${o.name} (${o.id})</strong> — <span style="color:var(--text-muted);font-weight:600;">${myEntry?.role || "Alto Comando"}</span></span>
+                  <span>▸</span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        `;
+        return;
+      }
+
+      const org = state.orgs.find(o => o.id === selectedRoleId) || myOrgs[0];
+      const idx = state.orgs.findIndex(x => x.id === org.id);
+      const canAdminOrg = isOrgAdmin(user.nick, org.id);
+      const roleOptions = ORG_ROLES_CONFIG[org.id]?.roles || [{ name: "Membro", isAdmin: false }];
+
+      if (roleSubPage === "ri") {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">
+              <span>📄 Regimento Interno — ${org.name} (${org.id})</span>
+              <button class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
+            </div>
+            ${canAdminOrg ? `
+              <textarea id="org-reg-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.internalRegimento || ""}</textarea>
+              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'ri')">Salvar Regimento Interno</button>
+            ` : `
+              <div style="background:var(--bg-elevated);padding:14px;border-radius:12px;white-space:pre-line;font-size:0.86rem;">${org.internalRegimento || ""}</div>
+            `}
+          </div>
+        `;
+        return;
+      }
+
+      if (roleSubPage === "penal") {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">
+              <span>⚖️ Código Penal — ${org.name} (${org.id})</span>
+              <button class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
+            </div>
+            ${canAdminOrg ? `
+              <textarea id="org-penal-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.penalCode || ""}</textarea>
+              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'penal')">Salvar Código Penal</button>
+            ` : `
+              <div style="background:var(--bg-elevated);padding:14px;border-radius:12px;white-space:pre-line;font-size:0.86rem;">${org.penalCode || ""}</div>
+            `}
+          </div>
+        `;
+        return;
+      }
+
+      if (roleSubPage === "members") {
+        if (!canAdminOrg) {
+          roleSubPage = "menu";
+          return renderRoles(container, user);
+        }
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">
+              <span>👥 Controle de Membros — ${org.id}</span>
+              <button class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Adicionar ou Alterar Função de Membro</label>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <input id="org-add-nick-page" class="form-control" placeholder="Nick do militar..." style="flex:1;min-width:140px;" />
+                <select id="org-add-role-page" class="form-select" style="width:auto;">
+                  ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
+                </select>
+                <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRolePage(${idx})">Salvar Membro</button>
+              </div>
+            </div>
+
+            <div class="form-label" style="margin-top:14px;">Membros Atuais</div>
+            ${(org.members || []).length ? org.members.map((m, mIdx) => `
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div><strong>${m.nick}</strong> — <span style="color:var(--text-muted);">${m.role}</span></div>
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                  <select id="edit-role-${idx}-${mIdx}" class="form-select" style="width:auto;padding:5px 8px;font-size:0.78rem;">
+                    ${roleOptions.map(r => `<option value="${r.name}" ${r.name === m.role ? "selected" : ""}>${r.name}</option>`).join("")}
+                  </select>
+                  <button class="btn btn-red btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx})">Alterar Função</button>
+                </div>
+              </div>
+            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum membro cadastrado ainda.</p>'}
           </div>
         `;
         return;
@@ -2712,167 +2979,186 @@
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🛡️ Minhas Funções e Órgãos</div>
-          ${myOrgs.map(o => {
-            const idx = state.orgs.findIndex(x => x.id === o.id);
-            const myEntry = getOrgMemberEntry(o.id, user.nick);
-            const canAdminOrg = isOrgAdmin(user.nick, o.id);
-            const roleOptions = ORG_ROLES_CONFIG[o.id]?.roles || [{ name: "Membro", isAdmin: false }];
+          <div class="section-title">
+            <span>${org.icon} ${org.name} (${org.id})</span>
+            <button class="btn btn-dark btn-sm" onclick="selectRoleOrg('')">← Todas as Funções</button>
+          </div>
 
-            return `
-              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:16px;padding:14px;margin-bottom:14px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-                  <div style="font-weight:800;font-size:0.95rem;">${o.icon} ${o.name} (${o.id})</div>
-                  <span class="badge badge-approved">Seu cargo: ${myEntry?.role || (isHighAuthority(user.nick) ? "Alto Comando" : "Membro")}</span>
-                </div>
+          <button class="btn btn-dark listing-choice-btn" onclick="setRoleSubPage('ri')">
+            <span>📄 Regimento Interno (RI)</span>
+            <span>▸</span>
+          </button>
 
-                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">
-                  Integrantes: ${(o.members || []).length ? o.members.map(m => `${m.nick} (${m.role})`).join(" • ") : "Nenhum"}
-                </div>
+          <button class="btn btn-dark listing-choice-btn" onclick="setRoleSubPage('penal')">
+            <span>⚖️ Código Penal</span>
+            <span>▸</span>
+          </button>
 
-                ${canAdminOrg ? `
-                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
-                    <input id="org-add-nick-${idx}" class="form-control" placeholder="Nick do militar..." style="flex:1;min-width:140px;padding:8px 10px;" />
-                    <select id="org-add-role-${idx}" class="form-select" style="width:auto;padding:8px 10px;">
-                      ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
-                    </select>
-                    <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRole(${idx})">Adicionar Membro</button>
-                  </div>
-                ` : ""}
-
-                <div style="border-top:1px solid var(--border-subtle);padding-top:10px;margin-top:8px;">
-                  <div class="form-label">Regimento Interno (${o.id})</div>
-                  ${canAdminOrg ? `
-                    <textarea id="org-reg-${idx}" class="form-textarea" rows="3" style="margin-bottom:6px;">${o.internalRegimento || ""}</textarea>
-                  ` : `
-                    <div style="background:var(--bg-card);padding:10px;border-radius:10px;white-space:pre-line;font-size:0.82rem;margin-bottom:8px;">${o.internalRegimento || ""}</div>
-                  `}
-
-                  <div class="form-label" style="margin-top:8px;">Código Penal (${o.id})</div>
-                  ${canAdminOrg ? `
-                    <textarea id="org-penal-${idx}" class="form-textarea" rows="3" style="margin-bottom:8px;">${o.penalCode || ""}</textarea>
-                    <button class="btn btn-red btn-sm" onclick="saveOrgDocs(${idx})">Salvar Documentos do Órgão</button>
-                  ` : `
-                    <div style="background:var(--bg-card);padding:10px;border-radius:10px;white-space:pre-line;font-size:0.82rem;">${o.penalCode || ""}</div>
-                  `}
-                </div>
-              </div>
-            `;
-          }).join("")}
+          ${canAdminOrg ? `
+            <button class="btn btn-red listing-choice-btn" onclick="setRoleSubPage('members')">
+              <span>👥 Controle de Membros (Admin)</span>
+              <span>▸</span>
+            </button>
+          ` : ""}
         </div>
       `;
     }
 
-    window.addOrgMemberWithRole = async function(idx) {
-      const nick = document.getElementById(`org-add-nick-${idx}`).value.trim();
-      const role = document.getElementById(`org-add-role-${idx}`).value;
+    window.selectRoleOrg = function(orgId) {
+      selectedRoleId = orgId;
+      roleSubPage = "menu";
+      renderCurrentView();
+    };
+
+    window.setRoleSubPage = function(sub) {
+      roleSubPage = sub;
+      renderCurrentView();
+    };
+
+    window.saveSingleOrgDoc = async function(idx, kind) {
+      const org = state.orgs[idx];
+      if (kind === "ri") {
+        org.internalRegimento = document.getElementById("org-reg-page").value;
+      } else {
+        org.penalCode = document.getElementById("org-penal-page").value;
+      }
+      if (await saveState()) showToast("Documento do órgão salvo com sucesso!");
+    };
+
+    window.addOrgMemberWithRolePage = async function(idx) {
+      const nick = document.getElementById("org-add-nick-page").value.trim();
+      const role = document.getElementById("org-add-role-page").value;
       if (!nick) return showToast("Digite o nick do militar.", true);
       const org = state.orgs[idx];
       org.members = org.members || [];
       const existing = org.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
-      if (existing) {
-        existing.role = role;
-      } else {
-        org.members.push({ nick, role });
-      }
-      if (await saveState()) {
-        showToast(`${nick} definido como ${role} em ${org.id}!`);
-      }
+      if (existing) existing.role = role;
+      else org.members.push({ nick, role });
+      if (await saveState()) showToast(`${nick} salvo como ${role} em ${org.id}!`);
     };
 
-    window.saveOrgDocs = async function(idx) {
-      const org = state.orgs[idx];
-      org.internalRegimento = document.getElementById(`org-reg-${idx}`).value;
-      org.penalCode = document.getElementById(`org-penal-${idx}`).value;
-      if (await saveState()) {
-        showToast(`Regimento Interno e Código Penal de ${org.id} salvos!`);
-      }
+    window.changeExistingOrgMemberRole = async function(orgIdx, memberIdx) {
+      const newRole = document.getElementById(`edit-role-${orgIdx}-${memberIdx}`).value;
+      const member = state.orgs[orgIdx]?.members?.[memberIdx];
+      if (!member) return;
+      member.role = newRole;
+      if (await saveState()) showToast(`Função de ${member.nick} alterada para ${newRole}!`);
     };
 
     function renderListings(container) {
+      const categories = [
+        { key: "pracas", label: "Corpo de Praças", ranks: PRACAS_RANKS },
+        { key: "oficiais", label: "Corpo de Oficiais", ranks: OFICIAIS_RANKS },
+        { key: "alto_escalao", label: "Alto Escalão", ranks: ALTO_ESCALAO_RANKS },
+        { key: "acs", label: "Alto Comando Supremo", ranks: ACS_RANKS },
+        { key: "exonerados", label: "Exonerados", ranks: [] }
+      ];
+
+      if (!selectedListingCategory) {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">📜 Listagem</div>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px;">Escolha uma listagem para visualizar os militares:</p>
+            ${categories.map(c => `
+              <button class="btn btn-dark listing-choice-btn" onclick="selectListingCategory('${c.key}')">
+                <strong>${c.label}</strong>
+                <span>▸</span>
+              </button>
+            `).join("")}
+          </div>
+        `;
+        return;
+      }
+
+      const cat = categories.find(c => c.key === selectedListingCategory) || categories[0];
       const allUsers = Object.values(state.users);
 
-      const renderRankGroupSection = (groupTitle, rankList) => {
-        const blocks = rankList
-          .filter(r => r !== "Recruta")
-          .map(rankName => {
-            const members = allUsers.filter(u => u.rank === rankName && u.status !== "Exonerado");
-            if (!members.length) return "";
-            return `
-              <div style="margin-bottom:14px;">
-                <div style="font-weight:800;font-size:0.9rem;color:var(--red-bright);margin-bottom:8px;">
-                  ${rankName} (${members.length})
+      if (cat.key === "exonerados") {
+        const exoneratedUsers = allUsers.filter(u => u.status === "Exonerado");
+        const exoHtml = exoneratedUsers.length ? exoneratedUsers.map(u => {
+          const lastExoReq = state.requirements.find(
+            r => r.type === "Exoneração" && r.target.toLowerCase() === u.nick.toLowerCase() && r.status === "Aprovado"
+          );
+          const regLine = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
+          const reason = lastExoReq?.obs || "Motivo registrado no histórico militar.";
+          const periodInfo = lastExoReq?.exoMode === "temporaria"
+            ? `Temporária — Postagem: ${lastExoReq.createdAt} | Vencimento: ${lastExoReq.exoEndDate}`
+            : "Permanente";
+
+          return `
+            <div class="listing-card">
+              <img src="${habboFullUrl(u.nick, { exonerated: true })}" alt="${u.nick}" style="height:82px;object-fit:contain;" />
+              <div style="flex:1;min-width:190px;">
+                <div style="font-weight:900;font-size:0.95rem;">${u.nick}</div>
+                <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
+                  <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
                 </div>
-                ${members.map(m => {
-                  const regLine = m.lastPromoLine || `${m.nick} ${m.tag ? `[${m.tag}]` : ""} ${formatShortDate()}`;
-                  return `
-                    <div class="listing-card">
-                      <img src="${habboFullUrl(m.nick, true)}" alt="${m.nick}" style="height:82px;object-fit:contain;" />
-                      <div style="flex:1;min-width:180px;">
-                        <div style="font-weight:900;font-size:0.95rem;">${m.nick}</div>
-                        <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                          <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
-                          <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
-                        </div>
+                <div style="font-size:0.8rem;margin-top:8px;"><strong>Motivo:</strong> ${reason}</div>
+                <div style="font-size:0.78rem;color:var(--red-bright);margin-top:3px;"><strong>Período:</strong> ${periodInfo}</div>
+              </div>
+            </div>
+          `;
+        }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum exonerado na listagem.</p>';
+
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">
+              <span>📜 Exonerados (${exoneratedUsers.length})</span>
+              <button class="btn btn-dark btn-sm" onclick="selectListingCategory('')">← Voltar</button>
+            </div>
+            ${exoHtml}
+          </div>
+        `;
+        return;
+      }
+
+      const rankBlocksHtml = cat.ranks
+        .filter(r => r !== "Recruta")
+        .map(rankName => {
+          const members = allUsers.filter(u => u.rank === rankName && u.status !== "Exonerado");
+          if (!members.length) return "";
+          return `
+            <div style="margin-bottom:16px;">
+              <div style="font-weight:900;font-size:0.95rem;color:var(--red-bright);margin-bottom:8px;">
+                ${rankName} (${members.length})
+              </div>
+              ${members.map(m => {
+                const regLine = m.lastPromoLine || `${m.nick} ${m.tag ? `[${m.tag}]` : ""} ${formatShortDate()}`;
+                return `
+                  <div class="listing-card">
+                    <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${m.nick}" style="height:82px;object-fit:contain;" />
+                    <div style="flex:1;min-width:180px;">
+                      <div style="font-weight:900;font-size:0.95rem;">${m.nick}</div>
+                      <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
+                        <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
                       </div>
                     </div>
-                  `;
-                }).join("")}
-              </div>
-            `;
-          })
-          .filter(Boolean)
-          .join("");
-
-        return `
-          <div style="margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border-subtle);">
-            <div style="font-size:1rem;font-weight:900;margin-bottom:10px;">${groupTitle}</div>
-            ${blocks || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar nesta seção no momento.</p>'}
-          </div>
-        `;
-      };
-
-      const exoneratedUsers = allUsers.filter(u => u.status === "Exonerado");
-      const exoHtml = exoneratedUsers.length ? exoneratedUsers.map(u => {
-        const lastExoReq = state.requirements.find(
-          r => r.type === "Exoneração" && r.target.toLowerCase() === u.nick.toLowerCase() && r.status === "Aprovado"
-        );
-        const regLine = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
-        const reason = lastExoReq?.obs || "Motivo registrado no histórico militar.";
-        const periodInfo = lastExoReq?.exoMode === "temporaria"
-          ? `Exoneração Temporária — Postagem: ${lastExoReq.createdAt} | Vencimento: ${lastExoReq.exoEndDate}`
-          : "Exoneração Permanente";
-
-        return `
-          <div class="listing-card">
-            <img src="${habboFullUrl(u.nick, false)}" alt="${u.nick}" style="height:82px;object-fit:contain;" />
-            <div style="flex:1;min-width:190px;">
-              <div style="font-weight:900;font-size:0.95rem;">${u.nick}</div>
-              <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
-                <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
-              </div>
-              <div style="font-size:0.8rem;margin-top:8px;"><strong>Motivo:</strong> ${reason}</div>
-              <div style="font-size:0.78rem;color:var(--red-bright);margin-top:3px;"><strong>${periodInfo}</strong></div>
+                  </div>
+                `;
+              }).join("")}
             </div>
-          </div>
-        `;
-      }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum exonerado registrado.</p>';
+          `;
+        })
+        .filter(Boolean)
+        .join("");
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">📜 Listagens Oficiais — Polícia OMR</div>
-          ${renderRankGroupSection("Corpo de Praças", PRACAS_RANKS)}
-          ${renderRankGroupSection("Corpo de Oficiais", OFICIAIS_RANKS)}
-          ${renderRankGroupSection("Alto Escalão", ALTO_ESCALAO_RANKS)}
-          ${renderRankGroupSection("Alto Comando Supremo", ACS_RANKS)}
-          <div>
-            <div style="font-size:1rem;font-weight:900;margin-bottom:10px;color:var(--red-bright);">Exonerados (${exoneratedUsers.length})</div>
-            ${exoHtml}
+          <div class="section-title">
+            <span>📜 ${cat.label}</span>
+            <button class="btn btn-dark btn-sm" onclick="selectListingCategory('')">← Voltar</button>
           </div>
+          ${rankBlocksHtml || '<p style="font-size:0.84rem;color:var(--text-muted);">Nenhum militar cadastrado nesta listagem no momento.</p>'}
         </div>
       `;
     }
+
+    window.selectListingCategory = function(catKey) {
+      selectedListingCategory = catKey;
+      renderCurrentView();
+    };
 
     function nickSimilarityScore(a, b) {
       const s1 = a.toLowerCase();
@@ -2889,7 +3175,7 @@
     function renderSIPanel(container) {
       const allUsers = Object.values(state.users);
       const pendingUsers = allUsers.filter(u => u.status === "Pendente");
-      const exoneratedIps = new Set(allUsers.filter(u => u.status === "Exonerado").map(u => u.ip).filter(Boolean));
+      const exoneratedIps = new Set(allUsers.filter(u => u.status === "Exonerado").flatMap(u => [u.ip, ...(u.ipsRecorded || [])]).filter(Boolean));
       const exoneratedIsps = new Set(allUsers.filter(u => u.status === "Exonerado").map(u => u.ispGroup).filter(Boolean));
 
       const ispGroups = {};
@@ -2909,63 +3195,95 @@
         }
       }
 
+      const searchedQuery = siSearchNick.trim().toLowerCase();
+      const filteredTableUsers = searchedQuery
+        ? allUsers.filter(u => u.nick.toLowerCase().includes(searchedQuery))
+        : allUsers;
+
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🕵️ Painel do Setor de Inteligência (BAEP / CITE / SI)</div>
+          <div class="section-title">🕵️ Painel do Setor de Inteligência</div>
 
-          <div style="font-size:0.82rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">🆕 NOVOS CADASTROS PENDENTES (${pendingUsers.length})</div>
+          <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">1. Usuários pendentes (${pendingUsers.length})</div>
           ${pendingUsers.length ? pendingUsers.map(u => `
             <div style="background:var(--bg-elevated);padding:10px 12px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
               <div>
-                <strong>${u.nick}</strong> <span style="font-size:0.75rem;color:var(--text-muted);">(Rede/IP: ${u.ip || "N/D"} • ${u.locationLabel || "N/D"})</span>
+                <strong>${u.nick}</strong> <span style="font-size:0.75rem;color:var(--text-muted);">(IP: ${u.ip || "N/D"} • ${u.locationLabel || "N/D"})</span>
               </div>
               <div style="display:flex;gap:6px;">
                 <button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${u.nick}', 'Ativo')">Aprovar</button>
                 <button class="btn btn-red btn-sm" onclick="deleteAccount('${u.nick}')">Recusar</button>
               </div>
             </div>
-          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Nenhum cadastro pendente.</p>'}
+          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Nenhum usuário pendente.</p>'}
 
-          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🟢 PRESENÇA, ÚLTIMO LOGIN, LOCAL E VPN</div>
-          ${allUsers.map(u => `
-            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.8rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-                <strong>${u.nick} (${u.rank} • ${u.status})</strong>
-                <span class="badge ${isUserOnline(u) ? "badge-approved" : "badge-canceled"}">${isUserOnline(u) ? "Online agora" : "Offline"}</span>
-              </div>
-              <div style="color:var(--text-muted);margin-top:4px;">
-                Último login: ${u.lastLogin || "Nunca acessou"} • Local: ${u.locationLabel || "N/D"} • Rede: ${u.ip || "N/D"} (${u.ispGroup || "N/D"})
-              </div>
-              ${u.vpnSuspect ? `<div style="margin-top:4px;"><span class="badge badge-pending">ALERTA: POSSÍVEL VPN / PROXY</span></div>` : ""}
-              ${u.locationAlert ? `<div style="margin-top:4px;color:var(--red-bright);font-weight:700;">${u.locationAlert}</div>` : ""}
-            </div>
-          `).join("")}
-
-          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🌐 AGRUPAMENTO POR PROVEDOR / FAIXA DE REDE</div>
-          ${Object.entries(ispGroups).map(([grp, list]) => {
-            const isDup = list.length > 1;
-            const isExoNet = list.some(u => exoneratedIps.has(u.ip) || exoneratedIsps.has(u.ispGroup));
-            return `
-              <div style="background:var(--bg-elevated);border:1px solid ${isExoNet || isDup ? "var(--border-red)" : "var(--border-subtle)"};padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.8rem;">
-                <div>
-                  <strong>Grupo de Rede:</strong> ${grp}
-                  ${isExoNet ? '<span class="badge badge-rejected">VÍNCULO COM EXONERADO</span>' : ""}
-                  ${isDup ? '<span class="badge badge-pending">MESMA FAIXA/PROVEDOR</span>' : ""}
-                </div>
-                <div style="color:var(--text-muted);margin-top:4px;">Contas: ${list.map(u => `${u.nick} (${u.status})`).join(", ")}</div>
-              </div>
-            `;
-          }).join("")}
-
-          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🔤 COMPARAÇÃO DE NICKS SEMELHANTES</div>
+          <div style="font-size:0.86rem;font-weight:800;margin:14px 0 8px;">2. Verificar nicks semelhantes</div>
           ${similarPairs.length ? similarPairs.map(p => `
             <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);padding:8px 12px;border-radius:10px;margin-bottom:6px;font-size:0.8rem;">
               <strong>${p.a}</strong> ↔ <strong>${p.b}</strong> (${p.score}% de similaridade)
             </div>
-          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhuma semelhança alta detectada entre nicks.</p>'}
+          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Nenhum nick semelhante encontrado.</p>'}
+
+          <div style="font-size:0.86rem;font-weight:800;margin:14px 0 8px;">3. Verificar ips</div>
+          ${Object.entries(ispGroups).map(([grp, list]) => {
+            const isDup = list.length > 1;
+            const isExoNet = list.some(u => exoneratedIps.has(u.ip) || (u.ipsRecorded || []).some(x => exoneratedIps.has(x)) || exoneratedIsps.has(u.ispGroup));
+            return `
+              <div style="background:var(--bg-elevated);border:1px solid ${isExoNet || isDup ? "var(--border-red)" : "var(--border-subtle)"};padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.8rem;">
+                <div>
+                  <strong>Provedor / Faixa:</strong> ${grp}
+                  ${isExoNet ? '<span class="badge badge-rejected">VÍNCULO COM EXONERADO</span>' : ""}
+                  ${isDup ? '<span class="badge badge-pending">MESMA FAIXA/PROVEDOR</span>' : ""}
+                </div>
+                <div style="color:var(--text-muted);margin-top:4px;">
+                  Militares: ${list.map(u => `${u.nick} (${u.status}) — IPs: ${(u.ipsRecorded && u.ipsRecorded.length ? u.ipsRecorded.join(", ") : (u.ip || "N/D"))}`).join(" | ")}
+                </div>
+              </div>
+            `;
+          }).join("")}
+
+          <div style="font-size:0.86rem;font-weight:800;margin:16px 0 8px;">4. Consulta de Militar — Último login, últimas ações e IPs registrados</div>
+          <input class="form-control" placeholder="Pesquisar nick do militar..." value="${siSearchNick}" oninput="updateSiSearch(this.value)" style="margin-bottom:10px;" />
+
+          <div style="overflow-x:auto;">
+            <table class="si-table">
+              <thead>
+                <tr>
+                  <th>Militar</th>
+                  <th>Último Login</th>
+                  <th>Últimas Ações no System</th>
+                  <th>IPs Registrados</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${filteredTableUsers.map(u => {
+                  const recentActions = (u.history || []).slice(0, 3).map(h => typeof h === "string" ? h : `${h.author || u.nick} ${h.actionLabel || ""} (${h.date || ""})`).join(" • ") || "Sem ações registradas";
+                  const ipList = (u.ipsRecorded && u.ipsRecorded.length ? u.ipsRecorded : (u.ip ? [u.ip] : ["N/D"])).join(", ");
+                  return `
+                    <tr>
+                      <td>
+                        <strong>${u.nick}</strong><br/>
+                        <span style="font-size:0.72rem;color:var(--text-muted);">${u.rank} • ${u.status} • ${isUserOnline(u) ? "Online" : "Offline"}</span>
+                        ${u.vpnSuspect ? `<br/><span class="badge badge-pending" style="margin-top:4px;">VPN/Proxy</span>` : ""}
+                        ${u.locationAlert ? `<br/><span style="font-size:0.72rem;color:var(--red-bright);">${u.locationAlert}</span>` : ""}
+                      </td>
+                      <td>${u.lastLogin || "Nunca acessou"}<br/><span style="font-size:0.72rem;color:var(--text-muted);">${u.locationLabel || ""}</span></td>
+                      <td>${recentActions}</td>
+                      <td>${ipList}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
         </div>
       `;
     }
+
+    window.updateSiSearch = function(val) {
+      siSearchNick = val;
+      renderCurrentView();
+    };
 
     function renderAdminPanel(container) {
       const allUsers = Object.values(state.users);
