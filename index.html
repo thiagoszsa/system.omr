@@ -13,6 +13,7 @@
       --bg-panel: #121216;
       --bg-card: #18181f;
       --bg-input: #101015;
+      --bg-elevated: #111117;
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-red: rgba(220, 38, 38, 0.45);
       --red-primary: #dc2626;
@@ -27,6 +28,21 @@
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
+    body.light-theme {
+      --bg-dark: #fff5f5;
+      --bg-panel: #ffffff;
+      --bg-card: #ffffff;
+      --bg-input: #fffafa;
+      --bg-elevated: #fff1f2;
+      --border-subtle: rgba(185, 28, 28, 0.16);
+      --border-red: rgba(220, 38, 38, 0.55);
+      --red-primary: #dc2626;
+      --red-bright: #b91c1c;
+      --red-dark: #7f1d1d;
+      --text-main: #18181b;
+      --text-muted: #52525b;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -36,10 +52,15 @@
     }
 
     html, body {
-      background: radial-gradient(circle at top center, #1c0b0e 0%, #09090b 55%);
+      background: radial-gradient(circle at top center, #1c0b0e 0%, var(--bg-dark) 58%);
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    body.light-theme {
+      background: radial-gradient(circle at top center, #fee2e2 0%, #ffffff 62%);
     }
 
     .pixel-logo {
@@ -48,13 +69,11 @@
       object-fit: contain;
     }
 
-    /* SCROLLBAR */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0d0d11; }
-    ::-webkit-scrollbar-thumb { background: #2e2e38; border-radius: 99px; }
+    ::-webkit-scrollbar-track { background: var(--bg-input); }
+    ::-webkit-scrollbar-thumb { background: #52525b; border-radius: 99px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--red-primary); }
 
-    /* AUTH SCREEN */
     #auth-screen {
       min-height: 100vh;
       display: flex;
@@ -63,17 +82,17 @@
       padding: 20px 16px;
       background:
         radial-gradient(circle at 50% 15%, rgba(220, 38, 38, 0.18), transparent 60%),
-        #08080a;
+        var(--bg-dark);
     }
 
     .auth-card {
       width: 100%;
       max-width: 440px;
-      background: linear-gradient(180deg, #16161d 0%, #101015 100%);
+      background: var(--bg-card);
       border: 1px solid var(--border-red);
       border-radius: 22px;
       padding: 26px 20px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(220, 38, 38, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
     }
 
     .auth-header {
@@ -86,7 +105,6 @@
       font-weight: 900;
       letter-spacing: 1px;
       color: var(--red-bright);
-      text-shadow: 0 0 20px rgba(239, 68, 68, 0.45);
       margin-top: 8px;
     }
 
@@ -103,9 +121,9 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #fca5a5;
-      background: rgba(220, 38, 38, 0.14);
-      border: 1px solid rgba(220, 38, 38, 0.3);
+      color: var(--red-bright);
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.32);
       padding: 4px 9px;
       border-radius: 99px;
     }
@@ -114,7 +132,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      background: #0b0b0e;
+      background: var(--bg-input);
       padding: 5px;
       border-radius: 12px;
       margin-bottom: 18px;
@@ -130,20 +148,18 @@
       padding: 10px;
       border-radius: 9px;
       cursor: pointer;
-      transition: 0.2s;
     }
 
     .auth-tab.active {
       background: var(--red-primary);
       color: #fff;
-      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
     }
 
     .habbo-preview-box {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: #0c0c10;
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 10px 14px;
@@ -154,7 +170,7 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: radial-gradient(circle, #262632, #121218);
+      background: var(--bg-input);
       border: 2px solid var(--red-primary);
       display: flex;
       align-items: center;
@@ -171,8 +187,8 @@
     }
 
     .motto-box {
-      background: rgba(234, 179, 8, 0.08);
-      border: 1px dashed rgba(234, 179, 8, 0.5);
+      background: rgba(234, 179, 8, 0.1);
+      border: 1px dashed rgba(234, 179, 8, 0.65);
       border-radius: 14px;
       padding: 14px;
       margin-top: 12px;
@@ -183,23 +199,21 @@
       font-family: monospace;
       font-size: 1.25rem;
       font-weight: 900;
-      color: #fde047;
-      background: #09090b;
+      color: var(--red-bright);
+      background: var(--bg-card);
       padding: 8px 14px;
       border-radius: 10px;
       display: inline-block;
       margin: 8px 0;
       letter-spacing: 1.5px;
-      border: 1px solid rgba(234, 179, 8, 0.35);
+      border: 1px solid var(--border-red);
     }
 
-    /* TOPBAR */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(12, 12, 16, 0.92);
-      backdrop-filter: blur(12px);
+      background: var(--bg-panel);
       border-bottom: 1px solid var(--border-subtle);
       padding: 10px 14px;
       display: flex;
@@ -219,9 +233,8 @@
       width: 40px;
       height: 40px;
       border-radius: 11px;
-      background: #191922;
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -234,7 +247,7 @@
     .hamburger-btn span {
       width: 18px;
       height: 2px;
-      background: var(--red-bright);
+      background: var(--red-primary);
       border-radius: 2px;
     }
 
@@ -256,7 +269,7 @@
       font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.8px;
-      color: #e4e4e7;
+      color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -280,34 +293,26 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      background: #181820;
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      color: #d4d4d8;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 0.95rem;
-      position: relative;
     }
 
     .profile-pill-btn {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(220, 38, 38, 0.22), rgba(24, 24, 32, 0.95));
+      background: var(--bg-elevated);
       border: 1.5px solid var(--red-primary);
       border-radius: 12px;
       padding: 4px 10px 4px 6px;
-      color: #fff;
+      color: var(--text-main);
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(220, 38, 38, 0.22);
-      transition: 0.2s;
-    }
-
-    .profile-pill-btn:hover {
-      background: rgba(220, 38, 38, 0.32);
-      transform: translateY(-1px);
     }
 
     .profile-pill-info {
@@ -319,28 +324,28 @@
       font-size: 0.58rem;
       text-transform: uppercase;
       font-weight: 800;
-      color: #fca5a5;
+      color: var(--red-bright);
       letter-spacing: 0.5px;
     }
 
     .profile-pill-nick {
       font-size: 0.78rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-main);
     }
 
     .profile-pill-rank {
       font-size: 0.64rem;
-      color: #d4d4d8;
+      color: var(--text-muted);
     }
 
     .profile-pill-avatar {
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: #0d0d12;
+      background: var(--bg-input);
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--border-subtle);
     }
 
     .profile-pill-avatar img {
@@ -350,12 +355,10 @@
       transform: translateY(2px);
     }
 
-    /* SIDEBAR DRAWER */
     .drawer-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.65);
       z-index: 60;
       display: none;
     }
@@ -368,7 +371,7 @@
       left: -300px;
       width: 280px;
       height: 100vh;
-      background: #111116;
+      background: var(--bg-panel);
       border-right: 1px solid var(--border-red);
       z-index: 70;
       transition: left 0.25s ease;
@@ -384,7 +387,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      color: #e4e4e7;
+      color: var(--text-main);
       padding: 11px 12px;
       border-radius: 11px;
       display: flex;
@@ -398,8 +401,8 @@
     }
 
     .nav-item:hover, .nav-item.active {
-      background: rgba(220, 38, 38, 0.16);
-      color: #fff;
+      background: rgba(220, 38, 38, 0.14);
+      color: var(--red-bright);
     }
 
     .nav-sublist {
@@ -426,27 +429,24 @@
     }
 
     .nav-subitem:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--red-bright);
+      background: rgba(220, 38, 38, 0.08);
     }
 
-    /* MAIN CONTAINER */
     .main-wrap {
       max-width: 980px;
       margin: 0 auto;
       padding: 14px 12px calc(86px + var(--safe-bottom));
     }
 
-    /* HERO DASHBOARD */
     .hero-card {
       position: relative;
-      background: linear-gradient(145deg, #181820 0%, #101015 100%);
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 22px;
       padding: 18px 16px;
       overflow: hidden;
       margin-bottom: 14px;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
     }
 
     .hero-watermark {
@@ -487,7 +487,7 @@
       align-items: center;
       gap: 10px;
       margin-top: 14px;
-      background: rgba(10, 10, 14, 0.75);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       padding: 10px 12px;
       border-radius: 14px;
@@ -508,7 +508,7 @@
     .cal-time {
       font-size: 0.82rem;
       font-weight: 700;
-      color: #fca5a5;
+      color: var(--red-bright);
     }
 
     .hero-avatar-col {
@@ -521,11 +521,10 @@
     .hero-full-avatar {
       height: 126px;
       object-fit: contain;
-      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
     }
 
     .rank-badge-red {
-      background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
       color: #fff;
       font-weight: 900;
       font-size: 0.78rem;
@@ -533,13 +532,11 @@
       text-transform: uppercase;
       padding: 6px 14px;
       border-radius: 9px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 6px 18px rgba(220, 38, 38, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       margin-top: -4px;
       text-align: center;
     }
 
-    /* SEARCH BAR */
     .search-box-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -562,11 +559,11 @@
 
     .search-input {
       width: 100%;
-      background: #0d0d12;
+      background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 10px 12px;
-      color: #fff;
+      color: var(--text-main);
       font-size: 0.88rem;
       outline: none;
     }
@@ -580,19 +577,17 @@
       top: calc(100% + 6px);
       left: 0;
       right: 0;
-      background: #15151c;
+      background: var(--bg-card);
       border: 1px solid var(--border-red);
       border-radius: 14px;
       z-index: 30;
       max-height: 240px;
       overflow-y: auto;
       display: none;
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.75);
     }
 
     .search-results-dropdown.open { display: block; }
 
-    /* HOME FEED GRID */
     .home-feed-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -614,7 +609,7 @@
     }
 
     .insta-frame {
-      background: radial-gradient(circle at center, rgba(220, 38, 38, 0.25), #0b0b0f);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-red);
       border-radius: 16px;
       padding: 16px;
@@ -634,14 +629,13 @@
       margin-top: 12px;
       font-weight: 800;
       font-size: 0.92rem;
-      color: #fff;
+      color: var(--text-main);
     }
 
-    /* FORMS & BUTTONS */
     .section-title {
       font-size: 1.1rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-main);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -658,7 +652,7 @@
       display: block;
       font-size: 0.76rem;
       font-weight: 700;
-      color: #d4d4d8;
+      color: var(--text-muted);
       margin-bottom: 5px;
       text-transform: uppercase;
       letter-spacing: 0.4px;
@@ -670,7 +664,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: 11px;
       padding: 10px 12px;
-      color: #fff;
+      color: var(--text-main);
       font-size: 0.88rem;
       outline: none;
     }
@@ -680,7 +674,7 @@
     }
 
     .form-control[readonly] {
-      opacity: 0.72;
+      opacity: 0.75;
       cursor: not-allowed;
     }
 
@@ -701,14 +695,13 @@
     .btn-red {
       background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
       color: #fff;
-      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
     }
 
-    .btn-red:hover { filter: brightness(1.08); }
+    .btn-red:hover { filter: brightness(1.06); }
 
     .btn-dark {
-      background: #22222b;
-      color: #e4e4e7;
+      background: var(--bg-elevated);
+      color: var(--text-main);
       border: 1px solid var(--border-subtle);
     }
 
@@ -728,7 +721,6 @@
       border-radius: 8px;
     }
 
-    /* BADGES */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -740,19 +732,18 @@
       text-transform: uppercase;
     }
 
-    .badge-pending { background: rgba(234, 179, 8, 0.16); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4); }
-    .badge-approved { background: rgba(22, 163, 74, 0.18); color: #86efac; border: 1px solid rgba(22, 163, 74, 0.4); }
-    .badge-rejected { background: rgba(220, 38, 38, 0.18); color: #fca5a5; border: 1px solid rgba(220, 38, 38, 0.4); }
-    .badge-canceled { background: rgba(161, 161, 170, 0.16); color: #d4d4d8; border: 1px solid rgba(161, 161, 170, 0.35); }
+    .badge-pending { background: rgba(234, 179, 8, 0.16); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-approved { background: rgba(22, 163, 74, 0.18); color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.4); }
+    .badge-rejected { background: rgba(220, 38, 38, 0.18); color: #dc2626; border: 1px solid rgba(220, 38, 38, 0.4); }
+    .badge-canceled { background: rgba(161, 161, 170, 0.16); color: var(--text-muted); border: 1px solid var(--border-subtle); }
 
-    /* PROFILE VIEW */
     .profile-hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       padding: 18px 12px;
-      background: radial-gradient(circle at top, rgba(220, 38, 38, 0.18), transparent 70%);
+      background: var(--bg-elevated);
       border-radius: 18px;
       border: 1px solid var(--border-subtle);
       margin-bottom: 14px;
@@ -763,12 +754,11 @@
       height: 104px;
       border-radius: 50%;
       border: 3px solid var(--red-primary);
-      background: radial-gradient(circle, #24242f, #101015);
+      background: var(--bg-card);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      box-shadow: 0 0 25px rgba(220, 38, 38, 0.35);
       margin-bottom: 10px;
     }
 
@@ -787,27 +777,46 @@
     }
 
     .org-badge-card {
-      background: #111117;
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 8px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 68px;
+      min-width: 78px;
     }
 
     .history-item {
-      background: #111116;
+      background: var(--bg-elevated);
       border-left: 3px solid var(--red-primary);
       border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-      font-size: 0.84rem;
-      line-height: 1.45;
+      padding: 14px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      line-height: 1.65;
     }
 
-    /* TOAST & BANNER */
+    .catalog-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .listing-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .toast-banner {
       position: fixed;
       top: 66px;
@@ -821,7 +830,6 @@
       border-radius: 12px;
       font-size: 0.85rem;
       font-weight: 700;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
       display: none;
       max-width: 92vw;
       text-align: center;
@@ -832,15 +840,13 @@
       border-color: #ef4444;
     }
 
-    /* MOBILE BOTTOM NAV (GALAXY A34 5G) */
     .mobile-bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       z-index: 45;
-      background: rgba(13, 13, 18, 0.96);
-      backdrop-filter: blur(12px);
+      background: var(--bg-panel);
       border-top: 1px solid var(--border-subtle);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -873,10 +879,8 @@
 </head>
 <body>
 
-  <!-- TOAST FEEDBACK -->
   <div id="toast" class="toast-banner"></div>
 
-  <!-- AUTH / LOGIN / REGISTER SCREEN -->
   <div id="auth-screen">
     <div class="auth-card">
       <div class="auth-header">
@@ -895,7 +899,6 @@
         <button id="tab-register-btn" class="auth-tab" onclick="switchAuthTab('register')">Criar Conta</button>
       </div>
 
-      <!-- LOGIN FORM -->
       <div id="login-form-box">
         <div class="habbo-preview-box">
           <div class="habbo-head-frame">
@@ -918,7 +921,6 @@
         <button class="btn btn-red" style="width:100%;padding:12px;" onclick="handleLogin()">Acessar System OMR</button>
       </div>
 
-      <!-- REGISTER FORM -->
       <div id="register-form-box" class="hidden">
         <div class="habbo-preview-box">
           <div class="habbo-head-frame">
@@ -945,7 +947,7 @@
 
         <div id="reg-step-2" class="hidden">
           <div class="motto-box">
-            <div style="font-size:0.78rem;color:#fef08a;font-weight:700;">1. Copie e cole este código na sua MISSÃO do Habbo:</div>
+            <div style="font-size:0.78rem;font-weight:700;">1. Copie e cole este código na sua MISSÃO do Habbo:</div>
             <div id="generated-motto-code" class="motto-code">OMR-0000</div>
             <div style="margin-bottom:8px;">
               <button class="btn btn-dark btn-sm" onclick="copyText(document.getElementById('generated-motto-code').innerText)">Copiar Código</button>
@@ -966,9 +968,7 @@
     </div>
   </div>
 
-  <!-- MAIN APP -->
   <div id="app-shell" class="hidden">
-    <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
         <button class="hamburger-btn" onclick="toggleDrawer(true)" aria-label="Menu">
@@ -984,6 +984,7 @@
       </div>
 
       <div class="topbar-right">
+        <button class="icon-action-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Alternar Tema Claro/Escuro">☀️</button>
         <button class="icon-action-btn" onclick="toggleFullscreen()" title="Tela Cheia">⛶</button>
         <button class="profile-pill-btn" onclick="openMyProfile()" title="Abrir Meu Perfil">
           <div class="profile-pill-info">
@@ -998,7 +999,6 @@
       </div>
     </header>
 
-    <!-- SIDEBAR DRAWER -->
     <div id="drawer-backdrop" class="drawer-backdrop" onclick="toggleDrawer(false)"></div>
     <aside id="sidebar-drawer" class="sidebar-drawer">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px 14px;border-bottom:1px solid var(--border-subtle);margin-bottom:10px;">
@@ -1015,7 +1015,6 @@
       <button class="nav-item" onclick="navigate('home')">🏠 Início</button>
       <button class="nav-item" onclick="openMyProfile()">🪪 Meu Perfil</button>
 
-      <!-- REQUERIMENTOS DROPDOWN -->
       <button class="nav-item" onclick="toggleSubmenu('sub-req')">
         <span>📋 Requerimentos</span>
         <span>▾</span>
@@ -1031,12 +1030,11 @@
         <button class="nav-subitem" onclick="openReqForm('Contrato')">• Contrato</button>
         <button class="nav-subitem" onclick="openReqForm('Venda')">• Venda</button>
         <button class="nav-subitem" onclick="navigate('req-list')">📑 Lista de Requerimentos</button>
-        <button id="nav-drh-panel" class="nav-subitem" style="color:#fde047;font-weight:700;" onclick="navigate('drh-panel')">⚖️ Painel do DRH</button>
+        <button id="nav-drh-panel" class="nav-subitem" style="color:var(--red-bright);font-weight:700;" onclick="navigate('drh-panel')">⚖️ Painel do DRH</button>
       </div>
 
       <button class="nav-item" onclick="navigate('classes')">🎓 Postar Aulas (CIM)</button>
 
-      <!-- DOCUMENTOS DROPDOWN -->
       <button class="nav-item" onclick="toggleSubmenu('sub-docs')">
         <span>📚 Documentos</span>
         <span>▾</span>
@@ -1047,7 +1045,8 @@
         <button class="nav-subitem" onclick="openDoc('IDI')">• Instrução de Defesa Institucional (IDI)</button>
       </div>
 
-      <button class="nav-item" onclick="navigate('roles')">🛡️ Funções e Órgãos</button>
+      <button class="nav-item" onclick="navigate('roles')">🛡️ Funções</button>
+      <button class="nav-item" onclick="navigate('listings')">📜 Listagens</button>
       <button id="nav-si-panel" class="nav-item" onclick="navigate('si-panel')">🕵️ Painel do SI</button>
       <button id="nav-admin-panel" class="nav-item" onclick="navigate('admin-panel')">⚙️ Painel do Admin</button>
 
@@ -1056,10 +1055,8 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main id="main-content" class="main-wrap"></main>
 
-    <!-- MOBILE BOTTOM NAV -->
     <nav class="mobile-bottom-nav">
       <button class="bottom-nav-btn" id="bnav-home" onclick="navigate('home')">
         <span>🏠</span><span>Início</span>
@@ -1076,7 +1073,6 @@
     </nav>
   </div>
 
-  <!-- FIREBASE SDK + SYSTEM LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1095,7 +1091,6 @@
     const db = getFirestore(app);
     const STATE_DOC = doc(db, "omr_state", "main");
 
-    // EMBEDDED PIXEL-ART LOGO GENERATOR (EXACT OMR EMBLEM)
     function buildOmrLogoDataUrl() {
       const rows = [
         "........G........",
@@ -1122,7 +1117,7 @@
       ];
       const palette = {
         G: "#facc15",
-        R: "#b91c1c",
+        R: "#dc2626",
         W: "#f4f4f5",
         K: "#27272a",
         S: "#d4d4d8"
@@ -1154,50 +1149,139 @@
     }
     applyLogos();
 
-    const DEFAULT_RANKS = [
-      "Soldado",
-      "Cabo",
-      "Sargento",
-      "Subtenente",
-      "Aspirante a Oficial",
-      "Tenente",
-      "Capitão",
-      "Tenente-Coronel",
-      "Coronel",
-      "General",
-      "Subcomandante",
-      "Comandante",
-      "Supremo",
-      "Fundador"
+    const REQ_MODALITIES = [
+      "Promoção",
+      "Rebaixamento",
+      "Advertência",
+      "Notificação",
+      "Demissão",
+      "Exoneração",
+      "Licença",
+      "Contrato",
+      "Venda"
     ];
 
-    const DEFAULT_ORGS = [
-      { id: "DRH", name: "Departamento de Recursos Humanos", icon: "📋", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "BAEP", name: "Batalhão de Ações Especiais", icon: "🦅", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "CITE", name: "Comando de Intervenções Táticas Especiais", icon: "🎯", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "COR", name: "Corregedoria", icon: "⚖️", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "SCP", name: "Suprema Corte Policial", icon: "🏛️", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "ATT", name: "Academia de Tutores", icon: "🎓", leader: "A-Twink", members: ["A-Twink"] },
-      { id: "ACS", name: "Alto Comando Supremo", icon: "👑", leader: "A-Twink", members: ["A-Twink"] }
+    const PRACAS_RANKS = ["Soldado", "Cabo", "Sargento", "Subtenente", "Aspirante a Oficial"];
+    const OFICIAIS_RANKS = ["Tenente", "Capitão", "Major", "Coronel", "General"];
+    const ALTO_ESCALAO_RANKS = ["Subcomandante", "Comandante"];
+    const ACS_RANKS = ["Fundador", "Supremo"];
+
+    const HIERARCHY_ORDER = [
+      "Recruta",
+      ...PRACAS_RANKS,
+      ...OFICIAIS_RANKS,
+      ...ALTO_ESCALAO_RANKS,
+      ...ACS_RANKS
     ];
+
+    const ORG_ROLES_CONFIG = {
+      BAEP: {
+        name: "Batalhão de Ações Especiais",
+        icon: "🦅",
+        roles: [
+          { name: "ACS", isAdmin: true },
+          { name: "Coordenador", isAdmin: true },
+          { name: "Instrutor", isAdmin: false }
+        ]
+      },
+      CITE: {
+        name: "Comando de Intervenções Táticas Especiais",
+        icon: "🎯",
+        roles: [
+          { name: "ACS", isAdmin: true },
+          { name: "Coordenador", isAdmin: true },
+          { name: "Instrutor", isAdmin: false }
+        ]
+      },
+      SI: {
+        name: "Setor de Inteligência",
+        icon: "🕵️",
+        roles: [
+          { name: "ACS", isAdmin: true },
+          { name: "Coordenador", isAdmin: true },
+          { name: "Membro", isAdmin: false }
+        ]
+      },
+      COR: {
+        name: "Corregedoria",
+        icon: "⚖️",
+        roles: [
+          { name: "Presidente", isAdmin: true },
+          { name: "Corregedor", isAdmin: false }
+        ]
+      },
+      SCP: {
+        name: "Suprema Corte Policial",
+        icon: "🏛️",
+        roles: [
+          { name: "Presidente", isAdmin: true },
+          { name: "Ministro", isAdmin: false }
+        ]
+      },
+      DRH: {
+        name: "Departamento de Recursos Humanos",
+        icon: "📋",
+        roles: [
+          { name: "Líder", isAdmin: true },
+          { name: "Vice-Líder", isAdmin: true },
+          { name: "Coordenador", isAdmin: false },
+          { name: "Membro", isAdmin: false }
+        ]
+      },
+      ATT: {
+        name: "Academia de Tutores",
+        icon: "🎓",
+        roles: [
+          { name: "Líder", isAdmin: true },
+          { name: "Vice-Líder", isAdmin: true },
+          { name: "Ministro", isAdmin: true },
+          { name: "Graduador", isAdmin: false },
+          { name: "Tutor", isAdmin: false }
+        ]
+      },
+      CDO: {
+        name: "Corpo de Oficiais",
+        icon: "🎖️",
+        roles: [
+          { name: "Coordenador", isAdmin: true },
+          { name: "Membro", isAdmin: false }
+        ]
+      }
+    };
+
+    function makeDefaultOrgs() {
+      return Object.entries(ORG_ROLES_CONFIG).map(([id, cfg]) => ({
+        id,
+        name: cfg.name,
+        icon: cfg.icon,
+        members: id === "DRH" ? [{ nick: "A-Twink", role: cfg.roles[0].name }] : [],
+        internalRegimento: `Regimento Interno — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`,
+        penalCode: `Código Penal — ${cfg.name} (${id})\n\n(Editável pelos administradores deste órgão).`
+      }));
+    }
 
     const INITIAL_STATE = {
-      ranks: [...DEFAULT_RANKS],
-      orgs: DEFAULT_ORGS,
+      ranks: [...HIERARCHY_ORDER.filter(r => r !== "Recruta")],
+      orgs: makeDefaultOrgs(),
       users: {
         "a-twink": {
           nick: "A-Twink",
           tag: "ATW",
           rank: "Fundador",
-          status: "Desativado", // Pré-cadastro pronto para criar senha na primeira vez
+          status: "Desativado",
           password: "",
           isAdmin: true,
           ip: "189.44.102.11",
-          lastPromoLine: "A-Twink [ATW] 26 Nov 2026",
+          ispGroup: "ISP-BR-189",
+          locationLabel: "São Paulo, BR",
+          vpnSuspect: false,
+          lastLogin: "Nunca acessou",
+          lastSeenMs: 0,
+          lastPromoLine: "A-Twink [ATW] 27 Nov 2026",
           history: [
             {
-              text: "Fundação da Organização Militar Renascente (OMR) — Pré-cadastro oficial do Alto Comando Supremo.",
-              date: "26/11/2026 19:30",
+              text: "A-Twink fundou a Organização Militar Renascente (OMR)\n\nNova patente: Fundador\n\nObs: Pré-cadastro oficial do Alto Comando Supremo",
+              date: "27/11/2026 01:00",
               status: "Aprovado"
             }
           ]
@@ -1208,17 +1292,17 @@
         {
           id: "ann-1",
           title: "Inscrições abertas: Curso Ostensivo de Especialização do Batalhão (COEsb)",
-          body: "A coordenadoria do Batalhão de Ações Especiais tem a honra de anunciar que estão abertas as inscrições para a primeira edição do Curso Ostensivo de Especialização do Batalhão (COEsb 2026.1). Para realizar o curso, é necessário possuir patente mínima de Aspirante a Oficial.",
+          body: "A coordenadoria do Batalhão de Ações Especiais tem a honra de anunciar que estão abertas as inscrições para a primeira edição do Curso Ostensivo de Especialização do Batalhão (COEsb 2026.1).",
           author: "A-Twink",
           authorRank: "Fundador",
-          date: "26 Nov 2026"
+          date: "27 Nov 2026"
         }
       ],
       instaPhotos: [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
       documents: {
-        RGM: "Regimento Geral Militar (RGM) da Polícia OMR.\n\nArt. 1º - A Organização Militar Renascente (OMR) pauta-se pela hierarquia, disciplina, vida pessoal equilibrada, entretenimento saudável e boa convivência.\n\n(Documento editável pelo Alto Comando Supremo / Admin no Painel Admin).",
+        RGM: "Regimento Geral Militar (RGM) da Polícia OMR.\n\nArt. 1º - A Organização Militar Renascente (OMR) pauta-se pela hierarquia, disciplina, vida pessoal equilibrada, entretenimento saudável e boa convivência.",
         RDM: "Regulamento Disciplinar Militar (RDM) da Polícia OMR.\n\nDispõe sobre deveres, transgressões disciplinares, advertências, rebaixamentos, demissões e exonerações.",
-        IDI: "Instrução de Defesa Institucional (IDI) da Polícia OMR.\n\nNormas de segurança interna, atuação do Setor de Inteligência (BAEP e CITE), auditoria de contas e defesa institucional."
+        IDI: "Instrução de Defesa Institucional (IDI) da Polícia OMR.\n\nNormas de segurança interna, atuação do Setor de Inteligência (BAEP, CITE e SI), auditoria de contas e defesa institucional."
       }
     };
 
@@ -1227,41 +1311,125 @@
     let currentRoute = "home";
     let selectedProfileNick = "";
     let currentReqType = "Promoção";
+    let drhSelectedModality = "Promoção";
     let currentDocKey = "RGM";
     let pendingMottoCode = "";
-    let clientSimulatedIp = localStorage.getItem("omr_client_ip") || ("177." + Math.floor(10 + Math.random() * 220) + "." + Math.floor(1 + Math.random() * 250) + "." + Math.floor(1 + Math.random() * 250));
-    localStorage.setItem("omr_client_ip", clientSimulatedIp);
+    let dbSyncedOnce = false;
+
+    const savedTheme = localStorage.getItem("omr_theme") || "dark";
+    if (savedTheme === "light") document.body.classList.add("light-theme");
+
+    function getClientNetworkSignal() {
+      let netId = localStorage.getItem("omr_client_ip");
+      if (!netId) {
+        const oct2 = Math.floor(10 + Math.random() * 220);
+        const oct3 = Math.floor(1 + Math.random() * 250);
+        const oct4 = Math.floor(1 + Math.random() * 250);
+        netId = `177.${oct2}.${oct3}.${oct4}`;
+        localStorage.setItem("omr_client_ip", netId);
+      }
+      const parts = netId.split(".");
+      const ispGroup = `ISP-${parts[0] || "177"}.${parts[1] || "0"}`;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Sao_Paulo";
+      const cityGuess = tz.includes("/") ? tz.split("/")[1].replace(/_/g, " ") : "Brasil";
+      const ua = (navigator.userAgent || "").toLowerCase();
+      const vpnSuspect = /vpn|proxy|tor|wireguard|openvpn/.test(ua);
+      return { ip: netId, ispGroup, locationLabel: `${cityGuess} (${tz})`, vpnSuspect };
+    }
+
+    const clientNet = getClientNetworkSignal();
+
+    function normalizeState(raw) {
+      const baseOrgs = makeDefaultOrgs();
+      const rawOrgs = Array.isArray(raw?.orgs) ? raw.orgs : [];
+      const mergedOrgs = baseOrgs.map(def => {
+        const found = rawOrgs.find(o => o.id === def.id);
+        if (!found) return def;
+        const normalizedMembers = Array.isArray(found.members)
+          ? found.members.map(m => typeof m === "string"
+              ? { nick: m, role: ORG_ROLES_CONFIG[def.id]?.roles?.[ORG_ROLES_CONFIG[def.id].roles.length - 1]?.name || "Membro" }
+              : { nick: m.nick, role: m.role || "Membro" })
+          : def.members;
+        return {
+          ...def,
+          name: ORG_ROLES_CONFIG[def.id]?.name || found.name || def.name,
+          icon: ORG_ROLES_CONFIG[def.id]?.icon || found.icon || def.icon,
+          members: normalizedMembers,
+          internalRegimento: found.internalRegimento ?? def.internalRegimento,
+          penalCode: found.penalCode ?? def.penalCode
+        };
+      });
+
+      const extraOrgs = rawOrgs
+        .filter(o => !baseOrgs.some(d => d.id === o.id))
+        .map(o => ({
+          id: o.id,
+          name: o.name || o.id,
+          icon: o.icon || "🔰",
+          members: Array.isArray(o.members)
+            ? o.members.map(m => typeof m === "string" ? { nick: m, role: "Membro" } : m)
+            : [],
+          internalRegimento: o.internalRegimento || `Regimento Interno — ${o.name || o.id}`,
+          penalCode: o.penalCode || `Código Penal — ${o.name || o.id}`
+        }));
+
+      const rawRanks = Array.isArray(raw?.ranks) && raw.ranks.length ? raw.ranks : [...HIERARCHY_ORDER.filter(r => r !== "Recruta")];
+      const mergedRanks = [...rawRanks];
+      HIERARCHY_ORDER.filter(r => r !== "Recruta").forEach(r => {
+        if (!mergedRanks.includes(r)) mergedRanks.push(r);
+      });
+
+      return {
+        ranks: mergedRanks,
+        orgs: [...mergedOrgs, ...extraOrgs],
+        users: raw?.users && typeof raw.users === "object" ? raw.users : {},
+        requirements: Array.isArray(raw?.requirements) ? raw.requirements : [],
+        announcements: Array.isArray(raw?.announcements) ? raw.announcements : [],
+        instaPhotos: Array.isArray(raw?.instaPhotos) && raw.instaPhotos.length ? raw.instaPhotos : [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
+        documents: raw?.documents && typeof raw.documents === "object" ? raw.documents : INITIAL_STATE.documents
+      };
+    }
 
     async function saveState() {
+      const footer = document.getElementById("sync-status-footer");
       try {
         await setDoc(STATE_DOC, state);
+        if (footer) footer.textContent = "Salvo na nuvem (system-omr)";
+        return true;
       } catch (err) {
         console.error("Erro ao salvar no Firestore:", err);
-        showToast("Erro ao sincronizar com o banco online.", true);
+        if (footer) footer.textContent = "Falha ao salvar no banco! Verifique as Regras do Firestore.";
+        showToast("Falha ao salvar no banco online! Verifique as Regras do Firestore.", true);
+        return false;
       }
     }
 
-    // REAL-TIME FIRESTORE LISTENER
     onSnapshot(STATE_DOC, async (snap) => {
       const footer = document.getElementById("sync-status-footer");
       if (!snap.exists()) {
-        await setDoc(STATE_DOC, INITIAL_STATE);
-        state = structuredClone(INITIAL_STATE);
+        if (!dbSyncedOnce) {
+          try {
+            const check = await getDoc(STATE_DOC);
+            if (!check.exists()) {
+              await setDoc(STATE_DOC, INITIAL_STATE);
+              state = normalizeState(INITIAL_STATE);
+            } else {
+              state = normalizeState(check.data());
+            }
+          } catch (e) {
+            state = normalizeState(INITIAL_STATE);
+          }
+        }
       } else {
-        state = snap.data();
-        if (!state.users) state.users = {};
-        if (!state.requirements) state.requirements = [];
-        if (!state.orgs) state.orgs = DEFAULT_ORGS;
-        if (!state.ranks) state.ranks = [...DEFAULT_RANKS];
-        if (!state.announcements) state.announcements = [];
-        if (!state.documents) state.documents = INITIAL_STATE.documents;
-        if (!state.instaPhotos) state.instaPhotos = [OMR_LOGO_BASE64, OMR_LOGO_BASE64];
+        state = normalizeState(snap.data());
       }
+      dbSyncedOnce = true;
       if (footer) footer.textContent = "Conectado ao banco online (system-omr)";
       refreshSessionUI();
     }, (err) => {
+      console.error("Erro no listener Firestore:", err);
       const footer = document.getElementById("sync-status-footer");
-      if (footer) footer.textContent = "Modo local ativo (verifique regras do Firestore)";
+      if (footer) footer.textContent = "Erro de conexão/regras no Firestore — alterações podem não persistir!";
       refreshSessionUI();
     });
 
@@ -1274,23 +1442,78 @@
       return getUser(currentUserNick);
     }
 
-    function userHasOrg(nick, orgId) {
+    function getOrgMemberEntry(orgId, nick) {
+      const org = state.orgs.find(o => o.id === orgId);
+      if (!org || !nick) return null;
+      return (org.members || []).find(m => m.nick.toLowerCase() === nick.trim().toLowerCase()) || null;
+    }
+
+    function isOrgMember(nick, orgId) {
+      return !!getOrgMemberEntry(orgId, nick);
+    }
+
+    function isOrgAdmin(nick, orgId) {
       const u = getUser(nick);
       if (!u) return false;
       if (u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo") return true;
-      const org = state.orgs.find(o => o.id === orgId);
-      return org ? (org.leader.toLowerCase() === u.nick.toLowerCase() || org.members.some(m => m.toLowerCase() === u.nick.toLowerCase())) : false;
+      const entry = getOrgMemberEntry(orgId, nick);
+      if (!entry) return false;
+      const cfgRoles = ORG_ROLES_CONFIG[orgId]?.roles || [];
+      const foundRole = cfgRoles.find(r => r.name === entry.role);
+      return !!(foundRole && foundRole.isAdmin);
     }
 
     function isSI(nick) {
-      return userHasOrg(nick, "BAEP") || userHasOrg(nick, "CITE") || userHasOrg(nick, "ACS");
+      return isOrgMember(nick, "BAEP") || isOrgMember(nick, "CITE") || isOrgMember(nick, "SI");
     }
 
     function isHighAuthority(nick) {
       const u = getUser(nick);
       if (!u) return false;
-      return u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo" || userHasOrg(nick, "ACS");
+      return !!(u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo");
     }
+
+    function getRankIndex(rankName) {
+      const idx = HIERARCHY_ORDER.indexOf(rankName);
+      return idx === -1 ? 0 : idx;
+    }
+
+    function isSubtenenteOrAbove(rankName) {
+      return getRankIndex(rankName) >= getRankIndex("Subtenente");
+    }
+
+    function isOfficialOrAbove(rankName) {
+      return getRankIndex(rankName) >= getRankIndex("Tenente");
+    }
+
+    function isUserOnline(u) {
+      if (!u || !u.lastSeenMs) return false;
+      return (Date.now() - Number(u.lastSeenMs)) < 45000;
+    }
+
+    async function touchPresence(nick) {
+      const u = getUser(nick);
+      if (!u || u.status !== "Ativo") return;
+      const prevLoc = u.locationLabel;
+      u.lastSeenMs = Date.now();
+      u.lastLogin = formatDateTime();
+      u.ip = clientNet.ip;
+      u.ispGroup = clientNet.ispGroup;
+      u.locationLabel = clientNet.locationLabel;
+      u.vpnSuspect = clientNet.vpnSuspect;
+      if (prevLoc && prevLoc !== clientNet.locationLabel) {
+        u.locationAlert = `Mudança de local detectada: de "${prevLoc}" para "${clientNet.locationLabel}" em ${formatDateTime()}`;
+      }
+      await saveState();
+    }
+
+    setInterval(() => {
+      const cur = getCurrentUser();
+      if (cur && cur.status === "Ativo") {
+        cur.lastSeenMs = Date.now();
+        setDoc(STATE_DOC, state).catch(() => {});
+      }
+    }, 20000);
 
     function formatShortDate(d = new Date()) {
       const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -1307,13 +1530,27 @@
       return `${day}/${mon}/${yr} ${hr}:${min}`;
     }
 
-    function habboHeadUrl(nick) {
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&headonly=1&direction=3&head_direction=3&size=l`;
+    function habboHeadUrl(nick, waveAndSmile = true) {
+      const params = waveAndSmile
+        ? "headonly=1&direction=3&head_direction=3&action=wav&gesture=sml&size=l"
+        : "headonly=1&direction=3&head_direction=3&size=l";
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&${params}`;
     }
 
-    function habboFullUrl(nick) {
-      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&gesture=sml&size=l`;
+    function habboFullUrl(nick, waveAndSmile = true) {
+      const params = waveAndSmile
+        ? "direction=4&head_direction=3&action=wav&gesture=sml&size=l"
+        : "direction=4&head_direction=3&size=l";
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&${params}`;
     }
+
+    window.toggleTheme = function() {
+      document.body.classList.toggle("light-theme");
+      const isLight = document.body.classList.contains("light-theme");
+      localStorage.setItem("omr_theme", isLight ? "light" : "dark");
+      document.getElementById("theme-toggle-btn").textContent = isLight ? "🌙" : "☀️";
+      showToast(isLight ? "Tema claro (branco e vermelho) ativado!" : "Tema escuro ativado!");
+    };
 
     window.showToast = function(msg, isError = false) {
       const t = document.getElementById("toast");
@@ -1321,7 +1558,7 @@
       t.className = "toast-banner" + (isError ? " error" : "");
       t.style.display = "block";
       clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => { t.style.display = "none"; }, 3500);
+      window._toastTimer = setTimeout(() => { t.style.display = "none"; }, 3800);
     };
 
     window.copyText = function(txt) {
@@ -1329,7 +1566,6 @@
       showToast("Copiado: " + txt);
     };
 
-    // AUTH FLOW
     window.switchAuthTab = function(tab) {
       document.getElementById("tab-login-btn").classList.toggle("active", tab === "login");
       document.getElementById("tab-register-btn").classList.toggle("active", tab === "register");
@@ -1342,32 +1578,50 @@
       const nick = input.value.trim();
       const img = document.getElementById(mode === "login" ? "login-avatar-head" : "reg-avatar-head");
       const lbl = document.getElementById(mode === "login" ? "login-nick-preview" : "reg-nick-preview");
-      img.src = habboHeadUrl(nick || "A-Twink");
+      img.src = habboHeadUrl(nick || "A-Twink", true);
       lbl.textContent = nick || "Aguardando nick...";
     };
 
-    window.handleLogin = function() {
+    window.handleLogin = async function() {
       const nick = document.getElementById("login-nick").value.trim();
       const pass = document.getElementById("login-pass").value;
       if (!nick || !pass) return showToast("Preencha nick e senha.", true);
       const user = getUser(nick);
       if (!user) return showToast("Conta não encontrada. Clique em 'Criar Conta'.", true);
-      if (!user.password) return showToast("Este nick possui pré-cadastro! Vá na aba 'Criar Conta' para definir sua senha e validar na missão.", true);
+      if (user.status === "Exonerado") {
+        return showToast("Acesso bloqueado: militar exonerado da Polícia OMR.", true);
+      }
+      if (!user.password) {
+        return showToast("Este nick possui pré-cadastro! Vá na aba 'Criar Conta' para definir sua senha e validar na missão.", true);
+      }
       if (user.password !== pass) return showToast("Senha incorreta.", true);
-      if (user.status === "Exonerado" || user.status === "Demitido") {
-        return showToast(`Acesso bloqueado: conta com status ${user.status}.`, true);
+      if (user.status === "Demitido") {
+        return showToast("Acesso bloqueado: conta com status Demitido.", true);
       }
       currentUserNick = user.nick;
       localStorage.setItem("omr_logged_nick", user.nick);
+      await touchPresence(user.nick);
       refreshSessionUI();
       showToast(`Bem-vindo de volta, ${user.nick}!`);
     };
+
+    function isNickOrNetworkExonerated(nick) {
+      const key = nick.trim().toLowerCase();
+      const u = state.users[key];
+      if (u && u.status === "Exonerado") return true;
+      return Object.values(state.users).some(
+        other => other.status === "Exonerado" && other.ip && other.ip === clientNet.ip
+      );
+    }
 
     window.generateMottoCode = function() {
       const nick = document.getElementById("reg-nick").value.trim();
       const pass = document.getElementById("reg-pass").value;
       if (!nick || pass.length < 4) {
         return showToast("Informe seu nick do Habbo e uma senha (mín. 4 caracteres).", true);
+      }
+      if (isNickOrNetworkExonerated(nick)) {
+        return showToast("Cadastro bloqueado: exonerados são impedidos de criar conta na Polícia OMR.", true);
       }
       const existing = getUser(nick);
       if (existing && existing.password) {
@@ -1382,6 +1636,10 @@
     window.verifyHabboMottoAndRegister = async function() {
       const nick = document.getElementById("reg-nick").value.trim();
       const pass = document.getElementById("reg-pass").value;
+      if (isNickOrNetworkExonerated(nick)) {
+        return showToast("Cadastro bloqueado: exonerados são impedidos de criar conta.", true);
+      }
+
       const btn = document.getElementById("verify-motto-btn");
       btn.disabled = true;
       btn.textContent = "Consultando API do Habbo...";
@@ -1401,10 +1659,9 @@
             }
           }
         } else {
-          mottoVerified = true; // Fallback caso API retorne indisponível
+          mottoVerified = true;
         }
       } catch (e) {
-        // Fallback caso o navegador bloqueie CORS na requisição direta
         mottoVerified = true;
       }
 
@@ -1412,21 +1669,25 @@
 
       const key = nick.toLowerCase();
       const existing = state.users[key];
-      const usedIp = existing?.ip || clientSimulatedIp;
+      const nowStr = formatDateTime();
+      const shortDate = formatShortDate();
 
       if (existing) {
-        // Pré-cadastro existente (ex: A-Twink ou aluno aprovado no CIM)
         existing.password = pass;
         existing.status = "Ativo";
-        existing.ip = usedIp;
+        existing.ip = clientNet.ip;
+        existing.ispGroup = clientNet.ispGroup;
+        existing.locationLabel = clientNet.locationLabel;
+        existing.vpnSuspect = clientNet.vpnSuspect;
+        existing.lastLogin = nowStr;
+        existing.lastSeenMs = Date.now();
         existing.history = existing.history || [];
         existing.history.unshift({
-          text: `${existing.nick} ativou sua conta no System OMR via verificação de missão Habbo.`,
-          date: formatDateTime(),
+          text: `${existing.nick} ativou sua conta no System OMR (${nowStr})\n\nPatente: ${existing.rank}\n\nObs: Verificação concluída via missão do Habbo`,
+          date: nowStr,
           status: "Aprovado"
         });
       } else {
-        // Novo cadastro sem pré-cadastro CIM -> aguarda aprovação BAEP/CITE/Admin
         state.users[key] = {
           nick: nick,
           tag: "",
@@ -1434,21 +1695,27 @@
           status: "Pendente",
           password: pass,
           isAdmin: false,
-          ip: usedIp,
-          lastPromoLine: `${nick} [SEM TAG] ${formatShortDate()}`,
+          ip: clientNet.ip,
+          ispGroup: clientNet.ispGroup,
+          locationLabel: clientNet.locationLabel,
+          vpnSuspect: clientNet.vpnSuspect,
+          lastLogin: nowStr,
+          lastSeenMs: Date.now(),
+          lastPromoLine: `${nick} [SEM TAG] ${shortDate}`,
           history: [
             {
-              text: `${nick} solicitou registro no System OMR (aguardando aprovação do BAEP/CITE/Admin).`,
-              date: formatDateTime(),
+              text: `${nick} solicitou registro no System OMR (${nowStr})\n\nPatente: Soldado\n\nObs: Aguardando aprovação do Setor de Inteligência ou Admin`,
+              date: nowStr,
               status: "Em análise"
             }
           ]
         };
       }
 
-      await saveState();
+      const saved = await saveState();
       btn.disabled = false;
       btn.textContent = "Conferir Missão e Finalizar Cadastro";
+      if (!saved) return;
 
       if (state.users[key].status === "Ativo") {
         currentUserNick = state.users[key].nick;
@@ -1457,7 +1724,7 @@
         showToast(`Conta ativada com sucesso! Bem-vindo, ${currentUserNick}.`);
       } else {
         switchAuthTab("login");
-        showToast("Cadastro enviado! Aguarde um membro do BAEP, CITE ou Admin aprovar seu acesso.");
+        showToast("Cadastro enviado! Aguarde aprovação no Painel do SI ou Admin.");
       }
     };
 
@@ -1483,12 +1750,14 @@
       appEl.classList.remove("hidden");
       applyLogos();
 
+      const isLight = document.body.classList.contains("light-theme");
+      document.getElementById("theme-toggle-btn").textContent = isLight ? "🌙" : "☀️";
+
       document.getElementById("top-user-nick").textContent = user.nick;
       document.getElementById("top-user-rank").textContent = user.rank;
-      document.getElementById("top-user-head").src = habboHeadUrl(user.nick);
+      document.getElementById("top-user-head").src = habboHeadUrl(user.nick, true);
 
-      // Permissões de menus
-      const canDrh = userHasOrg(user.nick, "DRH") || isSI(user.nick) || isHighAuthority(user.nick);
+      const canDrh = isOrgMember(user.nick, "DRH") || isSI(user.nick) || isHighAuthority(user.nick);
       const canSi = isSI(user.nick) || isHighAuthority(user.nick);
       const canAdmin = isHighAuthority(user.nick);
 
@@ -1499,7 +1768,6 @@
       renderCurrentView();
     }
 
-    // NAVIGATION & UI CONTROLS
     window.toggleDrawer = function(open) {
       document.getElementById("sidebar-drawer").classList.toggle("open", open);
       document.getElementById("drawer-backdrop").classList.toggle("open", open);
@@ -1522,7 +1790,7 @@
       toggleDrawer(false);
       document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
       if (route === "home") document.getElementById("bnav-home")?.classList.add("active");
-      if (route === "req-list" || route === "req-form") document.getElementById("bnav-req")?.classList.add("active");
+      if (route === "req-list" || route === "req-form" || route === "drh-panel") document.getElementById("bnav-req")?.classList.add("active");
       if (route === "profile") document.getElementById("bnav-profile")?.classList.add("active");
       renderCurrentView();
     };
@@ -1547,7 +1815,6 @@
       navigate("docs");
     };
 
-    // RENDER VIEWS
     function renderCurrentView() {
       const main = document.getElementById("main-content");
       const user = getCurrentUser();
@@ -1556,12 +1823,13 @@
       if (currentRoute === "home") renderHome(main, user);
       else if (currentRoute === "profile") renderProfile(main, user);
       else if (currentRoute === "req-form") renderReqForm(main, user);
-      else if (currentRoute === "req-list") renderReqList(main, user, false);
-      else if (currentRoute === "drh-panel") renderReqList(main, user, true);
+      else if (currentRoute === "req-list") renderReqList(main, user);
+      else if (currentRoute === "drh-panel") renderDRHPanel(main, user);
       else if (currentRoute === "classes") renderClasses(main, user);
       else if (currentRoute === "docs") renderDocs(main, user);
       else if (currentRoute === "roles") renderRoles(main, user);
-      else if (currentRoute === "si-panel") renderSIPanel(main, user);
+      else if (currentRoute === "listings") renderListings(main);
+      else if (currentRoute === "si-panel") renderSIPanel(main);
       else if (currentRoute === "admin-panel") renderAdminPanel(main, user);
     }
 
@@ -1569,18 +1837,26 @@
       const now = new Date();
       const days = ["DOMINGO", "SEGUNDA-FEIRA", "TERÇA-FEIRA", "QUARTA-FEIRA", "QUINTA-FEIRA", "SEXTA-FEIRA", "SÁBADO"];
       const timeStr = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
-      const canPostAnn = isHighAuthority(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP") || isSI(user.nick);
+      const canPostAnn = isHighAuthority(user.nick)
+        || isOrgAdmin(user.nick, "SI")
+        || isOrgAdmin(user.nick, "BAEP")
+        || isOrgAdmin(user.nick, "CITE")
+        || isOrgMember(user.nick, "COR")
+        || isOrgMember(user.nick, "SCP");
 
       const annHtml = state.announcements.map(a => `
-        <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:16px;padding:14px;margin-bottom:10px;">
-          <div style="font-weight:800;font-size:0.95rem;color:#fff;margin-bottom:6px;">${a.title}</div>
-          <div style="font-size:0.82rem;color:#d4d4d8;line-height:1.45;margin-bottom:12px;">${a.body}</div>
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:16px;padding:14px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;">
+            <div style="font-weight:800;font-size:0.95rem;">${a.title}</div>
+            ${canPostAnn ? `<button class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">Apagar</button>` : ""}
+          </div>
+          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${a.body}</div>
           <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;">
             <div style="text-align:right;">
               <div style="font-weight:800;font-size:0.84rem;">${a.author}</div>
               <div style="font-size:0.72rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
             </div>
-            <img src="${habboHeadUrl(a.author)}" style="width:36px;height:36px;border-radius:50%;background:#1e1e26;border:1px solid var(--border-subtle);" />
+            <img src="${habboHeadUrl(a.author, true)}" style="width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
           </div>
         </div>
       `).join("");
@@ -1606,7 +1882,7 @@
               </div>
             </div>
             <div class="hero-avatar-col">
-              <img class="hero-full-avatar" src="${habboFullUrl(user.nick)}" alt="${user.nick}" />
+              <img class="hero-full-avatar" src="${habboFullUrl(user.nick, true)}" alt="${user.nick}" />
               <div class="rank-badge-red">${user.rank}</div>
             </div>
           </div>
@@ -1622,11 +1898,11 @@
           <div class="card-box">
             <div class="insta-frame">
               <div style="display:flex;gap:10px;align-items:center;justify-content:center;">
-                <img src="${state.instaPhotos[0] || OMR_LOGO_BASE64}" class="pixel-logo" style="width:92px;height:92px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);object-fit:cover;" />
-                ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:92px;height:92px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);object-fit:cover;" />` : ""}
+                <img src="${state.instaPhotos[0] || OMR_LOGO_BASE64}" class="pixel-logo" style="width:92px;height:92px;border-radius:12px;border:1px solid var(--border-subtle);object-fit:cover;" />
+                ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:92px;height:92px;border-radius:12px;border:1px solid var(--border-subtle);object-fit:cover;" />` : ""}
               </div>
               <div class="insta-handle">
-                <span style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);padding:3px 7px;border-radius:7px;font-size:0.78rem;">📷</span>
+                <span style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);color:#fff;padding:3px 7px;border-radius:7px;font-size:0.78rem;">📷</span>
                 <span>@policiaomr</span>
               </div>
             </div>
@@ -1658,7 +1934,7 @@
       } else {
         box.innerHTML = matches.map(u => `
           <div onclick="openUserProfile('${u.nick}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border-subtle);">
-            <img src="${habboHeadUrl(u.nick)}" style="width:34px;height:34px;border-radius:50%;background:#0a0a0d;" />
+            <img src="${habboHeadUrl(u.nick, true)}" style="width:34px;height:34px;border-radius:50%;background:var(--bg-elevated);" />
             <div>
               <div style="font-weight:800;font-size:0.86rem;">${u.nick} ${u.tag ? `[${u.tag}]` : ""}</div>
               <div style="font-size:0.74rem;color:var(--text-muted);">${u.rank} • ${u.status}</div>
@@ -1682,18 +1958,24 @@
         authorRank: u.rank,
         date: formatShortDate()
       });
-      await saveState();
-      showToast("Comunicado publicado na página inicial!");
+      if (await saveState()) {
+        showToast("Comunicado publicado na página inicial!");
+      }
+    };
+
+    window.deleteAnnouncement = async function(annId) {
+      state.announcements = state.announcements.filter(a => a.id !== annId);
+      if (await saveState()) showToast("Comunicado apagado.");
     };
 
     function renderProfile(container, viewer) {
       const target = getUser(selectedProfileNick) || viewer;
       const isOwn = target.nick.toLowerCase() === viewer.nick.toLowerCase();
-      const userOrgs = state.orgs.filter(o => o.leader.toLowerCase() === target.nick.toLowerCase() || o.members.some(m => m.toLowerCase() === target.nick.toLowerCase()));
+      const userOrgs = state.orgs.filter(o => (o.members || []).some(m => m.nick.toLowerCase() === target.nick.toLowerCase()));
       const canModerateAccount = isSI(viewer.nick) || isHighAuthority(viewer.nick);
 
       const tagBlock = target.tag
-        ? `<span style="color:#fde047;font-weight:800;">[${target.tag}]</span>`
+        ? `<span style="color:var(--red-bright);font-weight:800;">[${target.tag}]</span>`
         : `<span style="color:var(--text-muted);font-size:0.82rem;">[TAG não definida]</span> ${isOwn || isHighAuthority(viewer.nick) ? `<button class="btn btn-red btn-sm" onclick="promptSetTag('${target.nick}')">Criar TAG</button>` : ""}`;
 
       const statusColors = {
@@ -1710,35 +1992,40 @@
         <div class="card-box">
           <div class="profile-hero">
             <div class="profile-circle-frame">
-              <img src="${habboFullUrl(target.nick)}" alt="${target.nick}" />
+              <img src="${habboFullUrl(target.nick, target.status !== "Exonerado")}" alt="${target.nick}" />
             </div>
             <div style="font-size:1.25rem;font-weight:900;">${target.nick} ${tagBlock}</div>
             <div class="rank-badge-red" style="margin-top:6px;">${target.rank}</div>
 
-            <div style="margin-top:12px;background:#0d0d12;border:1px solid var(--border-subtle);padding:8px 12px;border-radius:11px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
-              <code style="font-size:0.82rem;color:#e4e4e7;">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
+            <div style="margin-top:12px;background:var(--bg-card);border:1px solid var(--border-subtle);padding:8px 12px;border-radius:11px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <code style="font-size:0.82rem;color:var(--text-main);">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
               <button class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">📋 Copiar</button>
             </div>
 
-            <div style="margin-top:10px;">
+            <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;">
               <span class="badge ${statusColors[target.status] || "badge-pending"}">Status: ${target.status}</span>
+              <span class="badge ${isUserOnline(target) ? "badge-approved" : "badge-canceled"}">${isUserOnline(target) ? "Online agora" : "Offline"}</span>
             </div>
 
             ${userOrgs.length ? `
               <div class="org-icons-grid">
-                ${userOrgs.map(o => `
-                  <div class="org-badge-card">
-                    <span style="font-size:1.3rem;">${o.icon}</span>
-                    <span style="font-size:0.72rem;font-weight:800;margin-top:3px;">${o.id}</span>
-                  </div>
-                `).join("")}
+                ${userOrgs.map(o => {
+                  const m = o.members.find(x => x.nick.toLowerCase() === target.nick.toLowerCase());
+                  return `
+                    <div class="org-badge-card">
+                      <span style="font-size:1.3rem;">${o.icon}</span>
+                      <span style="font-size:0.72rem;font-weight:800;margin-top:3px;">${o.id}</span>
+                      <span style="font-size:0.65rem;color:var(--text-muted);">${m?.role || ""}</span>
+                    </div>
+                  `;
+                }).join("")}
               </div>
             ` : ""}
 
             ${canModerateAccount && !isOwn ? `
               <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
-                <button class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Desativado')">Desativar Conta</button>
-                <button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Ativo')">Ativar Conta</button>
+                ${target.status === "Desativado" ? `<button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Ativo')">Ativar Conta</button>` : ""}
+                ${target.status === "Ativo" ? `<button class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Desativado')">Desativar Conta</button>` : ""}
                 <button class="btn btn-red btn-sm" onclick="deleteAccount('${target.nick}')">Apagar Conta</button>
               </div>
             ` : ""}
@@ -1747,7 +2034,7 @@
           <div class="section-title">📜 Histórico Militar</div>
           ${visibleHistory.length ? visibleHistory.map(h => `
             <div class="history-item">
-              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:4px;">
+              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;">
                 <span style="font-size:0.74rem;color:var(--text-muted);">${h.date}</span>
                 ${h.status === "Em análise" ? `<span class="badge badge-pending">[em análise]</span>` : ""}
               </div>
@@ -1768,8 +2055,7 @@
       const u = getUser(nick);
       if (u) {
         u.tag = tag;
-        await saveState();
-        showToast(`TAG [${tag}] definida com sucesso!`);
+        if (await saveState()) showToast(`TAG [${tag}] definida com sucesso!`);
       }
     };
 
@@ -1777,38 +2063,58 @@
       const u = getUser(nick);
       if (!u) return;
       u.status = status;
-      await saveState();
-      showToast(`Status de ${u.nick} alterado para ${status}.`);
+      if (await saveState()) showToast(`Status de ${u.nick} alterado para ${status}.`);
     };
 
     window.deleteAccount = async function(nick) {
       if (!confirm(`Tem certeza que deseja apagar permanentemente a conta de ${nick}?`)) return;
       delete state.users[nick.toLowerCase()];
-      await saveState();
-      showToast(`Conta de ${nick} apagada.`);
-      navigate("home");
+      if (await saveState()) {
+        showToast(`Conta de ${nick} apagada.`);
+        navigate("home");
+      }
     };
 
-    // REQUERIMENTOS FORM
+    function getAllowedTagsForUser(user) {
+      const memberOrgs = state.orgs.filter(o => isOrgMember(user.nick, o.id));
+      const list = [];
+      if (user.tag) {
+        list.push({ value: user.tag, label: `TAG Pessoal [${user.tag}]`, isOrg: false });
+      }
+      memberOrgs.forEach(o => {
+        list.push({ value: o.id, label: `Órgão [${o.id}]`, isOrg: true });
+      });
+      if (!list.length) {
+        list.push({ value: "OMR", label: "OMR", isOrg: false });
+      }
+      return list;
+    }
+
     function renderReqForm(container, user) {
       const type = currentReqType;
-      const userOrgs = state.orgs.filter(o => o.leader.toLowerCase() === user.nick.toLowerCase() || o.members.some(m => m.toLowerCase() === user.nick.toLowerCase()));
-      const tagOptions = [
-        ...(user.tag ? [`<option value="${user.tag}">TAG Pessoal [${user.tag}]</option>`] : []),
-        ...userOrgs.filter(o => o.id !== "ACS").map(o => `<option value="${o.id}">${o.id}</option>`)
-      ];
-      if (!tagOptions.length) tagOptions.push(`<option value="${user.tag || "OMR"}">${user.tag || "OMR"}</option>`);
+      const tagOptions = getAllowedTagsForUser(user);
 
-      const canPickAnyRank = isSI(user.nick) || isHighAuthority(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP");
-      const canExonerate = isSI(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP") || isHighAuthority(user.nick);
-      const canSell = userHasOrg(user.nick, "SCP") || isHighAuthority(user.nick);
+      const canPostSubtenenteReq = ["Promoção", "Rebaixamento", "Notificação", "Demissão"].includes(type);
+      const canExonerate = isSI(user.nick) || isOrgMember(user.nick, "COR") || isOrgMember(user.nick, "SCP") || isHighAuthority(user.nick);
+      const canContrato = isOrgMember(user.nick, "CDO") || isHighAuthority(user.nick);
 
-      if (type === "Exoneração" && !canExonerate) {
-        container.innerHTML = `<div class="card-box"><p style="color:#fca5a5;">Apenas SI, Corregedoria, SCP e Alto Comando Supremo podem postar Exonerações.</p></div>`;
+      if (canPostSubtenenteReq && !isSubtenenteOrAbove(user.rank) && !isHighAuthority(user.nick)) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente a partir de Subtenente é possível postar ${type}.</p></div>`;
         return;
       }
-      if (type === "Venda" && !canSell) {
-        container.innerHTML = `<div class="card-box"><p style="color:#fca5a5;">Apenas Suprema Corte Policial (SCP) e Alto Comando Supremo podem postar Vendas.</p></div>`;
+
+      if (!canPostSubtenenteReq && type !== "Licença" && !isOfficialOrAbove(user.rank) && !isHighAuthority(user.nick)) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Para postar ${type}, é necessário ser Oficial (Tenente ou superior).</p></div>`;
+        return;
+      }
+
+      if (type === "Exoneração" && !canExonerate) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente membros do Setor de Inteligência (BAEP, CITE e SI), Corregedoria, Alto Comando Supremo e Suprema Corte Policial podem exonerar.</p></div>`;
+        return;
+      }
+
+      if (type === "Contrato" && !canContrato) {
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente militares membros do Corpo de Oficiais (CDO) podem realizar contratos.</p></div>`;
         return;
       }
 
@@ -1842,9 +2148,9 @@
       const showProofs = ["Rebaixamento", "Advertência", "Notificação", "Demissão", "Exoneração"].includes(type);
       const showPermissor = ["Promoção", "Rebaixamento", "Advertência", "Notificação", "Demissão", "Exoneração"].includes(type);
 
-      const availableRanks = type === "Contrato" && !canPickAnyRank
-        ? state.ranks.slice(0, 5) // Soldado até Aspirante a Oficial
-        : state.ranks;
+      const availableRanks = type === "Contrato" && !isHighAuthority(user.nick)
+        ? HIERARCHY_ORDER.filter(r => r !== "Recruta" && getRankIndex(r) <= getRankIndex("Aspirante a Oficial"))
+        : HIERARCHY_ORDER.filter(r => r !== "Recruta");
 
       container.innerHTML = `
         <div class="card-box">
@@ -1852,21 +2158,23 @@
 
           <div class="form-group">
             <label class="form-label">Autor da Postagem</label>
-            <div style="display:flex;align-items:center;gap:10px;background:#0d0d12;padding:8px 12px;border-radius:11px;border:1px solid var(--border-subtle);">
-              <img src="${habboHeadUrl(user.nick)}" style="width:36px;height:36px;border-radius:50%;" />
-              <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick}" readonly />
+            <div style="display:flex;align-items:center;gap:10px;background:var(--bg-elevated);padding:8px 12px;border-radius:11px;border:1px solid var(--border-subtle);">
+              <img src="${habboHeadUrl(user.nick, true)}" style="width:36px;height:36px;border-radius:50%;" />
+              <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick} (${user.rank})" readonly />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">TAG Utilizada</label>
-            <select id="req-tag" class="form-select">${tagOptions.join("")}</select>
+            <label class="form-label">TAG Utilizada (Apenas suas TAGs ou órgãos que participa)</label>
+            <select id="req-tag" class="form-select">
+              ${tagOptions.map(t => `<option value="${t.value}" data-is-org="${t.isOrg ? "1" : "0"}">${t.label}</option>`).join("")}
+            </select>
           </div>
 
           <div class="form-group">
             <label class="form-label">Militar Envolvido</label>
             <div style="display:flex;align-items:center;gap:10px;">
-              <img id="req-target-head" src="${habboHeadUrl("")}" style="width:40px;height:40px;border-radius:50%;background:#0d0d12;border:1px solid var(--border-subtle);" />
+              <img id="req-target-head" src="${habboHeadUrl("", true)}" style="width:40px;height:40px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
               <input id="req-target" class="form-control" placeholder="Digite o nick do militar..." oninput="onReqTargetChange(this.value, '${type}')" />
             </div>
             <div id="req-target-info" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;"></div>
@@ -1875,7 +2183,7 @@
           ${showNewRank ? `
             <div class="form-group">
               <label class="form-label">${type === "Contrato" || type === "Venda" ? "Patente Definida" : "Nova Patente"}</label>
-              <select id="req-new-rank" class="form-select" ${(!canPickAnyRank && (type === "Promoção" || type === "Rebaixamento")) ? "disabled" : ""}>
+              <select id="req-new-rank" class="form-select">
                 ${availableRanks.map(r => `<option value="${r}">${r}</option>`).join("")}
               </select>
             </div>
@@ -1890,13 +2198,16 @@
 
           ${type === "Exoneração" ? `
             <div class="form-group">
-              <label class="form-label">Período da Exoneração</label>
+              <label class="form-label">Tipo de Exoneração</label>
               <div style="display:flex;gap:8px;margin-bottom:8px;">
-                <button type="button" id="exo-temp-btn" class="btn btn-amber btn-sm" onclick="setExonerationMode(true)">Temporária</button>
-                <button type="button" id="exo-perm-btn" class="btn btn-red btn-sm" onclick="setExonerationMode(false)">Permanente</button>
+                <button type="button" id="exo-perm-btn" class="btn btn-red btn-sm" onclick="setExonerationMode('permanente')">Permanente</button>
+                <button type="button" id="exo-temp-btn" class="btn btn-dark btn-sm" onclick="setExonerationMode('temporaria')">Temporária</button>
               </div>
-              <input id="req-end-date" type="date" class="form-control hidden" />
-              <input id="req-exo-perm" type="hidden" value="true" />
+              <div id="exo-temp-date-wrap" class="hidden">
+                <label class="form-label">Data de Vencimento da Exoneração Temporária</label>
+                <input id="req-end-date" type="date" class="form-control" />
+              </div>
+              <input id="req-exo-type" type="hidden" value="permanente" />
             </div>
           ` : ""}
 
@@ -1915,7 +2226,7 @@
           ` : ""}
 
           <div class="form-group">
-            <label class="form-label">Observações</label>
+            <label class="form-label">${type === "Exoneração" ? "Motivo da Exoneração / Observações" : "Observações"}</label>
             <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Motivo / detalhes que aparecerão no perfil..."></textarea>
           </div>
 
@@ -1924,24 +2235,27 @@
       `;
     }
 
-    window.setExonerationMode = function(isTemp) {
-      document.getElementById("req-exo-perm").value = isTemp ? "false" : "true";
-      document.getElementById("req-end-date").classList.toggle("hidden", isTemp);
+    window.setExonerationMode = function(mode) {
+      const isTemp = mode === "temporaria";
+      document.getElementById("req-exo-type").value = mode;
+      document.getElementById("exo-temp-date-wrap").classList.toggle("hidden", !isTemp);
+      document.getElementById("exo-perm-btn").className = isTemp ? "btn btn-dark btn-sm" : "btn btn-red btn-sm";
+      document.getElementById("exo-temp-btn").className = isTemp ? "btn btn-amber btn-sm" : "btn btn-dark btn-sm";
     };
 
     window.onReqTargetChange = function(val, type) {
       const nick = val.trim();
-      document.getElementById("req-target-head").src = habboHeadUrl(nick);
+      document.getElementById("req-target-head").src = habboHeadUrl(nick, true);
       const target = getUser(nick);
       const info = document.getElementById("req-target-info");
       const rankSel = document.getElementById("req-new-rank");
 
       if (target) {
         info.textContent = `Cadastrado: ${target.nick} • Patente atual: ${target.rank} (${target.status})`;
-        const idx = state.ranks.indexOf(target.rank);
+        const idx = HIERARCHY_ORDER.indexOf(target.rank);
         if (rankSel && idx !== -1) {
-          if (type === "Promoção" && idx + 1 < state.ranks.length) rankSel.value = state.ranks[idx + 1];
-          if (type === "Rebaixamento" && idx - 1 >= 0) rankSel.value = state.ranks[idx - 1];
+          if (type === "Promoção" && idx + 1 < HIERARCHY_ORDER.length) rankSel.value = HIERARCHY_ORDER[idx + 1];
+          if (type === "Rebaixamento" && idx - 1 >= 1) rankSel.value = HIERARCHY_ORDER[idx - 1];
         }
       } else if (nick) {
         info.textContent = (type === "Contrato" || type === "Venda")
@@ -1983,17 +2297,21 @@
         author.history = author.history || [];
         author.history.unshift({
           reqId: req.id,
-          text: `${author.nick} postou uma licença ${nowStr}\nVencimento: ${endDate}\nObservações: ${obs}`,
+          text: `${author.nick} postou uma licença (${nowStr})\n\nVencimento: ${endDate}\n\nObs: ${obs}`,
           date: nowStr,
           status: "Em análise"
         });
-        await saveState();
-        showToast("Requerimento postado para análise!");
-        navigate("req-list");
+        if (await saveState()) {
+          showToast("Requerimento postado para análise!");
+          navigate("req-list");
+        }
         return;
       }
 
-      const tag = document.getElementById("req-tag").value;
+      const tagSelect = document.getElementById("req-tag");
+      const tag = tagSelect.value;
+      const isOrgTag = tagSelect.selectedOptions?.[0]?.dataset?.isOrg === "1";
+
       const targetNick = document.getElementById("req-target").value.trim();
       const newRank = document.getElementById("req-new-rank")?.value || "";
       const saleValue = document.getElementById("req-sale-value")?.value.trim() || "";
@@ -2001,11 +2319,20 @@
       const proofs = document.getElementById("req-proofs")?.value.trim() || "";
       const obs = document.getElementById("req-obs").value.trim();
 
+      const exoMode = type === "Exoneração" ? (document.getElementById("req-exo-type")?.value || "permanente") : "";
+      const exoEndDate = type === "Exoneração" ? (document.getElementById("req-end-date")?.value || "") : "";
+
       if (!targetNick || !obs) return showToast("Preencha o militar envolvido e as observações.", true);
+      if (type === "Exoneração" && exoMode === "temporaria" && !exoEndDate) {
+        return showToast("Informe a data de vencimento da exoneração temporária.", true);
+      }
 
       let target = getUser(targetNick);
       if (!target) {
         if (type === "Contrato" || type === "Venda") {
+          if (isNickOrNetworkExonerated(targetNick)) {
+            return showToast("Este militar consta como exonerado e não pode ser cadastrado.", true);
+          }
           target = {
             nick: targetNick,
             tag: "",
@@ -2014,12 +2341,25 @@
             password: "",
             isAdmin: false,
             ip: "",
+            ispGroup: "",
+            locationLabel: "",
+            vpnSuspect: false,
+            lastLogin: "Nunca acessou",
+            lastSeenMs: 0,
             lastPromoLine: `${targetNick} [${tag}] ${shortDate}`,
             history: []
           };
           state.users[targetNick.toLowerCase()] = target;
         } else {
           return showToast("Militar envolvido não está cadastrado no system.", true);
+        }
+      }
+
+      if (!isOrgTag && !isHighAuthority(author.nick)) {
+        const authorLevel = getRankIndex(author.rank);
+        const targetLevel = getRankIndex(target.rank);
+        if (authorLevel <= targetLevel) {
+          return showToast("Sem TAG de órgão, você só pode postar requisição de um militar inferior à sua patente.", true);
         }
       }
 
@@ -2034,6 +2374,8 @@
         permissor,
         proofs,
         obs,
+        exoMode,
+        exoEndDate,
         createdAt: nowStr,
         shortDate,
         status: "Em análise",
@@ -2044,53 +2386,56 @@
 
       state.requirements.unshift(req);
 
-      let historyText = `${author.nick} postou um(a) ${type.toLowerCase()} ${nowStr}`;
-      if (newRank) historyText += `\nPatente: ${newRank}`;
-      if (saleValue) historyText += `\nValor: ${saleValue}`;
-      if (permissor) historyText += `\nPermissor: ${permissor}`;
-      historyText += `\nObservações: ${obs}\n${target.nick} [${tag}] ${shortDate}`;
+      const lines = [`${author.nick} postou um(a) ${type.toLowerCase()} (${nowStr})`];
+      if (newRank) lines.push(`Nova patente: ${newRank}`);
+      if (saleValue) lines.push(`Valor: ${saleValue}`);
+      if (type === "Exoneração") {
+        lines.push(exoMode === "temporaria" ? `Exoneração temporária — Postagem: ${nowStr} | Vencimento: ${exoEndDate}` : "Exoneração: Permanente");
+      }
+      if (permissor) lines.push(`Permissor: ${permissor}`);
+      lines.push(`Obs: ${obs}`);
+      lines.push(`${target.nick} [${tag}] ${shortDate}`);
 
       target.history = target.history || [];
       target.history.unshift({
         reqId: req.id,
-        text: historyText,
+        text: lines.join("\n\n"),
         date: nowStr,
         status: "Em análise"
       });
 
-      await saveState();
-      showToast("Requerimento postado para análise!");
-      navigate("req-list");
+      if (await saveState()) {
+        showToast("Requerimento postado para análise!");
+        navigate("req-list");
+      }
     };
 
-    // REQUERIMENTOS LIST & DRH PANEL
-    function renderReqList(container, user, isDrhView) {
-      const pending = state.requirements.filter(r => r.status === "Em análise");
-      const reviewed = state.requirements.filter(r => r.status !== "Em análise");
+    function buildReqCardHtml(r, showDrhActions) {
+      const badgeClass = r.status === "Aprovado" ? "badge-approved"
+        : r.status === "Reprovado" ? "badge-rejected"
+        : r.status === "Cancelado" ? "badge-canceled"
+        : "badge-pending";
 
-      const renderCard = (r) => {
-        const badgeClass = r.status === "Aprovado" ? "badge-approved"
-          : r.status === "Reprovado" ? "badge-rejected"
-          : r.status === "Cancelado" ? "badge-canceled"
-          : "badge-pending";
+      return `
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:14px;padding:13px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+            <strong style="font-size:0.92rem;">${r.type} → ${r.target}</strong>
+            <span class="badge ${badgeClass}">${r.status}</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;">
+            Postado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
+          </div>
+          ${r.newRank ? `<div style="font-size:0.82rem;margin-bottom:4px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
+          ${r.saleValue ? `<div style="font-size:0.82rem;margin-bottom:4px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
+          ${r.type === "Exoneração" ? `<div style="font-size:0.82rem;margin-bottom:4px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
+          <div style="font-size:0.82rem;margin-bottom:6px;">Obs.: ${r.obs}</div>
+          ${r.proofs ? `<div style="font-size:0.78rem;margin-bottom:6px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">🔗 Ver provas anexadas</a></div>` : ""}
+          ${r.reviewedBy ? `<div style="font-size:0.76rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
 
-        return `
-          <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:14px;padding:13px;margin-bottom:10px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
-              <strong style="color:#fff;font-size:0.92rem;">${r.type} → ${r.target}</strong>
-              <span class="badge ${badgeClass}">${r.status}</span>
-            </div>
-            <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;">
-              Postado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
-            </div>
-            ${r.newRank ? `<div style="font-size:0.82rem;margin-bottom:4px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
-            ${r.saleValue ? `<div style="font-size:0.82rem;margin-bottom:4px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
-            <div style="font-size:0.82rem;color:#e4e4e7;margin-bottom:6px;">Obs.: ${r.obs}</div>
-            ${r.proofs ? `<div style="font-size:0.78rem;margin-bottom:6px;"><a href="${r.proofs}" target="_blank" style="color:#60a5fa;">🔗 Ver provas anexadas</a></div>` : ""}
-            ${r.reviewedBy ? `<div style="font-size:0.75rem;color:#fde047;margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">Atualizado por ${r.reviewedBy} em ${r.reviewedAt}${r.reviewNote ? ` — "${r.reviewNote}"` : ""}</div>` : ""}
-
-            ${isDrhView ? `
-              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px solid var(--border-subtle);">
+          ${showDrhActions ? `
+            <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border-subtle);">
+              <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH para justificar decisão..." style="margin-bottom:8px;padding:7px 10px;font-size:0.8rem;" value="${r.reviewNote || ""}" />
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 ${r.status === "Em análise" ? `
                   <button class="btn btn-green btn-sm" onclick="updateReqStatus('${r.id}', 'Aprovado')">✓ Aprovar</button>
                   <button class="btn btn-red btn-sm" onclick="updateReqStatus('${r.id}', 'Reprovado')">✕ Reprovar</button>
@@ -2098,32 +2443,80 @@
                 ` : ""}
                 <button class="btn btn-dark btn-sm" onclick="deleteRequirement('${r.id}')">🗑️ Apagar</button>
               </div>
-            ` : ""}
-          </div>
-        `;
-      };
+            </div>
+          ` : ""}
+        </div>
+      `;
+    }
+
+    function renderReqList(container, user) {
+      const pending = state.requirements.filter(r => r.status === "Em análise");
+      const reviewed = state.requirements.filter(r => r.status !== "Em análise");
 
       container.innerHTML = `
         <div class="card-box">
           <div class="section-title">
-            <span>${isDrhView ? "⚖️ Painel do DRH — Auditoria" : "📑 Lista de Requerimentos"}</span>
+            <span>📑 Lista de Requerimentos</span>
             <button class="btn btn-red btn-sm" onclick="openReqForm('Promoção')">+ Novo</button>
           </div>
 
-          <div style="font-size:0.82rem;font-weight:800;color:#fde047;margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (EM ANÁLISE) (${pending.length})</div>
-          ${pending.length ? pending.map(renderCard).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:14px;">Nenhum requerimento pendente no momento.</p>'}
+          <div style="font-size:0.82rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (${pending.length})</div>
+          ${pending.length ? pending.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:14px;">Nenhum requerimento pendente no momento.</p>'}
 
-          <div style="font-size:0.82rem;font-weight:800;color:#86efac;margin:16px 0 8px;">✅ REQUERIMENTOS JÁ ATUALIZADOS (${reviewed.length})</div>
-          ${reviewed.length ? reviewed.map(renderCard).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum requerimento atualizado ainda.</p>'}
+          <div style="font-size:0.82rem;font-weight:800;color:var(--text-muted);margin:16px 0 8px;">✅ REQUERIMENTOS ATUALIZADOS (${reviewed.length})</div>
+          ${reviewed.length ? reviewed.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum requerimento atualizado ainda.</p>'}
         </div>
       `;
     }
+
+    function renderDRHPanel(container) {
+      const mod = drhSelectedModality;
+      const byMod = state.requirements.filter(r => r.type === mod);
+      const pendingMod = byMod.filter(r => r.status === "Em análise");
+      const approvedMod = byMod.filter(r => r.status === "Aprovado");
+      const rejectedMod = byMod.filter(r => r.status === "Reprovado");
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">⚖️ Painel do DRH — Catálogo de Requerimentos</div>
+
+          <div class="catalog-strip">
+            ${REQ_MODALITIES.map(m => `
+              <button class="btn btn-sm ${m === mod ? "btn-red" : "btn-dark"}" onclick="selectDrhModality('${m}')">${m}</button>
+            `).join("")}
+          </div>
+
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:14px;padding:12px;margin-bottom:14px;">
+            <strong>${mod}</strong> → Pendentes (${pendingMod.length})
+          </div>
+
+          <div style="font-size:0.82rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ PENDENTES — ${mod.toUpperCase()} (${pendingMod.length})</div>
+          ${pendingMod.length ? pendingMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:12px;">Nenhum requerimento pendente nesta modalidade.</p>'}
+
+          <div style="font-size:0.82rem;font-weight:800;color:#16a34a;margin:14px 0 8px;">✅ APROVADOS — ${mod.toUpperCase()} (${approvedMod.length})</div>
+          ${approvedMod.length ? approvedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:12px;">Nenhum requerimento aprovado nesta modalidade.</p>'}
+
+          <div style="font-size:0.82rem;font-weight:800;color:#dc2626;margin:14px 0 8px;">✕ REPROVADOS — ${mod.toUpperCase()} (${rejectedMod.length})</div>
+          ${rejectedMod.length ? rejectedMod.map(r => buildReqCardHtml(r, true)).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum requerimento reprovado nesta modalidade.</p>'}
+        </div>
+      `;
+    }
+
+    window.selectDrhModality = function(mod) {
+      drhSelectedModality = mod;
+      renderCurrentView();
+    };
 
     window.updateReqStatus = async function(reqId, newStatus) {
       const reviewer = getCurrentUser();
       const req = state.requirements.find(r => r.id === reqId);
       if (!req) return;
-      const note = prompt(`Justificativa / observação do DRH para ${newStatus} (opcional):`) || "";
+      const noteInput = document.getElementById(`drh-note-${reqId}`);
+      const note = (noteInput ? noteInput.value : "").trim();
+      if (!note) {
+        return showToast("Preencha a observação do DRH para justificar a decisão.", true);
+      }
+
       req.status = newStatus;
       req.reviewedBy = reviewer.nick;
       req.reviewedAt = formatDateTime();
@@ -2132,30 +2525,54 @@
       const target = getUser(req.target);
       if (target) {
         const histItem = (target.history || []).find(h => h.reqId === reqId);
-        if (histItem) histItem.status = newStatus;
+        if (histItem) {
+          histItem.status = newStatus;
+          histItem.text += `\n\nDecisão DRH (${newStatus}): ${note}`;
+        }
 
         if (newStatus === "Aprovado") {
           if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
             target.rank = req.newRank;
             target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
           }
-          if (req.type === "Demissão") target.status = "Demitido";
-          if (req.type === "Exoneração") target.status = "Exonerado";
+          if (req.type === "Demissão") {
+            target.rank = "Recruta";
+            target.status = "Demitido";
+          }
+          if (req.type === "Exoneração") {
+            target.rank = "Recruta";
+            target.status = "Exonerado";
+          }
         }
       }
 
-      await saveState();
-      showToast(`Requerimento marcado como ${newStatus} instantaneamente!`);
+      if (await saveState()) {
+        showToast(`Requerimento ${newStatus} com justificativa do DRH!`);
+      }
     };
 
     window.deleteRequirement = async function(reqId) {
-      if (!confirm("Apagar este requerimento permanentemente?")) return;
+      const noteInput = document.getElementById(`drh-note-${reqId}`);
+      const note = (noteInput ? noteInput.value : "").trim();
+      if (!note) {
+        return showToast("Preencha a observação do DRH para justificar apagar o requerimento.", true);
+      }
+
+      const req = state.requirements.find(r => r.id === reqId);
       state.requirements = state.requirements.filter(r => r.id !== reqId);
-      await saveState();
-      showToast("Requerimento apagado.");
+
+      if (req && req.type === "Exoneração") {
+        const target = getUser(req.target);
+        if (target && target.status === "Exonerado") {
+          target.status = "Desativado";
+        }
+      }
+
+      if (await saveState()) {
+        showToast("Requerimento apagado do sistema.");
+      }
     };
 
-    // POSTAR AULAS (CIM)
     function renderClasses(container, user) {
       container.innerHTML = `
         <div class="card-box">
@@ -2207,6 +2624,9 @@
       const obs = document.getElementById("class-obs").value.trim() || "Sem observações adicionais.";
 
       if (!studentNick) return showToast("Informe o nick do aluno.", true);
+      if (isNickOrNetworkExonerated(studentNick)) {
+        return showToast("Militar exonerado não pode receber novo ingresso.", true);
+      }
 
       if (result === "Aprovado") {
         const key = studentNick.toLowerCase();
@@ -2222,24 +2642,31 @@
             password: "",
             isAdmin: false,
             ip: "",
+            ispGroup: "",
+            locationLabel: "",
+            vpnSuspect: false,
+            lastLogin: "Nunca acessou",
+            lastSeenMs: 0,
             lastPromoLine: `${studentNick} [${tag}] ${shortDate}`,
             history: []
           };
+        } else if (state.users[key].status === "Demitido") {
+          state.users[key].status = "Desativado";
         }
         state.users[key].history.unshift({
-          text: `${instructor.nick} postou uma aula: ${className} (${result})\nObservações: ${obs}\n${studentNick} [${tag}] ${shortDate}`,
+          text: `${instructor.nick} postou uma aula (${nowStr})\n\nAula: ${className} — ${result}\n\nObs: ${obs}\n\n${studentNick} [${tag}] ${shortDate}`,
           date: nowStr,
           status: "Aprovado"
         });
-        await saveState();
-        showToast(`Aluno ${studentNick} aprovado! Pré-cadastro criado como Soldado (Desativado).`);
-        openUserProfile(studentNick);
+        if (await saveState()) {
+          showToast(`Aluno ${studentNick} aprovado! Pré-cadastro criado como Soldado (Desativado).`);
+          openUserProfile(studentNick);
+        }
       } else {
         showToast(`Reprovação de ${studentNick} registrada internamente na ${org}.`);
       }
     };
 
-    // DOCUMENTOS
     function renderDocs(container, user) {
       const titles = {
         RGM: "Regimento Geral Militar (RGM)",
@@ -2259,7 +2686,7 @@
             <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${state.documents[currentDocKey] || ""}</textarea>
             <button class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">💾 Salvar Documento</button>
           ` : `
-            <div style="background:#101015;padding:14px;border-radius:12px;white-space:pre-line;line-height:1.55;font-size:0.86rem;">${state.documents[currentDocKey] || ""}</div>
+            <div style="background:var(--bg-elevated);padding:14px;border-radius:12px;white-space:pre-line;line-height:1.55;font-size:0.86rem;">${state.documents[currentDocKey] || ""}</div>
           `}
         </div>
       `;
@@ -2267,32 +2694,68 @@
 
     window.saveDocument = async function() {
       state.documents[currentDocKey] = document.getElementById("doc-editor").value;
-      await saveState();
-      showToast("Documento atualizado com sucesso!");
+      if (await saveState()) showToast("Documento atualizado com sucesso!");
     };
 
-    // FUNÇÕES E ÓRGÃOS
     function renderRoles(container, user) {
+      const myOrgs = state.orgs.filter(o => isOrgMember(user.nick, o.id) || isHighAuthority(user.nick));
+
+      if (!myOrgs.length) {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">🛡️ Funções</div>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Você ainda não faz parte de nenhum órgão ou função interna.</p>
+          </div>
+        `;
+        return;
+      }
+
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🛡️ Funções e Órgãos Internos</div>
-          ${state.orgs.map((o, idx) => {
-            const canManage = isHighAuthority(user.nick) || o.leader.toLowerCase() === user.nick.toLowerCase();
+          <div class="section-title">🛡️ Minhas Funções e Órgãos</div>
+          ${myOrgs.map(o => {
+            const idx = state.orgs.findIndex(x => x.id === o.id);
+            const myEntry = getOrgMemberEntry(o.id, user.nick);
+            const canAdminOrg = isOrgAdmin(user.nick, o.id);
+            const roleOptions = ORG_ROLES_CONFIG[o.id]?.roles || [{ name: "Membro", isAdmin: false }];
+
             return `
-              <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:14px;padding:14px;margin-bottom:10px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:16px;padding:14px;margin-bottom:14px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
                   <div style="font-weight:800;font-size:0.95rem;">${o.icon} ${o.name} (${o.id})</div>
-                  <span style="font-size:0.75rem;color:#fde047;">Líder: ${o.leader}</span>
+                  <span class="badge badge-approved">Seu cargo: ${myEntry?.role || (isHighAuthority(user.nick) ? "Alto Comando" : "Membro")}</span>
                 </div>
-                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
-                  Membros: ${o.members.length ? o.members.join(", ") : "Nenhum"}
+
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">
+                  Integrantes: ${(o.members || []).length ? o.members.map(m => `${m.nick} (${m.role})`).join(" • ") : "Nenhum"}
                 </div>
-                ${canManage ? `
-                  <div style="display:flex;gap:6px;">
-                    <input id="add-member-${idx}" class="form-control" placeholder="Nick para adicionar..." style="padding:7px 10px;" />
-                    <button class="btn btn-green btn-sm" onclick="addOrgMember(${idx})">+ Add</button>
+
+                ${canAdminOrg ? `
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+                    <input id="org-add-nick-${idx}" class="form-control" placeholder="Nick do militar..." style="flex:1;min-width:140px;padding:8px 10px;" />
+                    <select id="org-add-role-${idx}" class="form-select" style="width:auto;padding:8px 10px;">
+                      ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
+                    </select>
+                    <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRole(${idx})">Adicionar Membro</button>
                   </div>
                 ` : ""}
+
+                <div style="border-top:1px solid var(--border-subtle);padding-top:10px;margin-top:8px;">
+                  <div class="form-label">Regimento Interno (${o.id})</div>
+                  ${canAdminOrg ? `
+                    <textarea id="org-reg-${idx}" class="form-textarea" rows="3" style="margin-bottom:6px;">${o.internalRegimento || ""}</textarea>
+                  ` : `
+                    <div style="background:var(--bg-card);padding:10px;border-radius:10px;white-space:pre-line;font-size:0.82rem;margin-bottom:8px;">${o.internalRegimento || ""}</div>
+                  `}
+
+                  <div class="form-label" style="margin-top:8px;">Código Penal (${o.id})</div>
+                  ${canAdminOrg ? `
+                    <textarea id="org-penal-${idx}" class="form-textarea" rows="3" style="margin-bottom:8px;">${o.penalCode || ""}</textarea>
+                    <button class="btn btn-red btn-sm" onclick="saveOrgDocs(${idx})">Salvar Documentos do Órgão</button>
+                  ` : `
+                    <div style="background:var(--bg-card);padding:10px;border-radius:10px;white-space:pre-line;font-size:0.82rem;">${o.penalCode || ""}</div>
+                  `}
+                </div>
               </div>
             `;
           }).join("")}
@@ -2300,38 +2763,161 @@
       `;
     }
 
-    window.addOrgMember = async function(idx) {
-      const nick = document.getElementById(`add-member-${idx}`).value.trim();
-      if (!nick) return;
+    window.addOrgMemberWithRole = async function(idx) {
+      const nick = document.getElementById(`org-add-nick-${idx}`).value.trim();
+      const role = document.getElementById(`org-add-role-${idx}`).value;
+      if (!nick) return showToast("Digite o nick do militar.", true);
       const org = state.orgs[idx];
-      if (!org.members.some(m => m.toLowerCase() === nick.toLowerCase())) {
-        org.members.push(nick);
-        await saveState();
-        showToast(`${nick} adicionado(a) em ${org.id}.`);
+      org.members = org.members || [];
+      const existing = org.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
+      if (existing) {
+        existing.role = role;
+      } else {
+        org.members.push({ nick, role });
+      }
+      if (await saveState()) {
+        showToast(`${nick} definido como ${role} em ${org.id}!`);
       }
     };
 
-    // PAINEL DO SI
+    window.saveOrgDocs = async function(idx) {
+      const org = state.orgs[idx];
+      org.internalRegimento = document.getElementById(`org-reg-${idx}`).value;
+      org.penalCode = document.getElementById(`org-penal-${idx}`).value;
+      if (await saveState()) {
+        showToast(`Regimento Interno e Código Penal de ${org.id} salvos!`);
+      }
+    };
+
+    function renderListings(container) {
+      const allUsers = Object.values(state.users);
+
+      const renderRankGroupSection = (groupTitle, rankList) => {
+        const blocks = rankList
+          .filter(r => r !== "Recruta")
+          .map(rankName => {
+            const members = allUsers.filter(u => u.rank === rankName && u.status !== "Exonerado");
+            if (!members.length) return "";
+            return `
+              <div style="margin-bottom:14px;">
+                <div style="font-weight:800;font-size:0.9rem;color:var(--red-bright);margin-bottom:8px;">
+                  ${rankName} (${members.length})
+                </div>
+                ${members.map(m => {
+                  const regLine = m.lastPromoLine || `${m.nick} ${m.tag ? `[${m.tag}]` : ""} ${formatShortDate()}`;
+                  return `
+                    <div class="listing-card">
+                      <img src="${habboFullUrl(m.nick, true)}" alt="${m.nick}" style="height:82px;object-fit:contain;" />
+                      <div style="flex:1;min-width:180px;">
+                        <div style="font-weight:900;font-size:0.95rem;">${m.nick}</div>
+                        <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                          <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
+                          <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join("")}
+              </div>
+            `;
+          })
+          .filter(Boolean)
+          .join("");
+
+        return `
+          <div style="margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border-subtle);">
+            <div style="font-size:1rem;font-weight:900;margin-bottom:10px;">${groupTitle}</div>
+            ${blocks || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar nesta seção no momento.</p>'}
+          </div>
+        `;
+      };
+
+      const exoneratedUsers = allUsers.filter(u => u.status === "Exonerado");
+      const exoHtml = exoneratedUsers.length ? exoneratedUsers.map(u => {
+        const lastExoReq = state.requirements.find(
+          r => r.type === "Exoneração" && r.target.toLowerCase() === u.nick.toLowerCase() && r.status === "Aprovado"
+        );
+        const regLine = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
+        const reason = lastExoReq?.obs || "Motivo registrado no histórico militar.";
+        const periodInfo = lastExoReq?.exoMode === "temporaria"
+          ? `Exoneração Temporária — Postagem: ${lastExoReq.createdAt} | Vencimento: ${lastExoReq.exoEndDate}`
+          : "Exoneração Permanente";
+
+        return `
+          <div class="listing-card">
+            <img src="${habboFullUrl(u.nick, false)}" alt="${u.nick}" style="height:82px;object-fit:contain;" />
+            <div style="flex:1;min-width:190px;">
+              <div style="font-weight:900;font-size:0.95rem;">${u.nick}</div>
+              <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <code style="font-size:0.8rem;background:var(--bg-card);padding:5px 8px;border-radius:8px;border:1px solid var(--border-subtle);">${regLine}</code>
+                <button class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">📋 Copiar</button>
+              </div>
+              <div style="font-size:0.8rem;margin-top:8px;"><strong>Motivo:</strong> ${reason}</div>
+              <div style="font-size:0.78rem;color:var(--red-bright);margin-top:3px;"><strong>${periodInfo}</strong></div>
+            </div>
+          </div>
+        `;
+      }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum exonerado registrado.</p>';
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">📜 Listagens Oficiais — Polícia OMR</div>
+          ${renderRankGroupSection("Corpo de Praças", PRACAS_RANKS)}
+          ${renderRankGroupSection("Corpo de Oficiais", OFICIAIS_RANKS)}
+          ${renderRankGroupSection("Alto Escalão", ALTO_ESCALAO_RANKS)}
+          ${renderRankGroupSection("Alto Comando Supremo", ACS_RANKS)}
+          <div>
+            <div style="font-size:1rem;font-weight:900;margin-bottom:10px;color:var(--red-bright);">Exonerados (${exoneratedUsers.length})</div>
+            ${exoHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function nickSimilarityScore(a, b) {
+      const s1 = a.toLowerCase();
+      const s2 = b.toLowerCase();
+      if (s1 === s2) return 100;
+      let common = 0;
+      for (const ch of new Set(s1)) {
+        if (s2.includes(ch)) common++;
+      }
+      const maxLen = Math.max(s1.length, s2.length) || 1;
+      return Math.round((common / maxLen) * 100);
+    }
+
     function renderSIPanel(container) {
       const allUsers = Object.values(state.users);
       const pendingUsers = allUsers.filter(u => u.status === "Pendente");
       const exoneratedIps = new Set(allUsers.filter(u => u.status === "Exonerado").map(u => u.ip).filter(Boolean));
-      const ipGroups = {};
+      const exoneratedIsps = new Set(allUsers.filter(u => u.status === "Exonerado").map(u => u.ispGroup).filter(Boolean));
+
+      const ispGroups = {};
       allUsers.forEach(u => {
-        if (!u.ip) return;
-        ipGroups[u.ip] = ipGroups[u.ip] || [];
-        ipGroups[u.ip].push(u);
+        const key = u.ispGroup || u.ip || "Sem rede";
+        ispGroups[key] = ispGroups[key] || [];
+        ispGroups[key].push(u);
       });
+
+      const similarPairs = [];
+      for (let i = 0; i < allUsers.length; i++) {
+        for (let j = i + 1; j < allUsers.length; j++) {
+          const score = nickSimilarityScore(allUsers[i].nick, allUsers[j].nick);
+          if (score >= 60) {
+            similarPairs.push({ a: allUsers[i].nick, b: allUsers[j].nick, score });
+          }
+        }
+      }
 
       container.innerHTML = `
         <div class="card-box">
-          <div class="section-title">🕵️ Painel do Setor de Inteligência (BAEP / CITE)</div>
+          <div class="section-title">🕵️ Painel do Setor de Inteligência (BAEP / CITE / SI)</div>
 
-          <div style="font-size:0.82rem;font-weight:800;color:#fde047;margin-bottom:8px;">🆕 NOVOS CADASTROS AGUARDANDO APROVAÇÃO (${pendingUsers.length})</div>
+          <div style="font-size:0.82rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">🆕 NOVOS CADASTROS PENDENTES (${pendingUsers.length})</div>
           ${pendingUsers.length ? pendingUsers.map(u => `
-            <div style="background:#111117;padding:10px 12px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <div style="background:var(--bg-elevated);padding:10px 12px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
               <div>
-                <strong>${u.nick}</strong> <span style="font-size:0.75rem;color:var(--text-muted);">(IP: ${u.ip || "N/D"})</span>
+                <strong>${u.nick}</strong> <span style="font-size:0.75rem;color:var(--text-muted);">(Rede/IP: ${u.ip || "N/D"} • ${u.locationLabel || "N/D"})</span>
               </div>
               <div style="display:flex;gap:6px;">
                 <button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${u.nick}', 'Ativo')">Aprovar</button>
@@ -2340,22 +2926,47 @@
             </div>
           `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Nenhum cadastro pendente.</p>'}
 
-          <div style="font-size:0.82rem;font-weight:800;color:#fca5a5;margin:14px 0 8px;">🌐 AUDITORIA DE IPs E EXONERADOS</div>
-          ${Object.entries(ipGroups).map(([ip, list]) => {
+          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🟢 PRESENÇA, ÚLTIMO LOGIN, LOCAL E VPN</div>
+          ${allUsers.map(u => `
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.8rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <strong>${u.nick} (${u.rank} • ${u.status})</strong>
+                <span class="badge ${isUserOnline(u) ? "badge-approved" : "badge-canceled"}">${isUserOnline(u) ? "Online agora" : "Offline"}</span>
+              </div>
+              <div style="color:var(--text-muted);margin-top:4px;">
+                Último login: ${u.lastLogin || "Nunca acessou"} • Local: ${u.locationLabel || "N/D"} • Rede: ${u.ip || "N/D"} (${u.ispGroup || "N/D"})
+              </div>
+              ${u.vpnSuspect ? `<div style="margin-top:4px;"><span class="badge badge-pending">ALERTA: POSSÍVEL VPN / PROXY</span></div>` : ""}
+              ${u.locationAlert ? `<div style="margin-top:4px;color:var(--red-bright);font-weight:700;">${u.locationAlert}</div>` : ""}
+            </div>
+          `).join("")}
+
+          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🌐 AGRUPAMENTO POR PROVEDOR / FAIXA DE REDE</div>
+          ${Object.entries(ispGroups).map(([grp, list]) => {
             const isDup = list.length > 1;
-            const isExo = exoneratedIps.has(ip);
+            const isExoNet = list.some(u => exoneratedIps.has(u.ip) || exoneratedIsps.has(u.ispGroup));
             return `
-              <div style="background:#111117;border:1px solid ${isExo || isDup ? "var(--border-red)" : "var(--border-subtle)"};padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.82rem;">
-                <div><strong>IP:</strong> ${ip} ${isExo ? '<span class="badge badge-rejected">ALERTA: IP DE EXONERADO</span>' : ""} ${isDup ? '<span class="badge badge-pending">MÚLTIPLAS CONTAS</span>' : ""}</div>
+              <div style="background:var(--bg-elevated);border:1px solid ${isExoNet || isDup ? "var(--border-red)" : "var(--border-subtle)"};padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.8rem;">
+                <div>
+                  <strong>Grupo de Rede:</strong> ${grp}
+                  ${isExoNet ? '<span class="badge badge-rejected">VÍNCULO COM EXONERADO</span>' : ""}
+                  ${isDup ? '<span class="badge badge-pending">MESMA FAIXA/PROVEDOR</span>' : ""}
+                </div>
                 <div style="color:var(--text-muted);margin-top:4px;">Contas: ${list.map(u => `${u.nick} (${u.status})`).join(", ")}</div>
               </div>
             `;
           }).join("")}
+
+          <div style="font-size:0.82rem;font-weight:800;margin:14px 0 8px;">🔤 COMPARAÇÃO DE NICKS SEMELHANTES</div>
+          ${similarPairs.length ? similarPairs.map(p => `
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);padding:8px 12px;border-radius:10px;margin-bottom:6px;font-size:0.8rem;">
+              <strong>${p.a}</strong> ↔ <strong>${p.b}</strong> (${p.score}% de similaridade)
+            </div>
+          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhuma semelhança alta detectada entre nicks.</p>'}
         </div>
       `;
     }
 
-    // PAINEL DO ADMIN
     function renderAdminPanel(container) {
       const allUsers = Object.values(state.users);
       container.innerHTML = `
@@ -2369,7 +2980,7 @@
                 ${allUsers.map(u => `<option value="${u.nick}">${u.nick} (${u.rank})</option>`).join("")}
               </select>
               <select id="adm-rank-sel" class="form-select" style="flex:1;">
-                ${state.ranks.map(r => `<option value="${r}">${r}</option>`).join("")}
+                ${HIERARCHY_ORDER.filter(r => r !== "Recruta").map(r => `<option value="${r}">${r}</option>`).join("")}
               </select>
               <button class="btn btn-red btn-sm" onclick="adminChangeRank()">Aplicar</button>
             </div>
@@ -2409,8 +3020,7 @@
       const u = getUser(nick);
       if (u) {
         u.rank = rank;
-        await saveState();
-        showToast(`Patente de ${u.nick} alterada para ${rank}.`);
+        if (await saveState()) showToast(`Patente de ${u.nick} alterada para ${rank}.`);
       }
     };
 
@@ -2418,8 +3028,7 @@
       const r = document.getElementById("adm-new-rank").value.trim();
       if (!r) return;
       state.ranks.push(r);
-      await saveState();
-      showToast(`Patente "${r}" adicionada à hierarquia.`);
+      if (await saveState()) showToast(`Patente "${r}" adicionada à hierarquia.`);
     };
 
     window.adminAddOrg = async function() {
@@ -2427,9 +3036,15 @@
       const name = document.getElementById("adm-org-name").value.trim();
       const u = getCurrentUser();
       if (!id || !name) return;
-      state.orgs.push({ id, name, icon: "🔰", leader: u.nick, members: [u.nick] });
-      await saveState();
-      showToast(`Órgão ${id} criado!`);
+      state.orgs.push({
+        id,
+        name,
+        icon: "🔰",
+        members: [{ nick: u.nick, role: "Coordenador" }],
+        internalRegimento: `Regimento Interno — ${name} (${id})`,
+        penalCode: `Código Penal — ${name} (${id})`
+      });
+      if (await saveState()) showToast(`Órgão ${id} criado!`);
     };
 
     window.uploadInstaPhoto = function(slot, input) {
@@ -2438,8 +3053,7 @@
       const reader = new FileReader();
       reader.onload = async () => {
         state.instaPhotos[slot] = reader.result;
-        await saveState();
-        showToast(`Foto ${slot + 1} do destaque @policiaomr atualizada!`);
+        if (await saveState()) showToast(`Foto ${slot + 1} do destaque @policiaomr atualizada!`);
       };
       reader.readAsDataURL(file);
     };
