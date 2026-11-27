@@ -772,6 +772,58 @@
       cursor: not-allowed;
     }
 
+    .bbcode-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 6px 8px;
+    }
+
+    .bbcode-toolbar + .form-textarea {
+      border-radius: 0 0 10px 10px;
+    }
+
+    .bb-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .bb-btn:hover {
+      border-color: var(--border-red);
+      color: var(--red-bright);
+    }
+
+    .bb-content-rendered {
+      line-height: 1.55;
+      word-break: break-word;
+    }
+
+    .bb-content-rendered a {
+      color: var(--red-bright);
+      text-decoration: underline;
+    }
+
+    .bb-media-img {
+      display: block;
+      max-width: 100%;
+      max-height: 260px;
+      border-radius: 10px;
+      margin: 8px 0;
+      border: 1px solid var(--border-subtle);
+      object-fit: contain;
+    }
+
     .btn {
       border: none;
       border-radius: 10px;
@@ -1304,6 +1356,7 @@
         <button type="button" class="nav-subitem" onclick="openReqForm('Licença')">Licença</button>
         <button type="button" class="nav-subitem" onclick="openReqForm('Contrato')">Contrato</button>
         <button type="button" class="nav-subitem" onclick="openReqForm('Venda')">Venda</button>
+        <button type="button" class="nav-subitem" onclick="openReqForm('Gratificação')">Gratificação</button>
         <button type="button" id="nav-drh-panel" class="nav-subitem" style="color:var(--red-bright);font-weight:700;" onclick="navigate('drh-panel')">
           <svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-3 7 3M5 8l-2 5h4l-2-5zm14 0l-2 5h4l-2-5zM8 21h8"/></svg>Painel do DRH
         </button>
@@ -1458,10 +1511,7 @@
       chevronLeft: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>`,
       check: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>`,
       x: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>`,
-      ban: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>`,
-      code: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>`,
-      users: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-      forum: `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
+      ban: `<svg class="ui-icon ui-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>`
     };
 
     const REQ_MODALITIES = [
@@ -1473,10 +1523,11 @@
       "Exoneração",
       "Licença",
       "Contrato",
-      "Venda"
+      "Venda",
+      "Gratificação"
     ];
 
-    const POSITIVE_REQ_TYPES = new Set(["Promoção", "Contrato", "Venda", "Licença"]);
+    const POSITIVE_REQ_TYPES = new Set(["Promoção", "Contrato", "Venda", "Licença", "Gratificação"]);
 
     const PRACAS_RANKS = ["Soldado", "Cabo", "Sargento", "Subtenente", "Aspirante a Oficial"];
     const OFICIAIS_RANKS = ["Tenente", "Capitão", "Major", "Coronel", "General"];
@@ -1572,6 +1623,97 @@
           { name: "Supremo", isAdmin: true }
         ]
       }
+    };
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function sanitizeUrl(rawUrl) {
+      const cleaned = (rawUrl || "").trim();
+      if (!cleaned) return "";
+      if (/^(https?:\/\/|data:image\/(png|jpeg|jpg|gif|webp);base64,|[\w./-]+\.(png|jpe?g|gif|webp))/i.test(cleaned)) {
+        return cleaned;
+      }
+      return "";
+    }
+
+    function renderBBCode(rawText) {
+      let text = escapeHtml(rawText || "");
+      text = text.replace(/\[b\]([\s\S]*?)\[\/b\]/gi, "<strong>$1</strong>");
+      text = text.replace(/\[i\]([\s\S]*?)\[\/i\]/gi, "<em>$1</em>");
+      text = text.replace(/\[size=(12|14|16|18|20|24)\]([\s\S]*?)\[\/size\]/gi, (_, sz, inner) => {
+        return `<span style="font-size:${sz}px;line-height:1.35;">${inner}</span>`;
+      });
+      text = text.replace(/\[(img|gif)\]([\s\S]*?)\[\/\1\]/gi, (_, _tag, rawSrc) => {
+        const safeSrc = sanitizeUrl(rawSrc.replace(/&amp;/g, "&"));
+        if (!safeSrc) return "";
+        return `<img src="${escapeHtml(safeSrc)}" alt="Mídia" class="bb-media-img" />`;
+      });
+      text = text.replace(/\[url=([^\]]+)\]([\s\S]*?)\[\/url\]/gi, (_, rawHref, label) => {
+        const safeHref = sanitizeUrl(rawHref.replace(/&amp;/g, "&"));
+        if (!safeHref) return label;
+        return `<a href="${escapeHtml(safeHref)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+      });
+      text = text.replace(/\[url\]([\s\S]*?)\[\/url\]/gi, (_, rawHref) => {
+        const safeHref = sanitizeUrl(rawHref.replace(/&amp;/g, "&"));
+        if (!safeHref) return rawHref;
+        return `<a href="${escapeHtml(safeHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(safeHref)}</a>`;
+      });
+      return text.replace(/\n/g, "<br>");
+    }
+
+    function buildBBCodeToolbar(textareaId, allowMedia = true) {
+      return `
+        <div class="bbcode-toolbar">
+          <button type="button" class="bb-btn" onclick="wrapBBCode('${textareaId}', '[b]', '[/b]')"><strong>N</strong></button>
+          <button type="button" class="bb-btn" onclick="wrapBBCode('${textareaId}', '[i]', '[/i]')"><em>I</em></button>
+          <select class="bb-btn" onchange="applyBBFontSize('${textareaId}', this.value); this.value='';" title="Tamanho da fonte">
+            <option value="">Tamanho</option>
+            <option value="12">Pequeno (12px)</option>
+            <option value="16">Médio (16px)</option>
+            <option value="20">Grande (20px)</option>
+          </select>
+          ${allowMedia ? `
+            <button type="button" class="bb-btn" onclick="promptBBMedia('${textareaId}', 'img')">Foto</button>
+            <button type="button" class="bb-btn" onclick="promptBBMedia('${textareaId}', 'gif')">GIF</button>
+            <button type="button" class="bb-btn" onclick="promptBBLink('${textareaId}')">Link</button>
+          ` : ""}
+        </div>
+      `;
+    }
+
+    window.wrapBBCode = function(textareaId, openTag, closeTag) {
+      const ta = document.getElementById(textareaId);
+      if (!ta) return;
+      const start = ta.selectionStart ?? ta.value.length;
+      const end = ta.selectionEnd ?? ta.value.length;
+      const selected = ta.value.slice(start, end) || "texto";
+      ta.value = ta.value.slice(0, start) + openTag + selected + closeTag + ta.value.slice(end);
+      ta.focus();
+      ta.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+
+    window.applyBBFontSize = function(textareaId, size) {
+      if (!size) return;
+      wrapBBCode(textareaId, `[size=${size}]`, `[/size]`);
+    };
+
+    window.promptBBMedia = function(textareaId, tagName) {
+      const url = prompt(tagName === "gif" ? "Cole o URL do GIF ou nome do arquivo:" : "Cole o URL da foto ou nome do arquivo:");
+      if (!url || !url.trim()) return;
+      wrapBBCode(textareaId, `[${tagName}]${url.trim()}`, `[/${tagName}]`);
+    };
+
+    window.promptBBLink = function(textareaId) {
+      const url = prompt("Cole o link (https://...):");
+      if (!url || !url.trim()) return;
+      const label = prompt("Texto do link (opcional):") || url.trim();
+      wrapBBCode(textareaId, `[url=${url.trim()}]${label.trim()}`, `[/url]`);
     };
 
     function getMondayKey(dateInput = new Date()) {
@@ -1673,9 +1815,10 @@
     let currentDocKey = "RGM";
     let selectedListingCategory = "";
     let selectedRoleId = "";
-    let orgActiveTab = "home";
+    let orgSubPage = "overview";
     let orgWeekKey = getMondayKey();
     let editingScriptId = "";
+    let editingAnnId = "";
     let pendingMottoCode = "";
     let dbSyncedOnce = false;
     let siSearchQuery = "";
@@ -2319,13 +2462,14 @@
       currentRoute = route;
       if (route === "roles") {
         selectedRoleId = "";
-        orgActiveTab = "home";
+        orgSubPage = "overview";
         orgWeekKey = getMondayKey();
         editingScriptId = "";
       }
       if (route === "si-panel") {
         siSearchQuery = "";
       }
+      editingAnnId = "";
       toggleDrawer(false);
       document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
       if (route === "home") document.getElementById("bnav-home")?.classList.add("active");
@@ -2392,22 +2536,42 @@
         || isOrgMember(user.nick, "COR")
         || isOrgMember(user.nick, "SCP");
 
-      const annHtml = state.announcements.map(a => `
-        <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
-            <div style="font-weight:800;font-size:0.88rem;">${a.title}</div>
-            ${canPostAnn ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">${ICONS.trash} Apagar</button>` : ""}
-          </div>
-          <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.45;margin-bottom:9px;">${a.body}</div>
-          <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
-            <div style="text-align:right;">
-              <div style="font-weight:800;font-size:0.78rem;">${a.author}</div>
-              <div style="font-size:0.68rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
+      const annHtml = state.announcements.map(a => {
+        if (editingAnnId === a.id && canPostAnn) {
+          return `
+            <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:11px;margin-bottom:8px;">
+              <input id="edit-ann-title-${a.id}" class="form-control" value="${escapeHtml(a.title)}" style="margin-bottom:6px;" />
+              ${buildBBCodeToolbar(`edit-ann-body-${a.id}`, true)}
+              <textarea id="edit-ann-body-${a.id}" class="form-textarea" rows="4" style="margin-bottom:8px;">${escapeHtml(a.body)}</textarea>
+              <div style="display:flex;gap:6px;">
+                <button type="button" class="btn btn-green btn-sm" onclick="saveEditedAnnouncement('${a.id}')">${ICONS.check} Guardar</button>
+                <button type="button" class="btn btn-dark btn-sm" onclick="setEditingAnnouncement('')">Cancelar</button>
+              </div>
             </div>
-            <img src="${habboHeadUrl(a.author)}" style="width:30px;height:30px;border-radius:50%;background:var(--bg-input);border:1px solid var(--border-subtle);" />
+          `;
+        }
+        return `
+          <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;">
+              <div style="font-weight:800;font-size:0.88rem;">${escapeHtml(a.title)}</div>
+              ${canPostAnn ? `
+                <div style="display:flex;gap:5px;flex-shrink:0;">
+                  <button type="button" class="btn btn-dark btn-sm" onclick="setEditingAnnouncement('${a.id}')">${ICONS.edit}</button>
+                  <button type="button" class="btn btn-red btn-sm" onclick="deleteAnnouncement('${a.id}')">${ICONS.trash}</button>
+                </div>
+              ` : ""}
+            </div>
+            <div class="bb-content-rendered" style="font-size:0.8rem;color:var(--text-muted);margin-bottom:9px;">${renderBBCode(a.body)}</div>
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+              <div style="text-align:right;">
+                <div style="font-weight:800;font-size:0.78rem;">${escapeHtml(a.author)}</div>
+                <div style="font-size:0.68rem;color:var(--text-muted);">${escapeHtml(a.authorRank)} • ${escapeHtml(a.date)}</div>
+              </div>
+              <img src="${habboHeadUrl(a.author)}" style="width:30px;height:30px;border-radius:50%;background:var(--bg-input);border:1px solid var(--border-subtle);" />
+            </div>
           </div>
-        </div>
-      `).join("");
+        `;
+      }).join("");
 
       container.innerHTML = `
         <section class="hero-card">
@@ -2417,7 +2581,7 @@
           <div class="hero-grid">
             <div>
               <div class="hero-greeting">
-                Olá, ${user.nick}! Bem-vindo de volta ao system da
+                Olá, ${escapeHtml(user.nick)}! Bem-vindo de volta ao system da
                 <span>Polícia OMR.</span>
               </div>
               <div class="calendar-widget">
@@ -2430,8 +2594,8 @@
               </div>
             </div>
             <div class="hero-avatar-col">
-              <img class="hero-full-avatar" src="${habboFullUrl(user.nick)}" alt="${user.nick}" />
-              <div class="rank-badge-red">${user.rank}</div>
+              <img class="hero-full-avatar" src="${habboFullUrl(user.nick)}" alt="${escapeHtml(user.nick)}" />
+              <div class="rank-badge-red">${escapeHtml(user.rank)}</div>
             </div>
           </div>
         </section>
@@ -2465,7 +2629,8 @@
               <div style="margin-top:12px;border-top:1px solid var(--border-subtle);padding-top:10px;">
                 <div style="font-size:0.7rem;font-weight:800;color:var(--text-muted);margin-bottom:6px;">PUBLICAR COMUNICADO OFICIAL</div>
                 <input id="new-ann-title" class="form-control" placeholder="Título do comunicado" style="margin-bottom:6px;" />
-                <textarea id="new-ann-body" class="form-textarea" rows="2" placeholder="Texto do anúncio..." style="margin-bottom:6px;"></textarea>
+                ${buildBBCodeToolbar("new-ann-body", true)}
+                <textarea id="new-ann-body" class="form-textarea" rows="3" placeholder="Texto, [b]negrito[/b], [i]itálico[/i], [img]foto[/img], [gif]gif[/gif], [url=...]link[/url]..." style="margin-bottom:7px;"></textarea>
                 <button type="button" class="btn btn-red btn-sm" onclick="publishAnnouncement()">Publicar Anúncio</button>
               </div>
             ` : ""}
@@ -2515,6 +2680,27 @@
       }
     };
 
+    window.setEditingAnnouncement = function(annId) {
+      editingAnnId = annId;
+      renderCurrentView();
+    };
+
+    window.saveEditedAnnouncement = async function(annId) {
+      const title = document.getElementById(`edit-ann-title-${annId}`).value.trim();
+      const body = document.getElementById(`edit-ann-body-${annId}`).value.trim();
+      if (!title || !body) return showToast("Preencha título e conteúdo.", true);
+      const ann = state.announcements.find(x => x.id === annId);
+      if (ann) {
+        ann.title = title;
+        ann.body = body;
+      }
+      editingAnnId = "";
+      if (await saveState()) {
+        showToast("Comunicado atualizado!");
+        renderCurrentView();
+      }
+    };
+
     window.deleteAnnouncement = async function(annId) {
       state.announcements = state.announcements.filter(a => a.id !== annId);
       if (await saveState()) {
@@ -2525,7 +2711,7 @@
 
     function formatHistoryItemHtml(h) {
       if (typeof h === "string") {
-        return `<div class="history-item"><div class="hist-line-row">${h}</div></div>`;
+        return `<div class="history-item"><div class="hist-line-row">${escapeHtml(h)}</div></div>`;
       }
       const author = h.author || "Sistema";
       const verbText = h.verbText || "postou um(a)";
@@ -2541,14 +2727,14 @@
         <div class="history-item">
           <div class="hist-header-row">
             <div class="hist-author-wrap">
-              <img src="${habboHeadUrl(author)}" alt="${author}" class="hist-author-head" />
-              <span class="hist-nick-bold">${author}</span>
-              <span class="hist-plain-verb">${verbText}</span>
-              <span class="hist-modality-highlight ${modClass}">${modalityText}</span>
+              <img src="${habboHeadUrl(author)}" alt="${escapeHtml(author)}" class="hist-author-head" />
+              <span class="hist-nick-bold">${escapeHtml(author)}</span>
+              <span class="hist-plain-verb">${escapeHtml(verbText)}</span>
+              <span class="hist-modality-highlight ${modClass}">${escapeHtml(modalityText)}</span>
             </div>
-            <span style="font-size:0.72rem;color:var(--text-muted);">${dateStr}</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">${escapeHtml(dateStr)}</span>
           </div>
-          ${lines.length ? `<div class="hist-lines-stack">${lines.map(l => `<div class="hist-line-row">${l}</div>`).join("")}</div>` : ""}
+          ${lines.length ? `<div class="hist-lines-stack">${lines.map(l => `<div class="hist-line-row">${escapeHtml(l)}</div>`).join("")}</div>` : ""}
         </div>
       `;
     }
@@ -2563,7 +2749,7 @@
       const canModerateAccount = !isTargetFounder && (isSI(viewer.nick) || isHighAuthority(viewer.nick));
 
       const tagBlock = target.tag
-        ? `<span style="color:var(--red-bright);font-weight:800;">[${target.tag}]</span>`
+        ? `<span style="color:var(--red-bright);font-weight:800;">[${escapeHtml(target.tag)}]</span>`
         : `<span style="color:var(--text-muted);font-size:0.8rem;">[TAG não definida]</span> ${isOwn || (isHighAuthority(viewer.nick) && !isTargetFounder) ? `<button type="button" class="btn btn-red btn-sm" onclick="promptSetTag('${target.nick}')">Criar TAG</button>` : ""}`;
 
       const statusColors = {
@@ -2589,18 +2775,18 @@
         <div class="card-box">
           <div class="profile-hero">
             <div class="profile-circle-frame">
-              <img src="${habboFullUrl(target.nick)}" alt="${target.nick}" />
+              <img src="${habboFullUrl(target.nick)}" alt="${escapeHtml(target.nick)}" />
             </div>
-            <div style="font-size:1.15rem;font-weight:900;">${target.nick} ${tagBlock}</div>
-            <div class="rank-badge-red" style="margin-top:6px;">${target.rank}</div>
+            <div style="font-size:1.15rem;font-weight:900;">${escapeHtml(target.nick)} ${tagBlock}</div>
+            <div class="rank-badge-red" style="margin-top:6px;">${escapeHtml(target.rank)}</div>
 
             <div style="margin-top:10px;background:var(--bg-card);border:1px solid var(--border-subtle);padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
-              <code style="font-size:0.78rem;color:var(--text-main);">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
+              <code style="font-size:0.78rem;color:var(--text-main);">${escapeHtml(target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`)}</code>
               <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
             </div>
 
             <div style="margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
-              <span class="badge ${statusColors[target.status] || "badge-pending"}">Estado: ${target.status}</span>
+              <span class="badge ${statusColors[target.status] || "badge-pending"}">Estado: ${escapeHtml(target.status)}</span>
               ${isTargetFounder ? `<span class="badge badge-approved">${ICONS.shield} Conta Blindada (Fundador)</span>` : ""}
             </div>
 
@@ -2612,7 +2798,7 @@
                     <div class="org-badge-card">
                       <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img" />
                       <span style="font-size:0.7rem;font-weight:800;margin-top:4px;">${o.id}</span>
-                      <span style="font-size:0.62rem;color:var(--text-muted);">${m?.role || ""}</span>
+                      <span style="font-size:0.62rem;color:var(--text-muted);">${escapeHtml(m?.role || "")}</span>
                     </div>
                   `;
                 }).join("")}
@@ -2717,6 +2903,65 @@
       const canExonerate = isSI(user.nick) || isOrgMember(user.nick, "COR") || isOrgMember(user.nick, "SCP") || isHighAuthority(user.nick);
       const canContrato = isOrgMember(user.nick, "CDO") || isHighAuthority(user.nick);
 
+      if (type === "Gratificação") {
+        if (!isOfficialOrAbove(user.rank) && !isHighAuthority(user.nick)) {
+          container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente oficiais (Tenente ou superior) podem gratificar.</p></div>`;
+          return;
+        }
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title"><span class="section-title-left">${ICONS.clipboard} Novo Requerimento: Gratificação</span></div>
+
+            <div class="form-group">
+              <label class="form-label">Nick</label>
+              <input class="form-control" value="${escapeHtml(user.nick)}" readonly />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">TAG Utilizada</label>
+              <select id="req-tag" class="form-select">
+                ${tagOptions.map(t => `<option value="${t.value}" data-is-org="${t.isOrg ? "1" : "0"}">${t.label}</option>`).join("")}
+              </select>
+            </div>
+
+            <div class="form-group nick-match-wrap">
+              <label class="form-label">Nick do envolvido</label>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <img id="req-target-head" src="${habboHeadUrl("")}" style="width:36px;height:36px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);" />
+                <input
+                  id="req-target"
+                  class="form-control"
+                  placeholder="Nick do militar envolvido..."
+                  oninput="onReqTargetChange(this.value, 'Gratificação')"
+                  onfocus="showNickSuggestions('req-target', 'req-target-suggestions', this.value)"
+                  onblur="setTimeout(() => hideNickSuggestions('req-target-suggestions'), 150)"
+                />
+              </div>
+              <div id="req-target-suggestions" class="nick-suggestions-box"></div>
+              <div id="req-target-info" style="font-size:0.74rem;color:var(--text-muted);margin-top:4px;"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Quantidade de medalhas (pode ser negativa também, tipo: -200)</label>
+              <input id="req-medals" type="number" step="1" class="form-control" placeholder="Ex: 50 ou -200" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Permissor (opcional)</label>
+              <input id="req-permissor" class="form-control" placeholder="Nick de quem autorizou (opcional)" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Motivo</label>
+              <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Descreva o motivo da gratificação..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-red" style="width:100%;padding:10px;" onclick="submitRequirement('Gratificação')">Publicar Gratificação</button>
+          </div>
+        `;
+        return;
+      }
+
       if (canPostSubtenenteReq && !isSubtenenteOrAbove(user.rank) && !isHighAuthority(user.nick)) {
         container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Apenas a partir de Subtenente é possível publicar ${type}.</p></div>`;
         return;
@@ -2743,11 +2988,11 @@
             <div class="section-title"><span class="section-title-left">${ICONS.clipboard} Solicitar Licença</span></div>
             <div class="form-group">
               <label class="form-label">Nick</label>
-              <input class="form-control" value="${user.nick}" readonly />
+              <input class="form-control" value="${escapeHtml(user.nick)}" readonly />
             </div>
             <div class="form-group">
               <label class="form-label">Patente</label>
-              <input class="form-control" value="${user.rank}" readonly />
+              <input class="form-control" value="${escapeHtml(user.rank)}" readonly />
             </div>
             <div class="form-group">
               <label class="form-label">Data de Vencimento da Licença</label>
@@ -2779,7 +3024,7 @@
             <label class="form-label">Autor da Publicação</label>
             <div style="display:flex;align-items:center;gap:10px;background:var(--bg-elevated);padding:8px 12px;border-radius:10px;border:1px solid var(--border-subtle);">
               <img src="${habboHeadUrl(user.nick)}" style="width:32px;height:32px;border-radius:50%;" />
-              <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick} (${user.rank})" readonly />
+              <input class="form-control" style="border:none;background:transparent;padding:0;" value="${escapeHtml(user.nick)} (${escapeHtml(user.rank)})" readonly />
             </div>
           </div>
 
@@ -2900,7 +3145,7 @@
             if (type === "Rebaixamento" && idx - 1 >= 1) rankSel.value = HIERARCHY_ORDER[idx - 1];
           }
         } else if (nick) {
-          info.textContent = (type === "Contrato" || type === "Venda")
+          info.textContent = ["Contrato", "Venda", "Gratificação"].includes(type)
             ? "Militar ainda não registado — será criado automaticamente ao publicar."
             : "Militar não encontrado no system.";
         } else {
@@ -2921,6 +3166,84 @@
 
       if (author.status === "Demitido" && !isFounderNick(author.nick) && !["Venda", "Contrato", "Exoneração"].includes(type)) {
         return showToast("Militares demitidos só podem postar Venda, Contrato ou Exoneração.", true);
+      }
+
+      if (type === "Gratificação") {
+        if (!isOfficialOrAbove(author.rank) && !isHighAuthority(author.nick)) {
+          return showToast("Somente oficiais (Tenente ou superior) podem gratificar.", true);
+        }
+        const tagSelect = document.getElementById("req-tag");
+        const tag = tagSelect.value;
+        const targetNick = document.getElementById("req-target").value.trim();
+        const medalsRaw = document.getElementById("req-medals").value.trim();
+        const medalsNum = Number(medalsRaw);
+        const permissor = document.getElementById("req-permissor").value.trim();
+        const motivo = document.getElementById("req-obs").value.trim();
+
+        if (!targetNick || medalsRaw === "" || Number.isNaN(medalsNum) || medalsNum === 0 || !motivo) {
+          return showToast("Preencha o nick do envolvido, quantidade de medalhas diferente de zero e o motivo.", true);
+        }
+
+        let target = getUser(targetNick);
+        if (!target) {
+          target = {
+            nick: targetNick,
+            tag: "",
+            rank: "Soldado",
+            status: "Desativado",
+            password: "",
+            isAdmin: false,
+            ip: "",
+            ipsRecorded: [],
+            lastLogin: "Sem registo",
+            lastPromoLine: `${targetNick} [${tag}] ${shortDate}`,
+            history: []
+          };
+          state.users[targetNick.toLowerCase()] = target;
+        }
+
+        const req = {
+          id: "req-" + Date.now(),
+          type: "Gratificação",
+          author: author.nick,
+          tag,
+          target: target.nick,
+          medals: medalsNum,
+          permissor,
+          obs: motivo,
+          createdAt: nowStr,
+          shortDate,
+          status: "Em análise",
+          reviewedBy: "",
+          reviewedAt: "",
+          reviewNote: ""
+        };
+        state.requirements.unshift(req);
+
+        const obsLines = [
+          `Quantidade de medalhas: ${medalsNum > 0 ? `+${medalsNum}` : medalsNum}`,
+          ...(permissor ? [`Permissor: ${permissor}`] : []),
+          `Motivo: ${motivo}`,
+          `${target.nick} [${tag}] ${shortDate}`
+        ];
+
+        target.history = target.history || [];
+        target.history.unshift({
+          reqId: req.id,
+          author: author.nick,
+          verbText: "postou um(a)",
+          modalityText: "Gratificação",
+          isPositive: medalsNum >= 0,
+          obs: obsLines.join("\n"),
+          date: nowStr,
+          status: "Em análise"
+        });
+
+        if (await saveState()) {
+          showToast("Gratificação publicada para análise no DRH!");
+          navigate("drh-panel");
+        }
+        return;
       }
 
       if (type === "Licença") {
@@ -3079,22 +3402,24 @@
       return `
         <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:8px;">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
-            <strong style="font-size:0.86rem;">${r.type} → ${r.target}</strong>
-            <span class="badge ${badgeClass}">${r.status}</span>
+            <strong style="font-size:0.86rem;">${escapeHtml(r.type)} → ${escapeHtml(r.target)}</strong>
+            <span class="badge ${badgeClass}">${escapeHtml(r.status)}</span>
           </div>
           <div style="font-size:0.73rem;color:var(--text-muted);margin-bottom:4px;">
-            Publicado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
+            Publicado por <strong>${escapeHtml(r.author)}</strong> [${escapeHtml(r.tag)}] em ${escapeHtml(r.createdAt)}
           </div>
-          ${r.newRank ? `<div style="font-size:0.78rem;margin-bottom:2px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
-          ${r.saleValue ? `<div style="font-size:0.78rem;margin-bottom:2px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
-          ${r.type === "Exoneração" ? `<div style="font-size:0.78rem;margin-bottom:2px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${r.createdAt} até ${r.exoEndDate})` : "Permanente"}</strong></div>` : ""}
-          <div style="font-size:0.78rem;margin-bottom:4px;">Observações: ${r.obs}</div>
-          ${r.proofs ? `<div style="font-size:0.74rem;margin-bottom:4px;"><a href="${r.proofs}" target="_blank" style="color:var(--red-bright);">Ver provas anexadas</a></div>` : ""}
-          ${r.reviewedBy ? `<div style="font-size:0.72rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${r.reviewedBy} em ${r.reviewedAt})${r.reviewNote ? ` — Obs. DRH: "${r.reviewNote}"` : ""}</div>` : ""}
+          ${r.newRank ? `<div style="font-size:0.78rem;margin-bottom:2px;">Patente: <strong>${escapeHtml(r.newRank)}</strong></div>` : ""}
+          ${typeof r.medals === "number" ? `<div style="font-size:0.78rem;margin-bottom:2px;">Medalhas: <strong>${r.medals > 0 ? `+${r.medals}` : r.medals}</strong></div>` : ""}
+          ${r.saleValue ? `<div style="font-size:0.78rem;margin-bottom:2px;">Valor: <strong>${escapeHtml(r.saleValue)}</strong></div>` : ""}
+          ${r.permissor ? `<div style="font-size:0.78rem;margin-bottom:2px;">Permissor: <strong>${escapeHtml(r.permissor)}</strong></div>` : ""}
+          ${r.type === "Exoneração" ? `<div style="font-size:0.78rem;margin-bottom:2px;">Período: <strong>${r.exoMode === "temporaria" ? `Temporária (${escapeHtml(r.createdAt)} até ${escapeHtml(r.exoEndDate)})` : "Permanente"}</strong></div>` : ""}
+          <div style="font-size:0.78rem;margin-bottom:4px;">Motivo / Observações: ${escapeHtml(r.obs)}</div>
+          ${r.proofs ? `<div style="font-size:0.74rem;margin-bottom:4px;"><a href="${escapeHtml(sanitizeUrl(r.proofs) || "#")}" target="_blank" style="color:var(--red-bright);">Ver provas anexadas</a></div>` : ""}
+          ${r.reviewedBy ? `<div style="font-size:0.72rem;color:var(--red-bright);margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">DRH (${escapeHtml(r.reviewedBy)} em ${escapeHtml(r.reviewedAt)})${r.reviewNote ? ` — Obs. DRH: "${escapeHtml(r.reviewNote)}"` : ""}</div>` : ""}
 
           ${showDrhActions ? `
             <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border-subtle);">
-              <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH (opcional)..." style="margin-bottom:6px;padding:6px 9px;font-size:0.77rem;" value="${r.reviewNote || ""}" />
+              <input id="drh-note-${r.id}" class="form-control" placeholder="Observação do DRH (opcional)..." style="margin-bottom:6px;padding:6px 9px;font-size:0.77rem;" value="${escapeHtml(r.reviewNote || "")}" />
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 ${r.status === "Em análise" ? `
                   <button type="button" class="btn btn-green btn-sm" onclick="updateReqStatus('${r.id}', 'Aprovado')">${ICONS.check} Aprovar</button>
@@ -3114,7 +3439,7 @@
       const byMod = state.requirements.filter(r => r.type === mod);
       const pendingMod = byMod.filter(r => r.status === "Em análise");
       const approvedMod = byMod.filter(r => r.status === "Aprovado");
-      const rejectedMod = byMod.filter(r => r.status === "Reprovado");
+      const rejectedMod = byMod.filter(r => r.status === "Reprovado" || r.status === "Cancelado");
 
       container.innerHTML = `
         <div class="card-box">
@@ -3235,7 +3560,7 @@
           <div class="section-title"><span class="section-title-left">${ICONS.book} Postar Aulas — Academia de Tutores</span></div>
           <div class="form-group">
             <label class="form-label">Instrutor Responsável</label>
-            <input class="form-control" value="${user.nick}" readonly />
+            <input class="form-control" value="${escapeHtml(user.nick)}" readonly />
           </div>
           <div class="form-group">
             <label class="form-label">Academia / Órgão</label>
@@ -3361,10 +3686,11 @@
             <button type="button" class="btn btn-sm ${currentDocKey === "IDI" ? "btn-red" : "btn-dark"}" onclick="openDoc('IDI')">IDI</button>
           </div>
           ${canEdit ? `
-            <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${state.documents[currentDocKey] || ""}</textarea>
+            ${buildBBCodeToolbar("doc-editor", true)}
+            <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${escapeHtml(state.documents[currentDocKey] || "")}</textarea>
             <button type="button" class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">${ICONS.check} Guardar Documento</button>
           ` : `
-            <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;line-height:1.55;font-size:0.84rem;">${state.documents[currentDocKey] || ""}</div>
+            <div class="bb-content-rendered" style="background:var(--bg-elevated);padding:13px;border-radius:11px;font-size:0.84rem;">${renderBBCode(state.documents[currentDocKey] || "")}</div>
           `}
         </div>
       `;
@@ -3402,7 +3728,7 @@
                 <button type="button" class="btn btn-dark listing-choice-btn" onclick="selectRoleOrg('${o.id}')">
                   <span style="display:inline-flex;align-items:center;gap:10px;">
                     <img src="${o.emblem || OMR_LOGO_PATH}" alt="${o.id}" class="emblem-img" />
-                    <span><strong>${o.name} (${o.id})</strong> — <span style="color:var(--text-muted);font-weight:600;">${badgeLabel}</span></span>
+                    <span><strong>${escapeHtml(o.name)} (${o.id})</strong> — <span style="color:var(--text-muted);font-weight:600;">${escapeHtml(badgeLabel)}</span></span>
                   </span>
                   ${ICONS.chevronRight}
                 </button>
@@ -3431,7 +3757,7 @@
             <img src="${org.emblem || OMR_LOGO_PATH}" alt="${org.id}" class="emblem-img-lg" />
             <div>
               <div style="font-size:0.65rem;font-weight:800;color:var(--red-bright);text-transform:uppercase;letter-spacing:0.6px;">Órgão Interno • ${org.id}</div>
-              <div style="font-size:1.05rem;font-weight:900;">${org.name}</div>
+              <div style="font-size:1.05rem;font-weight:900;">${escapeHtml(org.name)}</div>
             </div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
@@ -3446,17 +3772,17 @@
         </div>
 
         <div class="org-subnav-tabs">
-          <button type="button" class="org-tab-btn ${orgActiveTab === "home" ? "active" : ""}" onclick="setOrgTab('home')">Início</button>
-          <button type="button" class="org-tab-btn ${orgActiveTab === "docs" ? "active" : ""}" onclick="setOrgTab('docs')">Documentos</button>
-          <button type="button" class="org-tab-btn ${orgActiveTab === "scripts" ? "active" : ""}" onclick="setOrgTab('scripts')">Scripts</button>
-          <button type="button" class="org-tab-btn ${orgActiveTab === "members" ? "active" : ""}" onclick="setOrgTab('members')">Membros</button>
-          <button type="button" class="org-tab-btn ${orgActiveTab === "forum" ? "active" : ""}" onclick="setOrgTab('forum')">Fórum</button>
+          <button type="button" class="org-tab-btn ${orgSubPage === "overview" ? "active" : ""}" onclick="setOrgSubPage('overview')">Início</button>
+          <button type="button" class="org-tab-btn ${orgSubPage === "docs" ? "active" : ""}" onclick="setOrgSubPage('docs')">Documentos</button>
+          <button type="button" class="org-tab-btn ${orgSubPage === "scripts" ? "active" : ""}" onclick="setOrgSubPage('scripts')">Scripts</button>
+          <button type="button" class="org-tab-btn ${orgSubPage === "members" ? "active" : ""}" onclick="setOrgSubPage('members')">Membros</button>
+          <button type="button" class="org-tab-btn ${orgSubPage === "forum" ? "active" : ""}" onclick="setOrgSubPage('forum')">Fórum</button>
         </div>
       `;
 
-      let tabBodyHtml = "";
+      let bodyHtml = "";
 
-      if (orgActiveTab === "home") {
+      if (orgSubPage === "overview") {
         const weekCounts = org.weeklyClasses[orgWeekKey] || {};
         const rankedList = Object.entries(weekCounts)
           .map(([nickName, count]) => ({ nick: nickName, count }))
@@ -3466,7 +3792,7 @@
         const currentWeekMonday = getMondayKey();
         const isCurrentWeek = orgWeekKey === currentWeekMonday;
 
-        tabBodyHtml = `
+        bodyHtml = `
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
               <div>
@@ -3484,31 +3810,92 @@
                 <div style="display:flex;align-items:center;gap:10px;">
                   <span style="font-weight:900;font-size:0.84rem;color:${pos === 0 ? "var(--red-bright)" : "var(--text-muted)"};min-width:26px;">#${pos + 1}</span>
                   <img src="${habboHeadUrl(entry.nick)}" style="width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-subtle);" />
-                  <strong style="font-size:0.85rem;">${entry.nick}</strong>
+                  <strong style="font-size:0.85rem;">${escapeHtml(entry.nick)}</strong>
                 </div>
                 <span class="badge badge-approved">${entry.count} ${entry.count === 1 ? "aula" : "aulas"}</span>
               </div>
             `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhuma aula registada nesta semana para este órgão.</p>'}
+
+            ${canAdminOrg ? `
+              <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border-subtle);">
+                <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:10px;">Controlo de Membros — ${org.id}</div>
+
+                <div class="form-group nick-match-wrap">
+                  <label class="form-label">Adicionar ou Alterar Membro</label>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <input
+                      id="org-ctrl-nick"
+                      class="form-control"
+                      placeholder="Nick do militar..."
+                      style="flex:1;min-width:140px;"
+                      oninput="showNickSuggestions('org-ctrl-nick', 'org-ctrl-nick-sug', this.value)"
+                      onfocus="showNickSuggestions('org-ctrl-nick', 'org-ctrl-nick-sug', this.value)"
+                      onblur="setTimeout(() => hideNickSuggestions('org-ctrl-nick-sug'), 150)"
+                    />
+                    <select id="org-ctrl-role" class="form-select" style="width:auto;">
+                      ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
+                    </select>
+                    <button type="button" class="btn btn-green btn-sm" onclick="addOrgMemberWithRole(${idx})">Salvar</button>
+                  </div>
+                  <div id="org-ctrl-nick-sug" class="nick-suggestions-box"></div>
+                </div>
+
+                ${isSupreme && currentEntry ? `
+                  <div style="margin-bottom:12px;">
+                    <label class="form-label">Alterar Sua Própria Função em ${org.id}</label>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                      <select id="supreme-self-role" class="form-select" style="max-width:220px;">
+                        ${roleOptions.map(r => `<option value="${r.name}" ${r.name === currentEntry.role ? "selected" : ""}>${r.name}</option>`).join("")}
+                      </select>
+                      <button type="button" class="btn btn-red btn-sm" onclick="supremeChangeSelfRole(${idx})">Atualizar Minha Função</button>
+                    </div>
+                  </div>
+                ` : ""}
+
+                ${(org.members || []).length ? (org.members || []).map((m, mIdx) => {
+                  const canRemoveThis = !isFounderNick(m.nick) || isFounderNick(user.nick);
+                  return `
+                    <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:10px;padding:8px 11px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                      <div style="font-size:0.82rem;"><strong>${escapeHtml(m.nick)}</strong> — <span style="color:var(--text-muted);">${escapeHtml(m.role)}</span></div>
+                      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                        <select id="ctrl-role-sel-${idx}-${mIdx}" class="form-select" style="width:auto;padding:4px 8px;font-size:0.74rem;">
+                          ${roleOptions.map(r => `<option value="${r.name}" ${r.name === m.role ? "selected" : ""}>${r.name}</option>`).join("")}
+                        </select>
+                        <button type="button" class="btn btn-dark btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx}, 'ctrl-role-sel-${idx}-${mIdx}')">Alterar</button>
+                        ${canRemoveThis ? `<button type="button" class="btn btn-red btn-sm" onclick="removeOrgMember(${idx}, ${mIdx})">${ICONS.trash} Remover</button>` : ""}
+                      </div>
+                    </div>
+                  `;
+                }).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhum membro na lista.</p>'}
+              </div>
+            ` : ""}
           </div>
         `;
-      } else if (orgActiveTab === "docs") {
-        tabBodyHtml = `
+      } else if (orgSubPage === "docs") {
+        bodyHtml = `
           <div>
+            <div class="section-title">
+              <span class="section-title-left">${ICONS.book} Documentos — ${escapeHtml(org.name)}</span>
+              <button type="button" class="btn btn-dark btn-sm" onclick="setOrgSubPage('overview')">${ICONS.chevronLeft} Página do Órgão</button>
+            </div>
+
             <div class="form-group">
               <label class="form-label">Regimento Interno (RI)</label>
               ${canAdminOrg ? `
-                <textarea id="org-reg-editor" class="form-textarea" rows="6">${org.internalRegimento || ""}</textarea>
+                ${buildBBCodeToolbar("org-reg-editor", true)}
+                <textarea id="org-reg-editor" class="form-textarea" rows="6">${escapeHtml(org.internalRegimento || "")}</textarea>
               ` : `
-                <div style="background:var(--bg-elevated);padding:12px;border-radius:10px;white-space:pre-line;font-size:0.83rem;">${org.internalRegimento || ""}</div>
+                <div class="bb-content-rendered" style="background:var(--bg-elevated);padding:12px;border-radius:10px;font-size:0.83rem;">${renderBBCode(org.internalRegimento || "")}</div>
               `}
             </div>
 
             <div class="form-group">
               <label class="form-label">Código Penal</label>
               ${canAdminOrg ? `
-                <textarea id="org-penal-editor" class="form-textarea" rows="6">${org.penalCode || ""}</textarea>
+                ${buildBBCodeToolbar("org-penal-editor", true)}
+                <textarea id="org-penal-editor" class="form-textarea" rows="6">${escapeHtml(org.penalCode || "")}</textarea>
               ` : `
-                <div style="background:var(--bg-elevated);padding:12px;border-radius:10px;white-space:pre-line;font-size:0.83rem;">${org.penalCode || ""}</div>
+                <div class="bb-content-rendered" style="background:var(--bg-elevated);padding:12px;border-radius:10px;font-size:0.83rem;">${renderBBCode(org.penalCode || "")}</div>
               `}
             </div>
 
@@ -3519,10 +3906,10 @@
             ${org.extraDocs.map((docItem, dIdx) => `
               <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:8px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
-                  <strong style="font-size:0.88rem;">${docItem.title}</strong>
+                  <strong style="font-size:0.88rem;">${escapeHtml(docItem.title)}</strong>
                   ${canAdminOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgExtraDoc(${idx}, ${dIdx})">${ICONS.trash}</button>` : ""}
                 </div>
-                <div style="white-space:pre-line;font-size:0.82rem;color:var(--text-muted);">${docItem.content}</div>
+                <div class="bb-content-rendered" style="font-size:0.82rem;color:var(--text-muted);">${renderBBCode(docItem.content)}</div>
               </div>
             `).join("")}
 
@@ -3530,23 +3917,27 @@
               <div style="border-top:1px solid var(--border-subtle);padding-top:12px;margin-top:8px;">
                 <div style="font-size:0.78rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">+ Criar Novo Documento Interno</div>
                 <input id="new-org-doc-title" class="form-control" placeholder="Título do novo documento..." style="margin-bottom:7px;" />
-                <textarea id="new-org-doc-content" class="form-textarea" rows="4" placeholder="Conteúdo do documento..." style="margin-bottom:7px;"></textarea>
+                ${buildBBCodeToolbar("new-org-doc-content", true)}
+                <textarea id="new-org-doc-content" class="form-textarea" rows="4" placeholder="Conteúdo do documento (suporta BBCode)..." style="margin-bottom:7px;"></textarea>
                 <button type="button" class="btn btn-red btn-sm" onclick="addOrgExtraDoc(${idx})">Criar Documento</button>
               </div>
             ` : ""}
           </div>
         `;
-      } else if (orgActiveTab === "scripts") {
-        tabBodyHtml = `
+      } else if (orgSubPage === "scripts") {
+        bodyHtml = `
           <div>
-            <div style="font-size:0.88rem;font-weight:800;margin-bottom:10px;">Scripts de Aulas — ${org.id}</div>
+            <div class="section-title">
+              <span class="section-title-left">${ICONS.scroll} Scripts de Aulas — ${org.id}</span>
+              <button type="button" class="btn btn-dark btn-sm" onclick="setOrgSubPage('overview')">${ICONS.chevronLeft} Página do Órgão</button>
+            </div>
 
             ${org.scripts.length ? org.scripts.map(sc => {
               if (editingScriptId === sc.id && canAdminOrg) {
                 return `
                   <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:11px;padding:11px;margin-bottom:9px;">
-                    <input id="edit-script-title-${sc.id}" class="form-control" value="${sc.title}" style="margin-bottom:7px;" />
-                    <textarea id="edit-script-body-${sc.id}" class="form-textarea" rows="5" style="margin-bottom:7px;">${sc.body}</textarea>
+                    <input id="edit-script-title-${sc.id}" class="form-control" value="${escapeHtml(sc.title)}" style="margin-bottom:7px;" />
+                    <textarea id="edit-script-body-${sc.id}" class="form-textarea" rows="5" style="margin-bottom:7px;">${escapeHtml(sc.body)}</textarea>
                     <div style="display:flex;gap:6px;">
                       <button type="button" class="btn btn-green btn-sm" onclick="saveEditedScript(${idx}, '${sc.id}')">${ICONS.check} Guardar</button>
                       <button type="button" class="btn btn-dark btn-sm" onclick="setEditingScript('')">Cancelar</button>
@@ -3557,7 +3948,7 @@
               return `
                 <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:11px;padding:11px;margin-bottom:9px;">
                   <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
-                    <strong style="font-size:0.88rem;">${sc.title}</strong>
+                    <strong style="font-size:0.88rem;">${escapeHtml(sc.title)}</strong>
                     <div style="display:flex;gap:6px;">
                       <button type="button" class="btn btn-dark btn-sm" onclick="copyText(${JSON.stringify(sc.body)})">${ICONS.copy} Copiar</button>
                       ${canAdminOrg ? `
@@ -3566,7 +3957,7 @@
                       ` : ""}
                     </div>
                   </div>
-                  <pre style="white-space:pre-wrap;font-size:0.8rem;color:var(--text-muted);background:var(--bg-input);padding:9px;border-radius:8px;border:1px solid var(--border-subtle);">${sc.body}</pre>
+                  <pre style="white-space:pre-wrap;font-size:0.8rem;color:var(--text-muted);background:var(--bg-input);padding:9px;border-radius:8px;border:1px solid var(--border-subtle);">${escapeHtml(sc.body)}</pre>
                 </div>
               `;
             }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Nenhum script cadastrado neste órgão ainda.</p>'}
@@ -3581,87 +3972,59 @@
             ` : ""}
           </div>
         `;
-      } else if (orgActiveTab === "members") {
+      } else if (orgSubPage === "members") {
         const groupedByRole = roleOptions.map(rObj => {
           const matched = (org.members || []).filter(m => m.role === rObj.name);
           return { roleName: rObj.name, members: matched };
         }).filter(g => g.members.length > 0);
 
-        tabBodyHtml = `
+        bodyHtml = `
           <div>
-            ${canAdminOrg ? `
-              <div class="form-group nick-match-wrap">
-                <label class="form-label">Adicionar ou Alterar Membro</label>
-                <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                  <input
-                    id="org-add-nick"
-                    class="form-control"
-                    placeholder="Nick do militar..."
-                    style="flex:1;min-width:140px;"
-                    oninput="showNickSuggestions('org-add-nick', 'org-add-nick-sug', this.value)"
-                    onfocus="showNickSuggestions('org-add-nick', 'org-add-nick-sug', this.value)"
-                    onblur="setTimeout(() => hideNickSuggestions('org-add-nick-sug'), 150)"
-                  />
-                  <select id="org-add-role" class="form-select" style="width:auto;">
-                    ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
-                  </select>
-                  <button type="button" class="btn btn-green btn-sm" onclick="addOrgMemberWithRole(${idx})">Salvar</button>
-                </div>
-                <div id="org-add-nick-sug" class="nick-suggestions-box"></div>
-              </div>
-
-              ${isSupreme && currentEntry ? `
-                <div style="margin-bottom:10px;">
-                  <label class="form-label">Alterar Sua Própria Função em ${org.id}</label>
-                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <select id="supreme-self-role" class="form-select" style="max-width:220px;">
-                      ${roleOptions.map(r => `<option value="${r.name}" ${r.name === currentEntry.role ? "selected" : ""}>${r.name}</option>`).join("")}
-                    </select>
-                    <button type="button" class="btn btn-red btn-sm" onclick="supremeChangeSelfRole(${idx})">Atualizar Minha Função</button>
-                  </div>
-                </div>
-              ` : ""}
-            ` : ""}
+            <div class="section-title">
+              <span class="section-title-left">${ICONS.shield} Membros — ${org.id}</span>
+              <button type="button" class="btn btn-dark btn-sm" onclick="setOrgSubPage('overview')">${ICONS.chevronLeft} Página do Órgão</button>
+            </div>
 
             ${groupedByRole.length ? groupedByRole.map(group => `
               <div style="margin-bottom:14px;">
                 <div style="font-size:0.88rem;font-weight:800;color:var(--red-bright);margin-bottom:7px;">
-                  ${group.roleName} (${group.members.length})
+                  ${escapeHtml(group.roleName)} (${group.members.length})
                 </div>
                 ${group.members.map(m => {
-                  const mIdx = (org.members || []).findIndex(x => x.nick.toLowerCase() === m.nick.toLowerCase());
-                  const canRemoveThis = canAdminOrg && (!isFounderNick(m.nick) || isFounderNick(user.nick));
+                  const uObj = getUser(m.nick);
+                  const regLine = uObj?.lastPromoLine || `${m.nick} [${org.id}] ${formatShortDate()}`;
                   return `
                     <div class="listing-card">
-                      <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${m.nick}" style="height:74px;object-fit:contain;" />
+                      <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${escapeHtml(m.nick)}" style="height:76px;object-fit:contain;" />
                       <div style="flex:1;min-width:170px;">
-                        <div style="font-weight:800;font-size:0.9rem;">${m.nick}</div>
-                        <div style="font-size:0.74rem;color:var(--text-muted);margin-top:2px;">Cargo interno: <strong>${m.role}</strong></div>
-                        ${canAdminOrg ? `
-                          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px;">
-                            <select id="role-sel-${idx}-${mIdx}" class="form-select" style="width:auto;padding:4px 8px;font-size:0.75rem;">
-                              ${roleOptions.map(r => `<option value="${r.name}" ${r.name === m.role ? "selected" : ""}>${r.name}</option>`).join("")}
-                            </select>
-                            <button type="button" class="btn btn-dark btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx})">Alterar Cargo</button>
-                            ${canRemoveThis ? `<button type="button" class="btn btn-red btn-sm" onclick="removeOrgMember(${idx}, ${mIdx})">${ICONS.trash} Remover</button>` : ""}
-                          </div>
-                        ` : ""}
+                        <div style="font-weight:800;font-size:0.9rem;">${escapeHtml(m.nick)}</div>
+                        <div style="font-size:0.74rem;color:var(--text-muted);margin-top:2px;">Cargo interno: <strong>${escapeHtml(m.role)}</strong></div>
+                        <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                          <code style="font-size:0.76rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${escapeHtml(regLine)}</code>
+                          <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
+                        </div>
                       </div>
                     </div>
                   `;
                 }).join("")}
               </div>
-            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum membro ativo neste órgão.</p>'}
+            `).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum membro na visualização deste órgão.</p>'}
           </div>
         `;
-      } else if (orgActiveTab === "forum") {
-        tabBodyHtml = `
+      } else if (orgSubPage === "forum") {
+        bodyHtml = `
           <div>
+            <div class="section-title">
+              <span class="section-title-left">${ICONS.megaphone} Fórum — ${org.id}</span>
+              <button type="button" class="btn btn-dark btn-sm" onclick="setOrgSubPage('overview')">${ICONS.chevronLeft} Página do Órgão</button>
+            </div>
+
             ${canAdminOrg ? `
               <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:14px;">
                 <div style="font-size:0.76rem;font-weight:800;color:var(--red-bright);margin-bottom:7px;">PUBLICAR NO FÓRUM DO ÓRGÃO</div>
                 <input id="forum-post-title" class="form-control" placeholder="Assunto / Título do aviso ou relatório..." style="margin-bottom:7px;" />
-                <textarea id="forum-post-body" class="form-textarea" rows="3" placeholder="Escreva aqui o comunicado, relatório ou pauta..." style="margin-bottom:7px;"></textarea>
+                ${buildBBCodeToolbar("forum-post-body", true)}
+                <textarea id="forum-post-body" class="form-textarea" rows="3" placeholder="Escreva o comunicado, relatório ou pauta (suporta BBCode)..." style="margin-bottom:7px;"></textarea>
                 <button type="button" class="btn btn-red btn-sm" onclick="addOrgForumPost(${idx})">Publicar no Fórum</button>
               </div>
             ` : ""}
@@ -3669,12 +4032,12 @@
             ${org.forumPosts.length ? org.forumPosts.map(fp => `
               <div style="background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:12px;padding:11px;margin-bottom:9px;">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
-                  <strong style="font-size:0.88rem;">${fp.title}</strong>
+                  <strong style="font-size:0.88rem;">${escapeHtml(fp.title)}</strong>
                   ${canAdminOrg ? `<button type="button" class="btn btn-red btn-sm" onclick="deleteOrgForumPost(${idx}, '${fp.id}')">${ICONS.trash}</button>` : ""}
                 </div>
-                <div style="font-size:0.8rem;color:var(--text-muted);white-space:pre-line;line-height:1.5;margin-bottom:8px;">${fp.body}</div>
+                <div class="bb-content-rendered" style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">${renderBBCode(fp.body)}</div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:7px;">
-                  <span style="font-size:0.72rem;color:var(--text-muted);"><strong>${fp.author}</strong> • ${fp.date}</span>
+                  <span style="font-size:0.72rem;color:var(--text-muted);"><strong>${escapeHtml(fp.author)}</strong> • ${escapeHtml(fp.date)}</span>
                   <img src="${habboHeadUrl(fp.author)}" style="width:24px;height:24px;border-radius:50%;" />
                 </div>
               </div>
@@ -3686,21 +4049,21 @@
       container.innerHTML = `
         <div class="card-box">
           ${headerHtml}
-          ${tabBodyHtml}
+          ${bodyHtml}
         </div>
       `;
     }
 
     window.selectRoleOrg = function(orgId) {
       selectedRoleId = orgId;
-      orgActiveTab = "home";
+      orgSubPage = "overview";
       orgWeekKey = getMondayKey();
       editingScriptId = "";
       renderCurrentView();
     };
 
-    window.setOrgTab = function(tab) {
-      orgActiveTab = tab;
+    window.setOrgSubPage = function(sub) {
+      orgSubPage = sub;
       editingScriptId = "";
       renderCurrentView();
     };
@@ -3818,8 +4181,8 @@
     };
 
     window.addOrgMemberWithRole = async function(orgIdx) {
-      const nick = document.getElementById("org-add-nick").value.trim();
-      const role = document.getElementById("org-add-role").value;
+      const nick = document.getElementById("org-ctrl-nick").value.trim();
+      const role = document.getElementById("org-ctrl-role").value;
       if (!nick) return showToast("Digite o nick do militar.", true);
       const targetUser = getUser(nick);
       if (targetUser && !isFounderNick(nick) && (targetUser.status === "Demitido" || targetUser.status === "Exonerado")) {
@@ -3836,8 +4199,8 @@
       }
     };
 
-    window.changeExistingOrgMemberRole = async function(orgIdx, memberIdx) {
-      const newRole = document.getElementById(`role-sel-${orgIdx}-${memberIdx}`).value;
+    window.changeExistingOrgMemberRole = async function(orgIdx, memberIdx, selectId) {
+      const newRole = document.getElementById(selectId).value;
       const member = state.orgs[orgIdx]?.members?.[memberIdx];
       if (!member) return;
       member.role = newRole;
@@ -3930,15 +4293,15 @@
 
           return `
             <div class="listing-card">
-              <img src="${habboFullUrl(u.nick, { exonerated: true })}" alt="${u.nick}" style="height:78px;object-fit:contain;" />
+              <img src="${habboFullUrl(u.nick, { exonerated: true })}" alt="${escapeHtml(u.nick)}" style="height:78px;object-fit:contain;" />
               <div style="flex:1;min-width:180px;">
-                <div style="font-weight:800;font-size:0.9rem;">${u.nick}</div>
+                <div style="font-weight:800;font-size:0.9rem;">${escapeHtml(u.nick)}</div>
                 <div style="margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                  <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${regLine}</code>
+                  <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${escapeHtml(regLine)}</code>
                   <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
                 </div>
-                <div style="font-size:0.78rem;margin-top:7px;"><strong>Motivo:</strong> ${reason}</div>
-                <div style="font-size:0.76rem;color:var(--red-bright);margin-top:2px;"><strong>Período:</strong> ${periodInfo}</div>
+                <div style="font-size:0.78rem;margin-top:7px;"><strong>Motivo:</strong> ${escapeHtml(reason)}</div>
+                <div style="font-size:0.76rem;color:var(--red-bright);margin-top:2px;"><strong>Período:</strong> ${escapeHtml(periodInfo)}</div>
               </div>
             </div>
           `;
@@ -3964,17 +4327,17 @@
           return `
             <div style="margin-bottom:14px;">
               <div style="font-weight:800;font-size:0.9rem;color:var(--red-bright);margin-bottom:7px;">
-                ${rankName} (${members.length})
+                ${escapeHtml(rankName)} (${members.length})
               </div>
               ${members.map(m => {
                 const regLine = m.lastPromoLine || `${m.nick} ${m.tag ? `[${m.tag}]` : ""} ${formatShortDate()}`;
                 return `
                   <div class="listing-card">
-                    <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${m.nick}" style="height:78px;object-fit:contain;" />
+                    <img src="${habboFullUrl(m.nick, { listingActive: true })}" alt="${escapeHtml(m.nick)}" style="height:78px;object-fit:contain;" />
                     <div style="flex:1;min-width:180px;">
-                      <div style="font-weight:800;font-size:0.9rem;">${m.nick}</div>
+                      <div style="font-weight:800;font-size:0.9rem;">${escapeHtml(m.nick)}</div>
                       <div style="margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                        <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${regLine}</code>
+                        <code style="font-size:0.78rem;background:var(--bg-card);padding:4px 8px;border-radius:7px;border:1px solid var(--border-subtle);">${escapeHtml(regLine)}</code>
                         <button type="button" class="btn btn-dark btn-sm" onclick="copyText('${regLine.replace(/'/g, "\\'")}')">${ICONS.copy} Copiar</button>
                       </div>
                     </div>
@@ -3990,7 +4353,7 @@
       container.innerHTML = `
         <div class="card-box">
           <div class="section-title">
-            <span class="section-title-left">${ICONS.scroll} ${cat.label}</span>
+            <span class="section-title-left">${ICONS.scroll} ${escapeHtml(cat.label)}</span>
             <button type="button" class="btn btn-dark btn-sm" onclick="selectListingCategory('')">${ICONS.chevronLeft} Voltar</button>
           </div>
           ${rankBlocksHtml || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar registado nesta listagem de momento.</p>'}
@@ -4045,14 +4408,14 @@
               <div style="display:flex;align-items:center;gap:8px;">
                 <img src="${habboHeadUrl(m.nick)}" style="width:28px;height:28px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-subtle);flex-shrink:0;" />
                 <div>
-                  <div style="font-weight:800;">${m.nick} ${m.tag ? `[${m.tag}]` : ""}</div>
-                  <div style="font-size:0.68rem;color:var(--text-muted);">${m.rank}</div>
+                  <div style="font-weight:800;">${escapeHtml(m.nick)} ${m.tag ? `[${escapeHtml(m.tag)}]` : ""}</div>
+                  <div style="font-size:0.68rem;color:var(--text-muted);">${escapeHtml(m.rank)}</div>
                 </div>
               </div>
             </td>
-            <td><span class="badge ${m.status === "Ativo" ? "badge-approved" : (m.status === "Exonerado" || m.status === "Demitido") ? "badge-rejected" : "badge-pending"}">${m.status}</span></td>
-            <td style="font-family:monospace;font-size:0.73rem;">${mIps}</td>
-            <td style="font-size:0.74rem;color:var(--text-muted);">${mLastLogin}</td>
+            <td><span class="badge ${m.status === "Ativo" ? "badge-approved" : (m.status === "Exonerado" || m.status === "Demitido") ? "badge-rejected" : "badge-pending"}">${escapeHtml(m.status)}</span></td>
+            <td style="font-family:monospace;font-size:0.73rem;">${escapeHtml(mIps)}</td>
+            <td style="font-size:0.74rem;color:var(--text-muted);">${escapeHtml(mLastLogin)}</td>
             <td>
               <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
                 <button type="button" class="btn btn-dark btn-sm" onclick="openUserProfile('${escapedNick}')">Perfil</button>
@@ -4083,7 +4446,7 @@
               <input
                 id="si-cadastros-search"
                 class="form-control"
-                value="${siSearchQuery}"
+                value="${escapeHtml(siSearchQuery)}"
                 placeholder="Digite o nick do militar..."
                 oninput="onSiCadastrosSearch(this.value)"
                 onfocus="showNickSuggestions('si-cadastros-search', 'si-cadastros-suggestions', this.value, 'onSiCadastrosSearch(\\'__NICK__\\')')"
@@ -4117,8 +4480,8 @@
             return `
               <div style="background:var(--bg-elevated);border:1px solid ${matchesExonerated ? "var(--border-red)" : "var(--border-subtle)"};border-radius:11px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
                 <div>
-                  <strong>${u.nick}</strong>
-                  <span style="font-size:0.75rem;color:var(--text-muted);">— IP: ${userIps.join(", ") || "N/D"} • Último login: ${u.lastLogin || "Sem registo"}</span>
+                  <strong>${escapeHtml(u.nick)}</strong>
+                  <span style="font-size:0.75rem;color:var(--text-muted);">— IP: ${escapeHtml(userIps.join(", ") || "N/D")} • Último login: ${escapeHtml(u.lastLogin || "Sem registo")}</span>
                   ${matchesExonerated
                     ? `<div style="margin-top:4px;"><span class="badge badge-rejected">IP IGUAL AO DE EXONERADO</span></div>`
                     : `<div style="font-size:0.71rem;color:#16a34a;margin-top:3px;">Sem vínculo com IP de exonerado</div>`}
@@ -4134,13 +4497,13 @@
           <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin:14px 0 8px;">Alerta de IPs registados de forma diferente</div>
           ${differentIpUsers.length ? differentIpUsers.map(u => `
             <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:11px;padding:9px 12px;margin-bottom:8px;font-size:0.81rem;">
-              <strong>${u.nick}</strong> registou mais de um IP diferente: <strong>${u.ipsRecorded.join(" • ")}</strong>
+              <strong>${escapeHtml(u.nick)}</strong> registou mais de um IP diferente: <strong>${escapeHtml(u.ipsRecorded.join(" • "))}</strong>
             </div>
           `).join("") : ""}
 
           ${sharedIpEntries.length ? sharedIpEntries.map(([ip, list]) => `
             <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:11px;padding:9px 12px;margin-bottom:8px;font-size:0.81rem;">
-              IP <strong>${ip}</strong> associado a múltiplos militares: <strong>${list.map(x => `${x.nick} (${x.status})`).join(", ")}</strong>
+              IP <strong>${escapeHtml(ip)}</strong> associado a múltiplos militares: <strong>${list.map(x => `${escapeHtml(x.nick)} (${escapeHtml(x.status)})`).join(", ")}</strong>
             </div>
           `).join("") : ""}
 
@@ -4178,7 +4541,7 @@
             <label class="form-label">Alterar Patente Direta de Militar</label>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <select id="adm-user-sel" class="form-select" style="flex:1;">
-                ${allUsers.map(u => `<option value="${u.nick}">${u.nick} (${u.rank})</option>`).join("")}
+                ${allUsers.map(u => `<option value="${u.nick}">${escapeHtml(u.nick)} (${escapeHtml(u.rank)})</option>`).join("")}
               </select>
               <select id="adm-rank-sel" class="form-select" style="flex:1;">
                 ${HIERARCHY_ORDER.filter(r => r !== "Recruta").map(r => `<option value="${r}">${r}</option>`).join("")}
