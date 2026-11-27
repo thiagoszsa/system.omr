@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
@@ -455,7 +455,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.07;
+      opacity: 0.08;
       pointer-events: none;
     }
 
@@ -1030,7 +1030,7 @@
       </div>
 
       <div id="sync-status-footer" style="margin-top:12px;text-align:center;font-size:0.7rem;color:var(--text-muted);">
-        Conectando ao banco de dados OMR...
+        A ligar à base de dados OMR...
       </div>
     </div>
   </div>
@@ -1158,52 +1158,98 @@
     const STATE_DOC = doc(db, "omr_state", "main");
 
     function buildOmrLogoDataUrl() {
-      const rows = [
-        "........G........",
-        "........G........",
-        ".....R..G..R.....",
-        "....RR.GGG.RR....",
-        "...R..GGGGG..R...",
-        "..RR.GGGGGGG.RR..",
-        ".R..K..GGG..K..R.",
-        "R..KK..G.G..KK..R",
-        "WWKKKKKKKKKKKKKWW",
-        "WWWWKKKKKKKKKWWWW",
-        ".WWWWWKKKKKWWWWW.",
-        ".R.WWWWW.WWWWW.R.",
-        "R...WWWWWWWWW...R",
-        ".R...WWWWWWW...R.",
-        "R.R...WWWWW...SSS",
-        ".R.R...WWW...SSSS",
-        "..R.R.......SSSSS",
-        "...RRR..R..RR.SSS",
-        "....RRRRRRRR..R.R",
-        ".....RR...RR..R.R",
-        "......K...K......"
-      ];
-      const palette = {
-        G: "#facc15",
-        R: "#dc2626",
-        W: "#f4f4f5",
-        K: "#27272a",
-        S: "#d4d4d8"
-      };
-      const scale = 12;
-      const w = rows[0].length;
-      const h = rows.length;
+      const size = 32;
+      const px = 4;
       const canvas = document.createElement("canvas");
-      canvas.width = w * scale;
-      canvas.height = h * scale;
+      canvas.width = size * px;
+      canvas.height = size * px;
       const ctx = canvas.getContext("2d");
-      for (let y = 0; y < h; y++) {
-        for (let x = 0; x < w; x++) {
-          const ch = rows[y][x];
-          if (palette[ch]) {
-            ctx.fillStyle = palette[ch];
-            ctx.fillRect(x * scale, y * scale, scale, scale);
+
+      const put = (x, y, color, w = 1, h = 1) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(x * px, y * px, w * px, h * px);
+      };
+
+      const darkFrame = "#18181b";
+      const midFrame = "#27272a";
+      const hiFrame = "#3f3f46";
+      const crimsonDark = "#7f1d1d";
+      const crimson = "#b91c1c";
+      const crimsonBright = "#ef4444";
+      const gold = "#facc15";
+      const goldShade = "#eab308";
+      const wingWhite = "#f4f4f5";
+      const wingShade = "#d4d4d8";
+      const medalLight = "#e4e4e7";
+      const medalMid = "#a1a1aa";
+
+      // Contorno circular/escudo escuro
+      for (let y = 3; y <= 28; y++) {
+        for (let x = 3; x <= 28; x++) {
+          const dx = x - 15.5;
+          const dy = y - 16;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist >= 10.5 && dist <= 13.6) {
+            put(x, y, dist > 12.5 ? darkFrame : midFrame);
           }
         }
       }
+
+      // Destaques superiores e laterais em cinza/vermelho
+      put(5, 6, hiFrame, 2, 2);
+      put(25, 6, hiFrame, 2, 2);
+      put(4, 15, midFrame, 2, 4);
+      put(26, 15, midFrame, 2, 4);
+
+      // Ornamentos vermelhos (folhas/chamas ao redor do emblema)
+      const redClusters = [
+        [9, 5, crimson], [10, 6, crimsonBright], [8, 7, crimsonDark], [7, 8, crimson],
+        [22, 5, crimson], [21, 6, crimsonBright], [23, 7, crimsonDark], [24, 8, crimson],
+        [6, 11, crimson], [7, 12, crimsonBright], [5, 13, crimsonDark],
+        [25, 11, crimson], [24, 12, crimsonBright], [26, 13, crimsonDark],
+        [6, 20, crimsonDark], [7, 21, crimson], [8, 22, crimsonBright], [9, 23, crimson],
+        [25, 20, crimsonDark], [24, 21, crimson], [23, 22, crimsonBright], [22, 23, crimson],
+        [11, 24, crimson], [12, 25, crimsonBright], [13, 25, crimson],
+        [20, 24, crimson], [19, 25, crimsonBright], [18, 25, crimson]
+      ];
+      redClusters.forEach(([x, y, c]) => put(x, y, c));
+
+      // Estrela amarela no topo
+      const starRows = [
+        [15, 2, gold, 2],
+        [14, 3, gold, 4],
+        [14, 4, gold, 4],
+        [9, 5, gold, 14],
+        [10, 6, gold, 12],
+        [11, 7, goldShade, 10],
+        [12, 8, goldShade, 8],
+        [11, 9, goldShade, 3], [18, 9, goldShade, 3],
+        [10, 10, goldShade, 3], [19, 10, goldShade, 3]
+      ];
+      starRows.forEach(([x, y, c, w]) => put(x, y, c, w, 1));
+
+      // Asas brancas abertas ao centro
+      const wingRows = [
+        [5, 12, wingWhite, 6], [21, 12, wingWhite, 6],
+        [6, 13, wingWhite, 7], [19, 13, wingWhite, 7],
+        [7, 14, wingWhite, 8], [17, 14, wingWhite, 8],
+        [8, 15, wingWhite, 16],
+        [9, 16, wingWhite, 14],
+        [10, 17, wingShade, 12],
+        [12, 18, wingShade, 8],
+        [14, 19, wingShade, 4]
+      ];
+      wingRows.forEach(([x, y, c, w]) => put(x, y, c, w, 1));
+
+      // Medalha cinza com fitas vermelhas no canto inferior direito
+      put(24, 21, medalMid, 4, 1);
+      put(23, 22, medalLight, 6, 4);
+      put(25, 23, medalMid, 2, 2);
+      put(24, 26, medalMid, 4, 1);
+      put(24, 27, crimson, 1, 3);
+      put(25, 27, crimsonBright, 1, 2);
+      put(27, 27, crimson, 1, 3);
+
       return canvas.toDataURL("image/png");
     }
 
@@ -1472,12 +1518,12 @@
       const footer = document.getElementById("sync-status-footer");
       try {
         await setDoc(STATE_DOC, state);
-        if (footer) footer.textContent = "Salvo na nuvem (system-omr)";
+        if (footer) footer.textContent = "Guardado na nuvem (system-omr)";
         return true;
       } catch (err) {
         console.error("Erro ao salvar no Firestore:", err);
-        if (footer) footer.textContent = "Falha ao salvar no banco! Verifique as Regras do Firestore.";
-        showToast("Falha ao salvar no banco online! Verifique as Regras do Firestore.", true);
+        if (footer) footer.textContent = "Falha ao guardar na base! Verifique as Regras do Firestore.";
+        showToast("Falha ao guardar na base online! Verifique as Regras do Firestore.", true);
         return false;
       }
     }
@@ -1502,12 +1548,12 @@
         state = normalizeState(snap.data());
       }
       dbSyncedOnce = true;
-      if (footer) footer.textContent = "Conectado ao banco online (system-omr)";
+      if (footer) footer.textContent = "Ligado à base online (system-omr)";
       refreshSessionUI();
     }, (err) => {
       console.error("Erro no listener Firestore:", err);
       const footer = document.getElementById("sync-status-footer");
-      if (footer) footer.textContent = "Erro de conexão/regras no Firestore — alterações podem não persistir!";
+      if (footer) footer.textContent = "Erro de ligação/regras no Firestore — alterações podem não persistir!";
       refreshSessionUI();
     });
 
@@ -1683,7 +1729,7 @@
       const nick = document.getElementById("reg-nick").value.trim();
       const pass = document.getElementById("reg-pass").value;
       if (!nick || pass.length < 4) {
-        return showToast("Informe seu nick do Habbo e uma senha (mín. 4 caracteres).", true);
+        return showToast("Informe o seu nick do Habbo e uma senha (mín. 4 caracteres).", true);
       }
       if (isNickOrNetworkExonerated(nick)) {
         return showToast("Cadastro bloqueado: exonerados são impedidos de criar conta na Polícia OMR.", true);
@@ -1707,7 +1753,7 @@
 
       const btn = document.getElementById("verify-motto-btn");
       btn.disabled = true;
-      btn.textContent = "Consultando API do Habbo...";
+      btn.textContent = "A consultar API do Habbo...";
 
       let mottoVerified = false;
       try {
@@ -1720,7 +1766,7 @@
             } else {
               btn.disabled = false;
               btn.textContent = "Conferir Missão e Finalizar Cadastro";
-              return showToast(`Código ${pendingMottoCode} não encontrado na missão atual ("${data.motto}"). Salve no Habbo e tente novamente.`, true);
+              return showToast(`Código ${pendingMottoCode} não encontrado na missão atual ("${data.motto}"). Guarde no Habbo e tente novamente.`, true);
             }
           }
         } else {
@@ -1770,7 +1816,7 @@
               verbText: "solicitou",
               modalityText: "Cadastro",
               isPositive: true,
-              obs: "Patente: Soldado — Aguardando aprovação no Painel do SI",
+              obs: "Patente: Soldado — A aguardar aprovação no Painel do SI",
               date: nowStr,
               status: "Em análise"
             }
@@ -2106,7 +2152,7 @@
             </div>
 
             <div style="margin-top:9px;">
-              <span class="badge ${statusColors[target.status] || "badge-pending"}">Status: ${target.status}</span>
+              <span class="badge ${statusColors[target.status] || "badge-pending"}">Estado: ${target.status}</span>
             </div>
 
             ${userOrgs.length ? `
@@ -2134,13 +2180,13 @@
           </div>
 
           <div class="section-title">📜 Histórico Militar</div>
-          ${visibleHistory.length ? visibleHistory.map(formatHistoryItemHtml).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum registro no histórico deste militar.</p>'}
+          ${visibleHistory.length ? visibleHistory.map(formatHistoryItemHtml).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum registo no histórico deste militar.</p>'}
         </div>
       `;
     }
 
     window.promptSetTag = async function(nick) {
-      const raw = prompt("Digite sua TAG pessoal (exatamente 3 caracteres):");
+      const raw = prompt("Digite a sua TAG pessoal (exatamente 3 caracteres):");
       if (!raw) return;
       const tag = raw.trim().toUpperCase();
       if (tag.length !== 3) return showToast("A TAG deve ter exatamente 3 caracteres!", true);
@@ -2157,11 +2203,11 @@
       const u = getUser(nick);
       if (!u) return;
       u.status = status;
-      if (await saveState()) showToast(`Status de ${u.nick} alterado para ${status}.`);
+      if (await saveState()) showToast(`Estado de ${u.nick} alterado para ${status}.`);
     };
 
     window.deleteAccount = async function(nick) {
-      if (!confirm(`Tem certeza que deseja apagar permanentemente a conta de ${nick}?`)) return;
+      if (!confirm(`Tem a certeza de que pretende apagar permanentemente a conta de ${nick}?`)) return;
       delete state.users[nick.toLowerCase()];
       if (await saveState()) {
         showToast(`Conta de ${nick} apagada.`);
@@ -2193,22 +2239,22 @@
       const canContrato = isOrgMember(user.nick, "CDO") || isHighAuthority(user.nick);
 
       if (canPostSubtenenteReq && !isSubtenenteOrAbove(user.rank) && !isHighAuthority(user.nick)) {
-        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente a partir de Subtenente é possível postar ${type}.</p></div>`;
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Apenas a partir de Subtenente é possível publicar ${type}.</p></div>`;
         return;
       }
 
       if (!canPostSubtenenteReq && type !== "Licença" && !isOfficialOrAbove(user.rank) && !isHighAuthority(user.nick)) {
-        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Para postar ${type}, é necessário ser Oficial (Tenente ou superior).</p></div>`;
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Para publicar ${type}, é necessário ser Oficial (Tenente ou superior).</p></div>`;
         return;
       }
 
       if (type === "Exoneração" && !canExonerate) {
-        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente membros do Setor de Inteligência (BAEP, CITE e SI), Corregedoria, Alto Comando Supremo e Suprema Corte Policial podem exonerar.</p></div>`;
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Apenas membros do Setor de Inteligência (BAEP, CITE e SI), Corregedoria, Alto Comando Supremo e Suprema Corte Policial podem exonerar.</p></div>`;
         return;
       }
 
       if (type === "Contrato" && !canContrato) {
-        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Somente militares membros do Corpo de Oficiais (CDO) podem realizar contratos.</p></div>`;
+        container.innerHTML = `<div class="card-box"><p style="color:var(--red-bright);font-weight:700;">Apenas militares membros do Corpo de Oficiais (CDO) podem realizar contratos.</p></div>`;
         return;
       }
 
@@ -2232,7 +2278,7 @@
               <label class="form-label">Observações</label>
               <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Descreva o motivo da licença..."></textarea>
             </div>
-            <button class="btn btn-red" style="width:100%;" onclick="submitRequirement('Licença')">Postar Licença para Análise</button>
+            <button class="btn btn-red" style="width:100%;" onclick="submitRequirement('Licença')">Publicar Licença para Análise</button>
           </div>
         `;
         return;
@@ -2251,7 +2297,7 @@
           <div class="section-title">📋 Novo Requerimento: ${type}</div>
 
           <div class="form-group">
-            <label class="form-label">Autor da Postagem</label>
+            <label class="form-label">Autor da Publicação</label>
             <div style="display:flex;align-items:center;gap:10px;background:var(--bg-elevated);padding:8px 12px;border-radius:10px;border:1px solid var(--border-subtle);">
               <img src="${habboHeadUrl(user.nick)}" style="width:34px;height:34px;border-radius:50%;" />
               <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick} (${user.rank})" readonly />
@@ -2259,7 +2305,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">TAG Utilizada (Apenas suas TAGs ou órgãos que participa)</label>
+            <label class="form-label">TAG Utilizada (Apenas as suas TAGs ou órgãos em que participa)</label>
             <select id="req-tag" class="form-select">
               ${tagOptions.map(t => `<option value="${t.value}" data-is-org="${t.isOrg ? "1" : "0"}">${t.label}</option>`).join("")}
             </select>
@@ -2286,7 +2332,7 @@
           ${type === "Venda" ? `
             <div class="form-group">
               <label class="form-label">Valor Pago</label>
-              <input id="req-sale-value" class="form-control" placeholder="Ex: 50 câmbios / R$ 25,00" />
+              <input id="req-sale-value" class="form-control" placeholder="Ex: 50 câmbios / € 25,00" />
             </div>
           ` : ""}
 
@@ -2314,7 +2360,7 @@
 
           ${showProofs ? `
             <div class="form-group">
-              <label class="form-label">Provas (Opcional - Link Imgur/Print)</label>
+              <label class="form-label">Provas (Opcional - Ligação Imgur/Captura)</label>
               <input id="req-proofs" class="form-control" placeholder="https://imgur.com/... (opcional)" />
             </div>
           ` : ""}
@@ -2324,7 +2370,7 @@
             <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Motivo / detalhes que aparecerão no perfil..."></textarea>
           </div>
 
-          <button class="btn btn-red" style="width:100%;padding:11px;" onclick="submitRequirement('${type}')">Postar ${type}</button>
+          <button class="btn btn-red" style="width:100%;padding:11px;" onclick="submitRequirement('${type}')">Publicar ${type}</button>
         </div>
       `;
     }
@@ -2345,7 +2391,7 @@
       const rankSel = document.getElementById("req-new-rank");
 
       if (target) {
-        info.textContent = `Cadastrado: ${target.nick} • Patente atual: ${target.rank} (${target.status})`;
+        info.textContent = `Registado: ${target.nick} • Patente atual: ${target.rank} (${target.status})`;
         const idx = HIERARCHY_ORDER.indexOf(target.rank);
         if (rankSel && idx !== -1) {
           if (type === "Promoção" && idx + 1 < HIERARCHY_ORDER.length) rankSel.value = HIERARCHY_ORDER[idx + 1];
@@ -2353,7 +2399,7 @@
         }
       } else if (nick) {
         info.textContent = (type === "Contrato" || type === "Venda")
-          ? "Militar ainda não cadastrado — será criado automaticamente ao postar."
+          ? "Militar ainda não registado — será criado automaticamente ao publicar."
           : "Militar não encontrado no system.";
       } else {
         info.textContent = "";
@@ -2401,7 +2447,7 @@
           status: "Em análise"
         });
         if (await saveState()) {
-          showToast("Requerimento postado para análise!");
+          showToast("Requerimento publicado para análise!");
           navigate("req-list");
         }
         return;
@@ -2430,7 +2476,7 @@
       if (!target) {
         if (type === "Contrato" || type === "Venda") {
           if (isNickOrNetworkExonerated(targetNick)) {
-            return showToast("Este militar consta como exonerado e não pode ser cadastrado.", true);
+            return showToast("Este militar consta como exonerado e não pode ser registado.", true);
           }
           target = {
             nick: targetNick,
@@ -2446,7 +2492,7 @@
           };
           state.users[targetNick.toLowerCase()] = target;
         } else {
-          return showToast("Militar envolvido não está cadastrado no system.", true);
+          return showToast("Militar envolvido não está registado no system.", true);
         }
       }
 
@@ -2454,7 +2500,7 @@
         const authorLevel = getRankIndex(author.rank);
         const targetLevel = getRankIndex(target.rank);
         if (authorLevel <= targetLevel) {
-          return showToast("Sem TAG de órgão, você só pode postar requisição de um militar inferior à sua patente.", true);
+          return showToast("Sem TAG de órgão, só pode publicar requisição de um militar inferior à sua patente.", true);
         }
       }
 
@@ -2485,7 +2531,7 @@
       if (newRank) obsLines.push(`Nova patente: ${newRank}`);
       if (saleValue) obsLines.push(`Valor: ${saleValue}`);
       if (type === "Exoneração") {
-        obsLines.push(exoMode === "temporaria" ? `Exoneração temporária — Postagem: ${nowStr} | Vencimento: ${exoEndDate}` : "Exoneração: Permanente");
+        obsLines.push(exoMode === "temporaria" ? `Exoneração temporária — Publicação: ${nowStr} | Vencimento: ${exoEndDate}` : "Exoneração: Permanente");
       }
       if (permissor) obsLines.push(`Permissor: ${permissor}`);
       obsLines.push(`Observações: ${obs}`);
@@ -2504,7 +2550,7 @@
       });
 
       if (await saveState()) {
-        showToast("Requerimento postado para análise!");
+        showToast("Requerimento publicado para análise!");
         navigate("req-list");
       }
     };
@@ -2522,7 +2568,7 @@
             <span class="badge ${badgeClass}">${r.status}</span>
           </div>
           <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:5px;">
-            Postado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
+            Publicado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
           </div>
           ${r.newRank ? `<div style="font-size:0.8rem;margin-bottom:3px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
           ${r.saleValue ? `<div style="font-size:0.8rem;margin-bottom:3px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
@@ -2560,7 +2606,7 @@
           </div>
 
           <div style="font-size:0.8rem;font-weight:800;color:var(--red-bright);margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (${pending.length})</div>
-          ${pending.length ? pending.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente no momento.</p>'}
+          ${pending.length ? pending.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:12px;">Nenhum requerimento pendente de momento.</p>'}
 
           <div style="font-size:0.8rem;font-weight:800;color:var(--text-muted);margin:14px 0 8px;">✅ REQUERIMENTOS ATUALIZADOS (${reviewed.length})</div>
           ${reviewed.length ? reviewed.map(r => buildReqCardHtml(r, false)).join("") : '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhum requerimento atualizado ainda.</p>'}
@@ -2709,14 +2755,14 @@
             <label class="form-label">Resultado</label>
             <select id="class-result" class="form-select">
               <option value="Aprovado">Aprovado (Cria pré-cadastro Soldado [Desativado])</option>
-              <option value="Reprovado">Reprovado (Apenas registro interno)</option>
+              <option value="Reprovado">Reprovado (Apenas registo interno)</option>
             </select>
           </div>
           <div class="form-group">
             <label class="form-label">Observações</label>
             <textarea id="class-obs" class="form-textarea" rows="3" placeholder="Desempenho do aluno na aula..."></textarea>
           </div>
-          <button class="btn btn-red" style="width:100%;padding:11px;" onclick="submitClassRecord()">Registrar Aula</button>
+          <button class="btn btn-red" style="width:100%;padding:11px;" onclick="submitClassRecord()">Registar Aula</button>
         </div>
       `;
     }
@@ -2770,7 +2816,7 @@
           openUserProfile(studentNick);
         }
       } else {
-        showToast(`Reprovação de ${studentNick} registrada internamente na ${org}.`);
+        showToast(`Reprovação de ${studentNick} registada internamente na ${org}.`);
       }
     };
 
@@ -2791,7 +2837,7 @@
           </div>
           ${canEdit ? `
             <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${state.documents[currentDocKey] || ""}</textarea>
-            <button class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">💾 Salvar Documento</button>
+            <button class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">💾 Guardar Documento</button>
           ` : `
             <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;line-height:1.55;font-size:0.84rem;">${state.documents[currentDocKey] || ""}</div>
           `}
@@ -2811,7 +2857,7 @@
         container.innerHTML = `
           <div class="card-box">
             <div class="section-title">🛡️ Funções</div>
-            <p style="color:var(--text-muted);font-size:0.84rem;">Você ainda não faz parte de nenhuma função ou órgão interno.</p>
+            <p style="color:var(--text-muted);font-size:0.84rem;">Ainda não faz parte de nenhuma função ou órgão interno.</p>
           </div>
         `;
         return;
@@ -2821,7 +2867,7 @@
         container.innerHTML = `
           <div class="card-box">
             <div class="section-title">🛡️ Minhas Funções</div>
-            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Clique em uma função para acessar os documentos ou o controle de membros:</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Clique numa função para aceder aos documentos ou ao controlo de membros:</p>
             ${myOrgs.map(o => {
               const myEntry = getOrgMemberEntry(o.id, user.nick);
               return `
@@ -2850,7 +2896,7 @@
             </div>
             ${canAdminOrg ? `
               <textarea id="org-reg-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.internalRegimento || ""}</textarea>
-              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'ri')">Salvar Regimento Interno</button>
+              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'ri')">Guardar Regimento Interno</button>
             ` : `
               <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;font-size:0.84rem;">${org.internalRegimento || ""}</div>
             `}
@@ -2868,7 +2914,7 @@
             </div>
             ${canAdminOrg ? `
               <textarea id="org-penal-page" class="form-textarea" rows="10" style="margin-bottom:10px;">${org.penalCode || ""}</textarea>
-              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'penal')">Salvar Código Penal</button>
+              <button class="btn btn-green" onclick="saveSingleOrgDoc(${idx}, 'penal')">Guardar Código Penal</button>
             ` : `
               <div style="background:var(--bg-elevated);padding:13px;border-radius:11px;white-space:pre-line;font-size:0.84rem;">${org.penalCode || ""}</div>
             `}
@@ -2885,7 +2931,7 @@
         container.innerHTML = `
           <div class="card-box">
             <div class="section-title">
-              <span>👥 Controle de Membros — ${org.id}</span>
+              <span>👥 Controlo de Membros — ${org.id}</span>
               <button class="btn btn-dark btn-sm" onclick="setRoleSubPage('menu')">← Voltar</button>
             </div>
 
@@ -2896,7 +2942,7 @@
                 <select id="org-add-role-page" class="form-select" style="width:auto;">
                   ${roleOptions.map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
                 </select>
-                <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRolePage(${idx})">Salvar Membro</button>
+                <button class="btn btn-green btn-sm" onclick="addOrgMemberWithRolePage(${idx})">Guardar Membro</button>
               </div>
             </div>
 
@@ -2911,7 +2957,7 @@
                   <button class="btn btn-red btn-sm" onclick="changeExistingOrgMemberRole(${idx}, ${mIdx})">Alterar Função</button>
                 </div>
               </div>
-            `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhum membro cadastrado ainda.</p>'}
+            `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);">Nenhum membro registado ainda.</p>'}
           </div>
         `;
         return;
@@ -2936,7 +2982,7 @@
 
           ${canAdminOrg ? `
             <button class="btn btn-red listing-choice-btn" onclick="setRoleSubPage('members')">
-              <span>👥 Controle de Membros (Admin)</span>
+              <span>👥 Controlo de Membros (Admin)</span>
               <span>▸</span>
             </button>
           ` : ""}
@@ -2962,7 +3008,7 @@
       } else {
         org.penalCode = document.getElementById("org-penal-page").value;
       }
-      if (await saveState()) showToast("Documento do órgão salvo com sucesso!");
+      if (await saveState()) showToast("Documento do órgão guardado com sucesso!");
     };
 
     window.addOrgMemberWithRolePage = async function(idx) {
@@ -2974,7 +3020,7 @@
       const existing = org.members.find(m => m.nick.toLowerCase() === nick.toLowerCase());
       if (existing) existing.role = role;
       else org.members.push({ nick, role });
-      if (await saveState()) showToast(`${nick} salvo como ${role} em ${org.id}!`);
+      if (await saveState()) showToast(`${nick} guardado como ${role} em ${org.id}!`);
     };
 
     window.changeExistingOrgMemberRole = async function(orgIdx, memberIdx) {
@@ -3020,9 +3066,9 @@
             r => r.type === "Exoneração" && r.target.toLowerCase() === u.nick.toLowerCase() && r.status === "Aprovado"
           );
           const regLine = u.lastPromoLine || `${u.nick} ${u.tag ? `[${u.tag}]` : ""} ${formatShortDate()}`;
-          const reason = lastExoReq?.obs || "Motivo registrado no histórico militar.";
+          const reason = lastExoReq?.obs || "Motivo registado no histórico militar.";
           const periodInfo = lastExoReq?.exoMode === "temporaria"
-            ? `Temporária — Postagem: ${lastExoReq.createdAt} | Vencimento: ${lastExoReq.exoEndDate}`
+            ? `Temporária — Publicação: ${lastExoReq.createdAt} | Vencimento: ${lastExoReq.exoEndDate}`
             : "Permanente";
 
           return `
@@ -3090,7 +3136,7 @@
             <span>📜 ${cat.label}</span>
             <button class="btn btn-dark btn-sm" onclick="selectListingCategory('')">← Voltar</button>
           </div>
-          ${rankBlocksHtml || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar cadastrado nesta listagem no momento.</p>'}
+          ${rankBlocksHtml || '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum militar registado nesta listagem de momento.</p>'}
         </div>
       `;
     }
@@ -3128,7 +3174,7 @@
         <div class="card-box">
           <div class="section-title">🕵️ Painel do SI</div>
 
-          <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">Usuários pendentes (${pendingUsers.length})</div>
+          <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin-bottom:8px;">Utilizadores pendentes (${pendingUsers.length})</div>
           ${pendingUsers.length ? pendingUsers.map(u => {
             const userIps = Array.isArray(u.ipsRecorded) && u.ipsRecorded.length ? u.ipsRecorded : (u.ip ? [u.ip] : []);
             const matchesExonerated = userIps.some(ip => exoneratedIps.has(ip));
@@ -3147,12 +3193,12 @@
                 </div>
               </div>
             `;
-          }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Nenhum usuário pendente no momento.</p>'}
+          }).join("") : '<p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">Nenhum utilizador pendente de momento.</p>'}
 
-          <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin:14px 0 8px;">Alerta de IPs registrados de forma diferente</div>
+          <div style="font-size:0.86rem;font-weight:800;color:var(--red-bright);margin:14px 0 8px;">Alerta de IPs registados de forma diferente</div>
           ${differentIpUsers.length ? differentIpUsers.map(u => `
             <div style="background:var(--bg-elevated);border:1px solid var(--border-red);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:0.82rem;">
-              <strong>${u.nick}</strong> registrou mais de um IP diferente: <strong>${u.ipsRecorded.join(" • ")}</strong>
+              <strong>${u.nick}</strong> registou mais de um IP diferente: <strong>${u.ipsRecorded.join(" • ")}</strong>
             </div>
           `).join("") : ""}
 
@@ -3162,7 +3208,7 @@
             </div>
           `).join("") : ""}
 
-          ${!differentIpUsers.length && !sharedIpEntries.length ? '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum alerta de IP divergente ou compartilhado no momento.</p>' : ""}
+          ${!differentIpUsers.length && !sharedIpEntries.length ? '<p style="font-size:0.82rem;color:var(--text-muted);">Nenhum alerta de IP divergente ou partilhado de momento.</p>' : ""}
         </div>
       `;
     }
