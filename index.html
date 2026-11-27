@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Polícia OMR — System Oficial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #09090b;
+      --bg-panel: #121216;
+      --bg-card: #18181f;
+      --bg-input: #101015;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-red: rgba(220, 38, 38, 0.45);
+      --red-primary: #dc2626;
+      --red-bright: #ef4444;
+      --red-dark: #991b1b;
+      --gold: #eab308;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --green: #16a34a;
+      --amber: #d97706;
+      --blue: #2563eb;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      background: radial-gradient(circle at top center, #1c0b0e 0%, #09090b 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .pixel-logo {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      object-fit: contain;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0d0d11; }
+    ::-webkit-scrollbar-thumb { background: #2e2e38; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--red-primary); }
+
+    /* AUTH SCREEN */
+    #auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(220, 38, 38, 0.18), transparent 60%),
+        #08080a;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: linear-gradient(180deg, #16161d 0%, #101015 100%);
+      border: 1px solid var(--border-red);
+      border-radius: 22px;
+      padding: 26px 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(220, 38, 38, 0.12);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .auth-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--red-bright);
+      text-shadow: 0 0 20px rgba(239, 68, 68, 0.45);
+      margin-top: 8px;
+    }
+
+    .auth-pillars {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .pillar-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fca5a5;
+      background: rgba(220, 38, 38, 0.14);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      padding: 4px 9px;
+      border-radius: 99px;
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: #0b0b0e;
+      padding: 5px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .auth-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .auth-tab.active {
+      background: var(--red-primary);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+    }
+
+    .habbo-preview-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0c0c10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .habbo-head-frame {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #262632, #121218);
+      border: 2px solid var(--red-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .habbo-head-frame img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      transform: translateY(4px);
+    }
+
+    .motto-box {
+      background: rgba(234, 179, 8, 0.08);
+      border: 1px dashed rgba(234, 179, 8, 0.5);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .motto-code {
+      font-family: monospace;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fde047;
+      background: #09090b;
+      padding: 8px 14px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 8px 0;
+      letter-spacing: 1.5px;
+      border: 1px solid rgba(234, 179, 8, 0.35);
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(12, 12, 16, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .hamburger-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: #191922;
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .hamburger-btn span {
+      width: 18px;
+      height: 2px;
+      background: var(--red-bright);
+      border-radius: 2px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.08;
+      min-width: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #e4e4e7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-main {
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      color: var(--red-bright);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .icon-action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #181820;
+      border: 1px solid var(--border-subtle);
+      color: #d4d4d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .profile-pill-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.22), rgba(24, 24, 32, 0.95));
+      border: 1.5px solid var(--red-primary);
+      border-radius: 12px;
+      padding: 4px 10px 4px 6px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(220, 38, 38, 0.22);
+      transition: 0.2s;
+    }
+
+    .profile-pill-btn:hover {
+      background: rgba(220, 38, 38, 0.32);
+      transform: translateY(-1px);
+    }
+
+    .profile-pill-info {
+      text-align: right;
+      line-height: 1.15;
+    }
+
+    .profile-pill-label {
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #fca5a5;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-pill-nick {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .profile-pill-rank {
+      font-size: 0.64rem;
+      color: #d4d4d8;
+    }
+
+    .profile-pill-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #0d0d12;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .profile-pill-avatar img {
+      width: 34px;
+      height: 34px;
+      object-fit: cover;
+      transform: translateY(2px);
+    }
+
+    /* SIDEBAR DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(4px);
+      z-index: 60;
+      display: none;
+    }
+
+    .drawer-backdrop.open { display: block; }
+
+    .sidebar-drawer {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 280px;
+      height: 100vh;
+      background: #111116;
+      border-right: 1px solid var(--border-red);
+      z-index: 70;
+      transition: left 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 16px 12px 30px;
+    }
+
+    .sidebar-drawer.open { left: 0; }
+
+    .nav-item {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #e4e4e7;
+      padding: 11px 12px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: rgba(220, 38, 38, 0.16);
+      color: #fff;
+    }
+
+    .nav-sublist {
+      padding-left: 14px;
+      border-left: 1px solid rgba(220, 38, 38, 0.35);
+      margin: 4px 0 8px 14px;
+      display: none;
+    }
+
+    .nav-sublist.open { display: block; }
+
+    .nav-subitem {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+    }
+
+    .nav-subitem:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* MAIN CONTAINER */
+    .main-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 12px calc(86px + var(--safe-bottom));
+    }
+
+    /* HERO DASHBOARD */
+    .hero-card {
+      position: relative;
+      background: linear-gradient(145deg, #181820 0%, #101015 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 18px 16px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-greeting {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-greeting span {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--red-bright);
+      margin-top: 2px;
+    }
+
+    .calendar-widget {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      background: rgba(10, 10, 14, 0.75);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .cal-date {
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .cal-day {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.6px;
+    }
+
+    .cal-time {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fca5a5;
+    }
+
+    .hero-avatar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-full-avatar {
+      height: 126px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
+    }
+
+    .rank-badge-red {
+      background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 18px rgba(220, 38, 38, 0.45);
+      margin-top: -4px;
+      text-align: center;
+    }
+
+    /* SEARCH BAR */
+    .search-box-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .search-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #0d0d12;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--red-primary);
+    }
+
+    .search-results-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #15151c;
+      border: 1px solid var(--border-red);
+      border-radius: 14px;
+      z-index: 30;
+      max-height: 240px;
+      overflow-y: auto;
+      display: none;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.75);
+    }
+
+    .search-results-dropdown.open { display: block; }
+
+    /* HOME FEED GRID */
+    .home-feed-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 680px) {
+      .home-feed-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .insta-frame {
+      background: radial-gradient(circle at center, rgba(220, 38, 38, 0.25), #0b0b0f);
+      border: 1px solid var(--border-red);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 170px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insta-handle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: #fff;
+    }
+
+    /* FORMS & BUTTONS */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #d4d4d8;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .form-control, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 11px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .form-control:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--red-primary);
+    }
+
+    .form-control[readonly] {
+      opacity: 0.72;
+      cursor: not-allowed;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 11px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.18s;
+    }
+
+    .btn-red {
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+    }
+
+    .btn-red:hover { filter: brightness(1.08); }
+
+    .btn-dark {
+      background: #22222b;
+      color: #e4e4e7;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-green {
+      background: #15803d;
+      color: #fff;
+    }
+
+    .btn-amber {
+      background: #b45309;
+      color: #fff;
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      border-radius: 8px;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 7px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .badge-pending { background: rgba(234, 179, 8, 0.16); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-approved { background: rgba(22, 163, 74, 0.18); color: #86efac; border: 1px solid rgba(22, 163, 74, 0.4); }
+    .badge-rejected { background: rgba(220, 38, 38, 0.18); color: #fca5a5; border: 1px solid rgba(220, 38, 38, 0.4); }
+    .badge-canceled { background: rgba(161, 161, 170, 0.16); color: #d4d4d8; border: 1px solid rgba(161, 161, 170, 0.35); }
+
+    /* PROFILE VIEW */
+    .profile-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 18px 12px;
+      background: radial-gradient(circle at top, rgba(220, 38, 38, 0.18), transparent 70%);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 14px;
+    }
+
+    .profile-circle-frame {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      border: 3px solid var(--red-primary);
+      background: radial-gradient(circle, #24242f, #101015);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(220, 38, 38, 0.35);
+      margin-bottom: 10px;
+    }
+
+    .profile-circle-frame img {
+      height: 102px;
+      object-fit: contain;
+      transform: translateY(6px);
+    }
+
+    .org-icons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .org-badge-card {
+      background: #111117;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 68px;
+    }
+
+    .history-item {
+      background: #111116;
+      border-left: 3px solid var(--red-primary);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    /* TOAST & BANNER */
+    .toast-banner {
+      position: fixed;
+      top: 66px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 90;
+      background: #14532d;
+      border: 1px solid #22c55e;
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      display: none;
+      max-width: 92vw;
+      text-align: center;
+    }
+
+    .toast-banner.error {
+      background: #7f1d1d;
+      border-color: #ef4444;
+    }
+
+    /* MOBILE BOTTOM NAV (GALAXY A34 5G) */
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 45;
+      background: rgba(13, 13, 18, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 6px 6px calc(6px + var(--safe-bottom));
+    }
+
+    .bottom-nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 6px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .bottom-nav-btn.active {
+      color: var(--red-bright);
+      background: rgba(220, 38, 38, 0.12);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- TOAST FEEDBACK -->
+  <div id="toast" class="toast-banner"></div>
+
+  <!-- AUTH / LOGIN / REGISTER SCREEN -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img class="omr-logo-img pixel-logo" alt="Logo Polícia OMR" style="width:74px;height:74px;margin:0 auto;display:block;" />
+        <h1 class="auth-title">POLÍCIA OMR</h1>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">Organização Militar Renascente</p>
+        <div class="auth-pillars">
+          <span class="pillar-pill">Vida Pessoal</span>
+          <span class="pillar-pill">Entretenimento</span>
+          <span class="pillar-pill">Boa Convivência</span>
+        </div>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="tab-login-btn" class="auth-tab active" onclick="switchAuthTab('login')">Entrar (Login)</button>
+        <button id="tab-register-btn" class="auth-tab" onclick="switchAuthTab('register')">Criar Conta</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="login-form-box">
+        <div class="habbo-preview-box">
+          <div class="habbo-head-frame">
+            <img id="login-avatar-head" src="https://www.habbo.com.br/habbo-imaging/avatarimage?user=A-Twink&headonly=1&direction=3&head_direction=3&size=l" alt="Avatar" />
+          </div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Identificação Habbo</div>
+            <div id="login-nick-preview" style="font-weight:800;font-size:0.95rem;">Digite seu nick abaixo</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nick do Habbo</label>
+          <input id="login-nick" class="form-control" placeholder="Ex: A-Twink" oninput="updateAuthPreview('login')" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Senha</label>
+          <input id="login-pass" type="password" class="form-control" placeholder="Sua senha cadastrada" />
+        </div>
+        <button class="btn btn-red" style="width:100%;padding:12px;" onclick="handleLogin()">Acessar System OMR</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="register-form-box" class="hidden">
+        <div class="habbo-preview-box">
+          <div class="habbo-head-frame">
+            <img id="reg-avatar-head" src="https://www.habbo.com.br/habbo-imaging/avatarimage?user=A-Twink&headonly=1&direction=3&head_direction=3&size=l" alt="Avatar" />
+          </div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Pré-visualização do Avatar</div>
+            <div id="reg-nick-preview" style="font-weight:800;font-size:0.95rem;">Aguardando nick...</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nick do Habbo</label>
+          <input id="reg-nick" class="form-control" placeholder="Ex: A-Twink" oninput="updateAuthPreview('reg')" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Crie uma Senha</label>
+          <input id="reg-pass" type="password" class="form-control" placeholder="Mínimo 4 caracteres" />
+        </div>
+
+        <div id="reg-step-1">
+          <button class="btn btn-red" style="width:100%;padding:12px;" onclick="generateMottoCode()">Gerar Código de Missão</button>
+        </div>
+
+        <div id="reg-step-2" class="hidden">
+          <div class="motto-box">
+            <div style="font-size:0.78rem;color:#fef08a;font-weight:700;">1. Copie e cole este código na sua MISSÃO do Habbo:</div>
+            <div id="generated-motto-code" class="motto-code">OMR-0000</div>
+            <div style="margin-bottom:8px;">
+              <button class="btn btn-dark btn-sm" onclick="copyText(document.getElementById('generated-motto-code').innerText)">Copiar Código</button>
+            </div>
+            <div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:10px;">
+              2. Após salvar na missão do Habbo, clique abaixo para conferir e ativar sua conta:
+            </div>
+            <button id="verify-motto-btn" class="btn btn-green" style="width:100%;padding:11px;" onclick="verifyHabboMottoAndRegister()">
+              Conferir Missão e Finalizar Cadastro
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="sync-status-footer" style="margin-top:14px;text-align:center;font-size:0.72rem;color:var(--text-muted);">
+        Conectando ao banco de dados OMR...
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app-shell" class="hidden">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger-btn" onclick="toggleDrawer(true)" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="brand-title" onclick="navigate('home')" style="cursor:pointer;">
+          <img class="omr-logo-img pixel-logo" alt="OMR" style="width:34px;height:34px;flex-shrink:0;" />
+          <div class="brand-text-wrap">
+            <span class="brand-sub">ORGANIZAÇÃO MILITAR</span>
+            <span class="brand-main">RENASCENTE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button class="icon-action-btn" onclick="toggleFullscreen()" title="Tela Cheia">⛶</button>
+        <button class="profile-pill-btn" onclick="openMyProfile()" title="Abrir Meu Perfil">
+          <div class="profile-pill-info">
+            <div class="profile-pill-label">Meu Perfil</div>
+            <div id="top-user-nick" class="profile-pill-nick">A-Twink</div>
+            <div id="top-user-rank" class="profile-pill-rank">Fundador</div>
+          </div>
+          <div class="profile-pill-avatar">
+            <img id="top-user-head" src="" alt="Avatar" />
+          </div>
+        </button>
+      </div>
+    </header>
+
+    <!-- SIDEBAR DRAWER -->
+    <div id="drawer-backdrop" class="drawer-backdrop" onclick="toggleDrawer(false)"></div>
+    <aside id="sidebar-drawer" class="sidebar-drawer">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px 14px;border-bottom:1px solid var(--border-subtle);margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <img class="omr-logo-img pixel-logo" alt="OMR" style="width:32px;height:32px;" />
+          <div>
+            <div style="font-weight:900;font-size:0.9rem;color:var(--red-bright);">SYSTEM OMR</div>
+            <div style="font-size:0.68rem;color:var(--text-muted);">Menu Operacional</div>
+          </div>
+        </div>
+        <button class="btn btn-dark btn-sm" onclick="toggleDrawer(false)">✕</button>
+      </div>
+
+      <button class="nav-item" onclick="navigate('home')">🏠 Início</button>
+      <button class="nav-item" onclick="openMyProfile()">🪪 Meu Perfil</button>
+
+      <!-- REQUERIMENTOS DROPDOWN -->
+      <button class="nav-item" onclick="toggleSubmenu('sub-req')">
+        <span>📋 Requerimentos</span>
+        <span>▾</span>
+      </button>
+      <div id="sub-req" class="nav-sublist open">
+        <button class="nav-subitem" onclick="openReqForm('Promoção')">• Promoção</button>
+        <button class="nav-subitem" onclick="openReqForm('Rebaixamento')">• Rebaixamento</button>
+        <button class="nav-subitem" onclick="openReqForm('Advertência')">• Advertência</button>
+        <button class="nav-subitem" onclick="openReqForm('Notificação')">• Notificação</button>
+        <button class="nav-subitem" onclick="openReqForm('Demissão')">• Demissão</button>
+        <button class="nav-subitem" onclick="openReqForm('Exoneração')">• Exoneração</button>
+        <button class="nav-subitem" onclick="openReqForm('Licença')">• Licença</button>
+        <button class="nav-subitem" onclick="openReqForm('Contrato')">• Contrato</button>
+        <button class="nav-subitem" onclick="openReqForm('Venda')">• Venda</button>
+        <button class="nav-subitem" onclick="navigate('req-list')">📑 Lista de Requerimentos</button>
+        <button id="nav-drh-panel" class="nav-subitem" style="color:#fde047;font-weight:700;" onclick="navigate('drh-panel')">⚖️ Painel do DRH</button>
+      </div>
+
+      <button class="nav-item" onclick="navigate('classes')">🎓 Postar Aulas (CIM)</button>
+
+      <!-- DOCUMENTOS DROPDOWN -->
+      <button class="nav-item" onclick="toggleSubmenu('sub-docs')">
+        <span>📚 Documentos</span>
+        <span>▾</span>
+      </button>
+      <div id="sub-docs" class="nav-sublist">
+        <button class="nav-subitem" onclick="openDoc('RGM')">• Regimento Geral Militar (RGM)</button>
+        <button class="nav-subitem" onclick="openDoc('RDM')">• Regulamento Disciplinar Militar (RDM)</button>
+        <button class="nav-subitem" onclick="openDoc('IDI')">• Instrução de Defesa Institucional (IDI)</button>
+      </div>
+
+      <button class="nav-item" onclick="navigate('roles')">🛡️ Funções e Órgãos</button>
+      <button id="nav-si-panel" class="nav-item" onclick="navigate('si-panel')">🕵️ Painel do SI</button>
+      <button id="nav-admin-panel" class="nav-item" onclick="navigate('admin-panel')">⚙️ Painel do Admin</button>
+
+      <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--border-subtle);">
+        <button class="btn btn-dark" style="width:100%;" onclick="logout()">🚪 Sair da Conta</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="main-wrap"></main>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav">
+      <button class="bottom-nav-btn" id="bnav-home" onclick="navigate('home')">
+        <span>🏠</span><span>Início</span>
+      </button>
+      <button class="bottom-nav-btn" id="bnav-req" onclick="navigate('req-list')">
+        <span>📋</span><span>Requerer</span>
+      </button>
+      <button class="bottom-nav-btn" id="bnav-profile" onclick="openMyProfile()">
+        <span>🪪</span><span>Perfil</span>
+      </button>
+      <button class="bottom-nav-btn" onclick="toggleDrawer(true)">
+        <span>☰</span><span>Menu</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- FIREBASE SDK + SYSTEM LOGIC -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnm5u-WGYDuEBcyM30-VoJWm1MEYP65kY",
+      authDomain: "system-omr.firebaseapp.com",
+      projectId: "system-omr",
+      storageBucket: "system-omr.firebasestorage.app",
+      messagingSenderId: "78632257548",
+      appId: "1:78632257548:web:22968934dd8c19b3970629",
+      measurementId: "G-KC75VP9TW4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const STATE_DOC = doc(db, "omr_state", "main");
+
+    // EMBEDDED PIXEL-ART LOGO GENERATOR (EXACT OMR EMBLEM)
+    function buildOmrLogoDataUrl() {
+      const rows = [
+        "........G........",
+        "........G........",
+        ".....R..G..R.....",
+        "....RR.GGG.RR....",
+        "...R..GGGGG..R...",
+        "..RR.GGGGGGG.RR..",
+        ".R..K..GGG..K..R.",
+        "R..KK..G.G..KK..R",
+        "WWKKKKKKKKKKKKKWW",
+        "WWWWKKKKKKKKKWWWW",
+        ".WWWWWKKKKKWWWWW.",
+        ".R.WWWWW.WWWWW.R.",
+        "R...WWWWWWWWW...R",
+        ".R...WWWWWWW...R.",
+        "R.R...WWWWW...SSS",
+        ".R.R...WWW...SSSS",
+        "..R.R.......SSSSS",
+        "...RRR..R..RR.SSS",
+        "....RRRRRRRR..R.R",
+        ".....RR...RR..R.R",
+        "......K...K......"
+      ];
+      const palette = {
+        G: "#facc15",
+        R: "#b91c1c",
+        W: "#f4f4f5",
+        K: "#27272a",
+        S: "#d4d4d8"
+      };
+      const scale = 12;
+      const w = rows[0].length;
+      const h = rows.length;
+      const canvas = document.createElement("canvas");
+      canvas.width = w * scale;
+      canvas.height = h * scale;
+      const ctx = canvas.getContext("2d");
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const ch = rows[y][x];
+          if (palette[ch]) {
+            ctx.fillStyle = palette[ch];
+            ctx.fillRect(x * scale, y * scale, scale, scale);
+          }
+        }
+      }
+      return canvas.toDataURL("image/png");
+    }
+
+    const OMR_LOGO_BASE64 = buildOmrLogoDataUrl();
+    function applyLogos() {
+      document.querySelectorAll(".omr-logo-img").forEach(img => {
+        img.src = OMR_LOGO_BASE64;
+      });
+    }
+    applyLogos();
+
+    const DEFAULT_RANKS = [
+      "Soldado",
+      "Cabo",
+      "Sargento",
+      "Subtenente",
+      "Aspirante a Oficial",
+      "Tenente",
+      "Capitão",
+      "Tenente-Coronel",
+      "Coronel",
+      "General",
+      "Subcomandante",
+      "Comandante",
+      "Supremo",
+      "Fundador"
+    ];
+
+    const DEFAULT_ORGS = [
+      { id: "DRH", name: "Departamento de Recursos Humanos", icon: "📋", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "BAEP", name: "Batalhão de Ações Especiais", icon: "🦅", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "CITE", name: "Comando de Intervenções Táticas Especiais", icon: "🎯", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "COR", name: "Corregedoria", icon: "⚖️", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "SCP", name: "Suprema Corte Policial", icon: "🏛️", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "ATT", name: "Academia de Tutores", icon: "🎓", leader: "A-Twink", members: ["A-Twink"] },
+      { id: "ACS", name: "Alto Comando Supremo", icon: "👑", leader: "A-Twink", members: ["A-Twink"] }
+    ];
+
+    const INITIAL_STATE = {
+      ranks: [...DEFAULT_RANKS],
+      orgs: DEFAULT_ORGS,
+      users: {
+        "a-twink": {
+          nick: "A-Twink",
+          tag: "ATW",
+          rank: "Fundador",
+          status: "Desativado", // Pré-cadastro pronto para criar senha na primeira vez
+          password: "",
+          isAdmin: true,
+          ip: "189.44.102.11",
+          lastPromoLine: "A-Twink [ATW] 26 Nov 2026",
+          history: [
+            {
+              text: "Fundação da Organização Militar Renascente (OMR) — Pré-cadastro oficial do Alto Comando Supremo.",
+              date: "26/11/2026 19:30",
+              status: "Aprovado"
+            }
+          ]
+        }
+      },
+      requirements: [],
+      announcements: [
+        {
+          id: "ann-1",
+          title: "Inscrições abertas: Curso Ostensivo de Especialização do Batalhão (COEsb)",
+          body: "A coordenadoria do Batalhão de Ações Especiais tem a honra de anunciar que estão abertas as inscrições para a primeira edição do Curso Ostensivo de Especialização do Batalhão (COEsb 2026.1). Para realizar o curso, é necessário possuir patente mínima de Aspirante a Oficial.",
+          author: "A-Twink",
+          authorRank: "Fundador",
+          date: "26 Nov 2026"
+        }
+      ],
+      instaPhotos: [OMR_LOGO_BASE64, OMR_LOGO_BASE64],
+      documents: {
+        RGM: "Regimento Geral Militar (RGM) da Polícia OMR.\n\nArt. 1º - A Organização Militar Renascente (OMR) pauta-se pela hierarquia, disciplina, vida pessoal equilibrada, entretenimento saudável e boa convivência.\n\n(Documento editável pelo Alto Comando Supremo / Admin no Painel Admin).",
+        RDM: "Regulamento Disciplinar Militar (RDM) da Polícia OMR.\n\nDispõe sobre deveres, transgressões disciplinares, advertências, rebaixamentos, demissões e exonerações.",
+        IDI: "Instrução de Defesa Institucional (IDI) da Polícia OMR.\n\nNormas de segurança interna, atuação do Setor de Inteligência (BAEP e CITE), auditoria de contas e defesa institucional."
+      }
+    };
+
+    let state = structuredClone(INITIAL_STATE);
+    let currentUserNick = localStorage.getItem("omr_logged_nick") || "";
+    let currentRoute = "home";
+    let selectedProfileNick = "";
+    let currentReqType = "Promoção";
+    let currentDocKey = "RGM";
+    let pendingMottoCode = "";
+    let clientSimulatedIp = localStorage.getItem("omr_client_ip") || ("177." + Math.floor(10 + Math.random() * 220) + "." + Math.floor(1 + Math.random() * 250) + "." + Math.floor(1 + Math.random() * 250));
+    localStorage.setItem("omr_client_ip", clientSimulatedIp);
+
+    async function saveState() {
+      try {
+        await setDoc(STATE_DOC, state);
+      } catch (err) {
+        console.error("Erro ao salvar no Firestore:", err);
+        showToast("Erro ao sincronizar com o banco online.", true);
+      }
+    }
+
+    // REAL-TIME FIRESTORE LISTENER
+    onSnapshot(STATE_DOC, async (snap) => {
+      const footer = document.getElementById("sync-status-footer");
+      if (!snap.exists()) {
+        await setDoc(STATE_DOC, INITIAL_STATE);
+        state = structuredClone(INITIAL_STATE);
+      } else {
+        state = snap.data();
+        if (!state.users) state.users = {};
+        if (!state.requirements) state.requirements = [];
+        if (!state.orgs) state.orgs = DEFAULT_ORGS;
+        if (!state.ranks) state.ranks = [...DEFAULT_RANKS];
+        if (!state.announcements) state.announcements = [];
+        if (!state.documents) state.documents = INITIAL_STATE.documents;
+        if (!state.instaPhotos) state.instaPhotos = [OMR_LOGO_BASE64, OMR_LOGO_BASE64];
+      }
+      if (footer) footer.textContent = "Conectado ao banco online (system-omr)";
+      refreshSessionUI();
+    }, (err) => {
+      const footer = document.getElementById("sync-status-footer");
+      if (footer) footer.textContent = "Modo local ativo (verifique regras do Firestore)";
+      refreshSessionUI();
+    });
+
+    function getUser(nick) {
+      if (!nick) return null;
+      return state.users[nick.trim().toLowerCase()] || null;
+    }
+
+    function getCurrentUser() {
+      return getUser(currentUserNick);
+    }
+
+    function userHasOrg(nick, orgId) {
+      const u = getUser(nick);
+      if (!u) return false;
+      if (u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo") return true;
+      const org = state.orgs.find(o => o.id === orgId);
+      return org ? (org.leader.toLowerCase() === u.nick.toLowerCase() || org.members.some(m => m.toLowerCase() === u.nick.toLowerCase())) : false;
+    }
+
+    function isSI(nick) {
+      return userHasOrg(nick, "BAEP") || userHasOrg(nick, "CITE") || userHasOrg(nick, "ACS");
+    }
+
+    function isHighAuthority(nick) {
+      const u = getUser(nick);
+      if (!u) return false;
+      return u.isAdmin || u.rank === "Fundador" || u.rank === "Supremo" || userHasOrg(nick, "ACS");
+    }
+
+    function formatShortDate(d = new Date()) {
+      const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${day} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function formatDateTime(d = new Date()) {
+      const day = String(d.getDate()).padStart(2, "0");
+      const mon = String(d.getMonth() + 1).padStart(2, "0");
+      const yr = d.getFullYear();
+      const hr = String(d.getHours()).padStart(2, "0");
+      const min = String(d.getMinutes()).padStart(2, "0");
+      return `${day}/${mon}/${yr} ${hr}:${min}`;
+    }
+
+    function habboHeadUrl(nick) {
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&headonly=1&direction=3&head_direction=3&size=l`;
+    }
+
+    function habboFullUrl(nick) {
+      return `https://www.habbo.com.br/habbo-imaging/avatarimage?user=${encodeURIComponent(nick || "A-Twink")}&direction=4&head_direction=3&gesture=sml&size=l`;
+    }
+
+    window.showToast = function(msg, isError = false) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.className = "toast-banner" + (isError ? " error" : "");
+      t.style.display = "block";
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => { t.style.display = "none"; }, 3500);
+    };
+
+    window.copyText = function(txt) {
+      navigator.clipboard?.writeText(txt);
+      showToast("Copiado: " + txt);
+    };
+
+    // AUTH FLOW
+    window.switchAuthTab = function(tab) {
+      document.getElementById("tab-login-btn").classList.toggle("active", tab === "login");
+      document.getElementById("tab-register-btn").classList.toggle("active", tab === "register");
+      document.getElementById("login-form-box").classList.toggle("hidden", tab !== "login");
+      document.getElementById("register-form-box").classList.toggle("hidden", tab !== "register");
+    };
+
+    window.updateAuthPreview = function(mode) {
+      const input = document.getElementById(mode === "login" ? "login-nick" : "reg-nick");
+      const nick = input.value.trim();
+      const img = document.getElementById(mode === "login" ? "login-avatar-head" : "reg-avatar-head");
+      const lbl = document.getElementById(mode === "login" ? "login-nick-preview" : "reg-nick-preview");
+      img.src = habboHeadUrl(nick || "A-Twink");
+      lbl.textContent = nick || "Aguardando nick...";
+    };
+
+    window.handleLogin = function() {
+      const nick = document.getElementById("login-nick").value.trim();
+      const pass = document.getElementById("login-pass").value;
+      if (!nick || !pass) return showToast("Preencha nick e senha.", true);
+      const user = getUser(nick);
+      if (!user) return showToast("Conta não encontrada. Clique em 'Criar Conta'.", true);
+      if (!user.password) return showToast("Este nick possui pré-cadastro! Vá na aba 'Criar Conta' para definir sua senha e validar na missão.", true);
+      if (user.password !== pass) return showToast("Senha incorreta.", true);
+      if (user.status === "Exonerado" || user.status === "Demitido") {
+        return showToast(`Acesso bloqueado: conta com status ${user.status}.`, true);
+      }
+      currentUserNick = user.nick;
+      localStorage.setItem("omr_logged_nick", user.nick);
+      refreshSessionUI();
+      showToast(`Bem-vindo de volta, ${user.nick}!`);
+    };
+
+    window.generateMottoCode = function() {
+      const nick = document.getElementById("reg-nick").value.trim();
+      const pass = document.getElementById("reg-pass").value;
+      if (!nick || pass.length < 4) {
+        return showToast("Informe seu nick do Habbo e uma senha (mín. 4 caracteres).", true);
+      }
+      const existing = getUser(nick);
+      if (existing && existing.password) {
+        return showToast("Este nick já possui conta ativa! Use a aba 'Entrar (Login)'.", true);
+      }
+      pendingMottoCode = "OMR-" + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById("generated-motto-code").textContent = pendingMottoCode;
+      document.getElementById("reg-step-2").classList.remove("hidden");
+      showToast("Código gerado! Cole na sua missão do Habbo.");
+    };
+
+    window.verifyHabboMottoAndRegister = async function() {
+      const nick = document.getElementById("reg-nick").value.trim();
+      const pass = document.getElementById("reg-pass").value;
+      const btn = document.getElementById("verify-motto-btn");
+      btn.disabled = true;
+      btn.textContent = "Consultando API do Habbo...";
+
+      let mottoVerified = false;
+      try {
+        const res = await fetch(`https://www.habbo.com.br/api/public/users?name=${encodeURIComponent(nick)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.motto === "string") {
+            if (data.motto.includes(pendingMottoCode)) {
+              mottoVerified = true;
+            } else {
+              btn.disabled = false;
+              btn.textContent = "Conferir Missão e Finalizar Cadastro";
+              return showToast(`Código ${pendingMottoCode} não encontrado na missão atual ("${data.motto}"). Salve no Habbo e tente novamente.`, true);
+            }
+          }
+        } else {
+          mottoVerified = true; // Fallback caso API retorne indisponível
+        }
+      } catch (e) {
+        // Fallback caso o navegador bloqueie CORS na requisição direta
+        mottoVerified = true;
+      }
+
+      if (!mottoVerified) return;
+
+      const key = nick.toLowerCase();
+      const existing = state.users[key];
+      const usedIp = existing?.ip || clientSimulatedIp;
+
+      if (existing) {
+        // Pré-cadastro existente (ex: A-Twink ou aluno aprovado no CIM)
+        existing.password = pass;
+        existing.status = "Ativo";
+        existing.ip = usedIp;
+        existing.history = existing.history || [];
+        existing.history.unshift({
+          text: `${existing.nick} ativou sua conta no System OMR via verificação de missão Habbo.`,
+          date: formatDateTime(),
+          status: "Aprovado"
+        });
+      } else {
+        // Novo cadastro sem pré-cadastro CIM -> aguarda aprovação BAEP/CITE/Admin
+        state.users[key] = {
+          nick: nick,
+          tag: "",
+          rank: "Soldado",
+          status: "Pendente",
+          password: pass,
+          isAdmin: false,
+          ip: usedIp,
+          lastPromoLine: `${nick} [SEM TAG] ${formatShortDate()}`,
+          history: [
+            {
+              text: `${nick} solicitou registro no System OMR (aguardando aprovação do BAEP/CITE/Admin).`,
+              date: formatDateTime(),
+              status: "Em análise"
+            }
+          ]
+        };
+      }
+
+      await saveState();
+      btn.disabled = false;
+      btn.textContent = "Conferir Missão e Finalizar Cadastro";
+
+      if (state.users[key].status === "Ativo") {
+        currentUserNick = state.users[key].nick;
+        localStorage.setItem("omr_logged_nick", currentUserNick);
+        refreshSessionUI();
+        showToast(`Conta ativada com sucesso! Bem-vindo, ${currentUserNick}.`);
+      } else {
+        switchAuthTab("login");
+        showToast("Cadastro enviado! Aguarde um membro do BAEP, CITE ou Admin aprovar seu acesso.");
+      }
+    };
+
+    window.logout = function() {
+      currentUserNick = "";
+      localStorage.removeItem("omr_logged_nick");
+      refreshSessionUI();
+    };
+
+    function refreshSessionUI() {
+      const user = getCurrentUser();
+      const authEl = document.getElementById("auth-screen");
+      const appEl = document.getElementById("app-shell");
+
+      if (!user || user.status !== "Ativo") {
+        authEl.classList.remove("hidden");
+        appEl.classList.add("hidden");
+        applyLogos();
+        return;
+      }
+
+      authEl.classList.add("hidden");
+      appEl.classList.remove("hidden");
+      applyLogos();
+
+      document.getElementById("top-user-nick").textContent = user.nick;
+      document.getElementById("top-user-rank").textContent = user.rank;
+      document.getElementById("top-user-head").src = habboHeadUrl(user.nick);
+
+      // Permissões de menus
+      const canDrh = userHasOrg(user.nick, "DRH") || isSI(user.nick) || isHighAuthority(user.nick);
+      const canSi = isSI(user.nick) || isHighAuthority(user.nick);
+      const canAdmin = isHighAuthority(user.nick);
+
+      document.getElementById("nav-drh-panel").classList.toggle("hidden", !canDrh);
+      document.getElementById("nav-si-panel").classList.toggle("hidden", !canSi);
+      document.getElementById("nav-admin-panel").classList.toggle("hidden", !canAdmin);
+
+      renderCurrentView();
+    }
+
+    // NAVIGATION & UI CONTROLS
+    window.toggleDrawer = function(open) {
+      document.getElementById("sidebar-drawer").classList.toggle("open", open);
+      document.getElementById("drawer-backdrop").classList.toggle("open", open);
+    };
+
+    window.toggleSubmenu = function(id) {
+      document.getElementById(id).classList.toggle("open");
+    };
+
+    window.toggleFullscreen = function() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.().catch(() => {});
+      } else {
+        document.exitFullscreen?.().catch(() => {});
+      }
+    };
+
+    window.navigate = function(route) {
+      currentRoute = route;
+      toggleDrawer(false);
+      document.querySelectorAll(".bottom-nav-btn").forEach(b => b.classList.remove("active"));
+      if (route === "home") document.getElementById("bnav-home")?.classList.add("active");
+      if (route === "req-list" || route === "req-form") document.getElementById("bnav-req")?.classList.add("active");
+      if (route === "profile") document.getElementById("bnav-profile")?.classList.add("active");
+      renderCurrentView();
+    };
+
+    window.openMyProfile = function() {
+      selectedProfileNick = currentUserNick;
+      navigate("profile");
+    };
+
+    window.openUserProfile = function(nick) {
+      selectedProfileNick = nick;
+      navigate("profile");
+    };
+
+    window.openReqForm = function(type) {
+      currentReqType = type;
+      navigate("req-form");
+    };
+
+    window.openDoc = function(docKey) {
+      currentDocKey = docKey;
+      navigate("docs");
+    };
+
+    // RENDER VIEWS
+    function renderCurrentView() {
+      const main = document.getElementById("main-content");
+      const user = getCurrentUser();
+      if (!user) return;
+
+      if (currentRoute === "home") renderHome(main, user);
+      else if (currentRoute === "profile") renderProfile(main, user);
+      else if (currentRoute === "req-form") renderReqForm(main, user);
+      else if (currentRoute === "req-list") renderReqList(main, user, false);
+      else if (currentRoute === "drh-panel") renderReqList(main, user, true);
+      else if (currentRoute === "classes") renderClasses(main, user);
+      else if (currentRoute === "docs") renderDocs(main, user);
+      else if (currentRoute === "roles") renderRoles(main, user);
+      else if (currentRoute === "si-panel") renderSIPanel(main, user);
+      else if (currentRoute === "admin-panel") renderAdminPanel(main, user);
+    }
+
+    function renderHome(container, user) {
+      const now = new Date();
+      const days = ["DOMINGO", "SEGUNDA-FEIRA", "TERÇA-FEIRA", "QUARTA-FEIRA", "QUINTA-FEIRA", "SEXTA-FEIRA", "SÁBADO"];
+      const timeStr = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+      const canPostAnn = isHighAuthority(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP") || isSI(user.nick);
+
+      const annHtml = state.announcements.map(a => `
+        <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:16px;padding:14px;margin-bottom:10px;">
+          <div style="font-weight:800;font-size:0.95rem;color:#fff;margin-bottom:6px;">${a.title}</div>
+          <div style="font-size:0.82rem;color:#d4d4d8;line-height:1.45;margin-bottom:12px;">${a.body}</div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;">
+            <div style="text-align:right;">
+              <div style="font-weight:800;font-size:0.84rem;">${a.author}</div>
+              <div style="font-size:0.72rem;color:var(--text-muted);">${a.authorRank} • ${a.date}</div>
+            </div>
+            <img src="${habboHeadUrl(a.author)}" style="width:36px;height:36px;border-radius:50%;background:#1e1e26;border:1px solid var(--border-subtle);" />
+          </div>
+        </div>
+      `).join("");
+
+      container.innerHTML = `
+        <section class="hero-card">
+          <div class="hero-watermark">
+            <img src="${OMR_LOGO_BASE64}" class="pixel-logo" style="width:210px;height:210px;" />
+          </div>
+          <div class="hero-grid">
+            <div>
+              <div class="hero-greeting">
+                Olá, ${user.nick}! Bem-vindo de volta ao system da
+                <span>Polícia OMR.</span>
+              </div>
+              <div class="calendar-widget">
+                <div>
+                  <div class="cal-date">${formatShortDate(now)}</div>
+                  <div class="cal-day">${days[now.getDay()]}</div>
+                  <div class="cal-time">${timeStr}</div>
+                </div>
+                <div style="font-size:1.7rem;">📅</div>
+              </div>
+            </div>
+            <div class="hero-avatar-col">
+              <img class="hero-full-avatar" src="${habboFullUrl(user.nick)}" alt="${user.nick}" />
+              <div class="rank-badge-red">${user.rank}</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="search-box-card">
+          <span class="search-label">PESQUISAR MILITAR:</span>
+          <input id="home-search-input" class="search-input" placeholder="Digite o nick..." oninput="filterHomeSearch(this.value)" />
+          <div id="home-search-results" class="search-results-dropdown"></div>
+        </div>
+
+        <div class="home-feed-grid">
+          <div class="card-box">
+            <div class="insta-frame">
+              <div style="display:flex;gap:10px;align-items:center;justify-content:center;">
+                <img src="${state.instaPhotos[0] || OMR_LOGO_BASE64}" class="pixel-logo" style="width:92px;height:92px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);object-fit:cover;" />
+                ${state.instaPhotos[1] && state.instaPhotos[1] !== state.instaPhotos[0] ? `<img src="${state.instaPhotos[1]}" style="width:92px;height:92px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);object-fit:cover;" />` : ""}
+              </div>
+              <div class="insta-handle">
+                <span style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);padding:3px 7px;border-radius:7px;font-size:0.78rem;">📷</span>
+                <span>@policiaomr</span>
+              </div>
+            </div>
+            ${canPostAnn ? `
+              <div style="margin-top:12px;border-top:1px solid var(--border-subtle);padding-top:10px;">
+                <div style="font-size:0.75rem;font-weight:800;color:var(--text-muted);margin-bottom:6px;">PUBLICAR COMUNICADO OFICIAL</div>
+                <input id="new-ann-title" class="form-control" placeholder="Título do comunicado" style="margin-bottom:6px;" />
+                <textarea id="new-ann-body" class="form-textarea" rows="2" placeholder="Texto do anúncio..." style="margin-bottom:6px;"></textarea>
+                <button class="btn btn-red btn-sm" onclick="publishAnnouncement()">Publicar Anúncio</button>
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="card-box">
+            <div class="section-title">📢 Comunicados Oficiais</div>
+            ${annHtml || '<p style="color:var(--text-muted);font-size:0.84rem;">Nenhum comunicado publicado.</p>'}
+          </div>
+        </div>
+      `;
+    }
+
+    window.filterHomeSearch = function(val) {
+      const box = document.getElementById("home-search-results");
+      const q = val.trim().toLowerCase();
+      if (!q) { box.classList.remove("open"); return; }
+      const matches = Object.values(state.users).filter(u => u.nick.toLowerCase().includes(q));
+      if (!matches.length) {
+        box.innerHTML = `<div style="padding:12px;font-size:0.82rem;color:var(--text-muted);">Nenhum militar encontrado com "${val}".</div>`;
+      } else {
+        box.innerHTML = matches.map(u => `
+          <div onclick="openUserProfile('${u.nick}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border-subtle);">
+            <img src="${habboHeadUrl(u.nick)}" style="width:34px;height:34px;border-radius:50%;background:#0a0a0d;" />
+            <div>
+              <div style="font-weight:800;font-size:0.86rem;">${u.nick} ${u.tag ? `[${u.tag}]` : ""}</div>
+              <div style="font-size:0.74rem;color:var(--text-muted);">${u.rank} • ${u.status}</div>
+            </div>
+          </div>
+        `).join("");
+      }
+      box.classList.add("open");
+    };
+
+    window.publishAnnouncement = async function() {
+      const title = document.getElementById("new-ann-title").value.trim();
+      const body = document.getElementById("new-ann-body").value.trim();
+      const u = getCurrentUser();
+      if (!title || !body) return showToast("Preencha título e texto do comunicado.", true);
+      state.announcements.unshift({
+        id: "ann-" + Date.now(),
+        title,
+        body,
+        author: u.nick,
+        authorRank: u.rank,
+        date: formatShortDate()
+      });
+      await saveState();
+      showToast("Comunicado publicado na página inicial!");
+    };
+
+    function renderProfile(container, viewer) {
+      const target = getUser(selectedProfileNick) || viewer;
+      const isOwn = target.nick.toLowerCase() === viewer.nick.toLowerCase();
+      const userOrgs = state.orgs.filter(o => o.leader.toLowerCase() === target.nick.toLowerCase() || o.members.some(m => m.toLowerCase() === target.nick.toLowerCase()));
+      const canModerateAccount = isSI(viewer.nick) || isHighAuthority(viewer.nick);
+
+      const tagBlock = target.tag
+        ? `<span style="color:#fde047;font-weight:800;">[${target.tag}]</span>`
+        : `<span style="color:var(--text-muted);font-size:0.82rem;">[TAG não definida]</span> ${isOwn || isHighAuthority(viewer.nick) ? `<button class="btn btn-red btn-sm" onclick="promptSetTag('${target.nick}')">Criar TAG</button>` : ""}`;
+
+      const statusColors = {
+        "Ativo": "badge-approved",
+        "Desativado": "badge-pending",
+        "Pendente": "badge-pending",
+        "Exonerado": "badge-rejected",
+        "Demitido": "badge-rejected"
+      };
+
+      const visibleHistory = (target.history || []).filter(h => h.status !== "Reprovado");
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="profile-hero">
+            <div class="profile-circle-frame">
+              <img src="${habboFullUrl(target.nick)}" alt="${target.nick}" />
+            </div>
+            <div style="font-size:1.25rem;font-weight:900;">${target.nick} ${tagBlock}</div>
+            <div class="rank-badge-red" style="margin-top:6px;">${target.rank}</div>
+
+            <div style="margin-top:12px;background:#0d0d12;border:1px solid var(--border-subtle);padding:8px 12px;border-radius:11px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <code style="font-size:0.82rem;color:#e4e4e7;">${target.lastPromoLine || `${target.nick} ${target.tag ? `[${target.tag}]` : ""} ${formatShortDate()}`}</code>
+              <button class="btn btn-dark btn-sm" onclick="copyText('${(target.lastPromoLine || target.nick).replace(/'/g, "\\'")}')">📋 Copiar</button>
+            </div>
+
+            <div style="margin-top:10px;">
+              <span class="badge ${statusColors[target.status] || "badge-pending"}">Status: ${target.status}</span>
+            </div>
+
+            ${userOrgs.length ? `
+              <div class="org-icons-grid">
+                ${userOrgs.map(o => `
+                  <div class="org-badge-card">
+                    <span style="font-size:1.3rem;">${o.icon}</span>
+                    <span style="font-size:0.72rem;font-weight:800;margin-top:3px;">${o.id}</span>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+
+            ${canModerateAccount && !isOwn ? `
+              <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
+                <button class="btn btn-amber btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Desativado')">Desativar Conta</button>
+                <button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${target.nick}', 'Ativo')">Ativar Conta</button>
+                <button class="btn btn-red btn-sm" onclick="deleteAccount('${target.nick}')">Apagar Conta</button>
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="section-title">📜 Histórico Militar</div>
+          ${visibleHistory.length ? visibleHistory.map(h => `
+            <div class="history-item">
+              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:4px;">
+                <span style="font-size:0.74rem;color:var(--text-muted);">${h.date}</span>
+                ${h.status === "Em análise" ? `<span class="badge badge-pending">[em análise]</span>` : ""}
+              </div>
+              <div style="white-space:pre-line;">${h.text}</div>
+            </div>
+          `).join("") : '<p style="color:var(--text-muted);font-size:0.84rem;">Nenhum registro no histórico deste militar.</p>'}
+        </div>
+      `;
+    }
+
+    window.promptSetTag = async function(nick) {
+      const raw = prompt("Digite sua TAG pessoal (exatamente 3 caracteres):");
+      if (!raw) return;
+      const tag = raw.trim().toUpperCase();
+      if (tag.length !== 3) return showToast("A TAG deve ter exatamente 3 caracteres!", true);
+      const duplicate = Object.values(state.users).some(u => u.tag && u.tag.toUpperCase() === tag && u.nick.toLowerCase() !== nick.toLowerCase());
+      if (duplicate) return showToast(`A TAG [${tag}] já está em uso por outro militar!`, true);
+      const u = getUser(nick);
+      if (u) {
+        u.tag = tag;
+        await saveState();
+        showToast(`TAG [${tag}] definida com sucesso!`);
+      }
+    };
+
+    window.toggleAccountStatus = async function(nick, status) {
+      const u = getUser(nick);
+      if (!u) return;
+      u.status = status;
+      await saveState();
+      showToast(`Status de ${u.nick} alterado para ${status}.`);
+    };
+
+    window.deleteAccount = async function(nick) {
+      if (!confirm(`Tem certeza que deseja apagar permanentemente a conta de ${nick}?`)) return;
+      delete state.users[nick.toLowerCase()];
+      await saveState();
+      showToast(`Conta de ${nick} apagada.`);
+      navigate("home");
+    };
+
+    // REQUERIMENTOS FORM
+    function renderReqForm(container, user) {
+      const type = currentReqType;
+      const userOrgs = state.orgs.filter(o => o.leader.toLowerCase() === user.nick.toLowerCase() || o.members.some(m => m.toLowerCase() === user.nick.toLowerCase()));
+      const tagOptions = [
+        ...(user.tag ? [`<option value="${user.tag}">TAG Pessoal [${user.tag}]</option>`] : []),
+        ...userOrgs.filter(o => o.id !== "ACS").map(o => `<option value="${o.id}">${o.id}</option>`)
+      ];
+      if (!tagOptions.length) tagOptions.push(`<option value="${user.tag || "OMR"}">${user.tag || "OMR"}</option>`);
+
+      const canPickAnyRank = isSI(user.nick) || isHighAuthority(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP");
+      const canExonerate = isSI(user.nick) || userHasOrg(user.nick, "COR") || userHasOrg(user.nick, "SCP") || isHighAuthority(user.nick);
+      const canSell = userHasOrg(user.nick, "SCP") || isHighAuthority(user.nick);
+
+      if (type === "Exoneração" && !canExonerate) {
+        container.innerHTML = `<div class="card-box"><p style="color:#fca5a5;">Apenas SI, Corregedoria, SCP e Alto Comando Supremo podem postar Exonerações.</p></div>`;
+        return;
+      }
+      if (type === "Venda" && !canSell) {
+        container.innerHTML = `<div class="card-box"><p style="color:#fca5a5;">Apenas Suprema Corte Policial (SCP) e Alto Comando Supremo podem postar Vendas.</p></div>`;
+        return;
+      }
+
+      if (type === "Licença") {
+        container.innerHTML = `
+          <div class="card-box">
+            <div class="section-title">🏖️ Solicitar Licença</div>
+            <div class="form-group">
+              <label class="form-label">Nick</label>
+              <input class="form-control" value="${user.nick}" readonly />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patente</label>
+              <input class="form-control" value="${user.rank}" readonly />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data de Vencimento da Licença</label>
+              <input id="req-end-date" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Motivo</label>
+              <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Descreva o motivo da licença..."></textarea>
+            </div>
+            <button class="btn btn-red" style="width:100%;" onclick="submitRequirement('Licença')">Postar Licença para Análise</button>
+          </div>
+        `;
+        return;
+      }
+
+      const showNewRank = ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(type);
+      const showProofs = ["Rebaixamento", "Advertência", "Notificação", "Demissão", "Exoneração"].includes(type);
+      const showPermissor = ["Promoção", "Rebaixamento", "Advertência", "Notificação", "Demissão", "Exoneração"].includes(type);
+
+      const availableRanks = type === "Contrato" && !canPickAnyRank
+        ? state.ranks.slice(0, 5) // Soldado até Aspirante a Oficial
+        : state.ranks;
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">📋 Novo Requerimento: ${type}</div>
+
+          <div class="form-group">
+            <label class="form-label">Autor da Postagem</label>
+            <div style="display:flex;align-items:center;gap:10px;background:#0d0d12;padding:8px 12px;border-radius:11px;border:1px solid var(--border-subtle);">
+              <img src="${habboHeadUrl(user.nick)}" style="width:36px;height:36px;border-radius:50%;" />
+              <input class="form-control" style="border:none;background:transparent;padding:0;" value="${user.nick}" readonly />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">TAG Utilizada</label>
+            <select id="req-tag" class="form-select">${tagOptions.join("")}</select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Militar Envolvido</label>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <img id="req-target-head" src="${habboHeadUrl("")}" style="width:40px;height:40px;border-radius:50%;background:#0d0d12;border:1px solid var(--border-subtle);" />
+              <input id="req-target" class="form-control" placeholder="Digite o nick do militar..." oninput="onReqTargetChange(this.value, '${type}')" />
+            </div>
+            <div id="req-target-info" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;"></div>
+          </div>
+
+          ${showNewRank ? `
+            <div class="form-group">
+              <label class="form-label">${type === "Contrato" || type === "Venda" ? "Patente Definida" : "Nova Patente"}</label>
+              <select id="req-new-rank" class="form-select" ${(!canPickAnyRank && (type === "Promoção" || type === "Rebaixamento")) ? "disabled" : ""}>
+                ${availableRanks.map(r => `<option value="${r}">${r}</option>`).join("")}
+              </select>
+            </div>
+          ` : ""}
+
+          ${type === "Venda" ? `
+            <div class="form-group">
+              <label class="form-label">Valor Pago</label>
+              <input id="req-sale-value" class="form-control" placeholder="Ex: 50 câmbios / R$ 25,00" />
+            </div>
+          ` : ""}
+
+          ${type === "Exoneração" ? `
+            <div class="form-group">
+              <label class="form-label">Período da Exoneração</label>
+              <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <button type="button" id="exo-temp-btn" class="btn btn-amber btn-sm" onclick="setExonerationMode(true)">Temporária</button>
+                <button type="button" id="exo-perm-btn" class="btn btn-red btn-sm" onclick="setExonerationMode(false)">Permanente</button>
+              </div>
+              <input id="req-end-date" type="date" class="form-control hidden" />
+              <input id="req-exo-perm" type="hidden" value="true" />
+            </div>
+          ` : ""}
+
+          ${showPermissor ? `
+            <div class="form-group">
+              <label class="form-label">Permissor (Opcional)</label>
+              <input id="req-permissor" class="form-control" placeholder="Nick de quem autorizou (se necessário)" />
+            </div>
+          ` : ""}
+
+          ${showProofs ? `
+            <div class="form-group">
+              <label class="form-label">Provas (Opcional - Link Imgur/Print)</label>
+              <input id="req-proofs" class="form-control" placeholder="https://imgur.com/... (opcional)" />
+            </div>
+          ` : ""}
+
+          <div class="form-group">
+            <label class="form-label">Observações</label>
+            <textarea id="req-obs" class="form-textarea" rows="3" placeholder="Motivo / detalhes que aparecerão no perfil..."></textarea>
+          </div>
+
+          <button class="btn btn-red" style="width:100%;padding:12px;" onclick="submitRequirement('${type}')">Postar ${type}</button>
+        </div>
+      `;
+    }
+
+    window.setExonerationMode = function(isTemp) {
+      document.getElementById("req-exo-perm").value = isTemp ? "false" : "true";
+      document.getElementById("req-end-date").classList.toggle("hidden", isTemp);
+    };
+
+    window.onReqTargetChange = function(val, type) {
+      const nick = val.trim();
+      document.getElementById("req-target-head").src = habboHeadUrl(nick);
+      const target = getUser(nick);
+      const info = document.getElementById("req-target-info");
+      const rankSel = document.getElementById("req-new-rank");
+
+      if (target) {
+        info.textContent = `Cadastrado: ${target.nick} • Patente atual: ${target.rank} (${target.status})`;
+        const idx = state.ranks.indexOf(target.rank);
+        if (rankSel && idx !== -1) {
+          if (type === "Promoção" && idx + 1 < state.ranks.length) rankSel.value = state.ranks[idx + 1];
+          if (type === "Rebaixamento" && idx - 1 >= 0) rankSel.value = state.ranks[idx - 1];
+        }
+      } else if (nick) {
+        info.textContent = (type === "Contrato" || type === "Venda")
+          ? "Militar ainda não cadastrado — será criado automaticamente ao postar."
+          : "Militar não encontrado no system.";
+      } else {
+        info.textContent = "";
+      }
+    };
+
+    window.submitRequirement = async function(type) {
+      const author = getCurrentUser();
+      const nowStr = formatDateTime();
+      const shortDate = formatShortDate();
+
+      if (type === "Licença") {
+        const endDate = document.getElementById("req-end-date").value;
+        const obs = document.getElementById("req-obs").value.trim();
+        if (!endDate || !obs) return showToast("Informe a data de vencimento e o motivo da licença.", true);
+
+        const req = {
+          id: "req-" + Date.now(),
+          type: "Licença",
+          author: author.nick,
+          tag: author.tag || "OMR",
+          target: author.nick,
+          newRank: author.rank,
+          endDate,
+          obs,
+          proofs: "",
+          createdAt: nowStr,
+          shortDate,
+          status: "Em análise",
+          reviewedBy: "",
+          reviewedAt: "",
+          reviewNote: ""
+        };
+        state.requirements.unshift(req);
+        author.history = author.history || [];
+        author.history.unshift({
+          reqId: req.id,
+          text: `${author.nick} postou uma licença ${nowStr}\nVencimento: ${endDate}\nObservações: ${obs}`,
+          date: nowStr,
+          status: "Em análise"
+        });
+        await saveState();
+        showToast("Requerimento postado para análise!");
+        navigate("req-list");
+        return;
+      }
+
+      const tag = document.getElementById("req-tag").value;
+      const targetNick = document.getElementById("req-target").value.trim();
+      const newRank = document.getElementById("req-new-rank")?.value || "";
+      const saleValue = document.getElementById("req-sale-value")?.value.trim() || "";
+      const permissor = document.getElementById("req-permissor")?.value.trim() || "";
+      const proofs = document.getElementById("req-proofs")?.value.trim() || "";
+      const obs = document.getElementById("req-obs").value.trim();
+
+      if (!targetNick || !obs) return showToast("Preencha o militar envolvido e as observações.", true);
+
+      let target = getUser(targetNick);
+      if (!target) {
+        if (type === "Contrato" || type === "Venda") {
+          target = {
+            nick: targetNick,
+            tag: "",
+            rank: newRank || "Soldado",
+            status: "Desativado",
+            password: "",
+            isAdmin: false,
+            ip: "",
+            lastPromoLine: `${targetNick} [${tag}] ${shortDate}`,
+            history: []
+          };
+          state.users[targetNick.toLowerCase()] = target;
+        } else {
+          return showToast("Militar envolvido não está cadastrado no system.", true);
+        }
+      }
+
+      const req = {
+        id: "req-" + Date.now(),
+        type,
+        author: author.nick,
+        tag,
+        target: target.nick,
+        newRank,
+        saleValue,
+        permissor,
+        proofs,
+        obs,
+        createdAt: nowStr,
+        shortDate,
+        status: "Em análise",
+        reviewedBy: "",
+        reviewedAt: "",
+        reviewNote: ""
+      };
+
+      state.requirements.unshift(req);
+
+      let historyText = `${author.nick} postou um(a) ${type.toLowerCase()} ${nowStr}`;
+      if (newRank) historyText += `\nPatente: ${newRank}`;
+      if (saleValue) historyText += `\nValor: ${saleValue}`;
+      if (permissor) historyText += `\nPermissor: ${permissor}`;
+      historyText += `\nObservações: ${obs}\n${target.nick} [${tag}] ${shortDate}`;
+
+      target.history = target.history || [];
+      target.history.unshift({
+        reqId: req.id,
+        text: historyText,
+        date: nowStr,
+        status: "Em análise"
+      });
+
+      await saveState();
+      showToast("Requerimento postado para análise!");
+      navigate("req-list");
+    };
+
+    // REQUERIMENTOS LIST & DRH PANEL
+    function renderReqList(container, user, isDrhView) {
+      const pending = state.requirements.filter(r => r.status === "Em análise");
+      const reviewed = state.requirements.filter(r => r.status !== "Em análise");
+
+      const renderCard = (r) => {
+        const badgeClass = r.status === "Aprovado" ? "badge-approved"
+          : r.status === "Reprovado" ? "badge-rejected"
+          : r.status === "Cancelado" ? "badge-canceled"
+          : "badge-pending";
+
+        return `
+          <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:14px;padding:13px;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+              <strong style="color:#fff;font-size:0.92rem;">${r.type} → ${r.target}</strong>
+              <span class="badge ${badgeClass}">${r.status}</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;">
+              Postado por <strong>${r.author}</strong> [${r.tag}] em ${r.createdAt}
+            </div>
+            ${r.newRank ? `<div style="font-size:0.82rem;margin-bottom:4px;">Patente: <strong>${r.newRank}</strong></div>` : ""}
+            ${r.saleValue ? `<div style="font-size:0.82rem;margin-bottom:4px;">Valor: <strong>${r.saleValue}</strong></div>` : ""}
+            <div style="font-size:0.82rem;color:#e4e4e7;margin-bottom:6px;">Obs.: ${r.obs}</div>
+            ${r.proofs ? `<div style="font-size:0.78rem;margin-bottom:6px;"><a href="${r.proofs}" target="_blank" style="color:#60a5fa;">🔗 Ver provas anexadas</a></div>` : ""}
+            ${r.reviewedBy ? `<div style="font-size:0.75rem;color:#fde047;margin-top:6px;border-top:1px solid var(--border-subtle);padding-top:6px;">Atualizado por ${r.reviewedBy} em ${r.reviewedAt}${r.reviewNote ? ` — "${r.reviewNote}"` : ""}</div>` : ""}
+
+            ${isDrhView ? `
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px solid var(--border-subtle);">
+                ${r.status === "Em análise" ? `
+                  <button class="btn btn-green btn-sm" onclick="updateReqStatus('${r.id}', 'Aprovado')">✓ Aprovar</button>
+                  <button class="btn btn-red btn-sm" onclick="updateReqStatus('${r.id}', 'Reprovado')">✕ Reprovar</button>
+                  <button class="btn btn-amber btn-sm" onclick="updateReqStatus('${r.id}', 'Cancelado')">⊘ Cancelar</button>
+                ` : ""}
+                <button class="btn btn-dark btn-sm" onclick="deleteRequirement('${r.id}')">🗑️ Apagar</button>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      };
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">
+            <span>${isDrhView ? "⚖️ Painel do DRH — Auditoria" : "📑 Lista de Requerimentos"}</span>
+            <button class="btn btn-red btn-sm" onclick="openReqForm('Promoção')">+ Novo</button>
+          </div>
+
+          <div style="font-size:0.82rem;font-weight:800;color:#fde047;margin:10px 0 8px;">⏳ REQUERIMENTOS PENDENTES (EM ANÁLISE) (${pending.length})</div>
+          ${pending.length ? pending.map(renderCard).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:14px;">Nenhum requerimento pendente no momento.</p>'}
+
+          <div style="font-size:0.82rem;font-weight:800;color:#86efac;margin:16px 0 8px;">✅ REQUERIMENTOS JÁ ATUALIZADOS (${reviewed.length})</div>
+          ${reviewed.length ? reviewed.map(renderCard).join("") : '<p style="color:var(--text-muted);font-size:0.82rem;">Nenhum requerimento atualizado ainda.</p>'}
+        </div>
+      `;
+    }
+
+    window.updateReqStatus = async function(reqId, newStatus) {
+      const reviewer = getCurrentUser();
+      const req = state.requirements.find(r => r.id === reqId);
+      if (!req) return;
+      const note = prompt(`Justificativa / observação do DRH para ${newStatus} (opcional):`) || "";
+      req.status = newStatus;
+      req.reviewedBy = reviewer.nick;
+      req.reviewedAt = formatDateTime();
+      req.reviewNote = note;
+
+      const target = getUser(req.target);
+      if (target) {
+        const histItem = (target.history || []).find(h => h.reqId === reqId);
+        if (histItem) histItem.status = newStatus;
+
+        if (newStatus === "Aprovado") {
+          if (req.newRank && ["Promoção", "Rebaixamento", "Contrato", "Venda"].includes(req.type)) {
+            target.rank = req.newRank;
+            target.lastPromoLine = `${target.nick} [${req.tag}] ${req.shortDate}`;
+          }
+          if (req.type === "Demissão") target.status = "Demitido";
+          if (req.type === "Exoneração") target.status = "Exonerado";
+        }
+      }
+
+      await saveState();
+      showToast(`Requerimento marcado como ${newStatus} instantaneamente!`);
+    };
+
+    window.deleteRequirement = async function(reqId) {
+      if (!confirm("Apagar este requerimento permanentemente?")) return;
+      state.requirements = state.requirements.filter(r => r.id !== reqId);
+      await saveState();
+      showToast("Requerimento apagado.");
+    };
+
+    // POSTAR AULAS (CIM)
+    function renderClasses(container, user) {
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">🎓 Postar Aulas — Academia de Tutores</div>
+          <div class="form-group">
+            <label class="form-label">Instrutor Responsável</label>
+            <input class="form-control" value="${user.nick}" readonly />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Academia / Órgão</label>
+            <select id="class-org" class="form-select">
+              <option value="ATT">Academia de Tutores (ATT)</option>
+              <option value="COR">Corregedoria (COR)</option>
+              <option value="SCP">Suprema Corte Policial (SCP)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Aula Aplicada</label>
+            <select id="class-name" class="form-select">
+              <option value="Curso Introdutório Militar (CIM)">Curso Introdutório Militar (CIM)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nick do Aluno (Habbo)</label>
+            <input id="class-student" class="form-control" placeholder="Digite o nick exato do aluno..." />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Resultado</label>
+            <select id="class-result" class="form-select">
+              <option value="Aprovado">Aprovado (Cria pré-cadastro Soldado [Desativado])</option>
+              <option value="Reprovado">Reprovado (Apenas registro interno)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Observações</label>
+            <textarea id="class-obs" class="form-textarea" rows="3" placeholder="Desempenho do aluno na aula..."></textarea>
+          </div>
+          <button class="btn btn-red" style="width:100%;padding:12px;" onclick="submitClassRecord()">Registrar Aula</button>
+        </div>
+      `;
+    }
+
+    window.submitClassRecord = async function() {
+      const instructor = getCurrentUser();
+      const org = document.getElementById("class-org").value;
+      const className = document.getElementById("class-name").value;
+      const studentNick = document.getElementById("class-student").value.trim();
+      const result = document.getElementById("class-result").value;
+      const obs = document.getElementById("class-obs").value.trim() || "Sem observações adicionais.";
+
+      if (!studentNick) return showToast("Informe o nick do aluno.", true);
+
+      if (result === "Aprovado") {
+        const key = studentNick.toLowerCase();
+        const tag = instructor.tag || org;
+        const nowStr = formatDateTime();
+        const shortDate = formatShortDate();
+        if (!state.users[key]) {
+          state.users[key] = {
+            nick: studentNick,
+            tag: "",
+            rank: "Soldado",
+            status: "Desativado",
+            password: "",
+            isAdmin: false,
+            ip: "",
+            lastPromoLine: `${studentNick} [${tag}] ${shortDate}`,
+            history: []
+          };
+        }
+        state.users[key].history.unshift({
+          text: `${instructor.nick} postou uma aula: ${className} (${result})\nObservações: ${obs}\n${studentNick} [${tag}] ${shortDate}`,
+          date: nowStr,
+          status: "Aprovado"
+        });
+        await saveState();
+        showToast(`Aluno ${studentNick} aprovado! Pré-cadastro criado como Soldado (Desativado).`);
+        openUserProfile(studentNick);
+      } else {
+        showToast(`Reprovação de ${studentNick} registrada internamente na ${org}.`);
+      }
+    };
+
+    // DOCUMENTOS
+    function renderDocs(container, user) {
+      const titles = {
+        RGM: "Regimento Geral Militar (RGM)",
+        RDM: "Regulamento Disciplinar Militar (RDM)",
+        IDI: "Instrução de Defesa Institucional (IDI)"
+      };
+      const canEdit = isHighAuthority(user.nick);
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">📚 ${titles[currentDocKey]}</div>
+          <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+            <button class="btn btn-sm ${currentDocKey === "RGM" ? "btn-red" : "btn-dark"}" onclick="openDoc('RGM')">RGM</button>
+            <button class="btn btn-sm ${currentDocKey === "RDM" ? "btn-red" : "btn-dark"}" onclick="openDoc('RDM')">RDM</button>
+            <button class="btn btn-sm ${currentDocKey === "IDI" ? "btn-red" : "btn-dark"}" onclick="openDoc('IDI')">IDI</button>
+          </div>
+          ${canEdit ? `
+            <textarea id="doc-editor" class="form-textarea" rows="12" style="line-height:1.55;">${state.documents[currentDocKey] || ""}</textarea>
+            <button class="btn btn-green" style="margin-top:10px;" onclick="saveDocument()">💾 Salvar Documento</button>
+          ` : `
+            <div style="background:#101015;padding:14px;border-radius:12px;white-space:pre-line;line-height:1.55;font-size:0.86rem;">${state.documents[currentDocKey] || ""}</div>
+          `}
+        </div>
+      `;
+    }
+
+    window.saveDocument = async function() {
+      state.documents[currentDocKey] = document.getElementById("doc-editor").value;
+      await saveState();
+      showToast("Documento atualizado com sucesso!");
+    };
+
+    // FUNÇÕES E ÓRGÃOS
+    function renderRoles(container, user) {
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">🛡️ Funções e Órgãos Internos</div>
+          ${state.orgs.map((o, idx) => {
+            const canManage = isHighAuthority(user.nick) || o.leader.toLowerCase() === user.nick.toLowerCase();
+            return `
+              <div style="background:#111117;border:1px solid var(--border-subtle);border-radius:14px;padding:14px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <div style="font-weight:800;font-size:0.95rem;">${o.icon} ${o.name} (${o.id})</div>
+                  <span style="font-size:0.75rem;color:#fde047;">Líder: ${o.leader}</span>
+                </div>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">
+                  Membros: ${o.members.length ? o.members.join(", ") : "Nenhum"}
+                </div>
+                ${canManage ? `
+                  <div style="display:flex;gap:6px;">
+                    <input id="add-member-${idx}" class="form-control" placeholder="Nick para adicionar..." style="padding:7px 10px;" />
+                    <button class="btn btn-green btn-sm" onclick="addOrgMember(${idx})">+ Add</button>
+                  </div>
+                ` : ""}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    window.addOrgMember = async function(idx) {
+      const nick = document.getElementById(`add-member-${idx}`).value.trim();
+      if (!nick) return;
+      const org = state.orgs[idx];
+      if (!org.members.some(m => m.toLowerCase() === nick.toLowerCase())) {
+        org.members.push(nick);
+        await saveState();
+        showToast(`${nick} adicionado(a) em ${org.id}.`);
+      }
+    };
+
+    // PAINEL DO SI
+    function renderSIPanel(container) {
+      const allUsers = Object.values(state.users);
+      const pendingUsers = allUsers.filter(u => u.status === "Pendente");
+      const exoneratedIps = new Set(allUsers.filter(u => u.status === "Exonerado").map(u => u.ip).filter(Boolean));
+      const ipGroups = {};
+      allUsers.forEach(u => {
+        if (!u.ip) return;
+        ipGroups[u.ip] = ipGroups[u.ip] || [];
+        ipGroups[u.ip].push(u);
+      });
+
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">🕵️ Painel do Setor de Inteligência (BAEP / CITE)</div>
+
+          <div style="font-size:0.82rem;font-weight:800;color:#fde047;margin-bottom:8px;">🆕 NOVOS CADASTROS AGUARDANDO APROVAÇÃO (${pendingUsers.length})</div>
+          ${pendingUsers.length ? pendingUsers.map(u => `
+            <div style="background:#111117;padding:10px 12px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <div>
+                <strong>${u.nick}</strong> <span style="font-size:0.75rem;color:var(--text-muted);">(IP: ${u.ip || "N/D"})</span>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-green btn-sm" onclick="toggleAccountStatus('${u.nick}', 'Ativo')">Aprovar</button>
+                <button class="btn btn-red btn-sm" onclick="deleteAccount('${u.nick}')">Recusar</button>
+              </div>
+            </div>
+          `).join("") : '<p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">Nenhum cadastro pendente.</p>'}
+
+          <div style="font-size:0.82rem;font-weight:800;color:#fca5a5;margin:14px 0 8px;">🌐 AUDITORIA DE IPs E EXONERADOS</div>
+          ${Object.entries(ipGroups).map(([ip, list]) => {
+            const isDup = list.length > 1;
+            const isExo = exoneratedIps.has(ip);
+            return `
+              <div style="background:#111117;border:1px solid ${isExo || isDup ? "var(--border-red)" : "var(--border-subtle)"};padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:0.82rem;">
+                <div><strong>IP:</strong> ${ip} ${isExo ? '<span class="badge badge-rejected">ALERTA: IP DE EXONERADO</span>' : ""} ${isDup ? '<span class="badge badge-pending">MÚLTIPLAS CONTAS</span>' : ""}</div>
+                <div style="color:var(--text-muted);margin-top:4px;">Contas: ${list.map(u => `${u.nick} (${u.status})`).join(", ")}</div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    // PAINEL DO ADMIN
+    function renderAdminPanel(container) {
+      const allUsers = Object.values(state.users);
+      container.innerHTML = `
+        <div class="card-box">
+          <div class="section-title">⚙️ Painel do Alto Comando Supremo / Admin</div>
+
+          <div class="form-group">
+            <label class="form-label">Alterar Patente Direta de Militar</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <select id="adm-user-sel" class="form-select" style="flex:1;">
+                ${allUsers.map(u => `<option value="${u.nick}">${u.nick} (${u.rank})</option>`).join("")}
+              </select>
+              <select id="adm-rank-sel" class="form-select" style="flex:1;">
+                ${state.ranks.map(r => `<option value="${r}">${r}</option>`).join("")}
+              </select>
+              <button class="btn btn-red btn-sm" onclick="adminChangeRank()">Aplicar</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Criar Nova Patente na Hierarquia</label>
+            <div style="display:flex;gap:6px;">
+              <input id="adm-new-rank" class="form-control" placeholder="Nome da nova patente..." />
+              <button class="btn btn-green btn-sm" onclick="adminAddRank()">Criar</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Criar Nova Função / Órgão Interno</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <input id="adm-org-id" class="form-control" placeholder="Sigla (ex: GOE)" style="max-width:120px;" />
+              <input id="adm-org-name" class="form-control" placeholder="Nome completo da função..." style="flex:1;" />
+              <button class="btn btn-green btn-sm" onclick="adminAddOrg()">Criar</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Fotos Destaque @policiaomr (Página Inicial)</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <input type="file" accept="image/*" onchange="uploadInstaPhoto(0, this)" class="form-control" style="flex:1;" />
+              <input type="file" accept="image/*" onchange="uploadInstaPhoto(1, this)" class="form-control" style="flex:1;" />
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.adminChangeRank = async function() {
+      const nick = document.getElementById("adm-user-sel").value;
+      const rank = document.getElementById("adm-rank-sel").value;
+      const u = getUser(nick);
+      if (u) {
+        u.rank = rank;
+        await saveState();
+        showToast(`Patente de ${u.nick} alterada para ${rank}.`);
+      }
+    };
+
+    window.adminAddRank = async function() {
+      const r = document.getElementById("adm-new-rank").value.trim();
+      if (!r) return;
+      state.ranks.push(r);
+      await saveState();
+      showToast(`Patente "${r}" adicionada à hierarquia.`);
+    };
+
+    window.adminAddOrg = async function() {
+      const id = document.getElementById("adm-org-id").value.trim().toUpperCase();
+      const name = document.getElementById("adm-org-name").value.trim();
+      const u = getCurrentUser();
+      if (!id || !name) return;
+      state.orgs.push({ id, name, icon: "🔰", leader: u.nick, members: [u.nick] });
+      await saveState();
+      showToast(`Órgão ${id} criado!`);
+    };
+
+    window.uploadInstaPhoto = function(slot, input) {
+      const file = input.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async () => {
+        state.instaPhotos[slot] = reader.result;
+        await saveState();
+        showToast(`Foto ${slot + 1} do destaque @policiaomr atualizada!`);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    refreshSessionUI();
+  </script>
+</body>
+</html>
